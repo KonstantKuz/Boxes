@@ -1,31 +1,34 @@
 using CMF;
-using UnityEngine;
 using Mirror;
+using UnityEngine;
 
-public class LocalComponentChecker : NetworkBehaviour
+namespace Game.Player
 {
-    private bool isComponentsSet;
-
-    private Mover mover;
-    private AdvancedWalkerController advancedWalkerController;
-    private CharacterKeyboardInput characterKeyboardInput;
-    [SerializeField] private GameObject playerCam; //attach in inspector
-    
-    private void Start()
+    public class LocalComponentChecker : NetworkBehaviour
     {
-        mover = GetComponent<Mover>();
-        advancedWalkerController = GetComponent<AdvancedWalkerController>();
-        characterKeyboardInput = GetComponent<CharacterKeyboardInput>();
-    }
+        private bool isComponentsSet;
 
-    private void Update()
-    {
-        if (!isLocalPlayer)
+        private Mover mover;
+        private AdvancedWalkerController advancedWalkerController;
+        private CharacterKeyboardInput characterKeyboardInput;
+        [SerializeField] private GameObject playerCam; //attach in inspector
+
+        private void Start()
         {
-            Destroy(mover);
-            Destroy(advancedWalkerController);
-            Destroy(characterKeyboardInput);
-            playerCam.SetActive(false);
+            mover = GetComponent<Mover>();
+            advancedWalkerController = GetComponent<AdvancedWalkerController>();
+            characterKeyboardInput = GetComponent<CharacterKeyboardInput>();
+        }
+
+        private void Update()
+        {
+            if (!isLocalPlayer)
+            {
+                Destroy(mover);
+                Destroy(advancedWalkerController);
+                Destroy(characterKeyboardInput);
+                playerCam.SetActive(false);
+            }
         }
     }
 }

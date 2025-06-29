@@ -2,36 +2,39 @@ using System;
 using Steamworks;
 using UnityEngine;
 
-public class SteamManager : MonoBehaviour
+namespace LobbySteam
 {
-    public uint appID;
+    public class SteamManager : MonoBehaviour
+    {
+        public uint appID;
     
-    private void Awake()
-    {
-        //DontDestroyOnLoad(this);
+        private void Awake()
+        {
+            //DontDestroyOnLoad(this);
 
-        try
-        {
-            SteamClient.Init(appID);
-            Debug.Log("Steam is up and running!");
+            try
+            {
+                SteamClient.Init(appID);
+                Debug.Log("Steam is up and running!");
+            }
+            catch (Exception e)
+            {
+                Debug.Log(e.Message);
+            }
         }
-        catch (Exception e)
-        {
-            Debug.Log(e.Message);
-        }
-    }
 
-    private void OnApplicationQuit()
-    {
-        try
+        private void OnApplicationQuit()
         {
-            SteamClient.Shutdown();
-            Debug.Log("Steam shutdown");
+            try
+            {
+                SteamClient.Shutdown();
+                Debug.Log("Steam shutdown");
 
-        }
-        catch (Exception e)
-        {
-            Debug.Log(e.Message);
+            }
+            catch (Exception e)
+            {
+                Debug.Log(e.Message);
+            }
         }
     }
 }

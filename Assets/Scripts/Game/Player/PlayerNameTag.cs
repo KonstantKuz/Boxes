@@ -1,44 +1,47 @@
+using Mirror;
+using Steamworks;
 using TMPro;
 using UnityEngine;
-using Steamworks;
-using Mirror;
 
-public class PlayerNameTag : NetworkBehaviour
+namespace Game.Player
 {
-    public TextMeshProUGUI nameTag; 
-
-    [SyncVar(hook = nameof(OnNameChanged))]
-    public string playerName; 
-
-    public override void OnStartLocalPlayer()
+    public class PlayerNameTag : NetworkBehaviour
     {
-        if (isLocalPlayer)
+        public TextMeshProUGUI nameTag; 
+
+        [SyncVar(hook = nameof(OnNameChanged))]
+        public string playerName; 
+
+        public override void OnStartLocalPlayer()
         {
-            CmdSetPlayerName(SteamClient.Name);
-        }
-    }
-
-    [Command]
-    void CmdSetPlayerName(string name)
-    {
-        playerName = name;
-    }
-
-    void OnNameChanged(string oldName, string newName)
-    {
-        nameTag.text = newName; 
-    }
-
-    private void LateUpdate()
-    {
-        if (nameTag != null && Camera.main != null)
-        {
-            Vector3 direction = Camera.main.transform.position - nameTag.transform.position;
-            direction.y = 0;
-
-            if (direction != Vector3.zero)
+            if (isLocalPlayer)
             {
-                nameTag.transform.rotation = Quaternion.LookRotation(-direction);
+                CmdSetPlayerName(SteamClient.Name);
+            }
+        }
+
+        [Command]
+        void CmdSetPlayerName(string name)
+        {
+            playerName = name;
+        }
+
+        void OnNameChanged(string oldName, string newName)
+        {
+            nameTag.text = newName; 
+        }
+
+        private void LateUpdate()
+        {
+            if (nameTag != null && Camera.main != null)
+            {
+                Vector3 direction = Camera.main.transform.position - nameTag.transform.position;
+                direction.y = 0;
+
+                if (direction != Vector3.zero)
+                {
+                    nameTag.transform.rotation = Quaternion.LookRotation(-direction);
+                }
             }
         }
     }

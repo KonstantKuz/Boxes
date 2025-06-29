@@ -1,25 +1,27 @@
-using System;
 using Steamworks;
 using UnityEngine;
 
-public class FriendObject : MonoBehaviour
+namespace LobbySteam
 {
-    public SteamId friendSteamID;
-    
-    public async void Invite()
+    public class FriendObject : MonoBehaviour
     {
-        if (SteamLobbyManager.isUserInLobby)
+        public SteamId friendSteamID;
+    
+        public async void Invite()
         {
-            SteamLobbyManager.currentLobby.InviteFriend(friendSteamID);
-            Debug.Log("Invited: " + friendSteamID);
-        }
-        else
-        {
-            bool result = await SteamLobbyManager.CreateLobby();
-            if (result)
+            if (SteamLobbyManager.isUserInLobby)
             {
                 SteamLobbyManager.currentLobby.InviteFriend(friendSteamID);
-                Debug.Log("Invited: " + friendSteamID + " Created new lobby.");
+                Debug.Log("Invited: " + friendSteamID);
+            }
+            else
+            {
+                bool result = await SteamLobbyManager.CreateLobby();
+                if (result)
+                {
+                    SteamLobbyManager.currentLobby.InviteFriend(friendSteamID);
+                    Debug.Log("Invited: " + friendSteamID + " Created new lobby.");
+                }
             }
         }
     }

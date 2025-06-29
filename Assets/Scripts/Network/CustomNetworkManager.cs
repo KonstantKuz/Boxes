@@ -1,69 +1,108 @@
-using System.Collections;
-using System.Collections.Generic;
+using Infrastructure;
 using Mirror;
+using Reflex.Extensions;
+using Reflex.Injectors;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public class CustomNetworkManager : NetworkManager
+namespace Network
 {
-    
-    //This runs only on Client
-    public override void OnClientSceneChanged()
+    public class CustomNetworkManager : NetworkManager
     {
-        base.OnClientSceneChanged();
-        
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
-        
-        Debug.Log("client's scene changed");
-    }
-
-    //This runs only on Host-Server 
-    public override void OnServerSceneChanged(string sceneName)
-    {
-        base.OnServerSceneChanged(sceneName); 
-
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
-        
-        SpawnAllPlayers();
-        Debug.Log("host's scene changed");
-    }
-    
-    private void SpawnAllPlayers()
-    {
-        if (!NetworkServer.active) return;
-        NetworkClient.Ready(); //Necessary because the base.OnServerSceneChanged() don't call Ready().
-        
-        // spawn clients
-        foreach (NetworkConnectionToClient conn in NetworkServer.connections.Values)
+        public override void OnServerAddPlayer(NetworkConnectionToClient conn)
         {
-            if (conn != null && conn.identity == null)
+            GameObject player = Spawn(playerPrefab, Vector3.zero, Quaternion.identity);
+            player.name = $"{playerPrefab.name} [connId={conn.connectionId}]";
+            NetworkServer.AddPlayerForConnection(conn, player);
+        }
+
+        protected override void RegisterClientMessages()
+        {
+            base.RegisterClientMessages();
+
+            NetworkClient.UnregisterPrefab(playerPrefab);
+            NetworkClient.RegisterPrefab(playerPrefab, SpawnHandler, UnspawnHandler);
+        }
+
+        private GameObject SpawnHandler(SpawnMessage msg)
+        {
+            if (!NetworkClient.GetPrefab(msg.assetId, out GameObject prefab))
             {
-                SpawnPlayerForConnection(conn);
+                return null;
             }
+
+            return Spawn(prefab, msg.position, msg.rotation);
         }
-    }
-    
-    private void SpawnPlayerForConnection(NetworkConnectionToClient conn)
-    {
-        GameObject player = Instantiate(playerPrefab, Vector3.zero, Quaternion.identity);
-        NetworkServer.AddPlayerForConnection(conn, player); // only host calls
-    }
-    
-    public void ChangeScene() //Calling by pressing Start Button, set from inspector.
-    {
-        if (NetworkServer.active)
+
+        private void UnspawnHandler(GameObject spawned)
         {
-           
-            // CHANGE SCENE
-            Invoke("ChangingScene",3f);
-            
+            Destroy(spawned);
         }
-    }
 
-    public void ChangingScene()
-    {
-        ServerChangeScene("GameScene");
-    }
+        private GameObject Spawn(GameObject prefab, Vector3 position, Quaternion rotation)
+        {
+            GameObject spawned = Instantiate(prefab, position, rotation);
 
+            if (spawned.TryGetComponent(out GameObjectContext gameObjectContext))
+            {
+                AttributeInjector.Inject(gameObjectContext, SceneManager.GetActiveScene().GetSceneContainer());
+            }
+
+            return spawned;
+        }
+
+        // public override void OnClientSceneChanged()
+        // {
+        //     base.OnClientSceneChanged();
+        //
+        //     Cursor.visible = false;
+        //     Cursor.lockState = CursorLockMode.Locked;
+        // }
+        //
+        // public override void OnServerSceneChanged(string sceneName)
+        // {
+        //     base.OnServerSceneChanged(sceneName);
+        //
+        //     Cursor.visible = false;
+        //     Cursor.lockState = CursorLockMode.Locked;
+        //
+        //     SpawnPlayers();
+        // }
+        //
+        // private void SpawnPlayers()
+        // {
+        //     if (!NetworkServer.active)
+        //     {
+        //         return;
+        //     }
+        //
+        //     NetworkClient.Ready();
+        //
+        //     foreach (NetworkConnectionToClient connection in NetworkServer.connections.Values)
+        //     {
+        //         if (connection != null && !connection.identity)
+        //         {
+        //             SpawnPlayerForConnection(connection);
+        //         }
+        //     }
+        // }
+        //
+        // private void SpawnPlayerForConnection(NetworkConnectionToClient conn)
+        // {
+        //     GameObject player = Instantiate(playerPrefab, Vector3.zero, Quaternion.identity);
+        //     if (player.TryGetComponent(out GameObjectContext gameObjectContext))
+        //     {
+        //         AttributeInjector.Inject(gameObjectContext, SceneManager.GetActiveScene().GetSceneContainer());
+        //     }
+        //     NetworkServer.AddPlayerForConnection(conn, player);
+        // }
+        //
+        // public void ChangeScene()
+        // {
+        //     if (NetworkServer.active)
+        //     {
+        //         ServerChangeScene("GameScene");
+        //     }
+        // }
+    }
 }
