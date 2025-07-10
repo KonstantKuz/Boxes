@@ -11,7 +11,10 @@ namespace Network
     {
         public override void OnServerAddPlayer(NetworkConnectionToClient conn)
         {
-            GameObject player = Spawn(playerPrefab, Vector3.zero, Quaternion.identity);
+            Transform startPoint = GetStartPosition();
+            Vector3 startPosition = startPoint?.position ?? Vector3.zero;
+            Quaternion startRotation = startPoint?.rotation ?? Quaternion.identity;
+            GameObject player = Spawn(playerPrefab, startPosition, startRotation);
             player.name = $"{playerPrefab.name} [connId={conn.connectionId}]";
             NetworkServer.AddPlayerForConnection(conn, player);
         }

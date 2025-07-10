@@ -1,3 +1,5 @@
+using Game.Interactable.Abstract;
+using Game.Interactable.NetworkData;
 using Infrastructure;
 using Infrastructure.InteractionService;
 using Mirror;
@@ -7,16 +9,15 @@ namespace Game.Interactable
 {
     public class Ball : NetworkBehaviour, IInteractable
     {
-        private Transform currentCaptureRoot;
+        private const float InterpolationSpeed = 20f;
+
         private Rigidbody rigidbody;
         private NetworkRigidbodyExtended networkRigidbody;
         private NetworkTransformExtended networkTransform;
+        private Transform socketTransform;
 
         [SyncVar]
         private BallState ballState;
-
-        private Rigidbody Rigidbody =>
-            rigidbody ??= GetComponent<Rigidbody>();
 
         private NetworkRigidbodyExtended NetworkRigidbody =>
             networkRigidbody ??= GetComponent<NetworkRigidbodyExtended>();
@@ -31,59 +32,25 @@ namespace Game.Interactable
             ballState = new BallState(0);
         }
 
-        // [ClientRpc]
-        // private void RpcInteract(InteractionContext interactionContext)
-        // {
-        //     switch (interactionContext)
-        //     {
-        //         case KickInteractionContext kickContext:
-        //             HandleKick(kickContext);
-        //             break;
-        //         case CaptureInteractionContext captureContext:
-        //             HandleCapture(captureContext);
-        //             break;
-        //     }
-        // }
-
         private void CmdHandleKick(KickInteractionContext kickContext)
         {
             ballState = new BallState(0);
 
-            NetworkTransform.CmdSetParentImmediately(null, 0);
-            NetworkRigidbody.CmdSetIsKinematicImmediately(false);
-
-            Rigidbody.AddForce(kickContext.KickDirection * kickContext.KickForce, ForceMode.Impulse);
+            NetworkRigidbody.CmdSetEnabled(true);
+            NetworkRigidbody.CmdSetIsKinematic(false);
+            NetworkRigidbody.CmdAddForce(kickContext.KickDirection * kickContext.KickForce, ForceMode.Impulse);
         }
 
         private void CmdHandleCapture(CaptureInteractionContext captureContext)
         {
-            ballState = new BallState(captureContext.CaptureRootNetId);
-
-            NetworkRigidbody.CmdSetIsKinematicImmediately(true);
-
-            SetSocketParent(captureContext);
-
-            RpcSetSocketParent(captureContext);
-        }
-
-        [ClientRpc]
-        private void RpcSetSocketParent(CaptureInteractionContext captureContext)
-        {
-            SetSocketParent(captureContext);
-        }
-
-        private void SetSocketParent(CaptureInteractionContext captureContext)
-        {
-            if (
-                !NetworkClient.spawned.TryGetValue(captureContext.CaptureRootNetId, out NetworkIdentity captureRoot) ||
-                !captureRoot.TryGetComponent(out ICaptureInteractionContextRoot captureContextRoot)
-            )
+            if (!NetworkClient.spawned.TryGetValue(captureContext.CaptureRootNetId, out NetworkIdentity captureRoot))
             {
                 return;
             }
 
-            transform.SetParent(captureContextRoot.Socket);
-            transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
+            ballState = new BallState(captureContext.CaptureRootNetId);
+            NetworkRigidbody.CmdSetIsKinematic(true);
+            NetworkRigidbody.CmdSetEnabled(false);
         }
 
         [Command(requiresAuthority = false)]
@@ -100,6 +67,23 @@ namespace Game.Interactable
             }
 
             // RpcInteract(interactionContext);
+        }
+
+        private void Update()
+        {
+            uint ownerNetId = ballState?.OwnerNetId ?? 0;
+
+            if (
+                !NetworkClient.spawned.TryGetValue(ownerNetId, out NetworkIdentity owner) ||
+                !owner.TryGetComponent(out ICaptureInteractionContextRoot captureContextRoot)
+            )
+            {
+                return;
+            }
+
+            transform.position = Vector3.Lerp(
+                transform.position, captureContextRoot.Socket.position, InterpolationSpeed * Time.deltaTime
+            );
         }
     }
 }

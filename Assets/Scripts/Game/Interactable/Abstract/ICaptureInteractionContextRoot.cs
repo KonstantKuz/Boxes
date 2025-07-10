@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Game.Interactable
+namespace Game.Interactable.Abstract
 {
     public interface ICaptureInteractionContextRoot
     {

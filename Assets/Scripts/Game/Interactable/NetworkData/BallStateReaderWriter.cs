@@ -1,27 +1,9 @@
-﻿using System;
-using Infrastructure.InteractionService;
-using Mirror;
+﻿using Mirror;
+
 // ReSharper disable UnusedType.Global
 // ReSharper disable UnusedMember.Global
-
-namespace Game.Interactable
+namespace Game.Interactable.NetworkData
 {
-    [Serializable]
-    public class BallState : InteractableState
-    {
-        public BallState()
-        {
-
-        }
-
-        public BallState(uint ownerNetId)
-        {
-            OwnerNetId = ownerNetId;
-        }
-
-        public uint OwnerNetId { get; }
-    }
-
     public static class BallStateReaderWriter
     {
         public static void WriteBallState(this NetworkWriter writer, BallState state)

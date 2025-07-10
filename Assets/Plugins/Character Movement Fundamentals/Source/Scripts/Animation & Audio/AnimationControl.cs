@@ -1,12 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using Mirror;
+﻿using Mirror;
 using UnityEngine;
 
 namespace CMF
 {
 	//This script controls the character's animation by passing velocity values and other information ('isGrounded') to an animator component;
-	public class AnimationControl : NetworkBehaviour {
+	public class AnimationControl : MonoBehaviour {
 
 		Controller controller;
 		public Animator animator;
@@ -48,7 +46,8 @@ namespace CMF
 		}
 
 		//Update;
-		void Update () {
+		void Update ()
+        {
 
 			//Get controller velocity;
 			Vector3 _velocity = controller.GetVelocity();
@@ -78,7 +77,7 @@ namespace CMF
 
 		}
 
-		[Command]
+		// [Command]
 		void CmdUpdateAnimatorParams(float verticalSpeed, float horizontalSpeed, bool isGrounded, bool isStrafing)
 		{
 			// Sunucuda parametreleri güncelle:
@@ -86,17 +85,17 @@ namespace CMF
 			nAnimator.animator.SetFloat("HorizontalSpeed", horizontalSpeed);
 			nAnimator.animator.SetBool("IsGrounded", isGrounded);
 			animator.SetBool("IsStrafing", isStrafing);
-			SyncAnims(verticalSpeed, horizontalSpeed, isGrounded, isStrafing);
+			// SyncAnims(verticalSpeed, horizontalSpeed, isGrounded, isStrafing);
 		}
 
-		[ClientRpc]
-		void SyncAnims(float verticalSpeed, float horizontalSpeed, bool isGrounded , bool isStrafing)
-		{
-			nAnimator.animator.SetFloat("VerticalSpeed", verticalSpeed);
-			nAnimator.animator.SetFloat("HorizontalSpeed", horizontalSpeed);
-			nAnimator.animator.SetBool("IsGrounded", isGrounded);
-			animator.SetBool("IsStrafing", isStrafing);
-		}
+		// [ClientRpc]
+		// void SyncAnims(float verticalSpeed, float horizontalSpeed, bool isGrounded , bool isStrafing)
+		// {
+		// 	nAnimator.animator.SetFloat("VerticalSpeed", verticalSpeed);
+		// 	nAnimator.animator.SetFloat("HorizontalSpeed", horizontalSpeed);
+		// 	nAnimator.animator.SetBool("IsGrounded", isGrounded);
+		// 	animator.SetBool("IsStrafing", isStrafing);
+		// }
 
 		void OnLand(Vector3 _v)
 		{

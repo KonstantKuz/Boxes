@@ -5,29 +5,20 @@ namespace Infrastructure
 {
     public class NetworkTransformExtended : NetworkBehaviour
     {
-        public void CmdSetParentImmediately(Transform parent, uint parentNetId)
-        {
-            transform.SetParent(parent);
+        private NetworkTransformReliable networkTransformReliable;
 
-            CmdSetParent(parentNetId);
-        }
+        public NetworkTransformReliable Reliable =>
+            networkTransformReliable ??= GetComponent<NetworkTransformReliable>();
 
         [Command(requiresAuthority = false)]
         public void CmdSetLocalTransform(Vector3 position, Quaternion rotation)
         {
-            transform.SetLocalPositionAndRotation(position, rotation);
-
             RpcSetLocalTransform(position, rotation);
         }
 
         [ClientRpc]
         private void RpcSetLocalTransform(Vector3 position, Quaternion rotation)
         {
-            if (isServer)
-            {
-                return;
-            }
-
             transform.SetLocalPositionAndRotation(position, rotation);
         }
 
@@ -50,6 +41,18 @@ namespace Infrastructure
                 : null;
 
             childIdentity.transform.SetParent(parent, true);
+        }
+
+        [Command(requiresAuthority = false)]
+        public void CmdSetSyncDirection(SyncDirection syncDirection)
+        {
+            RpcSetSyncDirection(syncDirection);
+        }
+
+        [ClientRpc]
+        private void RpcSetSyncDirection(SyncDirection syncDirection)
+        {
+            Reliable.syncDirection = syncDirection;
         }
     }
 }

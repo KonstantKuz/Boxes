@@ -13,16 +13,16 @@ namespace CMF
 		float currentYAngle = 0f;
 
 		//Upper and lower limits (in degrees) for vertical rotation (along the local x-axis of the gameobject);
-		[Range(0f, 90f)]
+		[Range(-60f, 60f)]
 		public float upperVerticalLimit = 60f;
-		[Range(0f, 90f)]
+		[Range(-60f, 60f)]
 		public float lowerVerticalLimit = 60f;
 
 		//Variables to store old rotation values for interpolation purposes;
 		float oldHorizontalInput = 0f;
 		float oldVerticalInput = 0f;
 
-		//Camera turning speed; 
+		//Camera turning speed;
 		public float cameraSpeed = 250f;
 
 		//Whether camera rotation values will be smoothed;
@@ -70,7 +70,7 @@ namespace CMF
 		//This function is called right after Awake(); It can be overridden by inheriting scripts;
 		protected virtual void Setup()
 		{
-			
+
 		}
 
 		void Update()
@@ -88,11 +88,11 @@ namespace CMF
 			//Get input values;
 			float _inputHorizontal = cameraInput.GetHorizontalCameraInput();
 			float _inputVertical = cameraInput.GetVerticalCameraInput();
-		
+
 			RotateCamera(_inputHorizontal, _inputVertical);
 		}
 
-		//Rotate camera; 
+		//Rotate camera;
 		protected void RotateCamera(float _newHorizontalInput, float _newVerticalInput)
 		{
 			if(smoothCameraRotation)
@@ -113,7 +113,7 @@ namespace CMF
 			currentYAngle += oldHorizontalInput * cameraSpeed * Time.deltaTime;
 
 			//Clamp vertical rotation;
-			currentXAngle = Mathf.Clamp(currentXAngle, -upperVerticalLimit, lowerVerticalLimit);
+			currentXAngle = Mathf.Clamp(currentXAngle, upperVerticalLimit, lowerVerticalLimit);
 
 			UpdateRotation();
 		}
@@ -134,7 +134,7 @@ namespace CMF
 		public void SetFOV(float _fov)
 		{
 			if(cam)
-				cam.fieldOfView = _fov;	
+				cam.fieldOfView = _fov;
 		}
 
 		//Set x and y angle directly;
@@ -164,7 +164,7 @@ namespace CMF
 			//Transform target look vector to this transform's local space;
 			_direction = tr.parent.InverseTransformDirection(_direction);
 
-			//Calculate (local) current look vector; 
+			//Calculate (local) current look vector;
 			Vector3 _currentLookVector = GetAimingDirection();
 			_currentLookVector = tr.parent.InverseTransformDirection(_currentLookVector);
 
@@ -198,7 +198,7 @@ namespace CMF
 			currentYAngle = _currentAngles.y;
 			//Clamp vertical rotation;
 			currentXAngle = Mathf.Clamp(_currentAngles.x, -upperVerticalLimit, lowerVerticalLimit);
-			
+
 			UpdateRotation();
 		}
 
@@ -237,7 +237,7 @@ namespace CMF
 		{
 			return upwardsDirection;
 		}
-		
-		
+
+
 	}
 }

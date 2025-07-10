@@ -1,6 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
+using Game.Interactable.Abstract;
+using Game.Interactable.NetworkData;
 using Infrastructure.InputService;
 using Infrastructure.InteractionService;
 using Mirror;
@@ -12,11 +13,14 @@ namespace Game.Interactable
 {
     public class BallInteraction : NetworkBehaviour, ICaptureInteractionContextRoot
     {
-        [SerializeReference]
-        private List<InteractionContext> ballInteractionContexts;
+        [SerializeField]
+        private float interactionDistance = 1.3f;
 
         [SerializeField]
-        private float interactionDistance = 2f;
+        private float kickForce = 15f;
+
+        [SerializeField]
+        private float verticalForceMultiplier = 0.3f;
 
         [SerializeField]
         private Transform kickDirectionRoot;
@@ -77,8 +81,11 @@ namespace Game.Interactable
         {
             return type.Name switch
             {
-                nameof(KickInteractionContext) =>
-                    new KickInteractionContext(netIdentity.netId, kickDirectionRoot.forward + Vector3.up / 2, 25f),
+                nameof(KickInteractionContext) => new KickInteractionContext(
+                    netIdentity.netId,
+                    kickDirectionRoot.forward + Vector3.up * verticalForceMultiplier,
+                    kickForce
+                ),
                 nameof(CaptureInteractionContext) => new CaptureInteractionContext(netId),
                 _ => throw new ArgumentOutOfRangeException()
             };

@@ -3,7 +3,7 @@ using Infrastructure;
 using Infrastructure.InteractionService;
 using Mirror;
 
-namespace Game.Interactable
+namespace Game.Interactable.NetworkData
 {
     [Serializable]
     public class CaptureInteractionContext : InteractionContext

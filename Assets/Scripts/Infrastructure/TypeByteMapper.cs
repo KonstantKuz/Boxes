@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using UnityEngine;
 
 namespace Infrastructure
 {
@@ -37,12 +38,14 @@ namespace Infrastructure
         {
             if (typeToByteMap.ContainsKey(type))
             {
-                throw new InvalidOperationException($"Type {type.Name} already registered.");
+                Debug.LogWarning($"Type {type.Name} already registered.");
+                return;
             }
 
             if (byteToTypeMap.ContainsKey(nextByteValue))
             {
-                throw new InvalidOperationException($"Byte value {nextByteValue} already assigned.");
+                Debug.LogError($"Byte value {nextByteValue} already assigned.");
+                return;
             }
 
             typeToByteMap[type] = nextByteValue;

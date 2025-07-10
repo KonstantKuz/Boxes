@@ -6,13 +6,22 @@ namespace Infrastructure
     public class NetworkRigidbodyExtended : NetworkBehaviour
     {
         private Rigidbody rigidbody;
+        private NetworkRigidbodyReliable networkRigidbodyReliable;
+
         private Rigidbody Rigidbody => rigidbody ??= GetComponent<Rigidbody>();
+        private NetworkRigidbodyReliable Reliable =>
+            networkRigidbodyReliable ??= gameObject.GetComponent<NetworkRigidbodyReliable>();
 
-        public void CmdSetIsKinematicImmediately(bool value)
+        [Command(requiresAuthority = false)]
+        public void CmdSetEnabled(bool value)
         {
-            Rigidbody.isKinematic = value;
+            RpcSetEnabled(value);
+        }
 
-            CmdSetIsKinematic(value);
+        [ClientRpc]
+        private void RpcSetEnabled(bool value)
+        {
+            Reliable.enabled = value;
         }
 
         [Command(requiresAuthority = false)]
@@ -24,12 +33,20 @@ namespace Infrastructure
         [ClientRpc]
         private void RpcSetIsKinematic(bool value)
         {
-            if (isServer)
-            {
-                return;
-            }
-
             Rigidbody.isKinematic = value;
         }
+
+        [Command(requiresAuthority = false)]
+        public void CmdAddForce(Vector3 force, ForceMode mode)
+        {
+            RpcAddForce(force, mode);
+        }
+
+        [ClientRpc]
+        private void RpcAddForce(Vector3 force, ForceMode mode)
+        {
+            Rigidbody.AddForce(force, mode);
+        }
+
     }
 }

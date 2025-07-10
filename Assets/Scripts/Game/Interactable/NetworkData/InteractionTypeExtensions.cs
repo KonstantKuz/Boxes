@@ -2,9 +2,8 @@
 using Infrastructure;
 using Infrastructure.InteractionService;
 using Mirror;
-using Network;
 
-namespace Game.Interactable
+namespace Game.Interactable.NetworkData
 {
     // ReSharper disable once UnusedType.Global
     public static class InteractionTypeExtensions

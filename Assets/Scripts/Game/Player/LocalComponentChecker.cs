@@ -1,4 +1,4 @@
-using CMF;
+using System.Collections.Generic;
 using Mirror;
 using UnityEngine;
 
@@ -6,28 +6,25 @@ namespace Game.Player
 {
     public class LocalComponentChecker : NetworkBehaviour
     {
-        private bool isComponentsSet;
+        [SerializeField]
+        private List<Component> destroyComponents;
 
-        private Mover mover;
-        private AdvancedWalkerController advancedWalkerController;
-        private CharacterKeyboardInput characterKeyboardInput;
-        [SerializeField] private GameObject playerCam; //attach in inspector
+        [SerializeField]
+        private List<GameObject> destroyGameObjects;
 
-        private void Start()
-        {
-            mover = GetComponent<Mover>();
-            advancedWalkerController = GetComponent<AdvancedWalkerController>();
-            characterKeyboardInput = GetComponent<CharacterKeyboardInput>();
-        }
-
-        private void Update()
+        public override void OnStartClient()
         {
             if (!isLocalPlayer)
             {
-                Destroy(mover);
-                Destroy(advancedWalkerController);
-                Destroy(characterKeyboardInput);
-                playerCam.SetActive(false);
+                foreach (Component localComponent in destroyComponents)
+                {
+                    Destroy(localComponent);
+                }
+
+                foreach (GameObject localComponent in destroyGameObjects)
+                {
+                    Destroy(localComponent);
+                }
             }
         }
     }

@@ -4,7 +4,7 @@ using Infrastructure.InteractionService;
 using Mirror;
 using UnityEngine;
 
-namespace Game.Interactable
+namespace Game.Interactable.NetworkData
 {
     [Serializable]
     public class KickInteractionContext : InteractionContext
