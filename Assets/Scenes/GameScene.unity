@@ -19896,9 +19896,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   installers:
-  - rid: 2342114341734842374
   - rid: 2342114341734842371
   - rid: 2342114341734842373
+  - rid: 5193220445744136194
+  - rid: 5193220445744136195
+  - rid: 5193220445744136196
   references:
     version: 2
     RefIds:
@@ -19908,8 +19910,15 @@ MonoBehaviour:
     - rid: 2342114341734842373
       type: {class: NetworkComponentsInstaller, ns: Network, asm: Assembly-CSharp}
       data: 
-    - rid: 2342114341734842374
-      type: {class: TypeMappersInstaller, ns: Game, asm: Assembly-CSharp}
+    - rid: 5193220445744136194
+      type: {class: DialogServiceInstaller, ns: Infrastructure.DialogService, asm: Assembly-CSharp}
+      data:
+        dialogs: []
+    - rid: 5193220445744136195
+      type: {class: InteractionTypesInstaller, ns: Game.Interactable.Installer, asm: Assembly-CSharp}
+      data: 
+    - rid: 5193220445744136196
+      type: {class: WindowServiceInstaller, ns: Infrastructure.WindowService, asm: Assembly-CSharp}
       data: 
 --- !u!114 &1095261613
 MonoBehaviour:

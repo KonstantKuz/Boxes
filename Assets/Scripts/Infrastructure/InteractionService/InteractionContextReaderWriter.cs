@@ -1,5 +1,5 @@
 ﻿using Game.Interactable;
-using Game.Interactable.NetworkData;
+using Game.Interactable.BallInteraction;
 using Mirror;
 
 namespace Infrastructure.InteractionService
