@@ -18,7 +18,7 @@ namespace Infrastructure.InteractionService
         // ReSharper disable once UnusedMember.Global
         public static InteractionContext CreateContext(this byte typeId, NetworkReader reader)
         {
-            Type type = TypeByteMapper<InteractionContext>.GetTypeFromByte(typeId);
+            Type type = TypeByteMapper.GetTypeFromByte(typeId);
 
             if (readFunctions.TryGetValue(type, out Func<NetworkReader, InteractionContext> readFunc))
             {

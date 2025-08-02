@@ -47,6 +47,5 @@ namespace Infrastructure
         {
             Rigidbody.AddForce(force, mode);
         }
-
     }
 }

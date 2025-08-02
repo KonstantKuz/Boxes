@@ -11,7 +11,7 @@ namespace Game.Interactable.Installer
     {
         void IInstaller.InstallBindings(ContainerBuilder containerBuilder)
         {
-            TypeByteMapper<InteractionContext>.RegisterTypes();
+            TypeByteMapper.RegisterTypes<InteractionContext>();
 
             InteractionTypeExtensions.RegisterReader(typeof(KickInteractionContext), KickInteractionContext.Read);
             InteractionTypeExtensions.RegisterReader(typeof(CaptureInteractionContext), CaptureInteractionContext.Read);

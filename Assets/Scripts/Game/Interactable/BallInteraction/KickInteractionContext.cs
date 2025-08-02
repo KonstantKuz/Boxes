@@ -32,7 +32,7 @@ namespace Game.Interactable.BallInteraction
 
         public override void Write(NetworkWriter writer)
         {
-            writer.WriteByte(TypeByteMapper<InteractionContext>.GetByteFromType(GetType()));
+            writer.WriteByte(TypeByteMapper.GetByteFromType(GetType()));
             writer.WriteUInt(InitiatorNetId);
             writer.WriteVector3(KickDirection);
             writer.WriteFloat(KickForce);

@@ -6,22 +6,22 @@ using UnityEngine;
 
 namespace Infrastructure
 {
-    public static class TypeByteMapper<T>
+    public static class TypeByteMapper
     {
         // ReSharper disable once StaticMemberInGenericType
-        private static readonly Dictionary<Type, byte> typeToByteMap;
+        private static readonly Dictionary<Type, byte> TypeToByteMap;
         // ReSharper disable once StaticMemberInGenericType
-        private static readonly Dictionary<byte, Type> byteToTypeMap;
+        private static readonly Dictionary<byte, Type> ByteToTypeMap;
         // ReSharper disable once StaticMemberInGenericType
-        private static byte nextByteValue;
+        private static byte _nextByteValue;
 
         static TypeByteMapper()
         {
-            typeToByteMap = new Dictionary<Type, byte>();
-            byteToTypeMap = new Dictionary<byte, Type>();
+            TypeToByteMap = new Dictionary<Type, byte>();
+            ByteToTypeMap = new Dictionary<byte, Type>();
         }
 
-        public static void RegisterTypes()
+        public static void RegisterTypes<T>()
         {
             IEnumerable<Type> types = Assembly
                 .GetAssembly(typeof(T))
@@ -36,23 +36,23 @@ namespace Infrastructure
 
         private static void RegisterType(Type type)
         {
-            if (typeToByteMap.ContainsKey(type))
+            if (TypeToByteMap.ContainsKey(type))
             {
                 Debug.LogWarning($"Type {type.Name} already registered.");
                 return;
             }
 
-            if (byteToTypeMap.ContainsKey(nextByteValue))
+            if (ByteToTypeMap.ContainsKey(_nextByteValue))
             {
-                Debug.LogError($"Byte value {nextByteValue} already assigned.");
+                Debug.LogError($"Byte value {_nextByteValue} already assigned.");
                 return;
             }
 
-            typeToByteMap[type] = nextByteValue;
-            byteToTypeMap[nextByteValue] = type;
-            nextByteValue++;
+            TypeToByteMap[type] = _nextByteValue;
+            ByteToTypeMap[_nextByteValue] = type;
+            _nextByteValue++;
 
-            if (nextByteValue == 0)
+            if (_nextByteValue == 0)
             {
                 throw new OverflowException("Exceeded maximum byte value for type mapping.");
             }
@@ -64,7 +64,7 @@ namespace Infrastructure
             {
                 throw new ArgumentNullException(nameof(type));
             }
-            if (typeToByteMap.TryGetValue(type, out byte byteValue))
+            if (TypeToByteMap.TryGetValue(type, out byte byteValue))
             {
                 return byteValue;
             }
@@ -74,7 +74,7 @@ namespace Infrastructure
 
         public static Type GetTypeFromByte(byte byteValue)
         {
-            if (byteToTypeMap.TryGetValue(byteValue, out Type type))
+            if (ByteToTypeMap.TryGetValue(byteValue, out Type type))
             {
                 return type;
             }
