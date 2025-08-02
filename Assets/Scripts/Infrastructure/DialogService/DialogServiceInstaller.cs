@@ -1,20 +1,20 @@
-﻿using System.Collections.Generic;
-using Reflex.Core;
+﻿using Reflex.Core;
 using UnityEngine;
 
 namespace Infrastructure.DialogService
 {
-    public class DialogServiceInstaller : IInstaller
+    public class DialogServiceInstaller : MonoBehaviour, IInstaller
     {
         [SerializeField]
-        private List<DialogSequence> dialogs;
+        private Component dialogService;
 
-        public List<DialogSequence> Dialogs => dialogs;
+        [SerializeField]
+        private Component mediator;
 
-        public void InstallBindings(ContainerBuilder containerBuilder)
+        void IInstaller.InstallBindings(ContainerBuilder containerBuilder)
         {
-            containerBuilder.AddSingleton(this);
-            containerBuilder.AddSingleton(typeof(DialogService), typeof(IDialogService));
+            containerBuilder.AddSingleton(dialogService, dialogService.GetType().GetInterfaces());
+            containerBuilder.AddSingleton(mediator, mediator.GetType().GetInterfaces());
         }
     }
 }

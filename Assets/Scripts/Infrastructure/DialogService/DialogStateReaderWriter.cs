@@ -6,15 +6,16 @@ namespace Infrastructure.DialogService
     // ReSharper disable UnusedMember.Global
     public static class DialogStateReaderWriter
     {
-        public static void WriteBallState(this NetworkWriter writer, DialogState state)
+        public static void WriteState(this NetworkWriter writer, DialogState state)
         {
             writer.WriteGuid(state.DialogId);
-            writer.WriteUInt(state.CurrentIndex);
+            writer.WriteByte(state.ReplicaIndex);
+            writer.WriteHashSet(state.ReadyPlayers);
         }
 
-        public static DialogState ReadBallState(this NetworkReader reader)
+        public static DialogState ReadState(this NetworkReader reader)
         {
-            return new DialogState(reader.ReadGuid(), reader.ReadUInt());
+            return new DialogState(reader.ReadGuid(), reader.ReadByte(), reader.ReadHashSet<uint>());
         }
     }
 }

@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using Infrastructure.WindowService.Abstract;
+using Reflex.Attributes;
 using UnityEngine;
 
 namespace Infrastructure.WindowService
@@ -6,9 +8,17 @@ namespace Infrastructure.WindowService
     // ReSharper disable once UnusedType.Global
     public class WindowService : IWindowService
     {
-        private readonly Dictionary<string, IWindow> windows = new();
+        private IWindowServiceMediator mediator;
+        private Dictionary<string, IWindow> windows;
 
         public IWindow ActiveWindow { get; private set; }
+
+        [Inject]
+        private void Construct(IWindowServiceMediator windowServiceMediator)
+        {
+            mediator = windowServiceMediator;
+            windows = new Dictionary<string, IWindow>();
+        }
 
         void IWindowService.RegisterWindow(string id, IWindow window)
         {
@@ -16,6 +26,9 @@ namespace Infrastructure.WindowService
             {
                 Debug.LogWarning("Window with this ID already exists: " + id);
             }
+
+            mediator.AttachToCanvasRoot(window);
+            window.Hide();
         }
 
         void IWindowService.ShowWindow(string id, IWindowContext context)
@@ -30,7 +43,7 @@ namespace Infrastructure.WindowService
             {
                 ActiveWindow?.Hide();
                 ActiveWindow = window;
-                ActiveWindow.Show();
+                ActiveWindow.Show(context);
             }
             else
             {
@@ -38,7 +51,18 @@ namespace Infrastructure.WindowService
             }
         }
 
-        public void HideActiveWindow()
+        void IWindowService.HideWindow(string id)
+        {
+            if (ActiveWindow?.Id != id)
+            {
+                Debug.LogWarning("Active window does not match the ID: " + id);
+                return;
+            }
+
+            ((IWindowService) this).HideActiveWindow();
+        }
+
+        void IWindowService.HideActiveWindow()
         {
             ActiveWindow?.Hide();
             ActiveWindow = null;
