@@ -78,7 +78,7 @@ namespace Mirror
                 // 2001:0db8:0000:0000:0000:ff00:0042:8329
                 if (Transport.active is PortTransport portTransport)
                 {
-                    Debug.Log("bura calisti");
+                    // Debug.Log("bura calisti");
                     // use TryParse in case someone tries to enter non-numeric characters
                     if (ushort.TryParse(GUILayout.TextField(portTransport.Port.ToString()), out ushort port))
                         portTransport.Port = port;

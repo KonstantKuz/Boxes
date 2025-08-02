@@ -1,16 +1,14 @@
-﻿using System;
-using Mirror;
+﻿using Mirror;
 using Reflex.Core;
+using UnityEngine;
 
 namespace Infrastructure.Network
 {
-    [Serializable]
-    public class NetworkComponentsInstaller : IInstaller
+    public class NetworkComponentsInstaller : MonoBehaviour, IInstaller
     {
-        public void InstallBindings(ContainerBuilder containerBuilder)
+        void IInstaller.InstallBindings(ContainerBuilder containerBuilder)
         {
             containerBuilder.AddSingleton(NetworkManager.singleton);
-            containerBuilder.AddSingleton(typeof(NetworkService), typeof(NetworkService).GetInterfaces());
         }
     }
 }

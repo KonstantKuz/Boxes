@@ -1,13 +1,13 @@
 ﻿using Reflex.Core;
+using UnityEngine;
 
 namespace Infrastructure.WindowService
 {
-    // ReSharper disable once UnusedType.Global
-    public class WindowServiceInstaller : IInstaller
+    public class WindowServiceInstaller : MonoBehaviour, IInstaller
     {
-        public void InstallBindings(ContainerBuilder containerBuilder)
+        void IInstaller.InstallBindings(ContainerBuilder containerBuilder)
         {
-            containerBuilder.AddSingleton(typeof(WindowService), typeof(IWindowService));
+            containerBuilder.AddSingleton(typeof(WindowService), typeof(WindowService).GetInterfaces());
         }
     }
 }

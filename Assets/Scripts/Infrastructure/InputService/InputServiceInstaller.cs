@@ -1,15 +1,13 @@
 ﻿using Reflex.Core;
+using UnityEngine;
 
 namespace Infrastructure.InputService
 {
-    // ReSharper disable once UnusedType.Global
-    public class InputServiceInstaller : IInstaller
+    public class InputServiceInstaller : MonoBehaviour, IInstaller
     {
-        public void InstallBindings(ContainerBuilder containerBuilder)
+        void IInstaller.InstallBindings(ContainerBuilder containerBuilder)
         {
-            InputService inputService = new InputService();
-            inputService.Initialize();
-            containerBuilder.AddSingleton(inputService, typeof(IInputService));
+            containerBuilder.AddSingleton(typeof(InputService), typeof(InputService).GetInterfaces());
         }
     }
 }

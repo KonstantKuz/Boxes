@@ -1,16 +1,27 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Infrastructure.DialogService
 {
+    [Serializable]
     public class DialogState
     {
-        public Guid DialogId { get; private set; }
-        public uint CurrentIndex { get; private set; }
+        public static DialogState Default => new DialogState(Guid.Empty, 0, null);
 
-        public DialogState(Guid dialogId, uint currentIndex)
+        public Guid DialogId { get; private set; }
+        public byte ReplicaIndex { get; private set; }
+        public HashSet<uint> ReadyPlayers { get; private set; }
+
+        public DialogState()
+        {
+
+        }
+
+        public DialogState(Guid dialogId, byte replicaIndex, HashSet<uint> readyPlayers)
         {
             DialogId = dialogId;
-            CurrentIndex = currentIndex;
+            ReplicaIndex = replicaIndex;
+            ReadyPlayers = readyPlayers;
         }
     }
 }

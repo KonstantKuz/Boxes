@@ -45,7 +45,7 @@ namespace Infrastructure.Network
         {
             GameObject spawned = Instantiate(prefab, position, rotation);
 
-            if (spawned.TryGetComponent(out GameObjectContext gameObjectContext))
+            if (spawned.TryGetComponent(out GameObjectInjector gameObjectContext))
             {
                 AttributeInjector.Inject(gameObjectContext, SceneManager.GetActiveScene().GetSceneContainer());
             }

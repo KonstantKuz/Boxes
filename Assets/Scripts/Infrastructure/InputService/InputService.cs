@@ -1,31 +1,41 @@
-﻿using R3;
-using UnityEngine;
+﻿using System;
+using Infrastructure.Bootstrap;
+using Infrastructure.InputService.Abstract;
+using UnityEngine.InputSystem;
 
 namespace Infrastructure.InputService
 {
-    public class InputService : IInputService
+    public class InputService : IInputService, IInitializable, IDisposable
     {
-        ReactiveCommand<Vector2> IInputService.LookInput { get; } = new();
-        ReactiveCommand<Vector2> IInputService.MoveInput { get; } = new();
-        ReactiveCommand<Unit> IInputService.InteractionInput { get; } = new();
+        private GameInput input;
 
-        public void Initialize()
+        public InputAction LookAction => input.DefaultContext.Look;
+        public InputAction MoveAction => input.DefaultContext.Move;
+        public InputAction JumpAction => input.DefaultContext.Jump;
+        public InputAction InteractAction => input.DefaultContext.Interact;
+        public InputAction NextAction => input.DialogContext.Next;
+
+        void IInitializable.Initialize()
         {
-            Observable.EveryUpdate(UnityFrameProvider.Update).Subscribe(UpdateInput);
+            input = new GameInput();
+            input.Enable();
         }
 
-        private void UpdateInput(Unit _)
+        void IInputService.SwitchToDefaultContext()
         {
-            Vector2 lookInput = new(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
-            Vector2 moveInput = new(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+            input.DialogContext.Disable();
+            input.DefaultContext.Enable();
+        }
 
-            ((IInputService)this).LookInput.Execute(lookInput);
-            ((IInputService)this).MoveInput.Execute(moveInput);
+        void IInputService.SwitchToDialogContext()
+        {
+            input.DefaultContext.Disable();
+            input.DialogContext.Enable();
+        }
 
-            if (Input.GetKeyDown(KeyCode.F))
-            {
-                ((IInputService)this).InteractionInput.Execute(Unit.Default);
-            }
+        public void Dispose()
+        {
+            input?.Dispose();
         }
     }
 }

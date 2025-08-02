@@ -1,5 +1,4 @@
-﻿using Game.Interactable;
-using Game.Interactable.BallInteraction;
+﻿using Infrastructure.InteractionService.Abstract;
 using Mirror;
 
 namespace Infrastructure.InteractionService
