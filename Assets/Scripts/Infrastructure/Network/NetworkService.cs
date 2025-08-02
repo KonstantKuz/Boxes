@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using Infrastructure;
-using MessagePack;
 using Mirror;
 using R3;
 using UnityEngine;
 
-namespace Network
+namespace Infrastructure.Network
 {
     public class NetworkService : NetworkBehaviour, INetworkService
     {

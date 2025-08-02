@@ -2,7 +2,7 @@
 using Mirror;
 using Reflex.Core;
 
-namespace Network
+namespace Infrastructure.Network
 {
     [Serializable]
     public class NetworkComponentsInstaller : IInstaller

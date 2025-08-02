@@ -2,7 +2,7 @@
 using Mirror;
 using R3;
 
-namespace Network
+namespace Infrastructure.Network
 {
     public class NetworkStateHolderBase : NetworkBehaviour, INetworkStateHolder
     {

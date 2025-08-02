@@ -1,4 +1,4 @@
-﻿namespace Network
+﻿namespace Infrastructure.Network
 {
     public interface INetworkState
     {

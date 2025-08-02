@@ -1,6 +1,6 @@
 using System;
 
-namespace Network
+namespace Infrastructure.Network
 {
     public interface INetworkService
     {

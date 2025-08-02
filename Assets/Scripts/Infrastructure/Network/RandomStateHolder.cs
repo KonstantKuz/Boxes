@@ -1,9 +1,8 @@
-﻿using Infrastructure;
-using Reflex.Attributes;
+﻿using Reflex.Attributes;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace Network
+namespace Infrastructure.Network
 {
     public class RandomStateHolder : NetworkStateHolderBase
     {

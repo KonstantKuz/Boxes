@@ -1,11 +1,10 @@
-using Infrastructure;
 using Mirror;
 using Reflex.Extensions;
 using Reflex.Injectors;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace Network
+namespace Infrastructure.Network
 {
     public class CustomNetworkManager : NetworkManager
     {
