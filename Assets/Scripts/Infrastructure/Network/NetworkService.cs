@@ -52,11 +52,12 @@ namespace Infrastructure.Network
             return default;
         }
 
+        [Server]
         [Command(requiresAuthority = false)]
         void INetworkService.WriteState(byte type, byte[] state)
         {
             Type mappedType = TypeByteMapper.GetTypeFromByte(type);
-            // _stateHolders[mappedType].WriteState(state);
+            _stateHolders[mappedType].WriteState(state);
         }
 
         [Command(requiresAuthority = false)]
@@ -72,6 +73,7 @@ namespace Infrastructure.Network
             if (!_commandObservers.TryGetValue(typeof(T), out List<Action<byte[]>> observers))
             {
                 observers = new List<Action<byte[]>>();
+                _commandObservers[typeof(T)] = observers;
             }
 
             observers.Add(InvokeObserver(observer));

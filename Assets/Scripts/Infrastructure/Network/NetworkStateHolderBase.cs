@@ -25,7 +25,7 @@ namespace Infrastructure.Network
 
         IDisposable INetworkStateHolder.Subscribe(Action<byte[]> callback)
         {
-            return _reactiveState.Subscribe(callback);
+            return _reactiveState.Where(array => array != null).Subscribe(callback);
         }
     }
 }
