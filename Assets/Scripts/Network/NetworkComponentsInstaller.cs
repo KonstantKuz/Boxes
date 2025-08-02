@@ -10,6 +10,7 @@ namespace Network
         public void InstallBindings(ContainerBuilder containerBuilder)
         {
             containerBuilder.AddSingleton(NetworkManager.singleton);
+            containerBuilder.AddSingleton(typeof(NetworkService), typeof(NetworkService).GetInterfaces());
         }
     }
 }

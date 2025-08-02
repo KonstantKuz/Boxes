@@ -7,10 +7,12 @@ namespace Network
         void RegisterStateHolder<T>(INetworkStateHolder stateHolder);
         void UnregisterStateHolder<T>(INetworkStateHolder stateHolder);
 
-        T ReadState<T>() where T : INetworkState;
-        void WriteState<T>(T state) where T : INetworkState;
+        byte[] Serialize<T>(T data);
 
-        void SendCommand<T>(T command) where T : INetworkCommand;
+        T ReadState<T>() where T : INetworkState;
+        void WriteState(byte type, byte[] state);
+
+        void SendCommand(byte type, byte[] command);
 
         IDisposable ObserveCommand<T>(Action<T> observer) where T : INetworkCommand;
         IDisposable ObserveState<T>(Action<T> observer) where T : INetworkState;

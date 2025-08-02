@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Game.Interactable.Dialog
 {
-    public class DialogStarter : MonoBehaviour, IInteractable
+    public class DialogStarter : NetworkBehaviour, IInteractable
     {
         [SerializeField]
         private DialogSequence dialogSequence;

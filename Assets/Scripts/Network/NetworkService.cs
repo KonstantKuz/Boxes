@@ -38,6 +38,11 @@ namespace Network
             }
         }
 
+        byte[] INetworkService.Serialize<T>(T data)
+        {
+            return MessagePackSerializer.Serialize(data);
+        }
+
         T INetworkService.ReadState<T>()
         {
             if (_stateHolders.TryGetValue(typeof(T), out INetworkStateHolder stateHolder))
@@ -49,16 +54,15 @@ namespace Network
         }
 
         [Command(requiresAuthority = false)]
-        void INetworkService.WriteState<T>(T state)
+        void INetworkService.WriteState(byte type, byte[] state)
         {
-            byte[] payload = MessagePackSerializer.Serialize(state);
-            _stateHolders[typeof(T)].State = payload;
+            Type mappedType = TypeByteMapper.GetTypeFromByte(type);
+            // _stateHolders[mappedType].WriteState(state);
         }
 
         [Command(requiresAuthority = false)]
-        void INetworkService.SendCommand<T>(T command)
+        void INetworkService.SendCommand(byte type, byte[] command)
         {
-            byte type = TypeByteMapper.GetByteFromType(typeof(T));
             byte[] payload = MessagePackSerializer.Serialize(command);
 
             DispatchReceivedCommand(type, payload);
