@@ -1,4 +1,6 @@
-﻿namespace Infrastructure.Network
+﻿using MessagePack;
+
+namespace Infrastructure.Network
 {
     [MessagePackObject]
     public class RandomState : INetworkState

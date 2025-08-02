@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using MessagePack;
 using Mirror;
 using R3;
 using UnityEngine;
