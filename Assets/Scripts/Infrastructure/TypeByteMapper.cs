@@ -13,7 +13,7 @@ namespace Infrastructure
         // ReSharper disable once StaticMemberInGenericType
         private static readonly Dictionary<byte, Type> ByteToTypeMap;
         // ReSharper disable once StaticMemberInGenericType
-        private static byte _nextByteValue;
+        private static byte NextByteValue;
 
         static TypeByteMapper()
         {
@@ -34,7 +34,7 @@ namespace Infrastructure
             }
         }
 
-        private static void RegisterType(Type type)
+        public static void RegisterType(Type type)
         {
             if (TypeToByteMap.ContainsKey(type))
             {
@@ -42,24 +42,25 @@ namespace Infrastructure
                 return;
             }
 
-            if (ByteToTypeMap.ContainsKey(_nextByteValue))
+            if (ByteToTypeMap.ContainsKey(NextByteValue))
             {
-                Debug.LogError($"Byte value {_nextByteValue} already assigned.");
+                Debug.LogError($"Byte value {NextByteValue} already assigned.");
                 return;
             }
 
-            TypeToByteMap[type] = _nextByteValue;
-            ByteToTypeMap[_nextByteValue] = type;
-            _nextByteValue++;
+            TypeToByteMap[type] = NextByteValue;
+            ByteToTypeMap[NextByteValue] = type;
+            NextByteValue++;
 
-            if (_nextByteValue == 0)
+            if (NextByteValue == 0)
             {
                 throw new OverflowException("Exceeded maximum byte value for type mapping.");
             }
         }
 
-        public static byte GetByteFromType(Type type)
+        public static byte GetByteFromType<T>()
         {
+            Type type = typeof(T);
             if (type == null)
             {
                 throw new ArgumentNullException(nameof(type));

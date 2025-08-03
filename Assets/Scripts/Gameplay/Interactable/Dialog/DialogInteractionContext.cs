@@ -27,7 +27,7 @@ namespace Gameplay.Interactable.Dialog
 
         public override void Write(NetworkWriter writer)
         {
-            writer.WriteByte(TypeByteMapper.GetByteFromType(GetType()));
+            writer.WriteByte(TypeByteMapper.GetByteFromType<DialogInteractionContext>());
             writer.WriteUInt(InitiatorNetId);
         }
     }

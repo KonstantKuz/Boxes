@@ -1,13 +1,12 @@
-﻿using Infrastructure.Abstract;
-using R3;
+﻿using System;
+using Infrastructure.Abstract;
 
 namespace Infrastructure.DialogService.Abstract
 {
     public interface IDialogServiceMediator : IServiceMediator
     {
-        ReactiveCommand<Unit> OnLocalPlayerReady { get; }
+        void StartDialog(uint initiatorId, Guid dialogId);
 
-        void CmdStartDialog();
-        void CmdStopDialog();
+        bool TryGetDialog(Guid dialogId, out DialogSequence dialogSequence);
     }
 }

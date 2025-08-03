@@ -13,6 +13,9 @@ namespace Infrastructure.Network
         {
             containerBuilder.AddSingleton(NetworkManager.singleton);
             containerBuilder.AddSingleton(networkService, networkService.GetType().GetInterfaces());
+
+            TypeByteMapper.RegisterTypes<INetworkState>();
+            TypeByteMapper.RegisterTypes<INetworkCommand>();
         }
     }
 }

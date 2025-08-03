@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 3767940849198152207}
   - component: {fileID: 6783381043972654020}
   - component: {fileID: 8784070654159910729}
-  - component: {fileID: 760136552537488220}
   - component: {fileID: 657597240778749798}
   - component: {fileID: 4316660852522832791}
   m_Layer: 0
@@ -62,26 +61,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bfdbc7ac5834902b242c9b3ba177da2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &760136552537488220
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 679924070425719255}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 13b373654de6490e8121c6a6efdec1bb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  serviceMediators:
-  - rid: 5193220466594807850
-  references:
-    version: 2
-    RefIds:
-    - rid: 5193220466594807850
-      type: {class: WindowServiceMediator, ns: Configuration, asm: Assembly-CSharp}
-      data: 
 --- !u!114 &657597240778749798
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -183,8 +162,7 @@ GameObject:
   - component: {fileID: 5078284019158788827}
   - component: {fileID: 6609854798882120865}
   - component: {fileID: 4879271077625400302}
-  - component: {fileID: 2079061728373342774}
-  - component: {fileID: 2284502663583279986}
+  - component: {fileID: 8211385589716824693}
   m_Layer: 0
   m_Name: DialogService
   m_TagString: Untagged
@@ -236,9 +214,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14686313bdcc4810aa45104e53d9da9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dialogService: {fileID: 2079061728373342774}
-  mediator: {fileID: 2284502663583279986}
---- !u!114 &2079061728373342774
+  service:
+    rid: 2942314082134130698
+  mediator:
+    rid: 2942314082134130699
+  references:
+    version: 2
+    RefIds:
+    - rid: 2942314082134130698
+      type: {class: DialogService, ns: Infrastructure.DialogService, asm: Assembly-CSharp}
+      data: 
+    - rid: 2942314082134130699
+      type: {class: DialogServiceMediator, ns: Configuration.Mediator, asm: Assembly-CSharp}
+      data:
+        dialogs:
+        - {fileID: 11400000, guid: ff8e66283d301de48909ae873399dde6, type: 2}
+        dialogWindowType: {fileID: 11400000, guid: 5572b08fb13fd5d4cb257958a845e03c,
+          type: 2}
+--- !u!114 &8211385589716824693
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -247,30 +240,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 3591493214298313367}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 673585a6c5a741909f17ce3ac9e3e74f, type: 3}
+  m_Script: {fileID: 11500000, guid: 75475661eb6a4a449eab14fbf71fd93b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  dialogs:
-  - {fileID: 11400000, guid: ff8e66283d301de48909ae873399dde6, type: 2}
---- !u!114 &2284502663583279986
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3591493214298313367}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e1a1fa1106af459cbecec541d4cd6458, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncDirection: 0
-  syncMode: 0
-  syncInterval: 0
-  dialogWindowType: {fileID: 11400000, guid: 5572b08fb13fd5d4cb257958a845e03c, type: 2}
 --- !u!1 &6429259516149281876
 GameObject:
   m_ObjectHideFlags: 0
@@ -317,6 +292,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2756de19e36a46c9a2ce93ea9a89e750, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  service:
+    rid: 2942314082134130696
+  mediator:
+    rid: 2942314082134130697
+  references:
+    version: 2
+    RefIds:
+    - rid: 2942314082134130696
+      type: {class: WindowService, ns: Infrastructure.WindowService, asm: Assembly-CSharp}
+      data: 
+    - rid: 2942314082134130697
+      type: {class: WindowServiceMediator, ns: Configuration.Mediator, asm: Assembly-CSharp}
+      data: 
 --- !u!114 &5653272982984029224
 MonoBehaviour:
   m_ObjectHideFlags: 0

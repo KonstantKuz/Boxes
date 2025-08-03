@@ -1,18 +1,15 @@
 ﻿using System;
-using Infrastructure.Abstract;
 using Infrastructure.CanvasRootService;
 using Infrastructure.WindowService.Abstract;
 using Reflex.Attributes;
 using UnityEngine;
 
-namespace Configuration
+namespace Configuration.Mediator
 {
     [Serializable]
     public class WindowServiceMediator : IWindowServiceMediator
     {
         private ICanvasRootService canvasRootService;
-
-        Type IServiceMediator.BindType => typeof(IWindowServiceMediator);
 
         [Inject]
         private void Construct(ICanvasRootService canvasRootService)

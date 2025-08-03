@@ -1,14 +1,11 @@
 ﻿using System;
-using R3;
+using Infrastructure.Bootstrap;
 
 namespace Infrastructure.DialogService.Abstract
 {
-    public interface IDialogService
+    public interface IDialogService : IPostBuildInjectable
     {
-        ReadOnlyReactiveProperty<DialogState> CurrentSync { get; }
-
-        void CmdStartDialog(Guid dialogId);
-        void CmdStopDialog();
+        void StartDialog(uint initiatorId, Guid dialogId);
 
         bool TryGetDialog(Guid dialogId, out DialogSequence dialogSequence);
     }

@@ -27,7 +27,7 @@ namespace Gameplay.Interactable.BallInteraction
 
         public override void Write(NetworkWriter writer)
         {
-            writer.WriteByte(TypeByteMapper.GetByteFromType(GetType()));
+            writer.WriteByte(TypeByteMapper.GetByteFromType<CaptureInteractionContext>());
             writer.WriteUInt(CaptureRootNetId);
         }
     }

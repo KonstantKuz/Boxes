@@ -22,10 +22,9 @@ namespace Gameplay.Interactable.Dialog
             this.dialogService = dialogService;
         }
 
-        [Command(requiresAuthority = false)]
         void IInteractable.CmdInteract(InteractionContext interactionContext)
         {
-            dialogService.CmdStartDialog(dialogSequence.Id);
+            dialogService.StartDialog(0, dialogSequence.Id);
         }
     }
 }

@@ -1,31 +1,45 @@
 ﻿using System;
 using Mirror;
 using R3;
+using Reflex.Attributes;
 
 namespace Infrastructure.Network
 {
     public class NetworkStateHolderBase : NetworkBehaviour, INetworkStateHolder
     {
-        private readonly ReactiveProperty<byte[]> _reactiveState = new();
+        private readonly ReactiveProperty<byte[]> reactiveState = new();
+
+        protected INetworkService NetworkService;
 
         [SyncVar(hook = nameof(OnStateChanged))]
-        private byte[] _state;
+        private byte[] state;
 
-        byte[] INetworkStateHolder.State => _state;
+        [Inject]
+        private void Construct(INetworkService networkService)
+        {
+            NetworkService = networkService;
+        }
+
+        byte[] INetworkStateHolder.State => state;
 
         private void OnStateChanged(byte[] oldState, byte[] newState)
         {
-            _reactiveState.Value = newState;
+            reactiveState.Value = newState;
+        }
+
+        protected void WriteState<T>(T defaultState)
+        {
+            ((INetworkStateHolder)this).WriteState(NetworkService.Serialize(defaultState));
         }
 
         void INetworkStateHolder.WriteState(byte[] state)
         {
-            _state = state;
+            this.state = state;
         }
 
         IDisposable INetworkStateHolder.Subscribe(Action<byte[]> callback)
         {
-            return _reactiveState.Where(array => array != null).Subscribe(callback);
+            return reactiveState.Where(array => array != null).Subscribe(callback);
         }
     }
 }

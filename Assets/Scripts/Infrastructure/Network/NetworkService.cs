@@ -9,21 +9,13 @@ namespace Infrastructure.Network
 {
     public class NetworkService : NetworkBehaviour, INetworkService
     {
-        private readonly Dictionary<Type, INetworkStateHolder> _stateHolders = new();
-        private readonly Dictionary<Type, List<Action<byte[]>>> _commandObservers = new();
-
-        [ClientRpc]
-        private void DispatchReceivedCommand(byte type, byte[] data)
-        {
-            if (_commandObservers.TryGetValue(TypeByteMapper.GetTypeFromByte(type), out List<Action<byte[]>> observers))
-            {
-                observers.ForEach(observer => observer(data));
-            }
-        }
+        private readonly Dictionary<Type, INetworkStateHolder> stateHolders = new();
+        private readonly Dictionary<Type, List<Action<byte[]>>> commandObservers = new();
+        private readonly Dictionary<Type, List<Action<byte[]>>> reactionObservers = new();
 
         void INetworkService.RegisterStateHolder<T>(INetworkStateHolder stateHolder)
         {
-            if (!_stateHolders.TryAdd(typeof(T), stateHolder))
+            if (!stateHolders.TryAdd(typeof(T), stateHolder))
             {
                 Debug.LogError($"Failed to register state holder of type {typeof(T)}.");
             }
@@ -31,7 +23,7 @@ namespace Infrastructure.Network
 
         void INetworkService.UnregisterStateHolder<T>(INetworkStateHolder stateHolder)
         {
-            if (!_stateHolders.Remove(typeof(T)))
+            if (!stateHolders.Remove(typeof(T)))
             {
                 Debug.LogWarning($"There is no state holder of type {typeof(T)}.");
             }
@@ -44,7 +36,7 @@ namespace Infrastructure.Network
 
         T INetworkService.ReadState<T>()
         {
-            if (_stateHolders.TryGetValue(typeof(T), out INetworkStateHolder stateHolder))
+            if (stateHolders.TryGetValue(typeof(T), out INetworkStateHolder stateHolder))
             {
                 return MessagePackSerializer.Deserialize<T>(stateHolder.State);
             }
@@ -52,44 +44,92 @@ namespace Infrastructure.Network
             return default;
         }
 
-        [Server]
-        [Command(requiresAuthority = false)]
-        void INetworkService.WriteState(byte type, byte[] state)
+        void INetworkService.WriteState<T>(T state)
         {
-            Type mappedType = TypeByteMapper.GetTypeFromByte(type);
-            _stateHolders[mappedType].WriteState(state);
+            byte type = TypeByteMapper.GetByteFromType<T>();
+            byte[] payload = MessagePackSerializer.Serialize(state);
+            CmdWriteState(type, payload);
         }
 
-        [Command(requiresAuthority = false)]
-        void INetworkService.SendCommand(byte type, byte[] command)
+        void INetworkService.SendCommand<T>(T command)
         {
+            byte type =  TypeByteMapper.GetByteFromType<T>();
             byte[] payload = MessagePackSerializer.Serialize(command);
-
-            DispatchReceivedCommand(type, payload);
+            CmdSendCommand(type, payload);
         }
 
         IDisposable INetworkService.ObserveCommand<T>(Action<T> observer)
         {
-            if (!_commandObservers.TryGetValue(typeof(T), out List<Action<byte[]>> observers))
+            if (!commandObservers.TryGetValue(typeof(T), out List<Action<byte[]>> observers))
             {
                 observers = new List<Action<byte[]>>();
-                _commandObservers[typeof(T)] = observers;
+                commandObservers[typeof(T)] = observers;
             }
 
-            observers.Add(InvokeObserver(observer));
+            Action<byte[]> action = InvokeObserver(observer);
 
-            return Disposable.Create(() => observers.Remove(InvokeObserver(observer)));
+            observers.Add(action);
+
+            return Disposable.Create(() => observers.Remove(action));
+        }
+
+        public IDisposable ObserveReaction<T>(Action<T> observer) where T : INetworkCommand
+        {
+            if (!reactionObservers.TryGetValue(typeof(T), out List<Action<byte[]>> observers))
+            {
+                observers = new List<Action<byte[]>>();
+                reactionObservers[typeof(T)] = observers;
+            }
+
+            Action<byte[]> action = InvokeObserver(observer);
+
+            observers.Add(action);
+
+            return Disposable.Create(() => observers.Remove(action));
         }
 
         IDisposable INetworkService.ObserveState<T>(Action<T> observer)
         {
-            if (_stateHolders.TryGetValue(typeof(T), out INetworkStateHolder stateHolder))
+            if (stateHolders.TryGetValue(typeof(T), out INetworkStateHolder stateHolder))
             {
-                return stateHolder.Subscribe(state => observer.Invoke(MessagePackSerializer.Deserialize<T>(state)));
+                return stateHolder.Subscribe(
+                    state => observer.Invoke(MessagePackSerializer.Deserialize<T>(state))
+                );
             }
 
             Debug.LogError($"No state holder found for {typeof(T)} state.");
             return Disposable.Empty;
+        }
+
+        [Command(requiresAuthority = false)]
+        private void CmdWriteState(byte type, byte[] state)
+        {
+            Type mappedType = TypeByteMapper.GetTypeFromByte(type);
+            stateHolders[mappedType].WriteState(state);
+        }
+
+        [Command(requiresAuthority = false)]
+        private void CmdSendCommand(byte type, byte[] command)
+        {
+            DispatchReceivedCommand(type, command);
+            RpcDispatchReceivedCommand(type, command);
+        }
+
+        private void DispatchReceivedCommand(byte type, byte[] data)
+        {
+            if (commandObservers.TryGetValue(TypeByteMapper.GetTypeFromByte(type), out List<Action<byte[]>> observers))
+            {
+                observers.ForEach(observer => observer(data));
+            }
+        }
+
+        [ClientRpc]
+        private void RpcDispatchReceivedCommand(byte type, byte[] data)
+        {
+            if (reactionObservers.TryGetValue(TypeByteMapper.GetTypeFromByte(type), out List<Action<byte[]>> observers))
+            {
+                observers.ForEach(observer => observer(data));
+            }
         }
 
         private static Action<byte[]> InvokeObserver<T>(Action<T> observer)

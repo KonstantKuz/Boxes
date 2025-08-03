@@ -2,8 +2,8 @@
 using Infrastructure.Bootstrap;
 using Infrastructure.DialogService;
 using Infrastructure.DialogService.Abstract;
+using Infrastructure.Network;
 using Infrastructure.WindowService.Abstract;
-using R3;
 using Reflex.Attributes;
 using TMPro;
 using UnityEngine;
@@ -18,6 +18,7 @@ namespace UI.Dialog
         [SerializeField]
         private TextMeshProUGUI text;
 
+        private INetworkService networkService;
         private IWindowService windowService;
         private IDialogService dialogService;
         private IDisposable dialogSubscription;
@@ -25,8 +26,9 @@ namespace UI.Dialog
         public string Id => nameof(DialogWindow);
 
         [Inject]
-        private void Construct(IWindowService windowService, IDialogService dialogService)
+        private void Construct(INetworkService networkService, IWindowService windowService, IDialogService dialogService)
         {
+            this.networkService = networkService;
             this.windowService = windowService;
             this.dialogService = dialogService;
         }
@@ -40,7 +42,7 @@ namespace UI.Dialog
         {
             gameObject.SetActive(true);
 
-            dialogSubscription = dialogService.CurrentSync.Subscribe(OnDialogStateChanged);
+            dialogSubscription = networkService.ObserveState<DialogState>(OnDialogStateChanged);
         }
 
         void IWindow.Hide()

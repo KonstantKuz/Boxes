@@ -1,6 +1,8 @@
-﻿namespace Infrastructure.WindowService.Abstract
+﻿using Infrastructure.Bootstrap;
+
+namespace Infrastructure.WindowService.Abstract
 {
-    public interface IWindowService
+    public interface IWindowService : IPostBuildInjectable
     {
         IWindow ActiveWindow { get; }
         void RegisterWindow(string id, IWindow window);
