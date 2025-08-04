@@ -9,6 +9,8 @@ namespace Infrastructure.Bootstrap
 {
     public class BootstrapInstaller : MonoBehaviour, IInstaller
     {
+        private Container container;
+
         void IInstaller.InstallBindings(ContainerBuilder containerBuilder)
         {
             containerBuilder.OnContainerBuilt += Initialize;
@@ -16,6 +18,8 @@ namespace Infrastructure.Bootstrap
 
         private void Initialize(Container container)
         {
+            this.container = container;
+
             foreach (IPostBuildInjectable postBuildInjectable in container.All<IPostBuildInjectable>())
             {
                 AttributeInjector.Inject(postBuildInjectable, container);
@@ -24,6 +28,19 @@ namespace Infrastructure.Bootstrap
             foreach (IInitializable initializable in container.All<IInitializable>())
             {
                 initializable.Initialize();
+            }
+        }
+
+        private void Update()
+        {
+            if (container == null)
+            {
+                return;
+            }
+
+            foreach (IUpdatable updatable in container.All<IUpdatable>())
+            {
+                updatable.Update();
             }
         }
 

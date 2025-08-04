@@ -10,14 +10,25 @@ namespace Infrastructure.Network
     public class NetworkService : NetworkBehaviour, INetworkService
     {
         private readonly Dictionary<Type, INetworkStateHolder> stateHolders = new();
+        private readonly Dictionary<Type, List<Action<byte[]>>> stateObservers = new();
         private readonly Dictionary<Type, List<Action<byte[]>>> commandObservers = new();
         private readonly Dictionary<Type, List<Action<byte[]>>> reactionObservers = new();
+        private readonly Dictionary<Type, IDisposable> stateDisposables = new();
 
         void INetworkService.RegisterStateHolder<T>(INetworkStateHolder stateHolder)
         {
             if (!stateHolders.TryAdd(typeof(T), stateHolder))
             {
                 Debug.LogError($"Failed to register state holder of type {typeof(T)}.");
+                return;
+            }
+
+            if (stateObservers.TryGetValue(typeof(T), out List<Action<byte[]>> observers))
+            {
+                IDisposable stateSubscription =
+                    stateHolder.Subscribe(state => observers.ForEach(observer => observer.Invoke(state)));
+
+                stateDisposables.Add(typeof(T), stateSubscription);
             }
         }
 
@@ -26,6 +37,12 @@ namespace Infrastructure.Network
             if (!stateHolders.Remove(typeof(T)))
             {
                 Debug.LogWarning($"There is no state holder of type {typeof(T)}.");
+                return;
+            }
+
+            if (stateDisposables.Remove(typeof(T), out IDisposable disposable))
+            {
+                disposable?.Dispose();
             }
         }
 
@@ -90,15 +107,22 @@ namespace Infrastructure.Network
 
         IDisposable INetworkService.ObserveState<T>(Action<T> observer)
         {
-            if (stateHolders.TryGetValue(typeof(T), out INetworkStateHolder stateHolder))
+            if (!stateObservers.TryGetValue(typeof(T), out List<Action<byte[]>> observers))
             {
-                return stateHolder.Subscribe(
-                    state => observer.Invoke(MessagePackSerializer.Deserialize<T>(state))
-                );
+                observers = new List<Action<byte[]>>();
+                stateObservers[typeof(T)] = observers;
             }
 
-            Debug.LogError($"No state holder found for {typeof(T)} state.");
-            return Disposable.Empty;
+            Action<byte[]> action = InvokeObserver(observer);
+
+            observers.Add(action);
+
+            if (stateHolders.TryGetValue(typeof(T), out INetworkStateHolder stateHolder))
+            {
+                action(stateHolder.State);
+            }
+
+            return Disposable.Create(() => observers.Remove(action));
         }
 
         [Command(requiresAuthority = false)]

@@ -1,9 +1,9 @@
 ﻿using System;
-using Infrastructure.Abstract;
+using Infrastructure.Bootstrap;
 
 namespace Infrastructure.DialogService.Abstract
 {
-    public interface IDialogServiceMediator : IServiceMediator
+    public interface IDialogServiceMediator : IPostBuildInjectable
     {
         void StartDialog(uint initiatorId, Guid dialogId);
 

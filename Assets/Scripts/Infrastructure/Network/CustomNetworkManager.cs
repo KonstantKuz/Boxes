@@ -1,4 +1,7 @@
+using Infrastructure.Bootstrap;
 using Mirror;
+using R3;
+using Reflex.Attributes;
 using Reflex.Extensions;
 using Reflex.Injectors;
 using UnityEngine;
@@ -6,8 +9,23 @@ using UnityEngine.SceneManagement;
 
 namespace Infrastructure.Network
 {
-    public class CustomNetworkManager : NetworkManager
+    public class CustomNetworkManager : NetworkManager, IPostBuildInjectable, INetworkFactory
     {
+        private INetworkService networkService;
+        private ReactiveCommand<Unit>  localSpawnStream;
+        private int spawnedObjectsCount;
+        private int previousSpawnedObjectsCount;
+
+        ReactiveCommand<Unit> INetworkFactory.LocalSpawnStream => localSpawnStream;
+
+        [Inject]
+        private void Construct(INetworkService networkService)
+        {
+            this.networkService = networkService;
+
+            localSpawnStream = new ReactiveCommand<Unit>();
+        }
+
         public override void OnServerAddPlayer(NetworkConnectionToClient conn)
         {
             Transform startPoint = GetStartPosition();
@@ -16,6 +34,12 @@ namespace Infrastructure.Network
             GameObject player = Spawn(playerPrefab, startPosition, startRotation);
             player.name = $"{playerPrefab.name} [connId={conn.connectionId}]";
             NetworkServer.AddPlayerForConnection(conn, player);
+
+            uint netId = player.GetComponent<NetworkIdentity>().netId;
+
+            ConnectionState connectionState = networkService.ReadState<ConnectionState>() ?? ConnectionState.Default;
+            connectionState?.Players?.Add(netId);
+            networkService.WriteState(connectionState);
         }
 
         protected override void RegisterClientMessages()
@@ -51,6 +75,19 @@ namespace Infrastructure.Network
             }
 
             return spawned;
+        }
+
+        public override void Update()
+        {
+            base.Update();
+
+            spawnedObjectsCount = NetworkClient.spawned.Count;
+
+            if (previousSpawnedObjectsCount != spawnedObjectsCount)
+            {
+                localSpawnStream.Execute(Unit.Default);
+                previousSpawnedObjectsCount = spawnedObjectsCount;
+            }
         }
 
         // public override void OnClientSceneChanged()

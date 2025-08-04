@@ -14,13 +14,18 @@ namespace Infrastructure.Network
         [SyncVar(hook = nameof(OnStateChanged))]
         private byte[] state;
 
+        byte[] INetworkStateHolder.State => state;
+
         [Inject]
         private void Construct(INetworkService networkService)
         {
             NetworkService = networkService;
         }
 
-        byte[] INetworkStateHolder.State => state;
+        public override void OnStartClient()
+        {
+            OnStateChanged(null, state);
+        }
 
         private void OnStateChanged(byte[] oldState, byte[] newState)
         {

@@ -11,8 +11,11 @@ namespace Infrastructure.Network
 
         void IInstaller.InstallBindings(ContainerBuilder containerBuilder)
         {
-            containerBuilder.AddSingleton(NetworkManager.singleton);
             containerBuilder.AddSingleton(networkService, networkService.GetType().GetInterfaces());
+
+            containerBuilder.AddSingleton(
+                (CustomNetworkManager) NetworkManager.singleton, typeof(CustomNetworkManager).GetInterfaces()
+            );
 
             TypeByteMapper.RegisterTypes<INetworkState>();
             TypeByteMapper.RegisterTypes<INetworkCommand>();

@@ -1,7 +1,9 @@
-﻿namespace Infrastructure.CameraService
+﻿using Infrastructure.Bootstrap;
+
+namespace Infrastructure.CameraService
 {
-    public interface ICameraService
+    public interface ICameraService : IPostBuildInjectable
     {
-        
+
     }
 }
