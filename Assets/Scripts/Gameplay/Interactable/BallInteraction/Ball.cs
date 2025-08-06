@@ -1,7 +1,9 @@
 using Gameplay.Interactable.Abstract;
 using Infrastructure;
 using Infrastructure.InteractionService.Abstract;
+using Infrastructure.Network.Abstract;
 using Mirror;
+using Reflex.Attributes;
 using UnityEngine;
 
 namespace Gameplay.Interactable.BallInteraction
@@ -10,13 +12,15 @@ namespace Gameplay.Interactable.BallInteraction
     {
         private const float InterpolationSpeed = 20f;
 
+        [SerializeField]
+        private BallStateHolder ballStateHolder;
+
+        private INetworkService networkService;
+
         private Rigidbody rigidbody;
         private NetworkRigidbodyExtended networkRigidbody;
         private NetworkTransformExtended networkTransform;
         private Transform socketTransform;
-
-        [SyncVar]
-        private BallState ballState;
 
         private NetworkRigidbodyExtended NetworkRigidbody =>
             networkRigidbody ??= GetComponent<NetworkRigidbodyExtended>();
@@ -24,16 +28,25 @@ namespace Gameplay.Interactable.BallInteraction
         private NetworkTransformExtended NetworkTransform =>
             networkTransform ??= GetComponent<NetworkTransformExtended>();
 
-        InteractableState IInteractable.State => ballState;
+        private INetworkStateHolder<BallState> BallStateHolder => ballStateHolder;
+
+        InteractableState IInteractable.State => BallStateHolder.State;
+
+        [Inject]
+        private void Construct(INetworkService networkService)
+        {
+            this.networkService = networkService;
+        }
 
         public override void OnStartServer()
         {
-            ballState = BallState.Default;
+            networkService.ObserveToExecute<KickInteractionContext>(CmdHandleKick);
+            networkService.ObserveToExecute<CaptureInteractionContext>(CmdHandleCapture);
         }
 
         private void CmdHandleKick(KickInteractionContext kickContext)
         {
-            ballState = BallState.Default;
+            BallStateHolder.WriteState(BallState.Default);
 
             NetworkRigidbody.CmdSetEnabled(true);
             NetworkRigidbody.CmdSetIsKinematic(false);
@@ -47,30 +60,28 @@ namespace Gameplay.Interactable.BallInteraction
                 return;
             }
 
-            ballState = new BallState(captureContext.CaptureRootNetId);
+            BallStateHolder.WriteState(new BallState(captureContext.CaptureRootNetId));
+
             NetworkRigidbody.CmdSetIsKinematic(true);
             NetworkRigidbody.CmdSetEnabled(false);
         }
 
-        [Command(requiresAuthority = false)]
-        void IInteractable.CmdInteract(InteractionContext interactionContext)
+        void IInteractable.Interact(InteractionContext interactionContext)
         {
             switch (interactionContext)
             {
                 case KickInteractionContext kickContext:
-                    CmdHandleKick(kickContext);
+                    networkService.SendCommand(kickContext);
                     break;
                 case CaptureInteractionContext captureContext:
-                    CmdHandleCapture(captureContext);
+                    networkService.SendCommand(captureContext);
                     break;
             }
-
-            // RpcInteract(interactionContext);
         }
 
         private void Update()
         {
-            uint ownerNetId = ballState?.OwnerNetId ?? 0;
+            uint ownerNetId = BallStateHolder.State?.OwnerNetId ?? 0;
 
             if (
                 !NetworkClient.spawned.TryGetValue(ownerNetId, out NetworkIdentity owner) ||
@@ -80,9 +91,11 @@ namespace Gameplay.Interactable.BallInteraction
                 return;
             }
 
-            transform.position = Vector3.Lerp(
-                transform.position, ballInteractionInitiator.BallSocket.position, InterpolationSpeed * Time.deltaTime
-            );
+            // transform.position = Vector3.Lerp(
+            //     transform.position, ballInteractionInitiator.BallSocket.position, InterpolationSpeed * Time.deltaTime
+            // );
+
+            transform.position = ballInteractionInitiator.BallSocket.position;
         }
     }
 }

@@ -34,7 +34,7 @@ namespace Gameplay.Interactable.BallInteraction
                 return;
             }
 
-            ball.CmdInteract(
+            ball.Interact(
                 ballState.OwnerNetId != 0
                     ? GetInteractionContext(typeof(KickInteractionContext))
                     : GetInteractionContext(typeof(CaptureInteractionContext))

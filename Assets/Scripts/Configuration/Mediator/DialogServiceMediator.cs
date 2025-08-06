@@ -7,6 +7,7 @@ using Infrastructure.DialogService.Abstract;
 using Infrastructure.DialogService.Command;
 using Infrastructure.InputService.Abstract;
 using Infrastructure.Network;
+using Infrastructure.Network.Abstract;
 using Infrastructure.WindowService.Abstract;
 using Mirror;
 using Reflex.Attributes;
@@ -27,26 +28,34 @@ namespace Configuration.Mediator
         private INetworkService networkService;
         private IWindowService windowService;
         private IInputService inputService;
+        private INetworkStateHolder<DialogState > dialogStateHolder;
+
         private Dictionary<Guid, DialogSequence> dialogsMap;
 
         [Inject]
-        private void Construct(INetworkService networkService, IWindowService windowService, IInputService inputService)
+        private void Construct(
+            INetworkService networkService,
+            IWindowService windowService,
+            IInputService inputService,
+            INetworkStateHolder<DialogState> dialogStateHolder
+        )
         {
             this.networkService = networkService;
             this.windowService = windowService;
             this.inputService = inputService;
+            this.dialogStateHolder = dialogStateHolder;
         }
 
         void IInitializable.Initialize()
         {
             dialogsMap = dialogs.ToDictionary(item => item.Id, item => item);
 
-            networkService.ObserveReaction<StartDialogCommand>(StartLocalDialog);
-            networkService.ObserveReaction<StopDialogCommand>(StopLocalDialog);
+            networkService.ObserveToReact<StartDialogCommand>(StartLocalDialog);
+            networkService.ObserveToReact<StopDialogCommand>(StopLocalDialog);
 
-            networkService.ObserveCommand<StartDialogCommand>(CreateDialogState);
-            networkService.ObserveCommand<ReadyDialogCommand>(UpdateDialogState);
-            networkService.ObserveCommand<StopDialogCommand>(CleanDialogState);
+            networkService.ObserveToExecute<StartDialogCommand>(CreateDialogState);
+            networkService.ObserveToExecute<ReadyDialogCommand>(UpdateDialogState);
+            networkService.ObserveToExecute<StopDialogCommand>(CleanDialogState);
         }
 
         void IDialogServiceMediator.StartDialog(uint initiatorId, Guid dialogId)
@@ -63,7 +72,7 @@ namespace Configuration.Mediator
         private void CreateDialogState(StartDialogCommand command)
         {
             DialogState state = new DialogState(command.DialogId, 0, null);
-            networkService.WriteState(state);
+            dialogStateHolder.WriteState(state);
         }
 
         private void StartLocalDialog(StartDialogCommand command)
@@ -87,7 +96,7 @@ namespace Configuration.Mediator
 
         private void UpdateDialogState(ReadyDialogCommand command)
         {
-            DialogState dialogState = networkService.ReadState<DialogState>();
+            DialogState dialogState = dialogStateHolder.State;
 
             HashSet<uint> readyPlayers = dialogState.ReadyPlayers ?? new HashSet<uint>();
 
@@ -101,6 +110,7 @@ namespace Configuration.Mediator
                 NetworkServer.connections.Values.Select(item => item.identity.netId);
 
             DialogSequence sequence = dialogsMap[dialogState.DialogId];
+
             if (connectedPlayers.All(netId => readyPlayers.Contains(netId)))
             {
                 replicaIndex++;
@@ -113,12 +123,12 @@ namespace Configuration.Mediator
             }
 
             DialogState updatedState = new DialogState(dialogState.DialogId, replicaIndex, readyPlayers);
-            networkService.WriteState(updatedState);
+            dialogStateHolder.WriteState(updatedState);
         }
 
         private void CleanDialogState(StopDialogCommand command)
         {
-            networkService.WriteState(DialogState.Default);
+            dialogStateHolder.WriteState(DialogState.Default);
         }
     }
 }

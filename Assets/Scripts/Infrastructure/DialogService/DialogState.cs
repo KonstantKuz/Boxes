@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Infrastructure.Network;
+using Infrastructure.Network.Abstract;
 using MessagePack;
 
 namespace Infrastructure.DialogService

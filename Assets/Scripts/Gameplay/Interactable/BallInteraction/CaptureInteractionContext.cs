@@ -1,34 +1,17 @@
-﻿using System;
-using Infrastructure;
-using Infrastructure.InteractionService.Abstract;
-using Mirror;
+﻿using Infrastructure.InteractionService.Abstract;
+using MessagePack;
 
 namespace Gameplay.Interactable.BallInteraction
 {
-    [Serializable]
+    [MessagePackObject]
     public class CaptureInteractionContext : InteractionContext
     {
+        [Key(0)]
         public readonly uint CaptureRootNetId;
-
-        public CaptureInteractionContext()
-        {
-
-        }
 
         public CaptureInteractionContext(uint captureRootNetId)
         {
             CaptureRootNetId = captureRootNetId;
-        }
-
-        public static InteractionContext Read(NetworkReader reader)
-        {
-            return new CaptureInteractionContext(reader.ReadUInt());
-        }
-
-        public override void Write(NetworkWriter writer)
-        {
-            writer.WriteByte(TypeByteMapper.GetByteFromType<CaptureInteractionContext>());
-            writer.WriteUInt(CaptureRootNetId);
         }
     }
 }

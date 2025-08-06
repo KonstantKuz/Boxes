@@ -3,6 +3,7 @@ using Infrastructure.Bootstrap;
 using Infrastructure.DialogService;
 using Infrastructure.DialogService.Abstract;
 using Infrastructure.Network;
+using Infrastructure.Network.Abstract;
 using Infrastructure.WindowService.Abstract;
 using Reflex.Attributes;
 using TMPro;
@@ -21,16 +22,24 @@ namespace UI.Dialog
         private INetworkService networkService;
         private IWindowService windowService;
         private IDialogService dialogService;
+        private INetworkStateHolder<DialogState> dialogStateHolder;
+
         private IDisposable dialogSubscription;
 
         public string Id => nameof(DialogWindow);
 
         [Inject]
-        private void Construct(INetworkService networkService, IWindowService windowService, IDialogService dialogService)
+        private void Construct(
+            INetworkService networkService,
+            IWindowService windowService,
+            IDialogService dialogService,
+            INetworkStateHolder<DialogState> dialogStateHolder
+        )
         {
             this.networkService = networkService;
             this.windowService = windowService;
             this.dialogService = dialogService;
+            this.dialogStateHolder = dialogStateHolder;
         }
 
         void IInitializable.Initialize()
@@ -42,7 +51,7 @@ namespace UI.Dialog
         {
             gameObject.SetActive(true);
 
-            dialogSubscription = networkService.ObserveState<DialogState>(OnDialogStateChanged);
+            dialogSubscription = dialogStateHolder.Subscribe(OnDialogStateChanged);
         }
 
         void IWindow.Hide()

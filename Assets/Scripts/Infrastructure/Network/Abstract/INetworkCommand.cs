@@ -1,4 +1,4 @@
-﻿namespace Infrastructure.Network
+﻿namespace Infrastructure.Network.Abstract
 {
     public interface INetworkCommand
     {

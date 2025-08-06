@@ -18,7 +18,7 @@ namespace Gameplay.Interactable.Dialog
                 return;
             }
 
-            dialogOwner.CmdInteract(new DialogInteractionContext(netIdentity.netId));
+            dialogOwner.Interact(new DialogInteractionContext(netIdentity.netId));
         }
     }
 }

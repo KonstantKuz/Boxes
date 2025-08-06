@@ -1,6 +1,6 @@
 ﻿using R3;
 
-namespace Infrastructure.Network
+namespace Infrastructure.Network.Abstract
 {
     public interface INetworkFactory
     {

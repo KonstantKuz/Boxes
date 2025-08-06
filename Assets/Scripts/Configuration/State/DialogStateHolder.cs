@@ -1,10 +1,13 @@
-﻿using Infrastructure.DialogService;
-using Infrastructure.Network;
+﻿using System;
+using Infrastructure.DialogService;
+using Infrastructure.Network.Abstract;
 
 namespace Configuration.State
 {
-    public class DialogStateHolder : NetworkStateHolderBase
+    public class DialogStateHolder : NetworkStateHolderBase, INetworkStateHolder<DialogState>
     {
+        DialogState INetworkStateHolder<DialogState>.State => this.GetStateOrDefault<DialogState>();
+
         public override void OnStartServer()
         {
             base.OnStartServer();
@@ -12,14 +15,14 @@ namespace Configuration.State
             WriteState(DialogState.Default);
         }
 
-        private void OnEnable()
+        void INetworkStateHolder<DialogState>.WriteState(DialogState state)
         {
-            NetworkService.RegisterStateHolder<DialogState>(this);
+            WriteState(state);
         }
 
-        private void OnDisable()
+        IDisposable INetworkStateHolder<DialogState>.Subscribe(Action<DialogState> callback)
         {
-            NetworkService.UnregisterStateHolder<DialogState>(this);
+            return Subscribe(callback);
         }
     }
 }

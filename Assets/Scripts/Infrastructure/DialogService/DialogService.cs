@@ -7,7 +7,7 @@ using Reflex.Attributes;
 namespace Infrastructure.DialogService
 {
     [Serializable]
-    public class DialogService : IDialogService, IPostBuildInjectable
+    public class DialogService : IDialogService
     {
         private IDialogServiceMediator mediator;
 

@@ -1,34 +1,17 @@
-﻿using System;
-using Infrastructure;
-using Infrastructure.InteractionService.Abstract;
-using Mirror;
+﻿using Infrastructure.InteractionService.Abstract;
+using MessagePack;
 
 namespace Gameplay.Interactable.Dialog
 {
-    [Serializable]
+    [MessagePackObject]
     public class DialogInteractionContext : InteractionContext
     {
+        [Key(0)]
         public readonly uint InitiatorNetId;
-
-        public DialogInteractionContext()
-        {
-
-        }
 
         public DialogInteractionContext(uint initiatorNetId)
         {
             InitiatorNetId = initiatorNetId;
-        }
-
-        public static InteractionContext Read(NetworkReader reader)
-        {
-            return new DialogInteractionContext(reader.ReadUInt());
-        }
-
-        public override void Write(NetworkWriter writer)
-        {
-            writer.WriteByte(TypeByteMapper.GetByteFromType<DialogInteractionContext>());
-            writer.WriteUInt(InitiatorNetId);
         }
     }
 }

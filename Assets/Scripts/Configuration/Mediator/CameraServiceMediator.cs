@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using Infrastructure.Bootstrap;
 using Infrastructure.CameraService;
-using Infrastructure.Network;
+using Infrastructure.Network.Abstract;
+using Infrastructure.Network.State;
 using Mirror;
 using R3;
 using Reflex.Attributes;
@@ -14,22 +15,24 @@ namespace Configuration.Mediator
     [Serializable]
     public class CameraServiceMediator : ICameraServiceMediator, IInitializable
     {
-        private INetworkService networkService;
         private INetworkFactory networkFactory;
-        private ConnectionState connectionState;
+        private INetworkStateHolder<ConnectionState> connectionStateHolder;
 
         private Transform[] targets;
 
         [Inject]
-        private void Construct(INetworkService networkService, INetworkFactory networkFactory)
+        private void Construct(
+            INetworkFactory networkFactory,
+            INetworkStateHolder<ConnectionState> connectionStateHolder
+        )
         {
-            this.networkService = networkService;
             this.networkFactory = networkFactory;
+            this.connectionStateHolder = connectionStateHolder;
         }
 
         void IInitializable.Initialize()
         {
-            networkService.ObserveState<ConnectionState>(OnConnectionStateChanged);
+            connectionStateHolder.Subscribe(OnConnectionStateChanged);
 
             networkFactory.LocalSpawnStream.Subscribe(OnLocalSpawnStream);
         }
@@ -39,15 +42,14 @@ namespace Configuration.Mediator
             UpdateCameraTarget();
         }
 
-        private void OnConnectionStateChanged(ConnectionState connectionState)
+        private void OnConnectionStateChanged(ConnectionState _)
         {
-            this.connectionState = connectionState;
             UpdateCameraTarget();
         }
 
         private void UpdateCameraTarget()
         {
-            targets = connectionState?.Players
+            targets = connectionStateHolder.State?.Players
                 .Select(netId => NetworkClient.spawned.GetValueOrDefault(netId)?.transform)
                 .Where(item => item != null)
                 .ToArray();

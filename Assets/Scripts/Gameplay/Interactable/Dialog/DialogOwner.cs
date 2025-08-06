@@ -22,7 +22,7 @@ namespace Gameplay.Interactable.Dialog
             this.dialogService = dialogService;
         }
 
-        void IInteractable.CmdInteract(InteractionContext interactionContext)
+        void IInteractable.Interact(InteractionContext interactionContext)
         {
             dialogService.StartDialog(0, dialogSequence.Id);
         }

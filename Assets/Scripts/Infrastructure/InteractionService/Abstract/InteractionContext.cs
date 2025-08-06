@@ -1,11 +1,10 @@
 ﻿using System;
-using Mirror;
+using Infrastructure.Network.Abstract;
 
 namespace Infrastructure.InteractionService.Abstract
 {
     [Serializable]
-    public abstract class InteractionContext
+    public abstract class InteractionContext : INetworkCommand
     {
-        public abstract void Write(NetworkWriter writer);
     }
 }

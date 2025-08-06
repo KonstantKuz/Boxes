@@ -1,4 +1,6 @@
 using Infrastructure.Bootstrap;
+using Infrastructure.Network.Abstract;
+using Infrastructure.Network.State;
 using Mirror;
 using R3;
 using Reflex.Attributes;
@@ -12,6 +14,8 @@ namespace Infrastructure.Network
     public class CustomNetworkManager : NetworkManager, IPostBuildInjectable, INetworkFactory
     {
         private INetworkService networkService;
+        private INetworkStateHolder<ConnectionState> connectionStateHolder;
+
         private ReactiveCommand<Unit>  localSpawnStream;
         private int spawnedObjectsCount;
         private int previousSpawnedObjectsCount;
@@ -19,9 +23,10 @@ namespace Infrastructure.Network
         ReactiveCommand<Unit> INetworkFactory.LocalSpawnStream => localSpawnStream;
 
         [Inject]
-        private void Construct(INetworkService networkService)
+        private void Construct(INetworkService networkService, INetworkStateHolder<ConnectionState> connectionStateHolder)
         {
             this.networkService = networkService;
+            this.connectionStateHolder = connectionStateHolder;
 
             localSpawnStream = new ReactiveCommand<Unit>();
         }
@@ -37,9 +42,10 @@ namespace Infrastructure.Network
 
             uint netId = player.GetComponent<NetworkIdentity>().netId;
 
-            ConnectionState connectionState = networkService.ReadState<ConnectionState>() ?? ConnectionState.Default;
+
+            ConnectionState connectionState = connectionStateHolder.State;
             connectionState?.Players?.Add(netId);
-            networkService.WriteState(connectionState);
+            connectionStateHolder.WriteState(connectionState);
         }
 
         protected override void RegisterClientMessages()

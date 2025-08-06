@@ -1,19 +1,16 @@
-﻿using System;
-using Infrastructure.InteractionService.Abstract;
+﻿using Infrastructure.InteractionService.Abstract;
+using Infrastructure.Network.Abstract;
+using MessagePack;
 
 namespace Gameplay.Interactable.BallInteraction
 {
-    [Serializable]
-    public class BallState : InteractableState
+    [MessagePackObject]
+    public class BallState : InteractableState, INetworkState
     {
         public static BallState Default => new BallState(0);
 
+        [Key(0)]
         public uint OwnerNetId { get; }
-
-        public BallState()
-        {
-
-        }
 
         public BallState(uint ownerNetId)
         {

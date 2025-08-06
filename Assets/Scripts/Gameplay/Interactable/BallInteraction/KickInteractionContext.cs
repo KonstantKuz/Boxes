@@ -1,41 +1,26 @@
-﻿using System;
-using Infrastructure;
-using Infrastructure.InteractionService.Abstract;
-using Mirror;
+﻿using Infrastructure.InteractionService.Abstract;
+using MessagePack;
 using UnityEngine;
 
 namespace Gameplay.Interactable.BallInteraction
 {
-    [Serializable]
+    [MessagePackObject]
     public class KickInteractionContext : InteractionContext
     {
+        [Key(0)]
         public readonly uint InitiatorNetId;
+
+        [Key(1)]
         public readonly Vector3 KickDirection;
+
+        [Key(2)]
         public readonly float KickForce;
-
-        public KickInteractionContext()
-        {
-
-        }
 
         public KickInteractionContext(uint initiatorNetId, Vector3 kickDirection, float kickForce = 0)
         {
             InitiatorNetId = initiatorNetId;
             KickDirection = kickDirection;
             KickForce = kickForce;
-        }
-
-        public static InteractionContext Read(NetworkReader reader)
-        {
-            return new KickInteractionContext(reader.ReadUInt(), reader.ReadVector3(), reader.ReadFloat());
-        }
-
-        public override void Write(NetworkWriter writer)
-        {
-            writer.WriteByte(TypeByteMapper.GetByteFromType<KickInteractionContext>());
-            writer.WriteUInt(InitiatorNetId);
-            writer.WriteVector3(KickDirection);
-            writer.WriteFloat(KickForce);
         }
     }
 }

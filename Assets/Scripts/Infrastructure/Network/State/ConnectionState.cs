@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
+using Infrastructure.Network.Abstract;
 using MessagePack;
 
-namespace Infrastructure.Network
+namespace Infrastructure.Network.State
 {
     [MessagePackObject]
     public class ConnectionState : INetworkState
