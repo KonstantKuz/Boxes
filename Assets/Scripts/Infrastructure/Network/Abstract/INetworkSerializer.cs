@@ -2,7 +2,7 @@
 {
     public interface INetworkSerializer
     {
-        byte[] Serialize<T>(T data) where T : INetworkState;
-        T Deserialize<T>(byte[] data) where T : INetworkState;
+        byte[] Serialize<T>(T data);
+        T Deserialize<T>(byte[] data);
     }
 }

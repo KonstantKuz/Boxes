@@ -15,10 +15,14 @@ namespace Configuration.Mediator
     [Serializable]
     public class CameraServiceMediator : ICameraServiceMediator, IInitializable
     {
+        [SerializeField]
+        private bool sharedMode;
+
         private INetworkFactory networkFactory;
         private INetworkStateHolder<ConnectionState> connectionStateHolder;
 
-        private Transform[] targets;
+        private Transform[] soloTargets;
+        private Transform[] sharedTargets;
 
         [Inject]
         private void Construct(
@@ -49,7 +53,10 @@ namespace Configuration.Mediator
 
         private void UpdateCameraTarget()
         {
-            targets = connectionStateHolder.State?.Players
+            soloTargets =
+                new []{NetworkClient.spawned.GetValueOrDefault(NetworkClient.localPlayer?.netId ?? 0)?.transform};
+
+            sharedTargets = connectionStateHolder.State?.Players
                 .Select(netId => NetworkClient.spawned.GetValueOrDefault(netId)?.transform)
                 .Where(item => item != null)
                 .ToArray();
@@ -57,7 +64,7 @@ namespace Configuration.Mediator
 
         Transform[] ICameraServiceMediator.GetTargets()
         {
-            return targets;
+            return sharedMode ? sharedTargets : soloTargets;
         }
     }
 }

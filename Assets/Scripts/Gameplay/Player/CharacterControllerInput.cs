@@ -7,6 +7,9 @@ namespace Gameplay.Player
 {
     public class CharacterControllerInput : CharacterInput
     {
+        [SerializeField]
+        private TurnTowardControllerVelocity turnController;
+
         private IInputService inputService;
         private Vector2 moveInput;
         private Vector2 lookInput;
@@ -30,6 +33,12 @@ namespace Gameplay.Player
         public override bool IsJumpKeyPressed()
         {
             return inputService.JumpAction.IsPressed();
+        }
+
+        private void Update()
+        {
+            Vector2 lookDirection = inputService.LookAction.ReadValue<Vector2>();
+            turnController.SetTargetDirection(lookDirection);
         }
     }
 }

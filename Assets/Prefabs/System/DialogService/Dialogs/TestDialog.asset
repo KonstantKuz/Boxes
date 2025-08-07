@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40732021d3474b2ea4be049a6f484cc7, type: 3}
   m_Name: TestDialog
   m_EditorClassIdentifier: 
+  guid: e9e2bc1b-e363-4347-b866-cf043424588c
   <Replicas>k__BackingField:
   - <Title>k__BackingField:
       m_TableReference:

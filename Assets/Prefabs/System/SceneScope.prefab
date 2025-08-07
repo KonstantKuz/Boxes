@@ -208,6 +208,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   networkService: {fileID: 6130401782108694326}
   connectionStateHolder: {fileID: 7651651436725115987}
+  networkSerializer:
+    rid: 2942314168798412802
+  references:
+    version: 2
+    RefIds:
+    - rid: 2942314168798412802
+      type: {class: MessagePackNetworkSerializer, ns: Infrastructure.Network, asm: Assembly-CSharp}
+      data: 
 --- !u!114 &6130401782108694326
 MonoBehaviour:
   m_ObjectHideFlags: 0

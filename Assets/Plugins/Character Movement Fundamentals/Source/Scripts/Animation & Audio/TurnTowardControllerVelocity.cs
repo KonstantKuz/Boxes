@@ -26,6 +26,8 @@ namespace CMF
 		//Whether the current controller momentum should be ignored when calculating the new direction;
 		public bool ignoreControllerMomentum = false;
 
+		private Vector2 targetDirection;
+
 		//Setup;
 		void Start () {
 			tr = transform;
@@ -36,7 +38,12 @@ namespace CMF
 			{
 				Debug.LogWarning("No controller script has been assigned to this 'TurnTowardControllerVelocity' component!", this);
 				this.enabled = false;
-			}	
+			}
+		}
+
+		public void SetTargetDirection(Vector3 targetDirection)
+		{
+			this.targetDirection = targetDirection;
 		}
 
 		void LateUpdate () {
@@ -47,6 +54,11 @@ namespace CMF
 				_velocity = controller.GetMovementVelocity();
 			else
 				_velocity = controller.GetVelocity();
+
+			if (targetDirection.sqrMagnitude > 0)
+			{
+				_velocity = new Vector3(targetDirection.x, 0, targetDirection.y);
+			}
 
 			//Project velocity onto a plane defined by the 'up' direction of the parent transform;
 			_velocity = Vector3.ProjectOnPlane(_velocity, parentTransform.up);
@@ -93,7 +105,7 @@ namespace CMF
 		}
 
 		void OnDisable()
-		{ 
+		{
 		}
 
 		void OnEnable()

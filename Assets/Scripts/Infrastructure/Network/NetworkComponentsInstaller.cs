@@ -14,15 +14,18 @@ namespace Infrastructure.Network
         [SerializeField]
         private ConnectionStateHolder connectionStateHolder;
 
+        [SerializeReference]
+        private INetworkSerializer networkSerializer;
+
         void IInstaller.InstallBindings(ContainerBuilder containerBuilder)
         {
             containerBuilder.AddSingleton(networkService, networkService.GetType().GetInterfaces());
+            containerBuilder.AddSingleton(connectionStateHolder, connectionStateHolder.GetType().GetInterfaces());
+            containerBuilder.AddSingleton(networkSerializer, networkSerializer.GetType().GetInterfaces());
 
             containerBuilder.AddSingleton(
                 (CustomNetworkManager) NetworkManager.singleton, typeof(CustomNetworkManager).GetInterfaces()
             );
-
-            containerBuilder.AddSingleton(connectionStateHolder, connectionStateHolder.GetType().GetInterfaces());
 
             TypeByteMapper byteMapper = TypeByteMapper.Build(typeof(INetworkState), typeof(INetworkCommand));
 

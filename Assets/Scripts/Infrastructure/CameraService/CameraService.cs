@@ -26,7 +26,7 @@ namespace Infrastructure.CameraService
 
             if (targets?.Length > 0)
             {
-                cameraTarget.position = targets.Select(item => item.position)
+                cameraTarget.position = targets.Select(item => item?.position ?? Vector3.zero)
                     .Aggregate((vector1, vector2) => vector1 + vector2) / targets.Length;
             }
         }

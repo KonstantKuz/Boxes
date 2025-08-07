@@ -42,7 +42,6 @@ namespace Infrastructure.Network
 
             uint netId = player.GetComponent<NetworkIdentity>().netId;
 
-
             ConnectionState connectionState = connectionStateHolder.State;
             connectionState?.Players?.Add(netId);
             connectionStateHolder.WriteState(connectionState);
@@ -73,12 +72,19 @@ namespace Infrastructure.Network
 
         private GameObject Spawn(GameObject prefab, Vector3 position, Quaternion rotation)
         {
+            if (prefab.gameObject.activeSelf)
+            {
+                prefab.gameObject.SetActive(false);
+            }
+
             GameObject spawned = Instantiate(prefab, position, rotation);
 
             if (spawned.TryGetComponent(out GameObjectInjector gameObjectContext))
             {
                 AttributeInjector.Inject(gameObjectContext, SceneManager.GetActiveScene().GetSceneContainer());
             }
+
+            spawned.gameObject.SetActive(true);
 
             return spawned;
         }

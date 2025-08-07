@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using Infrastructure.Network.Abstract;
-using MessagePack;
 using Mirror;
 using R3;
 using Reflex.Attributes;
@@ -11,29 +10,22 @@ namespace Infrastructure.Network
     public class NetworkService : NetworkBehaviour, INetworkService
     {
         private ITypeMapper<byte> typeMapper;
+        private INetworkSerializer serializer;
+
         private readonly Dictionary<Type, List<Action<byte[]>>> executionObservers = new();
         private readonly Dictionary<Type, List<Action<byte[]>>> reactionObservers = new();
 
         [Inject]
-        private void Construct(ITypeMapper<byte> typeMapper)
+        private void Construct(ITypeMapper<byte> typeMapper, INetworkSerializer serializer)
         {
             this.typeMapper = typeMapper;
-        }
-
-        byte[] INetworkSerializer.Serialize<T>(T data)
-        {
-            return MessagePackSerializer.Serialize(data);
-        }
-
-        T INetworkSerializer.Deserialize<T>(byte[] data)
-        {
-            return MessagePackSerializer.Deserialize<T>(data);
+            this.serializer = serializer;
         }
 
         void INetworkService.SendCommand<T>(T command)
         {
             byte type =  typeMapper.GetKey<T>();
-            byte[] payload = MessagePackSerializer.Serialize(command);
+            byte[] payload = serializer.Serialize(command);
             CmdSendCommand(type, payload);
         }
 
@@ -91,14 +83,14 @@ namespace Infrastructure.Network
             }
         }
 
-        private static Action<byte[]> InvokeObserver<T>(Action<T> observer)
+        private Action<byte[]> InvokeObserver<T>(Action<T> observer)
         {
             return data => InvokeObserver(observer, data);
         }
 
-        private static void InvokeObserver<T>(Action<T> observer, byte[] bytes)
+        private void InvokeObserver<T>(Action<T> observer, byte[] bytes)
         {
-            observer(MessagePackSerializer.Deserialize<T>(bytes));
+            observer(serializer.Deserialize<T>(bytes));
         }
     }
 }
