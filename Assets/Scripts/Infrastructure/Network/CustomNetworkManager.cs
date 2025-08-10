@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using Infrastructure.Bootstrap;
 using Infrastructure.Network.Abstract;
 using Infrastructure.Network.State;
@@ -8,6 +10,7 @@ using Reflex.Extensions;
 using Reflex.Injectors;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using GameObjectInjector = Infrastructure.Components.GameObjectInjector;
 
 namespace Infrastructure.Network
 {
@@ -21,6 +24,10 @@ namespace Infrastructure.Network
         private int previousSpawnedObjectsCount;
 
         ReactiveCommand<Unit> INetworkFactory.LocalSpawnStream => localSpawnStream;
+        public GameObject LocalPlayer => Spawned.GetValueOrDefault(NetworkClient.localPlayer?.netId ?? 0);
+
+        public Dictionary<uint, GameObject> Spawned =>
+            NetworkClient.spawned.ToDictionary(item => item.Key, item => item.Value.gameObject);
 
         [Inject]
         private void Construct(INetworkService networkService, INetworkStateHolder<ConnectionState> connectionStateHolder)
@@ -42,7 +49,7 @@ namespace Infrastructure.Network
 
             uint netId = player.GetComponent<NetworkIdentity>().netId;
 
-            ConnectionState connectionState = connectionStateHolder.State;
+            ConnectionState connectionState = connectionStateHolder.GetState();
             connectionState?.Players?.Add(netId);
             connectionStateHolder.WriteState(connectionState);
         }

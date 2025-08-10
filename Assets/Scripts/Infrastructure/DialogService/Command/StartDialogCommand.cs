@@ -1,5 +1,4 @@
 ﻿using System;
-using Infrastructure.Network;
 using Infrastructure.Network.Abstract;
 using MessagePack;
 

@@ -1,19 +1,16 @@
 ﻿using System;
 using Infrastructure.Bootstrap;
 using Infrastructure.InputService.Abstract;
-using UnityEngine.InputSystem;
 
 namespace Infrastructure.InputService
 {
+    [Serializable]
     public class InputService : IInputService, IInitializable, IDisposable
     {
         private GameInput input;
 
-        public InputAction LookAction => input.DefaultContext.Look;
-        public InputAction MoveAction => input.DefaultContext.Move;
-        public InputAction JumpAction => input.DefaultContext.Jump;
-        public InputAction InteractAction => input.DefaultContext.Interact;
-        public InputAction NextAction => input.DialogContext.Next;
+        GameInput.DefaultContextActions IInputService.DefaultContextActions => input.DefaultContext;
+        GameInput.DialogContextActions IInputService.DialogContextActions => input.DialogContext;
 
         void IInitializable.Initialize()
         {

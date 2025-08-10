@@ -1,14 +1,9 @@
-﻿using UnityEngine.InputSystem;
-
-namespace Infrastructure.InputService.Abstract
+﻿namespace Infrastructure.InputService.Abstract
 {
     public interface IInputService
     {
-        InputAction LookAction { get; }
-        InputAction MoveAction { get; }
-        InputAction JumpAction { get; }
-        InputAction InteractAction { get; }
-        InputAction NextAction { get; }
+        GameInput.DefaultContextActions  DefaultContextActions { get; }
+        GameInput.DialogContextActions  DialogContextActions { get; }
 
         void SwitchToDefaultContext();
         void SwitchToDialogContext();

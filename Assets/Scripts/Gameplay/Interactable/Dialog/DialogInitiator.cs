@@ -1,15 +1,44 @@
 ﻿using System.Linq;
 using Gameplay.Interactable.Abstract;
-using Infrastructure.InteractionService.Abstract;
+using Infrastructure.InputService.Abstract;
+using Reflex.Attributes;
+using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace Gameplay.Interactable.Dialog
 {
     public class DialogInitiator : InteractionInitiatorBase
     {
-        protected override void TryInteract(InputAction.CallbackContext ctx)
+        [SerializeField]
+        private float interactionDistance;
+
+        private IInputService inputService;
+
+        [Inject]
+        private void Construct(IInputService inputService)
         {
-            IInteractable dialogOwner = GetInteractablesAround()
+            this.inputService = inputService;
+        }
+
+        public override void OnStartLocalPlayer()
+        {
+            if (isLocalPlayer)
+            {
+                inputService.DefaultContextActions.Interact.performed += TryInteract;
+            }
+        }
+
+        public override void OnStopLocalPlayer()
+        {
+            if (isLocalPlayer)
+            {
+                inputService.DefaultContextActions.Interact.performed -= TryInteract;
+            }
+        }
+
+        private void TryInteract(InputAction.CallbackContext ctx)
+        {
+            DialogOwner dialogOwner = GetInteractablesAround(interactionDistance)
                 .Select(hit => hit.GetComponent<DialogOwner>())
                 .FirstOrDefault(owner => owner);
 
@@ -18,7 +47,7 @@ namespace Gameplay.Interactable.Dialog
                 return;
             }
 
-            dialogOwner.Interact(new DialogInteractionContext(netIdentity.netId));
+            dialogOwner.StartDialog(netIdentity.netId);
         }
     }
 }

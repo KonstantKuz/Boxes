@@ -22,22 +22,22 @@ namespace Gameplay.Player
 
         public override float GetHorizontalMovementInput()
         {
-            return inputService.MoveAction.ReadValue<Vector2>().x;
+            return inputService.DefaultContextActions.Move.ReadValue<Vector2>().x;
         }
 
         public override float GetVerticalMovementInput()
         {
-            return inputService.MoveAction.ReadValue<Vector2>().y;
+            return inputService.DefaultContextActions.Move.ReadValue<Vector2>().y;
         }
 
         public override bool IsJumpKeyPressed()
         {
-            return inputService.JumpAction.IsPressed();
+            return inputService.DefaultContextActions.Jump.IsPressed();
         }
 
         private void Update()
         {
-            Vector2 lookDirection = inputService.LookAction.ReadValue<Vector2>();
+            Vector2 lookDirection = inputService.DefaultContextActions.Aim.ReadValue<Vector2>();
             turnController.SetTargetDirection(lookDirection);
         }
     }

@@ -1,20 +1,17 @@
 ﻿using Infrastructure.DialogService;
 using Infrastructure.DialogService.Abstract;
-using Infrastructure.InteractionService.Abstract;
 using Mirror;
 using Reflex.Attributes;
 using UnityEngine;
 
 namespace Gameplay.Interactable.Dialog
 {
-    public class DialogOwner : NetworkBehaviour, IInteractable
+    public class DialogOwner : NetworkBehaviour
     {
         [SerializeField]
         private DialogSequence dialogSequence;
 
         private IDialogService dialogService;
-
-        public InteractableState State => null;
 
         [Inject]
         private void Construct(IDialogService dialogService)
@@ -22,9 +19,9 @@ namespace Gameplay.Interactable.Dialog
             this.dialogService = dialogService;
         }
 
-        void IInteractable.Interact(InteractionContext interactionContext)
+        public void StartDialog(uint initiatorId)
         {
-            dialogService.StartDialog(0, dialogSequence.Id);
+            dialogService.StartDialog(initiatorId, dialogSequence.Id);
         }
     }
 }

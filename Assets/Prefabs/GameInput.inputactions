@@ -6,7 +6,7 @@
             "id": "9afaa9a1-b744-40a0-8ecd-62ea94ee2db0",
             "actions": [
                 {
-                    "name": "Look",
+                    "name": "Aim",
                     "type": "Value",
                     "id": "9d97ba72-1278-4c9c-834c-5a65db1fa2b9",
                     "expectedControlType": "Vector2",
@@ -40,6 +40,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Action",
+                    "type": "Button",
+                    "id": "e7d8e1f9-550d-4d95-b8ea-df86cbfcad33",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -50,7 +59,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Look",
+                    "action": "Aim",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -61,7 +70,7 @@
                     "interactions": "",
                     "processors": "MouseToWorldDirection",
                     "groups": "",
-                    "action": "Look",
+                    "action": "Aim",
                     "isComposite": true,
                     "isPartOfComposite": false
                 },
@@ -72,7 +81,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Look",
+                    "action": "Aim",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -83,7 +92,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Look",
+                    "action": "Aim",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -167,7 +176,7 @@
                 {
                     "name": "",
                     "id": "54eaf279-2298-437f-be48-b7c9fce93c91",
-                    "path": "<Gamepad>/buttonSouth",
+                    "path": "<Gamepad>/buttonWest",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -189,11 +198,33 @@
                 {
                     "name": "",
                     "id": "3ffb95ef-23f2-48b7-a7ff-d840b7d35107",
-                    "path": "<Gamepad>/buttonWest",
+                    "path": "<Gamepad>/buttonSouth",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "51788e7d-3350-4289-834e-52e89f999c80",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Action",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d7ee6314-88eb-4a7f-b353-8483f0b93e60",
+                    "path": "<Gamepad>/rightTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Action",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
@@ -217,7 +248,7 @@
                 {
                     "name": "",
                     "id": "1c2c659b-daa8-4651-a69c-c6ac44ef5137",
-                    "path": "<Keyboard>/space",
+                    "path": "<Keyboard>/e",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -228,7 +259,7 @@
                 {
                     "name": "",
                     "id": "0d552764-d953-4632-a6b8-dc631ece649b",
-                    "path": "<Gamepad>/buttonSouth",
+                    "path": "<Gamepad>/buttonWest",
                     "interactions": "",
                     "processors": "",
                     "groups": "",

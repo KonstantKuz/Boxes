@@ -2,8 +2,9 @@
 using Infrastructure.Bootstrap;
 using Infrastructure.DialogService;
 using Infrastructure.DialogService.Abstract;
-using Infrastructure.Network;
+using Infrastructure.DialogService.State;
 using Infrastructure.Network.Abstract;
+using Infrastructure.Network.State;
 using Infrastructure.WindowService.Abstract;
 using Reflex.Attributes;
 using TMPro;
@@ -19,10 +20,13 @@ namespace UI.Dialog
         [SerializeField]
         private TextMeshProUGUI text;
 
-        private INetworkService networkService;
+        [SerializeField]
+        private TextMeshProUGUI readyPlayersCounter;
+
         private IWindowService windowService;
         private IDialogService dialogService;
         private INetworkStateHolder<DialogState> dialogStateHolder;
+        private INetworkStateHolder<ConnectionState> connectionStateHolder;
 
         private IDisposable dialogSubscription;
 
@@ -30,16 +34,16 @@ namespace UI.Dialog
 
         [Inject]
         private void Construct(
-            INetworkService networkService,
             IWindowService windowService,
             IDialogService dialogService,
-            INetworkStateHolder<DialogState> dialogStateHolder
+            INetworkStateHolder<DialogState> dialogStateHolder,
+            INetworkStateHolder<ConnectionState>  connectionStateHolder
         )
         {
-            this.networkService = networkService;
             this.windowService = windowService;
             this.dialogService = dialogService;
             this.dialogStateHolder = dialogStateHolder;
+            this.connectionStateHolder = connectionStateHolder;
         }
 
         void IInitializable.Initialize()
@@ -81,6 +85,12 @@ namespace UI.Dialog
 
             title.text = replica.Title.GetLocalizedString();
             text.text = replica.Message.GetLocalizedString();
+
+            int playersCount = connectionStateHolder.GetState().Players.Count;
+
+            readyPlayersCounter.text = playersCount > 1
+                ? $"{state.ReadyPlayers?.Count ?? 0}/{playersCount}"
+                : string.Empty;
         }
     }
 }

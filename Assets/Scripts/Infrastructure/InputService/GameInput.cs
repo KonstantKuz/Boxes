@@ -30,7 +30,7 @@ namespace Infrastructure.InputService
             ""id"": ""9afaa9a1-b744-40a0-8ecd-62ea94ee2db0"",
             ""actions"": [
                 {
-                    ""name"": ""Look"",
+                    ""name"": ""Aim"",
                     ""type"": ""Value"",
                     ""id"": ""9d97ba72-1278-4c9c-834c-5a65db1fa2b9"",
                     ""expectedControlType"": ""Vector2"",
@@ -64,6 +64,15 @@ namespace Infrastructure.InputService
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Action"",
+                    ""type"": ""Button"",
+                    ""id"": ""e7d8e1f9-550d-4d95-b8ea-df86cbfcad33"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -74,7 +83,7 @@ namespace Infrastructure.InputService
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Look"",
+                    ""action"": ""Aim"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -85,7 +94,7 @@ namespace Infrastructure.InputService
                     ""interactions"": """",
                     ""processors"": ""MouseToWorldDirection"",
                     ""groups"": """",
-                    ""action"": ""Look"",
+                    ""action"": ""Aim"",
                     ""isComposite"": true,
                     ""isPartOfComposite"": false
                 },
@@ -96,7 +105,7 @@ namespace Infrastructure.InputService
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Look"",
+                    ""action"": ""Aim"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -107,7 +116,7 @@ namespace Infrastructure.InputService
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Look"",
+                    ""action"": ""Aim"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -191,7 +200,7 @@ namespace Infrastructure.InputService
                 {
                     ""name"": """",
                     ""id"": ""54eaf279-2298-437f-be48-b7c9fce93c91"",
-                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""path"": ""<Gamepad>/buttonWest"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -213,11 +222,33 @@ namespace Infrastructure.InputService
                 {
                     ""name"": """",
                     ""id"": ""3ffb95ef-23f2-48b7-a7ff-d840b7d35107"",
-                    ""path"": ""<Gamepad>/buttonWest"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Jump"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""51788e7d-3350-4289-834e-52e89f999c80"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Action"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d7ee6314-88eb-4a7f-b353-8483f0b93e60"",
+                    ""path"": ""<Gamepad>/rightTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Action"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -241,7 +272,7 @@ namespace Infrastructure.InputService
                 {
                     ""name"": """",
                     ""id"": ""1c2c659b-daa8-4651-a69c-c6ac44ef5137"",
-                    ""path"": ""<Keyboard>/space"",
+                    ""path"": ""<Keyboard>/e"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -252,7 +283,7 @@ namespace Infrastructure.InputService
                 {
                     ""name"": """",
                     ""id"": ""0d552764-d953-4632-a6b8-dc631ece649b"",
-                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""path"": ""<Gamepad>/buttonWest"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -267,10 +298,11 @@ namespace Infrastructure.InputService
 }");
             // DefaultContext
             m_DefaultContext = asset.FindActionMap("DefaultContext", throwIfNotFound: true);
-            m_DefaultContext_Look = m_DefaultContext.FindAction("Look", throwIfNotFound: true);
+            m_DefaultContext_Aim = m_DefaultContext.FindAction("Aim", throwIfNotFound: true);
             m_DefaultContext_Move = m_DefaultContext.FindAction("Move", throwIfNotFound: true);
             m_DefaultContext_Interact = m_DefaultContext.FindAction("Interact", throwIfNotFound: true);
             m_DefaultContext_Jump = m_DefaultContext.FindAction("Jump", throwIfNotFound: true);
+            m_DefaultContext_Action = m_DefaultContext.FindAction("Action", throwIfNotFound: true);
             // DialogContext
             m_DialogContext = asset.FindActionMap("DialogContext", throwIfNotFound: true);
             m_DialogContext_Next = m_DialogContext.FindAction("Next", throwIfNotFound: true);
@@ -341,18 +373,20 @@ namespace Infrastructure.InputService
         // DefaultContext
         private readonly InputActionMap m_DefaultContext;
         private List<IDefaultContextActions> m_DefaultContextActionsCallbackInterfaces = new List<IDefaultContextActions>();
-        private readonly InputAction m_DefaultContext_Look;
+        private readonly InputAction m_DefaultContext_Aim;
         private readonly InputAction m_DefaultContext_Move;
         private readonly InputAction m_DefaultContext_Interact;
         private readonly InputAction m_DefaultContext_Jump;
+        private readonly InputAction m_DefaultContext_Action;
         public struct DefaultContextActions
         {
             private @GameInput m_Wrapper;
             public DefaultContextActions(@GameInput wrapper) { m_Wrapper = wrapper; }
-            public InputAction @Look => m_Wrapper.m_DefaultContext_Look;
+            public InputAction @Aim => m_Wrapper.m_DefaultContext_Aim;
             public InputAction @Move => m_Wrapper.m_DefaultContext_Move;
             public InputAction @Interact => m_Wrapper.m_DefaultContext_Interact;
             public InputAction @Jump => m_Wrapper.m_DefaultContext_Jump;
+            public InputAction @Action => m_Wrapper.m_DefaultContext_Action;
             public InputActionMap Get() { return m_Wrapper.m_DefaultContext; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -362,9 +396,9 @@ namespace Infrastructure.InputService
             {
                 if (instance == null || m_Wrapper.m_DefaultContextActionsCallbackInterfaces.Contains(instance)) return;
                 m_Wrapper.m_DefaultContextActionsCallbackInterfaces.Add(instance);
-                @Look.started += instance.OnLook;
-                @Look.performed += instance.OnLook;
-                @Look.canceled += instance.OnLook;
+                @Aim.started += instance.OnAim;
+                @Aim.performed += instance.OnAim;
+                @Aim.canceled += instance.OnAim;
                 @Move.started += instance.OnMove;
                 @Move.performed += instance.OnMove;
                 @Move.canceled += instance.OnMove;
@@ -374,13 +408,16 @@ namespace Infrastructure.InputService
                 @Jump.started += instance.OnJump;
                 @Jump.performed += instance.OnJump;
                 @Jump.canceled += instance.OnJump;
+                @Action.started += instance.OnAction;
+                @Action.performed += instance.OnAction;
+                @Action.canceled += instance.OnAction;
             }
 
             private void UnregisterCallbacks(IDefaultContextActions instance)
             {
-                @Look.started -= instance.OnLook;
-                @Look.performed -= instance.OnLook;
-                @Look.canceled -= instance.OnLook;
+                @Aim.started -= instance.OnAim;
+                @Aim.performed -= instance.OnAim;
+                @Aim.canceled -= instance.OnAim;
                 @Move.started -= instance.OnMove;
                 @Move.performed -= instance.OnMove;
                 @Move.canceled -= instance.OnMove;
@@ -390,6 +427,9 @@ namespace Infrastructure.InputService
                 @Jump.started -= instance.OnJump;
                 @Jump.performed -= instance.OnJump;
                 @Jump.canceled -= instance.OnJump;
+                @Action.started -= instance.OnAction;
+                @Action.performed -= instance.OnAction;
+                @Action.canceled -= instance.OnAction;
             }
 
             public void RemoveCallbacks(IDefaultContextActions instance)
@@ -455,10 +495,11 @@ namespace Infrastructure.InputService
         public DialogContextActions @DialogContext => new DialogContextActions(this);
         public interface IDefaultContextActions
         {
-            void OnLook(InputAction.CallbackContext context);
+            void OnAim(InputAction.CallbackContext context);
             void OnMove(InputAction.CallbackContext context);
             void OnInteract(InputAction.CallbackContext context);
             void OnJump(InputAction.CallbackContext context);
+            void OnAction(InputAction.CallbackContext context);
         }
         public interface IDialogContextActions
         {

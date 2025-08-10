@@ -1,8 +1,6 @@
 ﻿using System;
-using Infrastructure.Bootstrap;
 using Infrastructure.DialogService.Abstract;
 using Reflex.Attributes;
-// ReSharper disable ConvertToAutoProperty
 
 namespace Infrastructure.DialogService
 {

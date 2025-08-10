@@ -1,5 +1,5 @@
-﻿using Configuration.State;
-using Infrastructure.DialogService.Abstract;
+﻿using Infrastructure.DialogService.Abstract;
+using Infrastructure.DialogService.State;
 using Reflex.Core;
 using UnityEngine;
 

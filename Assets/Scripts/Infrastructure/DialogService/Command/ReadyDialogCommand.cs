@@ -1,5 +1,4 @@
-﻿using Infrastructure.Network;
-using Infrastructure.Network.Abstract;
+﻿using Infrastructure.Network.Abstract;
 using MessagePack;
 
 namespace Infrastructure.DialogService.Command

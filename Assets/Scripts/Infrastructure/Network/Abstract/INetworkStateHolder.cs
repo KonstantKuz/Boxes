@@ -4,7 +4,7 @@ namespace Infrastructure.Network.Abstract
 {
     public interface INetworkStateHolder<T> where T : INetworkState
     {
-        T State { get; }
+        T GetState();
 
         void WriteState(T state);
 

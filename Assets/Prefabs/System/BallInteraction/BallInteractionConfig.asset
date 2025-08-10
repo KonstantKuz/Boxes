@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28189ddb150a401d8b8b52ee2512b72d, type: 3}
+  m_Name: BallInteractionConfig
+  m_EditorClassIdentifier: 
+  <CaptureMinDistance>k__BackingField: 1.5
+  <KickMinDistance>k__BackingField: 2.5
+  <KickSpeedModifier>k__BackingField: 0.25
+  <MinSpeed>k__BackingField: 10
+  <MaxSpeed>k__BackingField: 20
+  <MaxHeight>k__BackingField: 0.5
+  <DampingStrength>k__BackingField: 50
+  <DecayDistance>k__BackingField: 10
+  <OutOfBoundsPullForce>k__BackingField: 20
+  <MaxKicksCount>k__BackingField: 4

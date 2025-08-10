@@ -5,7 +5,6 @@ using Infrastructure.Bootstrap;
 using Infrastructure.CameraService;
 using Infrastructure.Network.Abstract;
 using Infrastructure.Network.State;
-using Mirror;
 using R3;
 using Reflex.Attributes;
 using UnityEngine;
@@ -53,11 +52,10 @@ namespace Configuration.Mediator
 
         private void UpdateCameraTarget()
         {
-            soloTargets =
-                new []{NetworkClient.spawned.GetValueOrDefault(NetworkClient.localPlayer?.netId ?? 0)?.transform};
+            soloTargets = new []{networkFactory.LocalPlayer?.transform};
 
-            sharedTargets = connectionStateHolder.State?.Players
-                .Select(netId => NetworkClient.spawned.GetValueOrDefault(netId)?.transform)
+            sharedTargets = connectionStateHolder.GetState()?.Players
+                .Select(netId => networkFactory.Spawned.GetValueOrDefault(netId)?.transform)
                 .Where(item => item != null)
                 .ToArray();
         }

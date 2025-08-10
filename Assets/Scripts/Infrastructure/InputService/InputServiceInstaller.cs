@@ -1,13 +1,21 @@
-﻿using Reflex.Core;
+﻿using Infrastructure.InputService.Abstract;
+using Reflex.Core;
 using UnityEngine;
 
 namespace Infrastructure.InputService
 {
     public class InputServiceInstaller : MonoBehaviour, IInstaller
     {
+        [SerializeReference]
+        private IInputService inputService;
+
+        [SerializeReference]
+        private IInputServiceMediator mediator;
+
         void IInstaller.InstallBindings(ContainerBuilder containerBuilder)
         {
-            containerBuilder.AddSingleton(typeof(InputService), typeof(InputService).GetInterfaces());
+            containerBuilder.AddSingleton(inputService, inputService.GetType().GetInterfaces());
+            containerBuilder.AddSingleton(mediator, mediator.GetType().GetInterfaces());
         }
     }
 }

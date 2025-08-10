@@ -5,8 +5,8 @@ using Infrastructure.Bootstrap;
 using Infrastructure.DialogService;
 using Infrastructure.DialogService.Abstract;
 using Infrastructure.DialogService.Command;
+using Infrastructure.DialogService.State;
 using Infrastructure.InputService.Abstract;
-using Infrastructure.Network;
 using Infrastructure.Network.Abstract;
 using Infrastructure.WindowService.Abstract;
 using Mirror;
@@ -79,7 +79,7 @@ namespace Configuration.Mediator
         {
             windowService.ShowWindow(dialogWindowType.Id);
             inputService.SwitchToDialogContext();
-            inputService.NextAction.performed += OnLocalPlayerReady;
+            inputService.DialogContextActions.Next.performed += OnLocalPlayerReady;
         }
 
         private void OnLocalPlayerReady(InputAction.CallbackContext context)
@@ -91,12 +91,12 @@ namespace Configuration.Mediator
         {
             windowService.HideWindow(dialogWindowType.Id);
             inputService.SwitchToDefaultContext();
-            inputService.NextAction.performed -= OnLocalPlayerReady;
+            inputService.DialogContextActions.Next.performed -= OnLocalPlayerReady;
         }
 
         private void UpdateDialogState(ReadyDialogCommand command)
         {
-            DialogState dialogState = dialogStateHolder.State;
+            DialogState dialogState = dialogStateHolder.GetState();
 
             HashSet<uint> readyPlayers = dialogState.ReadyPlayers ?? new HashSet<uint>();
 

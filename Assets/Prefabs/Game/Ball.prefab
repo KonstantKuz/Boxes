@@ -205,7 +205,9 @@ MonoBehaviour:
   syncDirection: 1
   syncMode: 0
   syncInterval: 0
+  config: {fileID: 11400000, guid: 2c8a617761150bd4d957bc207bb0cde3, type: 2}
   ballStateHolder: {fileID: 7375889129080995096}
+  collider: {fileID: 8578563986595612618}
 --- !u!114 &7375889129080995096
 MonoBehaviour:
   m_ObjectHideFlags: 0

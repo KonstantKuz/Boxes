@@ -5,13 +5,16 @@ namespace Infrastructure.Network.State
 {
     public class ConnectionStateHolder : NetworkStateHolderBase, INetworkStateHolder<ConnectionState>
     {
-        ConnectionState INetworkStateHolder<ConnectionState>.State => this.GetStateOrDefault<ConnectionState>();
-
         public override void OnStartServer()
         {
             base.OnStartServer();
 
             WriteState(ConnectionState.Default);
+        }
+
+        ConnectionState INetworkStateHolder<ConnectionState>.GetState()
+        {
+            return this.GetStateOrDefault<ConnectionState>();
         }
 
         void INetworkStateHolder<ConnectionState>.WriteState(ConnectionState state)
