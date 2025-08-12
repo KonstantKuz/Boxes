@@ -15,9 +15,6 @@ namespace Gameplay.Interactable.BallInteraction.Components
         private const float InterpolationSpeed = 20f;
 
         [SerializeField]
-        private BallInteractionConfig config;
-
-        [SerializeField]
         private BallStateHolder ballStateHolder;
 
         [SerializeField]
@@ -35,17 +32,14 @@ namespace Gameplay.Interactable.BallInteraction.Components
 
         private NetworkRigidbodyExtended NetworkRigidbody =>
             networkRigidbody ??= GetComponent<NetworkRigidbodyExtended>();
-
         private NetworkTransformExtended NetworkTransform =>
             networkTransform ??= GetComponent<NetworkTransformExtended>();
 
         private Rigidbody Rigidbody => NetworkRigidbody.Rigidbody;
-
         private INetworkStateHolder<BallState> BallStateHolder => ballStateHolder;
-
         public Bounds Bounds => collider.bounds;
-
         private Vector3 Velocity => Rigidbody.velocity;
+        private BallInteractionConfig Config => ballInteractionMediator.Config;
 
         [Inject]
         private void Construct(
@@ -70,11 +64,6 @@ namespace Gameplay.Interactable.BallInteraction.Components
             ballInteractionMediator.RegisterBall(this);
         }
 
-        public void DisplayDirection(Vector2 direction)
-        {
-
-        }
-
         private void CmdHandleKick(KickCommand kickContext)
         {
             BallStateHolder.WriteState(BallState.Default);
@@ -84,10 +73,11 @@ namespace Gameplay.Interactable.BallInteraction.Components
 
             kicksCount++;
 
-            kicksCount = Math.Clamp(kicksCount, 0, config.MaxKicksCount);
+            kicksCount = Math.Clamp(kicksCount, 0, Config.MaxKicksCount);
 
-            float targetSpeed = (1.0f + config.KickSpeedModifier * kicksCount) * config.MinSpeed;
+            float targetSpeed = (1.0f + Config.KickSpeedModifier * kicksCount) * Config.MinSpeed;
 
+            Rigidbody.isKinematic = false;
             Rigidbody.velocity = kickContext.KickDirection.normalized * targetSpeed;
             distanceSinceLastKick = 0;
             Debug.Log("ball kicked");
@@ -106,11 +96,6 @@ namespace Gameplay.Interactable.BallInteraction.Components
 
         private void Update()
         {
-            if (!isServer)
-            {
-                return;
-            }
-
             uint ownerNetId = BallStateHolder.GetState()?.OwnerNetId ?? 0;
 
             if (
@@ -137,10 +122,10 @@ namespace Gameplay.Interactable.BallInteraction.Components
 
             distanceSinceLastKick += Velocity.magnitude * Time.fixedDeltaTime;
 
-            if (transform.position.y > config.MaxHeight)
+            if (transform.position.y > Config.MaxHeight)
             {
-                float heightExcess = transform.position.y - config.MaxHeight;
-                float verticalDampingForce = heightExcess * config.DampingStrength;
+                float heightExcess = transform.position.y - Config.MaxHeight;
+                float verticalDampingForce = heightExcess * Config.DampingStrength;
                 Rigidbody.AddForce(Vector3.down * verticalDampingForce, ForceMode.Acceleration);
             }
 
@@ -165,7 +150,7 @@ namespace Gameplay.Interactable.BallInteraction.Components
                 else
                 {
                     float distanceToPlane = outOfBoundsSide.GetDistanceToPoint(transform.position);
-                    Vector3 reboundForce = simplifiedNormal * Mathf.Abs(distanceToPlane) * config.OutOfBoundsPullForce;
+                    Vector3 reboundForce = simplifiedNormal * Mathf.Abs(distanceToPlane) * Config.OutOfBoundsPullForce;
                     Rigidbody.AddForce(reboundForce, ForceMode.Force);
                 }
 
@@ -185,10 +170,10 @@ namespace Gameplay.Interactable.BallInteraction.Components
 
             if (kicksCount > 0)
             {
-                float resetSpeed = (1.0f + config.KickSpeedModifier * (kicksCount - 1)) * config.MinSpeed;
-                float initialSpeed = (1.0f + config.KickSpeedModifier * kicksCount) * config.MinSpeed;
+                float resetSpeed = (1.0f + Config.KickSpeedModifier * (kicksCount - 1)) * Config.MinSpeed;
+                float initialSpeed = (1.0f + Config.KickSpeedModifier * kicksCount) * Config.MinSpeed;
 
-                float currentSpeed = Mathf.Lerp(initialSpeed, resetSpeed, distanceSinceLastKick / config.DecayDistance);
+                float currentSpeed = Mathf.Lerp(initialSpeed, resetSpeed, distanceSinceLastKick / Config.DecayDistance);
 
                 Rigidbody.velocity = Velocity.normalized * currentSpeed;
 
@@ -200,9 +185,9 @@ namespace Gameplay.Interactable.BallInteraction.Components
                 Debug.Log($"Kicks count = {kicksCount}. Velocity = {Velocity.magnitude}. Reset Speed = {resetSpeed}");
             }
 
-            if (Velocity.magnitude > config.MaxSpeed)
+            if (Velocity.magnitude > Config.MaxSpeed)
             {
-                Rigidbody.velocity = Velocity.normalized * config.MaxSpeed;
+                Rigidbody.velocity = Velocity.normalized * Config.MaxSpeed;
             }
         }
     }

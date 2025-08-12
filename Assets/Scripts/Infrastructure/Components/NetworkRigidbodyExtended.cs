@@ -15,6 +15,7 @@ namespace Infrastructure.Components
         [Command(requiresAuthority = false)]
         public void CmdSetEnabled(bool value)
         {
+            Reliable.enabled = value;
             RpcSetEnabled(value);
         }
 
@@ -27,6 +28,7 @@ namespace Infrastructure.Components
         [Command(requiresAuthority = false)]
         public void CmdSetIsKinematic(bool value)
         {
+            Rigidbody.isKinematic = value;
             RpcSetIsKinematic(value);
         }
 

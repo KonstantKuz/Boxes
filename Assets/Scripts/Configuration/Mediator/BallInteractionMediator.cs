@@ -26,6 +26,8 @@ namespace Configuration.Mediator
         private Ball ball;
         private IBallInteractionInitiator initiator;
 
+        BallInteractionConfig IBallInteractionMediator.Config => ballInteractionConfig;
+
         [Inject]
         private void Construct(IInputService inputService, INetworkService networkService, ICameraService cameraService)
         {
@@ -53,6 +55,23 @@ namespace Configuration.Mediator
         bool IBallInteractionMediator.IsBallOutOfBounds(out Plane outOfBoundsSide)
         {
             return !cameraService.IsVisible(ball.Bounds, out outOfBoundsSide);
+        }
+
+        bool IBallInteractionMediator.IsPredictionVisible(out Vector3 direction)
+        {
+            direction = Vector3.zero;
+
+            if (initiator == null)
+            {
+                return false;
+            }
+
+            direction = initiator.KickDirection;
+
+            bool isInRange =
+                Vector3.Distance(initiator.Position, ball.transform.position) < ballInteractionConfig.KickMinDistance;
+
+            return isInRange && inputService.DefaultContextActions.Aim.IsPressed();
         }
 
         private void TryCaptureBall(InputAction.CallbackContext context)

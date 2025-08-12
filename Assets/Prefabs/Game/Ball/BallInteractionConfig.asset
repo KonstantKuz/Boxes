@@ -15,8 +15,8 @@ MonoBehaviour:
   <CaptureMinDistance>k__BackingField: 1.5
   <KickMinDistance>k__BackingField: 2.5
   <KickSpeedModifier>k__BackingField: 0.25
-  <MinSpeed>k__BackingField: 10
-  <MaxSpeed>k__BackingField: 20
+  <MinSpeed>k__BackingField: 20
+  <MaxSpeed>k__BackingField: 50
   <MaxHeight>k__BackingField: 0.5
   <DampingStrength>k__BackingField: 50
   <DecayDistance>k__BackingField: 10
