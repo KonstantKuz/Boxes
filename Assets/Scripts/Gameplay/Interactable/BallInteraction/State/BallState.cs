@@ -4,16 +4,20 @@ using MessagePack;
 namespace Gameplay.Interactable.BallInteraction.State
 {
     [MessagePackObject]
-    public class BallState : INetworkState
+    public struct BallState : INetworkState
     {
-        public static BallState Default => new(0);
+        public static BallState Default => new(0, 0);
 
         [Key(0)]
         public uint OwnerNetId { get; }
 
-        public BallState(uint ownerNetId)
+        [Key(1)]
+        public byte KicksCount { get; }
+
+        public BallState(uint ownerNetId, byte kicksCount)
         {
             OwnerNetId = ownerNetId;
+            KicksCount = kicksCount;
         }
     }
 }

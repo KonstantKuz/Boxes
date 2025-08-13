@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Infrastructure.Bootstrap;
+using Infrastructure.Components;
 using Infrastructure.Network.Abstract;
 using Infrastructure.Network.State;
 using Mirror;
@@ -10,7 +11,6 @@ using Reflex.Extensions;
 using Reflex.Injectors;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using GameObjectInjector = Infrastructure.Components.GameObjectInjector;
 
 namespace Infrastructure.Network
 {
@@ -50,7 +50,7 @@ namespace Infrastructure.Network
             uint netId = player.GetComponent<NetworkIdentity>().netId;
 
             ConnectionState connectionState = connectionStateHolder.GetState();
-            connectionState?.Players?.Add(netId);
+            connectionState.Players?.Add(netId);
             connectionStateHolder.WriteState(connectionState);
         }
 
@@ -79,14 +79,21 @@ namespace Infrastructure.Network
 
         private GameObject Spawn(GameObject prefab, Vector3 position, Quaternion rotation)
         {
-            if (prefab.gameObject.activeSelf)
+            bool wasPrefabActive = prefab.activeSelf;
+
+            if (wasPrefabActive)
             {
                 prefab.gameObject.SetActive(false);
             }
 
             GameObject spawned = Instantiate(prefab, position, rotation);
 
-            if (spawned.TryGetComponent(out GameObjectInjector gameObjectContext))
+            if (wasPrefabActive)
+            {
+                prefab.gameObject.SetActive(true);
+            }
+
+            if (spawned.TryGetComponent(out GameObjectScope gameObjectContext))
             {
                 AttributeInjector.Inject(gameObjectContext, SceneManager.GetActiveScene().GetSceneContainer());
             }

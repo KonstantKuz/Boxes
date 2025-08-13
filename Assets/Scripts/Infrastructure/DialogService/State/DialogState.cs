@@ -6,7 +6,7 @@ using MessagePack;
 namespace Infrastructure.DialogService.State
 {
     [MessagePackObject]
-    public class DialogState : INetworkState
+    public struct DialogState : INetworkState
     {
         public static DialogState Default => new(Guid.Empty, 0, null);
 

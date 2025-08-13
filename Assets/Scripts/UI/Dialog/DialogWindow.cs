@@ -68,25 +68,20 @@ namespace UI.Dialog
 
         private void OnDialogStateChanged(DialogState state)
         {
-            if (state == null)
+            if (
+                !dialogService.TryGetDialog(state.DialogId, out DialogSequence dialogSequence) ||
+                !dialogSequence.TryGetReplica(state.ReplicaIndex, out DialogReplica replica)
+            )
             {
                 title.text = string.Empty;
                 text.text = string.Empty;
                 return;
             }
 
-            if (
-                !dialogService.TryGetDialog(state.DialogId, out DialogSequence dialogSequence) ||
-                !dialogSequence.TryGetReplica(state.ReplicaIndex, out DialogReplica replica)
-            )
-            {
-                return;
-            }
-
             title.text = replica.Title.GetLocalizedString();
             text.text = replica.Message.GetLocalizedString();
 
-            int playersCount = connectionStateHolder.GetState().Players.Count;
+            int playersCount = connectionStateHolder.GetState().Players?.Count ?? 0;
 
             readyPlayersCounter.text = playersCount > 1
                 ? $"{state.ReadyPlayers?.Count ?? 0}/{playersCount}"

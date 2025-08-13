@@ -12,7 +12,7 @@ using UnityEngine;
 namespace Configuration.Mediator
 {
     [Serializable]
-    public class CameraServiceMediator : ICameraServiceMediator, IInitializable
+    public partial class CameraServiceMediator : ICameraServiceMediator, IInitializable
     {
         [SerializeField]
         private bool sharedMode;
@@ -54,7 +54,7 @@ namespace Configuration.Mediator
         {
             soloTargets = new []{networkFactory.LocalPlayer?.transform};
 
-            sharedTargets = connectionStateHolder.GetState()?.Players
+            sharedTargets = connectionStateHolder.GetState().Players?
                 .Select(netId => networkFactory.Spawned.GetValueOrDefault(netId)?.transform)
                 .Where(item => item != null)
                 .ToArray();

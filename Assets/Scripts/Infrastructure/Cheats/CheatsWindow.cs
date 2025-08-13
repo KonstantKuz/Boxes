@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Infrastructure.InputService.Abstract;
 using Reflex.Attributes;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -17,6 +18,7 @@ namespace Infrastructure.Cheats
         [SerializeField]
         private InputAction cheatsAction;
 
+        private IInputService inputService;
         private List<ICheatsProvider> providers;
         private bool isActive;
         private Vector2 scrollPosition;
@@ -24,17 +26,36 @@ namespace Infrastructure.Cheats
         private Rect cheatsWindowRect;
 
         [Inject]
-        private void Construct(IEnumerable<ICheatsProvider> providers)
+        private void Construct(IInputService inputService, IEnumerable<ICheatsProvider> providers)
         {
+            this.inputService = inputService;
             this.providers = providers.ToList();
         }
 
         private void Awake()
         {
             cheatsAction.Enable();
-            cheatsAction.performed += _ => isActive = !isActive;
+            cheatsAction.performed += OnCheatsToggle;
 
-            cheatsWindowRect = new Rect(Screen.width / 2f, Screen.height / 2f, windowWidth, windowHeight);
+            Vector2 position = new Vector2(Screen.width / 2f - windowWidth / 2, Screen.height / 2f - windowHeight / 2);
+            Vector2 size = new Vector2(windowWidth, windowHeight);
+            cheatsWindowRect = new Rect(position, size);
+        }
+
+        private void OnCheatsToggle(InputAction.CallbackContext context)
+        {
+            isActive = !isActive;
+
+            if (isActive)
+            {
+                inputService.DefaultContextActions.Disable();
+                inputService.DialogContextActions.Disable();
+            }
+            else
+            {
+                inputService.DefaultContextActions.Enable();
+                inputService.DialogContextActions.Enable();
+            }
         }
 
         private void OnGUI()

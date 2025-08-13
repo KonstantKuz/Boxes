@@ -5,7 +5,7 @@ using MessagePack;
 namespace Infrastructure.Network.State
 {
     [MessagePackObject]
-    public class ConnectionState : INetworkState
+    public struct ConnectionState : INetworkState
     {
         public static readonly ConnectionState Default = new() {Players = new HashSet<uint>()};
 

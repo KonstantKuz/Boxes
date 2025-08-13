@@ -1,4 +1,5 @@
 ﻿using System;
+using Infrastructure.Components;
 using Reflex.Core;
 using Reflex.Extensions;
 using Reflex.Injectors;
@@ -23,6 +24,12 @@ namespace Infrastructure.Bootstrap
             foreach (IPostBuildInjectable postBuildInjectable in container.All<IPostBuildInjectable>())
             {
                 AttributeInjector.Inject(postBuildInjectable, container);
+
+                if (postBuildInjectable is MonoBehaviour mono &&
+                    mono.TryGetComponent(out GameObjectScope gameObjectScope))
+                {
+                    AttributeInjector.Inject(gameObjectScope, container);
+                }
             }
 
             foreach (IInitializable initializable in container.All<IInitializable>())

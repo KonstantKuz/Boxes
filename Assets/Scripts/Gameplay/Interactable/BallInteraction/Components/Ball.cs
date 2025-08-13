@@ -20,6 +20,9 @@ namespace Gameplay.Interactable.BallInteraction.Components
         [SerializeField]
         private Collider collider;
 
+        [SerializeField]
+        private GameObject statusEffect;
+
         private INetworkService networkService;
         private INetworkFactory networkFactory;
         private IBallInteractionMediator ballInteractionMediator;
@@ -27,7 +30,6 @@ namespace Gameplay.Interactable.BallInteraction.Components
         private NetworkRigidbodyExtended networkRigidbody;
         private NetworkTransformExtended networkTransform;
         private Transform socketTransform;
-        private int kicksCount;
         private float distanceSinceLastKick;
 
         private NetworkRigidbodyExtended NetworkRigidbody =>
@@ -36,10 +38,10 @@ namespace Gameplay.Interactable.BallInteraction.Components
             networkTransform ??= GetComponent<NetworkTransformExtended>();
 
         private Rigidbody Rigidbody => NetworkRigidbody.Rigidbody;
-        private INetworkStateHolder<BallState> BallStateHolder => ballStateHolder;
         public Bounds Bounds => collider.bounds;
         private Vector3 Velocity => Rigidbody.velocity;
         private BallInteractionConfig Config => ballInteractionMediator.Config;
+        public INetworkStateHolder<BallState> StateHolder => ballStateHolder;
 
         [Inject]
         private void Construct(
@@ -55,8 +57,8 @@ namespace Gameplay.Interactable.BallInteraction.Components
 
         public override void OnStartServer()
         {
-            networkService.ObserveToExecute<KickCommand>(CmdHandleKick);
-            networkService.ObserveToExecute<CaptureCommand>(CmdHandleCapture);
+            networkService.ObserveToExecute<KickCommand>(ExecuteKick);
+            networkService.ObserveToExecute<CaptureCommand>(ExecuteCapture);
         }
 
         public override void OnStartClient()
@@ -64,16 +66,15 @@ namespace Gameplay.Interactable.BallInteraction.Components
             ballInteractionMediator.RegisterBall(this);
         }
 
-        private void CmdHandleKick(KickCommand kickContext)
+        private void ExecuteKick(KickCommand kickContext)
         {
-            BallStateHolder.WriteState(BallState.Default);
-
             NetworkRigidbody.CmdSetEnabled(true);
             NetworkRigidbody.CmdSetIsKinematic(false);
 
-            kicksCount++;
-
-            kicksCount = Math.Clamp(kicksCount, 0, Config.MaxKicksCount);
+            BallState state = StateHolder.GetState();
+            byte kicksCount = (byte) (state.KicksCount + 1);
+            kicksCount = (byte) Math.Clamp(kicksCount, 0, Config.MaxKicksCount);
+            StateHolder.WriteState(new BallState(0, kicksCount));
 
             float targetSpeed = (1.0f + Config.KickSpeedModifier * kicksCount) * Config.MinSpeed;
 
@@ -83,32 +84,34 @@ namespace Gameplay.Interactable.BallInteraction.Components
             Debug.Log("ball kicked");
         }
 
-        private void CmdHandleCapture(CaptureCommand captureContext)
+        private void ExecuteCapture(CaptureCommand captureContext)
         {
-            BallStateHolder.WriteState(new BallState(captureContext.CaptureRootNetId));
+            StateHolder.WriteState(new BallState(captureContext.CaptureRootNetId, 0));
 
             NetworkRigidbody.CmdSetIsKinematic(true);
             NetworkRigidbody.CmdSetEnabled(false);
 
-            kicksCount = 0;
             distanceSinceLastKick = 0;
+        }
+
+        private void ExecuteResetCounter()
+        {
+            StateHolder.WriteState(BallState.Default);
         }
 
         private void Update()
         {
-            uint ownerNetId = BallStateHolder.GetState()?.OwnerNetId ?? 0;
+            BallState state = StateHolder.GetState();
+
+            statusEffect.SetActive(state.KicksCount >= Config.MaxKicksCount);
 
             if (
-                !networkFactory.Spawned.TryGetValue(ownerNetId, out GameObject owner) ||
+                !networkFactory.Spawned.TryGetValue(state.OwnerNetId, out GameObject owner) ||
                 !owner.TryGetComponent(out IBallInteractionInitiator ballInteractionInitiator)
             )
             {
                 return;
             }
-
-            // transform.position = Vector3.Lerp(
-            //     transform.position, ballInteractionInitiator.BallSocket.position, InterpolationSpeed * Time.deltaTime
-            // );
 
             transform.position = ballInteractionInitiator.BallSocket.position;
         }
@@ -120,12 +123,22 @@ namespace Gameplay.Interactable.BallInteraction.Components
                 return;
             }
 
+            BallState state = StateHolder.GetState();
+
+            if (state.OwnerNetId != 0)
+            {
+                return;
+            }
+
             distanceSinceLastKick += Velocity.magnitude * Time.fixedDeltaTime;
 
             if (transform.position.y > Config.MaxHeight)
             {
                 float heightExcess = transform.position.y - Config.MaxHeight;
                 float verticalDampingForce = heightExcess * Config.DampingStrength;
+                Vector3 velocity = Rigidbody.velocity;
+                velocity.y /= Config.DampingStrength;
+                Rigidbody.velocity = velocity;
                 Rigidbody.AddForce(Vector3.down * verticalDampingForce, ForceMode.Acceleration);
             }
 
@@ -153,20 +166,9 @@ namespace Gameplay.Interactable.BallInteraction.Components
                     Vector3 reboundForce = simplifiedNormal * Mathf.Abs(distanceToPlane) * Config.OutOfBoundsPullForce;
                     Rigidbody.AddForce(reboundForce, ForceMode.Force);
                 }
-
-                // Vector3 projectedNormal = Vector3.ProjectOnPlane(outOfBoundsSide.normal, Vector3.up).normalized;
-                // if (Vector3.Dot(velocity, -projectedNormal) > 0)
-                // {
-                //     Vector3 reflectedVelocity = Vector3.Reflect(velocity, projectedNormal);
-                //     Rigidbody.velocity = reflectedVelocity;
-                // }
-                // else
-                // {
-                //     float distanceToPlane = outOfBoundsSide.GetDistanceToPoint(transform.position);
-                //     Vector3 reboundForce = -projectedNormal * Mathf.Abs(distanceToPlane) * config.OutOfBoundsPullForce;
-                //     Rigidbody.AddForce(reboundForce, ForceMode.Force);
-                // }
             }
+
+            int kicksCount = StateHolder.GetState().KicksCount;
 
             if (kicksCount > 0)
             {
@@ -179,7 +181,7 @@ namespace Gameplay.Interactable.BallInteraction.Components
 
                 if (Velocity.magnitude < resetSpeed)
                 {
-                    kicksCount = 0;
+                    ExecuteResetCounter();
                 }
 
                 Debug.Log($"Kicks count = {kicksCount}. Velocity = {Velocity.magnitude}. Reset Speed = {resetSpeed}");

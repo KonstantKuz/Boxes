@@ -183,6 +183,7 @@ MonoBehaviour:
     - rid: 2942314237941252100
       type: {class: BallInteractionMediator, ns: Configuration.Mediator, asm: Assembly-CSharp}
       data:
+        kickAccumulationTime: 0.5
         ballInteractionConfig: {fileID: 11400000, guid: 2c8a617761150bd4d957bc207bb0cde3,
           type: 2}
 --- !u!1 &2418985253115657278
@@ -547,8 +548,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9eac4dc608e148409ca3bc3f2541c4d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  windowWidth: 300
-  windowHeight: 200
+  windowWidth: 500
+  windowHeight: 1000
   cheatsAction:
     m_Name: Cheats
     m_Type: 0
@@ -586,6 +587,7 @@ GameObject:
   - component: {fileID: 7145732574620547023}
   - component: {fileID: 5653272982984029224}
   - component: {fileID: 6296120299634707105}
+  - component: {fileID: 6039979546581843396}
   m_Layer: 0
   m_Name: UI
   m_TagString: Untagged
@@ -660,6 +662,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogWindowPrefab: {fileID: 4201638552772912302, guid: 9697430d107a09c4eb15387dfacf61e4,
+    type: 3}
+--- !u!114 &6039979546581843396
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6429259516149281876}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9edc380bb28a75a4bbe3d227610dd875, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hudPrefab: {fileID: 7006537948899420453, guid: bd7072c6469aa764c964753b46546131,
     type: 3}
 --- !u!1 &7139778313264226882
 GameObject:
@@ -766,8 +782,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8506501947066740673}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: -0.5496166, z: 0.8354171, w: 0}
-  m_LocalPosition: {x: 0, y: 33.416683, z: 21.984669}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

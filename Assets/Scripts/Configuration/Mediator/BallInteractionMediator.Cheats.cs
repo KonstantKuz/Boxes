@@ -1,12 +1,18 @@
-﻿using Gameplay.Interactable.BallInteraction.Command;
+﻿#if DEBUG
+using Gameplay.Interactable.BallInteraction;
+using Gameplay.Interactable.BallInteraction.Command;
 using Infrastructure.Cheats;
 using UnityEngine;
 
-#if DEBUG
 namespace Configuration.Mediator
 {
     public partial class BallInteractionMediator : ICheatsProvider
     {
+        private ConfigRenderer<BallInteractionConfig> ballConfigCheats;
+
+        private ConfigRenderer<BallInteractionConfig> ConfigCheats =>
+            ballConfigCheats ??= new ConfigRenderer<BallInteractionConfig>(ballInteractionConfig);
+
         bool ICheatsProvider.IsOpen { get; set; }
 
         string ICheatsProvider.GetLabel()
@@ -19,6 +25,19 @@ namespace Configuration.Mediator
             if (GUILayout.Button("Get ball"))
             {
                 networkService.SendCommand(new CaptureCommand(initiator.NetId));
+            }
+
+            if (GUILayout.Button("Show config"))
+            {
+                ConfigCheats.IsOpen = !ConfigCheats.IsOpen;
+            }
+
+            if (ConfigCheats.IsOpen)
+            {
+                GUILayout.BeginVertical("box");
+                ConfigCheats.RenderCheats();
+                GUILayout.EndVertical();
+                GUILayout.Space(10);
             }
         }
     }

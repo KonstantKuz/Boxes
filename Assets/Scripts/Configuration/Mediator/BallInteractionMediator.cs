@@ -1,12 +1,16 @@
 ﻿using System;
+using System.Threading;
+using Cysharp.Threading.Tasks;
 using Gameplay.Interactable.BallInteraction;
 using Gameplay.Interactable.BallInteraction.Abstract;
 using Gameplay.Interactable.BallInteraction.Command;
 using Gameplay.Interactable.BallInteraction.Components;
+using Gameplay.Interactable.BallInteraction.State;
 using Infrastructure.Bootstrap;
 using Infrastructure.CameraService;
 using Infrastructure.InputService.Abstract;
 using Infrastructure.Network.Abstract;
+using R3;
 using Reflex.Attributes;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -17,16 +21,22 @@ namespace Configuration.Mediator
     public partial class BallInteractionMediator : IBallInteractionMediator, IInitializable
     {
         [SerializeField]
+        private float kickInputPassTime;
+
+        [SerializeField]
         private BallInteractionConfig ballInteractionConfig;
 
         private IInputService inputService;
         private INetworkService networkService;
         private ICameraService cameraService;
+        private ReactiveProperty<BallState> stateReactive;
 
         private Ball ball;
         private IBallInteractionInitiator initiator;
+        private CancellationTokenSource kickTokenSource;
 
         BallInteractionConfig IBallInteractionMediator.Config => ballInteractionConfig;
+        ReadOnlyReactiveProperty<BallState> IBallInteractionMediator.BallState => stateReactive;
 
         [Inject]
         private void Construct(IInputService inputService, INetworkService networkService, ICameraService cameraService)
@@ -34,6 +44,8 @@ namespace Configuration.Mediator
             this.inputService = inputService;
             this.networkService = networkService;
             this.cameraService = cameraService;
+
+            stateReactive = new ReactiveProperty<BallState>(BallState.Default);
         }
 
         void IInitializable.Initialize()
@@ -45,6 +57,7 @@ namespace Configuration.Mediator
         void IBallInteractionMediator.RegisterBall(Ball ball)
         {
             this.ball = ball;
+            this.ball.StateHolder.Subscribe(value => stateReactive.Value = value);
         }
 
         void IBallInteractionMediator.RegisterLocalInitiator(IBallInteractionInitiator initiator)
@@ -68,8 +81,8 @@ namespace Configuration.Mediator
 
             direction = initiator.KickDirection;
 
-            bool isInRange =
-                Vector3.Distance(initiator.Position, ball.transform.position) < ballInteractionConfig.KickMinDistance;
+            float distance = Vector3.Distance(initiator.Position, ball.transform.position);
+            bool isInRange = distance < ballInteractionConfig.KickMinDistance + ball.transform.localScale.x / 2;
 
             return isInRange && inputService.DefaultContextActions.Aim.IsPressed();
         }
@@ -96,14 +109,32 @@ namespace Configuration.Mediator
                 return;
             }
 
-            float distance = (initiator.Position - ball.transform.position).magnitude;
+            kickTokenSource?.Cancel();
+            kickTokenSource = new CancellationTokenSource();
 
-            if (distance <= ballInteractionConfig.KickMinDistance)
+            TryKickBallAsync(kickTokenSource.Token).Forget();
+
+            async UniTask TryKickBallAsync(CancellationToken token)
             {
-                KickCommand command = new KickCommand(
-                    initiator.NetId, initiator.KickDirection, ballInteractionConfig.MinSpeed
-                );
-                networkService.SendCommand(command);
+                float time = 0;
+
+                while (!token.IsCancellationRequested && time < kickInputPassTime)
+                {
+                    time += Time.fixedDeltaTime;
+
+                    float distance = (initiator.Position - ball.transform.position).magnitude;
+
+                    if (distance <= ballInteractionConfig.KickMinDistance)
+                    {
+                        KickCommand command = new KickCommand(
+                            initiator.NetId, initiator.KickDirection, ballInteractionConfig.MinSpeed
+                        );
+                        networkService.SendCommand(command);
+                        break;
+                    }
+
+                    await UniTask.WaitForFixedUpdate();
+                }
             }
         }
     }
