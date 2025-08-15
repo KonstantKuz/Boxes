@@ -7,10 +7,14 @@ namespace Infrastructure.DialogService
     [Serializable]
     public class DialogReplica
     {
-        [field:SerializeField]
-        public LocalizedString Title { get; private set; }
+        [SerializeField]
+        private LocalizedString title;
 
-        [field:SerializeField]
-        public LocalizedString Message { get; private set; }
+        [SerializeField]
+        private LocalizedString message;
+
+        public LocalizedString Title => title;
+
+        public LocalizedString Message => message;
     }
 }

@@ -5,11 +5,10 @@ EditorSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 12
   m_SerializationMode: 2
-  m_LineEndingsForNewScripts: 2
+  m_LineEndingsForNewScripts: 0
   m_DefaultBehaviorMode: 0
   m_PrefabRegularEnvironment: {fileID: 0}
-  m_PrefabUIEnvironment: {fileID: 102900000, guid: f333e294c33f0674297e0ef89201ebb5,
-    type: 3}
+  m_PrefabUIEnvironment: {fileID: 102900000, guid: f333e294c33f0674297e0ef89201ebb5, type: 3}
   m_SpritePackerMode: 0
   m_SpritePackerCacheSize: 10
   m_SpritePackerPaddingPower: 1
@@ -32,7 +31,7 @@ EditorSettings:
   m_AssetNamingUsesSpace: 1
   m_InspectorUseIMGUIDefaultInspector: 0
   m_UseLegacyProbeSampleCount: 0
-  m_SerializeInlineMappingsOnOneLine: 0
+  m_SerializeInlineMappingsOnOneLine: 1
   m_DisableCookiesInLightmapper: 1
   m_AssetPipelineMode: 1
   m_RefreshImportMode: 0

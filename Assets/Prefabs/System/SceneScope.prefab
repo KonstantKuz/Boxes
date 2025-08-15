@@ -183,7 +183,6 @@ MonoBehaviour:
     - rid: 2942314237941252100
       type: {class: BallInteractionMediator, ns: Configuration.Mediator, asm: Assembly-CSharp}
       data:
-        kickAccumulationTime: 0.5
         ballInteractionConfig: {fileID: 11400000, guid: 2c8a617761150bd4d957bc207bb0cde3,
           type: 2}
 --- !u!1 &2418985253115657278

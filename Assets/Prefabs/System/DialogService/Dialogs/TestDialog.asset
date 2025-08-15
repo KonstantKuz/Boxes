@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: TestDialog
   m_EditorClassIdentifier: 
   guid: e9e2bc1b-e363-4347-b866-cf043424588c
-  <Replicas>k__BackingField:
-  - <Title>k__BackingField:
+  replicas:
+  - title:
       m_TableReference:
         m_TableCollectionName: GUID:caa61e2efc11df641a8846cbc72f28de
       m_TableEntryReference:
@@ -23,7 +23,7 @@ MonoBehaviour:
       m_FallbackState: 0
       m_WaitForCompletion: 0
       m_LocalVariables: []
-    <Message>k__BackingField:
+    message:
       m_TableReference:
         m_TableCollectionName: GUID:c7283c37c72611143890a140b42ae0e0
       m_TableEntryReference:
@@ -32,7 +32,7 @@ MonoBehaviour:
       m_FallbackState: 0
       m_WaitForCompletion: 0
       m_LocalVariables: []
-  - <Title>k__BackingField:
+  - title:
       m_TableReference:
         m_TableCollectionName: GUID:caa61e2efc11df641a8846cbc72f28de
       m_TableEntryReference:
@@ -41,7 +41,7 @@ MonoBehaviour:
       m_FallbackState: 0
       m_WaitForCompletion: 0
       m_LocalVariables: []
-    <Message>k__BackingField:
+    message:
       m_TableReference:
         m_TableCollectionName: GUID:c7283c37c72611143890a140b42ae0e0
       m_TableEntryReference:

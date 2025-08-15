@@ -12,13 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28189ddb150a401d8b8b52ee2512b72d, type: 3}
   m_Name: BallInteractionConfig
   m_EditorClassIdentifier: 
-  <CaptureMinDistance>k__BackingField: 2.5
-  <KickMinDistance>k__BackingField: 2.5
-  <KickSpeedModifier>k__BackingField: 0.3
-  <MinSpeed>k__BackingField: 20
-  <MaxSpeed>k__BackingField: 50
-  <MaxHeight>k__BackingField: 0.5
-  <DampingStrength>k__BackingField: 50
-  <DecayDistance>k__BackingField: 50
-  <OutOfBoundsPullForce>k__BackingField: 20
-  <MaxKicksCount>k__BackingField: 3
+  captureMinDistance: 2.5
+  kickMinDistance: 2.5
+  kickSpeedModifier: 0.3
+  kickWindowTime: 0.5
+  minSpeed: 20
+  maxSpeed: 50
+  maxHeight: 0.5
+  dampingStrength: 50
+  decayDistance: 50
+  outOfBoundsPullForce: 20
+  maxKicksCount: 3
+  resetConditions: 2

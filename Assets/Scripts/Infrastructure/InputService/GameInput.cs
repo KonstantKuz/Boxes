@@ -73,6 +73,15 @@ namespace Infrastructure.InputService
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Take"",
+                    ""type"": ""Button"",
+                    ""id"": ""85500f7f-f31c-4dc0-830b-9a81a93fcab3"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -251,6 +260,28 @@ namespace Infrastructure.InputService
                     ""action"": ""Action"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""83ca8e39-292c-41d1-a40e-ab1f988b1530"",
+                    ""path"": ""<Keyboard>/c"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Take"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""fdf40521-015b-4efe-9241-445b3b0c3463"",
+                    ""path"": ""<Gamepad>/rightShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Take"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -303,6 +334,7 @@ namespace Infrastructure.InputService
             m_DefaultContext_Interact = m_DefaultContext.FindAction("Interact", throwIfNotFound: true);
             m_DefaultContext_Jump = m_DefaultContext.FindAction("Jump", throwIfNotFound: true);
             m_DefaultContext_Action = m_DefaultContext.FindAction("Action", throwIfNotFound: true);
+            m_DefaultContext_Take = m_DefaultContext.FindAction("Take", throwIfNotFound: true);
             // DialogContext
             m_DialogContext = asset.FindActionMap("DialogContext", throwIfNotFound: true);
             m_DialogContext_Next = m_DialogContext.FindAction("Next", throwIfNotFound: true);
@@ -378,6 +410,7 @@ namespace Infrastructure.InputService
         private readonly InputAction m_DefaultContext_Interact;
         private readonly InputAction m_DefaultContext_Jump;
         private readonly InputAction m_DefaultContext_Action;
+        private readonly InputAction m_DefaultContext_Take;
         public struct DefaultContextActions
         {
             private @GameInput m_Wrapper;
@@ -387,6 +420,7 @@ namespace Infrastructure.InputService
             public InputAction @Interact => m_Wrapper.m_DefaultContext_Interact;
             public InputAction @Jump => m_Wrapper.m_DefaultContext_Jump;
             public InputAction @Action => m_Wrapper.m_DefaultContext_Action;
+            public InputAction @Take => m_Wrapper.m_DefaultContext_Take;
             public InputActionMap Get() { return m_Wrapper.m_DefaultContext; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -411,6 +445,9 @@ namespace Infrastructure.InputService
                 @Action.started += instance.OnAction;
                 @Action.performed += instance.OnAction;
                 @Action.canceled += instance.OnAction;
+                @Take.started += instance.OnTake;
+                @Take.performed += instance.OnTake;
+                @Take.canceled += instance.OnTake;
             }
 
             private void UnregisterCallbacks(IDefaultContextActions instance)
@@ -430,6 +467,9 @@ namespace Infrastructure.InputService
                 @Action.started -= instance.OnAction;
                 @Action.performed -= instance.OnAction;
                 @Action.canceled -= instance.OnAction;
+                @Take.started -= instance.OnTake;
+                @Take.performed -= instance.OnTake;
+                @Take.canceled -= instance.OnTake;
             }
 
             public void RemoveCallbacks(IDefaultContextActions instance)
@@ -500,6 +540,7 @@ namespace Infrastructure.InputService
             void OnInteract(InputAction.CallbackContext context);
             void OnJump(InputAction.CallbackContext context);
             void OnAction(InputAction.CallbackContext context);
+            void OnTake(InputAction.CallbackContext context);
         }
         public interface IDialogContextActions
         {

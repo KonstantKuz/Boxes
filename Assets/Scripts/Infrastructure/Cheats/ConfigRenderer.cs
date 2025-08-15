@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System;
+using System.Reflection;
 using UnityEngine;
 
 namespace Infrastructure.Cheats
@@ -55,6 +56,56 @@ namespace Infrastructure.Cheats
                     string value = (string)currentValue;
                     string newValue = GUILayout.TextField(value);
                     property.SetValue(config, newValue);
+                }
+                else if (property.PropertyType.IsEnum)
+                {
+                    if (property.PropertyType.GetCustomAttribute<FlagsAttribute>() != null)
+                    {
+                        GUILayout.EndHorizontal();
+                        GUILayout.BeginVertical("box");
+                        Array enumValues = Enum.GetValues(property.PropertyType);
+                        int combinedValue = (int)currentValue;
+
+                        foreach (var enumValue in enumValues)
+                        {
+                            int enumInt = (int)enumValue;
+                            if (enumInt == 0) continue;
+
+                            bool isSet = (combinedValue & enumInt) != 0;
+                            bool newIsSet = GUILayout.Toggle(isSet, enumValue.ToString());
+
+                            if (newIsSet != isSet)
+                            {
+                                if (newIsSet)
+                                {
+                                    combinedValue |= enumInt;
+                                }
+                                else
+                                {
+                                    combinedValue &= ~enumInt;
+                                }
+
+                                property.SetValue(config, Enum.ToObject(property.PropertyType, combinedValue));
+                            }
+                        }
+
+                        GUILayout.EndVertical();
+                        GUILayout.BeginHorizontal();
+                    }
+                    else
+                    {
+                        string[] enumNames = Enum.GetNames(property.PropertyType);
+                        int currentEnumIndex = Array.IndexOf(enumNames, currentValue.ToString());
+                        int newEnumIndex = GUILayout.SelectionGrid(
+                            currentEnumIndex, enumNames, enumNames.Length > 3 ? 3 : enumNames.Length
+                        );
+
+                        if (newEnumIndex != currentEnumIndex)
+                        {
+                            object newEnumValue = Enum.Parse(property.PropertyType, enumNames[newEnumIndex]);
+                            property.SetValue(config, newEnumValue);
+                        }
+                    }
                 }
 
                 GUILayout.EndHorizontal();

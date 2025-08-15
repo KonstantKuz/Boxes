@@ -1,4 +1,5 @@
 ﻿using System;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace Infrastructure.DialogService
@@ -10,12 +11,15 @@ namespace Infrastructure.DialogService
         [SerializeField]
         private string guid;
 
-        [field:SerializeField]
-        public DialogReplica[] Replicas { get; private set; }
+        [SerializeField]
+        private DialogReplica[] replicas;
 
         public Guid Id => Guid.Parse(guid);
 
-        private void OnValidate()
+        public DialogReplica[] Replicas => replicas;
+
+        [Button]
+        private void GenerateGuid()
         {
             if (string.IsNullOrEmpty(guid))
             {

@@ -21,9 +21,6 @@ namespace Configuration.Mediator
     public partial class BallInteractionMediator : IBallInteractionMediator, IInitializable
     {
         [SerializeField]
-        private float kickInputPassTime;
-
-        [SerializeField]
         private BallInteractionConfig ballInteractionConfig;
 
         private IInputService inputService;
@@ -50,7 +47,7 @@ namespace Configuration.Mediator
 
         void IInitializable.Initialize()
         {
-            inputService.DefaultContextActions.Interact.performed += TryCaptureBall;
+            inputService.DefaultContextActions.Take.performed += TryCaptureBall;
             inputService.DefaultContextActions.Action.performed += TryKickBall;
         }
 
@@ -118,7 +115,7 @@ namespace Configuration.Mediator
             {
                 float time = 0;
 
-                while (!token.IsCancellationRequested && time < kickInputPassTime)
+                while (!token.IsCancellationRequested && time < ballInteractionConfig.KickWindowTime)
                 {
                     time += Time.fixedDeltaTime;
 

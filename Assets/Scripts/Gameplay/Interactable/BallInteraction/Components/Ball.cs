@@ -31,6 +31,7 @@ namespace Gameplay.Interactable.BallInteraction.Components
         private NetworkTransformExtended networkTransform;
         private Transform socketTransform;
         private float distanceSinceLastKick;
+        private uint lastKicker;
 
         private NetworkRigidbodyExtended NetworkRigidbody =>
             networkRigidbody ??= GetComponent<NetworkRigidbodyExtended>();
@@ -74,19 +75,29 @@ namespace Gameplay.Interactable.BallInteraction.Components
             BallState state = StateHolder.GetState();
             byte kicksCount = (byte) (state.KicksCount + 1);
             kicksCount = (byte) Math.Clamp(kicksCount, 0, Config.MaxKicksCount);
+
+            if (Config.ResetConditions.HasFlag(ResetCondition.SamePlayerKick) &&
+                kickContext.InitiatorNetId == lastKicker)
+            {
+                kicksCount = 1;
+            }
+
             StateHolder.WriteState(new BallState(0, kicksCount));
 
             float targetSpeed = (1.0f + Config.KickSpeedModifier * kicksCount) * Config.MinSpeed;
 
             Rigidbody.isKinematic = false;
             Rigidbody.velocity = kickContext.KickDirection.normalized * targetSpeed;
+
             distanceSinceLastKick = 0;
-            Debug.Log("ball kicked");
+            lastKicker = kickContext.InitiatorNetId;
         }
 
         private void ExecuteCapture(CaptureCommand captureContext)
         {
-            StateHolder.WriteState(new BallState(captureContext.CaptureRootNetId, 0));
+            BallState state = StateHolder.GetState();
+            byte kicksCount = Config.ResetConditions.HasFlag(ResetCondition.Capture) ? (byte) 0 : state.KicksCount;
+            StateHolder.WriteState(new BallState(captureContext.CaptureRootNetId, kicksCount));
 
             NetworkRigidbody.CmdSetIsKinematic(true);
             NetworkRigidbody.CmdSetEnabled(false);
@@ -97,6 +108,7 @@ namespace Gameplay.Interactable.BallInteraction.Components
         private void ExecuteResetCounter()
         {
             StateHolder.WriteState(BallState.Default);
+            distanceSinceLastKick = 0;
         }
 
         private void Update()
