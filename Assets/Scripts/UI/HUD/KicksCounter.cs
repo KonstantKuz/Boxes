@@ -28,7 +28,7 @@ namespace UI.HUD
             ballStateSubscription = ballInteractionMediator?.BallState.Subscribe(UpdateCounter);
         }
 
-        private void UpdateCounter(BallState ballState)
+        private void UpdateCounter(BallSharedState ballState)
         {
             countChanged.Invoke(ballState.KicksCount.ToString());
         }

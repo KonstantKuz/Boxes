@@ -28,10 +28,7 @@ namespace Gameplay.Interactable.BallInteraction.Components
 
         public override void OnStartClient()
         {
-            if (isLocalPlayer)
-            {
-                ballInteractionMediator.RegisterLocalInitiator(this);
-            }
+            ballInteractionMediator.RegisterInitiator(netId, this, isLocalPlayer);
         }
     }
 }

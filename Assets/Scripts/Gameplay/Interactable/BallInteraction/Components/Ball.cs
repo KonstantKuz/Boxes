@@ -1,8 +1,10 @@
 using System;
+using System.Linq;
 using Gameplay.Interactable.BallInteraction.Abstract;
 using Gameplay.Interactable.BallInteraction.Command;
 using Gameplay.Interactable.BallInteraction.State;
 using Infrastructure.Components;
+using Infrastructure.Extensions;
 using Infrastructure.Network.Abstract;
 using Mirror;
 using Reflex.Attributes;
@@ -12,8 +14,6 @@ namespace Gameplay.Interactable.BallInteraction.Components
 {
     public class Ball : NetworkBehaviour
     {
-        private const float InterpolationSpeed = 20f;
-
         [SerializeField]
         private BallStateHolder ballStateHolder;
 
@@ -21,7 +21,13 @@ namespace Gameplay.Interactable.BallInteraction.Components
         private Collider collider;
 
         [SerializeField]
+        private Rigidbody rigidbody;
+
+        [SerializeField]
         private GameObject statusEffect;
+
+        [SerializeField]
+        private LayerMask ignoreCollisionMask;
 
         private INetworkService networkService;
         private INetworkFactory networkFactory;
@@ -30,19 +36,11 @@ namespace Gameplay.Interactable.BallInteraction.Components
         private NetworkRigidbodyExtended networkRigidbody;
         private NetworkTransformExtended networkTransform;
         private Transform socketTransform;
-        private float distanceSinceLastKick;
-        private uint lastKicker;
+        private BallInternalState internalState;
 
-        private NetworkRigidbodyExtended NetworkRigidbody =>
-            networkRigidbody ??= GetComponent<NetworkRigidbodyExtended>();
-        private NetworkTransformExtended NetworkTransform =>
-            networkTransform ??= GetComponent<NetworkTransformExtended>();
-
-        private Rigidbody Rigidbody => NetworkRigidbody.Rigidbody;
         public Bounds Bounds => collider.bounds;
-        private Vector3 Velocity => Rigidbody.velocity;
         private BallInteractionConfig Config => ballInteractionMediator.Config;
-        public INetworkStateHolder<BallState> StateHolder => ballStateHolder;
+        public INetworkStateHolder<BallSharedState> StateHolder => ballStateHolder;
 
         [Inject]
         private void Construct(
@@ -54,11 +52,14 @@ namespace Gameplay.Interactable.BallInteraction.Components
             this.networkService = networkService;
             this.networkFactory = networkFactory;
             this.ballInteractionMediator = ballInteractionMediator;
+
+            internalState = new BallInternalState();
         }
 
         public override void OnStartServer()
         {
             networkService.ObserveToExecute<KickCommand>(ExecuteKick);
+            networkService.ObserveToExecute<HoldCommand>(ExecuteHold);
             networkService.ObserveToExecute<CaptureCommand>(ExecuteCapture);
         }
 
@@ -69,63 +70,91 @@ namespace Gameplay.Interactable.BallInteraction.Components
 
         private void ExecuteKick(KickCommand kickContext)
         {
-            NetworkRigidbody.CmdSetEnabled(true);
-            NetworkRigidbody.CmdSetIsKinematic(false);
-
-            BallState state = StateHolder.GetState();
+            BallSharedState state = StateHolder.GetState();
             byte kicksCount = (byte) (state.KicksCount + 1);
-            kicksCount = (byte) Math.Clamp(kicksCount, 0, Config.MaxKicksCount);
+            kicksCount = (byte) Math.Clamp(kicksCount, 0, Config.StatusKicksCount);
 
             if (Config.ResetConditions.HasFlag(ResetCondition.SamePlayerKick) &&
-                kickContext.InitiatorNetId == lastKicker)
+                kickContext.InitiatorNetId == internalState.LastKickerNetId)
             {
                 kicksCount = 1;
             }
 
-            StateHolder.WriteState(new BallState(0, kicksCount));
+            StateHolder.WriteState(new BallSharedState(0, kicksCount));
 
             float targetSpeed = (1.0f + Config.KickSpeedModifier * kicksCount) * Config.MinSpeed;
 
-            Rigidbody.isKinematic = false;
-            Rigidbody.velocity = kickContext.KickDirection.normalized * targetSpeed;
+            rigidbody.velocity = kickContext.Direction.normalized * targetSpeed;
 
-            distanceSinceLastKick = 0;
-            lastKicker = kickContext.InitiatorNetId;
+            internalState.DistanceSinceLastKick = 0;
+            internalState.LastKickerNetId = kickContext.InitiatorNetId;
+            internalState.CaptureContext = null;
+        }
+
+        private void ExecuteHold(HoldCommand holdContext)
+        {
+            BallSharedState state = StateHolder.GetState();
+            byte kicksCount = Config.ResetConditions.HasFlag(ResetCondition.Hold) ? (byte) 0 : state.KicksCount;
+            StateHolder.WriteState(new BallSharedState(holdContext.InitiatorNetId, kicksCount));
+
+            internalState.DistanceSinceLastKick = 0;
+            internalState.CaptureContext = null;
         }
 
         private void ExecuteCapture(CaptureCommand captureContext)
         {
-            BallState state = StateHolder.GetState();
-            byte kicksCount = Config.ResetConditions.HasFlag(ResetCondition.Capture) ? (byte) 0 : state.KicksCount;
-            StateHolder.WriteState(new BallState(captureContext.CaptureRootNetId, kicksCount));
-
-            NetworkRigidbody.CmdSetIsKinematic(true);
-            NetworkRigidbody.CmdSetEnabled(false);
-
-            distanceSinceLastKick = 0;
+            internalState.CaptureContext = captureContext;
+            internalState.DistanceSinceLastKick = 0;
         }
 
         private void ExecuteResetCounter()
         {
-            StateHolder.WriteState(BallState.Default);
-            distanceSinceLastKick = 0;
+            StateHolder.WriteState(BallSharedState.Default);
+            internalState.DistanceSinceLastKick = 0;
         }
 
-        private void Update()
+        private void OnCollisionEnter(Collision other)
         {
-            BallState state = StateHolder.GetState();
-
-            statusEffect.SetActive(state.KicksCount >= Config.MaxKicksCount);
-
-            if (
-                !networkFactory.Spawned.TryGetValue(state.OwnerNetId, out GameObject owner) ||
-                !owner.TryGetComponent(out IBallInteractionInitiator ballInteractionInitiator)
-            )
+            if (!isServer || other.IsInLayerMask(ignoreCollisionMask))
             {
                 return;
             }
 
-            transform.position = ballInteractionInitiator.BallSocket.position;
+            // Vector3 pos = transform.position;
+            // Vector3 dir = lastVelocity.normalized;
+            //
+            // if (Physics.Raycast(pos - dir * 0.1f, dir, out RaycastHit hit, 1f))
+            // {
+            //     // Берём нормаль именно из того места, куда реально летел мяч
+            //     Vector3 normal = hit.normal;
+            //
+            //     // Правильное отражение
+            //     Vector3 reflected = Vector3.Reflect(lastVelocity, normal);
+            //
+            //     rigidbody.velocity = reflected.normalized * lastVelocity.magnitude;
+            // }
+
+            bool isResetRequired = Config.ResetConditions.HasFlag(ResetCondition.Collision);
+
+            if (other.gameObject.TryGetComponent(out IBallReactionInitiator reactionInitiator))
+            {
+                BallSharedState state = StateHolder.GetState();
+                reactionInitiator.TryExecuteReaction(other, state );
+                isResetRequired = state.KicksCount >= Config.StatusKicksCount &&
+                                  Config.ResetConditions.HasFlag(ResetCondition.Reaction);
+            }
+
+            if (isResetRequired)
+            {
+                ExecuteResetCounter();
+            }
+        }
+
+        private void Update()
+        {
+            BallSharedState state = StateHolder.GetState();
+
+            statusEffect.SetActive(state.KicksCount >= Config.StatusKicksCount);
         }
 
         private void FixedUpdate()
@@ -135,23 +164,43 @@ namespace Gameplay.Interactable.BallInteraction.Components
                 return;
             }
 
-            BallState state = StateHolder.GetState();
+            BallSharedState state = StateHolder.GetState();
 
-            if (state.OwnerNetId != 0)
+            bool hasValidHolder = ballInteractionMediator.Initiators.TryGetValue(
+                state.HolderNetId, out IBallInteractionInitiator holdInitiator
+            );
+
+            if (hasValidHolder)
             {
+                Vector3 interpolated =
+                    Vector3.Lerp(transform.position, holdInitiator.BallSocket.position, Time.fixedDeltaTime * 20);
+                rigidbody.MovePosition(interpolated);
                 return;
             }
 
-            distanceSinceLastKick += Velocity.magnitude * Time.fixedDeltaTime;
+            bool hasValidCaptureTarget = ballInteractionMediator.Initiators.TryGetValue(
+                internalState.CaptureContext?.InitiatorNetId ?? 0, out IBallInteractionInitiator captureInitiator
+            );
+
+            if (hasValidCaptureTarget)
+            {
+                Vector3 targetPosition =
+                    captureInitiator.BallSocket.TransformPoint(internalState.CaptureContext!.RelativePosition);
+                Vector3 interpolated = Vector3.Lerp(transform.position, targetPosition, Time.fixedDeltaTime * 20);
+                rigidbody.MovePosition(interpolated);
+                return;
+            }
+
+            internalState.DistanceSinceLastKick += rigidbody.velocity.magnitude * Time.fixedDeltaTime;
 
             if (transform.position.y > Config.MaxHeight)
             {
                 float heightExcess = transform.position.y - Config.MaxHeight;
-                float verticalDampingForce = heightExcess * Config.DampingStrength;
-                Vector3 velocity = Rigidbody.velocity;
-                velocity.y /= Config.DampingStrength;
-                Rigidbody.velocity = velocity;
-                Rigidbody.AddForce(Vector3.down * verticalDampingForce, ForceMode.Acceleration);
+                float verticalDampingForce = heightExcess * Config.HeightDampingStrength;
+                Vector3 velocity = rigidbody.velocity;
+                velocity.y /= Config.HeightDampingStrength;
+                rigidbody.velocity = velocity;
+                rigidbody.AddForce(Vector3.down * verticalDampingForce, ForceMode.Acceleration);
             }
 
             if (ballInteractionMediator.IsBallOutOfBounds(out Plane outOfBoundsSide))
@@ -167,16 +216,16 @@ namespace Gameplay.Interactable.BallInteraction.Components
                     simplifiedNormal = outOfBoundsSide.normal.z > 0 ? Vector3.forward : Vector3.back;
                 }
 
-                if (Vector3.Dot(Velocity, -simplifiedNormal) > 0)
+                if (Vector3.Dot(rigidbody.velocity, -simplifiedNormal) > 0)
                 {
-                    Vector3 reflectedVelocity = Vector3.Reflect(Velocity, simplifiedNormal);
-                    Rigidbody.velocity = reflectedVelocity;
+                    Vector3 reflectedVelocity = Vector3.Reflect(rigidbody.velocity, simplifiedNormal);
+                    rigidbody.velocity = reflectedVelocity;
                 }
                 else
                 {
                     float distanceToPlane = outOfBoundsSide.GetDistanceToPoint(transform.position);
                     Vector3 reboundForce = simplifiedNormal * Mathf.Abs(distanceToPlane) * Config.OutOfBoundsPullForce;
-                    Rigidbody.AddForce(reboundForce, ForceMode.Force);
+                    rigidbody.AddForce(reboundForce, ForceMode.Force);
                 }
             }
 
@@ -187,21 +236,51 @@ namespace Gameplay.Interactable.BallInteraction.Components
                 float resetSpeed = (1.0f + Config.KickSpeedModifier * (kicksCount - 1)) * Config.MinSpeed;
                 float initialSpeed = (1.0f + Config.KickSpeedModifier * kicksCount) * Config.MinSpeed;
 
-                float currentSpeed = Mathf.Lerp(initialSpeed, resetSpeed, distanceSinceLastKick / Config.DecayDistance);
+                float currentSpeed =
+                    Mathf.Lerp(initialSpeed, resetSpeed, internalState.DistanceSinceLastKick / Config.StatusDampingDistance);
 
-                Rigidbody.velocity = Velocity.normalized * currentSpeed;
+                rigidbody.velocity = rigidbody.velocity.normalized * currentSpeed;
 
-                if (Velocity.magnitude < resetSpeed)
+                if (rigidbody.velocity.magnitude < resetSpeed)
                 {
                     ExecuteResetCounter();
                 }
 
-                Debug.Log($"Kicks count = {kicksCount}. Velocity = {Velocity.magnitude}. Reset Speed = {resetSpeed}");
+                Debug.Log($"Kicks count = {kicksCount}. " +
+                          $"Velocity = {rigidbody.velocity.magnitude}." +
+                          $" Reset Speed = {resetSpeed}");
             }
 
-            if (Velocity.magnitude > Config.MaxSpeed)
+            if (rigidbody.velocity.magnitude > Config.MaxSpeed)
             {
-                Rigidbody.velocity = Velocity.normalized * Config.MaxSpeed;
+                rigidbody.velocity = rigidbody.velocity.normalized * Config.MaxSpeed;
+            }
+
+            if (rigidbody.velocity.magnitude > Config.AttractionMinRequiredSpeed)
+            {
+                float minDistance = float.MaxValue;
+                IBallInteractionInitiator nearestInitiator = null;
+
+                foreach (IBallInteractionInitiator initiator in ballInteractionMediator.Initiators.Values)
+                {
+                    if (initiator.NetId == internalState.LastKickerNetId)
+                    {
+                        continue;
+                    }
+
+                    float distance = Vector3.Distance(transform.position, initiator.BallSocket.position);
+                    if (distance <= Config.AttractionRadius && distance < minDistance)
+                    {
+                        minDistance = distance;
+                        nearestInitiator = initiator;
+                    }
+                }
+
+                if (nearestInitiator != null)
+                {
+                    Vector3 direction = (nearestInitiator.BallSocket.position - transform.position).normalized;
+                    rigidbody.AddForce(direction * Config.AttractionForce, ForceMode.Acceleration);
+                }
             }
         }
     }

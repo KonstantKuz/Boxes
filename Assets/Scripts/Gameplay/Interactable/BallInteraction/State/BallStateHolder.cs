@@ -3,26 +3,26 @@ using Infrastructure.Network.Abstract;
 
 namespace Gameplay.Interactable.BallInteraction.State
 {
-    public class BallStateHolder : NetworkStateHolderBase, INetworkStateHolder<BallState>
+    public class BallStateHolder : NetworkStateHolderBase, INetworkStateHolder<BallSharedState>
     {
         public override void OnStartServer()
         {
             base.OnStartServer();
 
-            WriteState(BallState.Default);
+            WriteState(BallSharedState.Default);
         }
 
-        BallState INetworkStateHolder<BallState>.GetState()
+        BallSharedState INetworkStateHolder<BallSharedState>.GetState()
         {
-            return this.GetStateOrDefault<BallState>();
+            return this.GetStateOrDefault<BallSharedState>();
         }
 
-        void INetworkStateHolder<BallState>.WriteState(BallState state)
+        void INetworkStateHolder<BallSharedState>.WriteState(BallSharedState state)
         {
             WriteState(state);
         }
 
-        IDisposable INetworkStateHolder<BallState>.Subscribe(Action<BallState> callback)
+        IDisposable INetworkStateHolder<BallSharedState>.Subscribe(Action<BallSharedState> callback)
         {
             return Subscribe(callback);
         }

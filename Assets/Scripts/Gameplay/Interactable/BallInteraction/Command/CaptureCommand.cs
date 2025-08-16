@@ -1,5 +1,6 @@
 ﻿using Infrastructure.Network.Abstract;
 using MessagePack;
+using UnityEngine;
 
 namespace Gameplay.Interactable.BallInteraction.Command
 {
@@ -7,11 +8,15 @@ namespace Gameplay.Interactable.BallInteraction.Command
     public class CaptureCommand : INetworkCommand
     {
         [Key(0)]
-        public readonly uint CaptureRootNetId;
+        public readonly uint InitiatorNetId;
 
-        public CaptureCommand(uint captureRootNetId)
+        [Key(1)]
+        public readonly Vector3 RelativePosition;
+
+        public CaptureCommand(uint initiatorNetId, Vector3 relativePosition)
         {
-            CaptureRootNetId = captureRootNetId;
+            RelativePosition = relativePosition;
+            InitiatorNetId = initiatorNetId;
         }
     }
 }

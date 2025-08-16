@@ -4,6 +4,7 @@ using Infrastructure.Network.Abstract;
 using Mirror;
 using R3;
 using Reflex.Attributes;
+using UnityEngine;
 
 namespace Infrastructure.Network
 {
@@ -27,6 +28,7 @@ namespace Infrastructure.Network
             byte type =  typeMapper.GetKey<T>();
             byte[] payload = serializer.Serialize(command);
             CmdSendCommand(type, payload);
+            Debug.Log($"Send {command.GetType().Name}");
         }
 
         IDisposable INetworkService.ObserveToExecute<T>(Action<T> observer)
@@ -91,6 +93,7 @@ namespace Infrastructure.Network
         private void InvokeObserver<T>(Action<T> observer, byte[] bytes)
         {
             observer(serializer.Deserialize<T>(bytes));
+            Debug.Log($"Invoked {typeof(T).Name} {serializer.ConvertToJson(bytes)}");
         }
     }
 }

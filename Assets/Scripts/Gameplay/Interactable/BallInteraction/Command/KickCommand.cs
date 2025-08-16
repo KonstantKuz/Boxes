@@ -11,16 +11,12 @@ namespace Gameplay.Interactable.BallInteraction.Command
         public readonly uint InitiatorNetId;
 
         [Key(1)]
-        public readonly Vector3 KickDirection;
+        public readonly Vector3 Direction;
 
-        [Key(2)]
-        public readonly float KickForce;
-
-        public KickCommand(uint initiatorNetId, Vector3 kickDirection, float kickForce = 0)
+        public KickCommand(uint initiatorNetId, Vector3 direction)
         {
             InitiatorNetId = initiatorNetId;
-            KickDirection = kickDirection;
-            KickForce = kickForce;
+            Direction = direction;
         }
     }
 }

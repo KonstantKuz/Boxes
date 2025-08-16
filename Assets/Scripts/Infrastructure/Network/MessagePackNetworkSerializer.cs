@@ -15,5 +15,10 @@ namespace Infrastructure.Network
         {
             return MessagePackSerializer.Deserialize<T>(data);
         }
+
+        public string ConvertToJson(byte[] data)
+        {
+            return MessagePackSerializer.ConvertToJson(data);
+        }
     }
 }
