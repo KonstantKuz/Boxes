@@ -503,8 +503,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7887dbe19ad9433d8ef2ed0d519dde9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  captureMinDistanceColor: {r: 1, g: 0, b: 0, a: 1}
-  kickMinDistanceColor: {r: 0, g: 1, b: 0, a: 1}
+  interactionDistanceColor: {r: 0, g: 1, b: 0, a: 1}
   config: {fileID: 11400000, guid: 2c8a617761150bd4d957bc207bb0cde3, type: 2}
 --- !u!114 &8881657034625016996
 MonoBehaviour:
