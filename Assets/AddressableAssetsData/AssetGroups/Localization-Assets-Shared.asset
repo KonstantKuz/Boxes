@@ -17,6 +17,11 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: 0e71e2cedf8c06241bd83a89872495ad
   m_SerializeEntries:
+  - m_GUID: 4f30de7ea324cb7458745a4eeb0596d2
+    m_Address: Assets/Prefabs/Localization/Tables/Quests/Quests Shared Data.asset
+    m_ReadOnly: 1
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: c7283c37c72611143890a140b42ae0e0
     m_Address: Assets/Prefabs/Localization/Tables/Dialogs/Dialogs Shared Data.asset
     m_ReadOnly: 1

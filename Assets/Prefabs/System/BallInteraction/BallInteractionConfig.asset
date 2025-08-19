@@ -25,6 +25,6 @@ MonoBehaviour:
   autoCaptureTime: 0.3
   autoCaptureRechargeTime: 0.5
   attractionRadius: 10
-  attractionForce: 50
-  attractionMinRequiredSpeed: 5
+  attractionForce: 20
+  attractionMinRequiredSpeed: 10
   resetConditions: 10

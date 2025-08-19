@@ -4,7 +4,9 @@
     {
         public static T GetStateOrDefault<T>(this NetworkStateHolderBase holder) where T : INetworkState
         {
-            return holder.Data != null ? holder.Serializer.Deserialize<T>(holder.Data) : default;
+            return holder.Data != null && holder.Serializer != null
+                ? holder.Serializer.Deserialize<T>(holder.Data)
+                : default;
         }
     }
 }

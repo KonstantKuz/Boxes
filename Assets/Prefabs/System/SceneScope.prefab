@@ -35,6 +35,7 @@ Transform:
   - {fileID: 5078284019158788827}
   - {fileID: 2075146070700208455}
   - {fileID: 7162937362513168890}
+  - {fileID: 1860510742888022239}
   m_Father: {fileID: 8795506885024739516}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6783381043972654020
@@ -183,8 +184,7 @@ MonoBehaviour:
     - rid: 2942314237941252100
       type: {class: BallInteractionMediator, ns: Configuration.Mediator, asm: Assembly-CSharp}
       data:
-        ballInteractionConfig: {fileID: 11400000, guid: 2c8a617761150bd4d957bc207bb0cde3,
-          type: 2}
+        ballInteractionConfig: {fileID: 11400000, guid: 2c8a617761150bd4d957bc207bb0cde3, type: 2}
 --- !u!1 &2418985253115657278
 GameObject:
   m_ObjectHideFlags: 0
@@ -426,8 +426,7 @@ MonoBehaviour:
       data:
         dialogs:
         - {fileID: 11400000, guid: ff8e66283d301de48909ae873399dde6, type: 2}
-        dialogWindowType: {fileID: 11400000, guid: 5572b08fb13fd5d4cb257958a845e03c,
-          type: 2}
+        dialogWindowType: {fileID: 11400000, guid: 5572b08fb13fd5d4cb257958a845e03c, type: 2}
 --- !u!114 &8211385589716824693
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -444,6 +443,59 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   Data: 
+--- !u!1 &3822627722873215472
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1860510742888022239}
+  - component: {fileID: 1901350109941390844}
+  m_Layer: 0
+  m_Name: QuestService
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1860510742888022239
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3822627722873215472}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3767940849198152207}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1901350109941390844
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3822627722873215472}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1191e67548584f269bcc75da53dd4ec0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  questService:
+    rid: 2942314443011784710
+  references:
+    version: 2
+    RefIds:
+    - rid: 2942314443011784710
+      type: {class: QuestService, ns: Infrastructure.QuestService, asm: Assembly-CSharp}
+      data:
+        testConfig: {fileID: 11400000, guid: 862808ca6c1af954d92a933364f44cba, type: 2}
 --- !u!1 &5534225987147343979
 GameObject:
   m_ObjectHideFlags: 0
@@ -646,8 +698,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e7349731cb74567a29c92ef3151a51b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canvasRootPrefab: {fileID: -3361858569960158047, guid: c05dc9ddbdebeee4d8df3b19f1a7d329,
-    type: 3}
+  canvasRootPrefab: {fileID: -3361858569960158047, guid: c05dc9ddbdebeee4d8df3b19f1a7d329, type: 3}
 --- !u!114 &6296120299634707105
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -660,8 +711,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0966260f3c13482aa9adb3be640c1c69, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dialogWindowPrefab: {fileID: 4201638552772912302, guid: 9697430d107a09c4eb15387dfacf61e4,
-    type: 3}
+  dialogWindowPrefab: {fileID: 4201638552772912302, guid: 9697430d107a09c4eb15387dfacf61e4, type: 3}
 --- !u!114 &6039979546581843396
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -674,8 +724,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9edc380bb28a75a4bbe3d227610dd875, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hudPrefab: {fileID: 7006537948899420453, guid: bd7072c6469aa764c964753b46546131,
-    type: 3}
+  hudPrefab: {fileID: 7006537948899420453, guid: bd7072c6469aa764c964753b46546131, type: 3}
 --- !u!1 &7139778313264226882
 GameObject:
   m_ObjectHideFlags: 0
@@ -782,7 +831,7 @@ Transform:
   m_GameObject: {fileID: 8506501947066740673}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -796.9, y: -163.13278, z: -107.922714}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -857,7 +906,7 @@ Transform:
   m_GameObject: {fileID: 9012567134885567325}
   serializedVersion: 2
   m_LocalRotation: {x: 0.47454372, y: 0, z: 0, w: 0.880232}
-  m_LocalPosition: {x: 15, y: 30.9, z: -28}
+  m_LocalPosition: {x: 811.9, y: 30.399992, z: 167.6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

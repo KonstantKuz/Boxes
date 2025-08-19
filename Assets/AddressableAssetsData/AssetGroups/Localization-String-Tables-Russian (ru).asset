@@ -17,6 +17,12 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: fff6235070ad1cf42abc43f74b5cb682
   m_SerializeEntries:
+  - m_GUID: 1ce35d3e539fc6d44809c2b850eeade9
+    m_Address: Quests_ru
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-ru
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 3724e8c2933b6314f844556c54f91b69
     m_Address: Characters_ru
     m_ReadOnly: 1

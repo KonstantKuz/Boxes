@@ -203,7 +203,7 @@ MonoBehaviour:
   editorAutoStart: 0
   sendRate: 60
   offlineScene: Assets/Scenes/LocalTestScene.unity
-  onlineScene: Assets/Scenes/GameScene.unity
+  onlineScene: Assets/Scenes/CityScene.unity
   offlineSceneLoadDelay: 0
   transport: {fileID: 1208961425}
   networkAddress: 26.180.46.63
@@ -211,8 +211,7 @@ MonoBehaviour:
   disconnectInactiveConnections: 0
   disconnectInactiveTimeout: 60
   authenticator: {fileID: 0}
-  playerPrefab: {fileID: 1189618843407812, guid: f9ee737a8323c524ab27c0b5c459e59b,
-    type: 3}
+  playerPrefab: {fileID: 1189618843407812, guid: f9ee737a8323c524ab27c0b5c459e59b, type: 3}
   autoCreatePlayer: 1
   playerSpawnMethod: 0
   spawnPrefabs: []
@@ -244,7 +243,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   offsetX: 0
-  offsetY: 0
+  offsetY: 900
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

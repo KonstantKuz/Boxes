@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Infrastructure.Network.Abstract;
 using Mirror;
 using R3;
@@ -72,7 +73,7 @@ namespace Infrastructure.Network
         {
             if (executionObservers.TryGetValue(typeMapper.GetType<Type>(type), out List<Action<byte[]>> observers))
             {
-                observers.ForEach(observer => observer(data));
+                observers.ToList().ForEach(observer => observer(data));
             }
         }
 
@@ -81,7 +82,7 @@ namespace Infrastructure.Network
         {
             if (reactionObservers.TryGetValue(typeMapper.GetType<Type>(type), out List<Action<byte[]>> observers))
             {
-                observers.ForEach(observer => observer(data));
+                observers.ToList().ForEach(observer => observer(data));
             }
         }
 
