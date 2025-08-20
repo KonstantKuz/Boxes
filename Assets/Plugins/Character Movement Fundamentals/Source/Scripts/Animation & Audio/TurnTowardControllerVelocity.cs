@@ -16,6 +16,8 @@ namespace CMF
 		Transform parentTransform;
 		Transform tr;
 
+		private Transform cameraTransform;
+
 		//Current (local) rotation around the (local) y axis of this gameobject;
 		float currentYRotation = 0f;
 
@@ -26,7 +28,7 @@ namespace CMF
 		//Whether the current controller momentum should be ignored when calculating the new direction;
 		public bool ignoreControllerMomentum = false;
 
-		private Vector2 targetDirection;
+		private Vector3 targetDirection;
 
 		//Setup;
 		void Start () {
@@ -41,9 +43,17 @@ namespace CMF
 			}
 		}
 
+		public void SetCameraTransform(Transform cameraTransform)
+		{
+			this.cameraTransform = cameraTransform;
+		}
+
 		public void SetTargetDirection(Vector3 targetDirection)
 		{
-			this.targetDirection = targetDirection;
+			Vector3 result = Vector3.zero;
+			result += Vector3.ProjectOnPlane(cameraTransform.right, tr.up).normalized * targetDirection.x;
+			result += Vector3.ProjectOnPlane(cameraTransform.forward, tr.up).normalized * targetDirection.y;
+			this.targetDirection = result;
 		}
 
 		void LateUpdate () {
@@ -57,7 +67,7 @@ namespace CMF
 
 			if (targetDirection.sqrMagnitude > 0)
 			{
-				_velocity = new Vector3(targetDirection.x, 0, targetDirection.y);
+				_velocity = targetDirection;
 			}
 
 			//Project velocity onto a plane defined by the 'up' direction of the parent transform;
