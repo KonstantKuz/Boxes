@@ -1,7 +1,7 @@
 ﻿using Infrastructure.Bootstrap;
 using R3;
 
-namespace Infrastructure.QuestService
+namespace Infrastructure.QuestService.Abstract
 {
     public interface IQuestService : IPostBuildInjectable
     {

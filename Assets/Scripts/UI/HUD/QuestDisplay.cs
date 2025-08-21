@@ -1,6 +1,7 @@
 ﻿using System;
 using Infrastructure.Bootstrap;
 using Infrastructure.QuestService;
+using Infrastructure.QuestService.Abstract;
 using R3;
 using Reflex.Attributes;
 using UnityEngine;

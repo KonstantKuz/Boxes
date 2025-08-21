@@ -22,6 +22,10 @@ MonoBehaviour:
     m_Localized: Guy
     m_Metadata:
       m_Items: []
+  - m_Id: 10131890692538368
+    m_Localized: Petruha
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

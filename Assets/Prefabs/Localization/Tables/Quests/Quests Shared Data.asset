@@ -23,6 +23,14 @@ MonoBehaviour:
     m_Key: PassBallDescription
     m_Metadata:
       m_Items: []
+  - m_Id: 729722772373504
+    m_Key: GoToPetruhaTitle
+    m_Metadata:
+      m_Items: []
+  - m_Id: 729768523841536
+    m_Key: GoToPetruhaDescription
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

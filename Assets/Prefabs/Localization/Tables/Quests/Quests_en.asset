@@ -28,6 +28,10 @@ MonoBehaviour:
       Pass the ball {1}/{2}'
     m_Metadata:
       m_Items: []
+  - m_Id: 729722772373504
+    m_Localized: Go to Petruha
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

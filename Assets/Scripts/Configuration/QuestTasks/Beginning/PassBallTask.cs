@@ -4,20 +4,25 @@ using System.Linq;
 using Gameplay.Interactable.BallInteraction.Command;
 using Infrastructure.Network.Abstract;
 using Infrastructure.Network.State;
+using Infrastructure.QuestService;
+using Infrastructure.QuestService.Abstract;
 using R3;
 using Reflex.Attributes;
+using UnityEngine;
 using UnityEngine.Localization.SmartFormat.PersistentVariables;
 
-namespace Infrastructure.QuestService
+namespace Configuration.QuestTasks.Beginning
 {
+    [Serializable]
     public class PassBallTask : TaskBase, IDisposable
     {
+        [SerializeField]
+        private TaskConfig config;
+
         private INetworkService networkService;
         private INetworkStateHolder<ConnectionState> connectionStateHolder;
 
         private CompositeDisposable disposable;
-        private TaskConfig config;
-
         private HashSet<uint> holders;
         private HashSet<uint> kickers;
 
@@ -32,13 +37,11 @@ namespace Infrastructure.QuestService
 
             holders = new HashSet<uint>();
             kickers = new HashSet<uint>();
+            disposable = new CompositeDisposable();
         }
 
-        public void Initialize(TaskConfig config)
+        public override void Start()
         {
-            this.config = config;
-
-            disposable = new CompositeDisposable();
             networkService.ObserveToExecute<KickCommand>(OnKickExecuted).AddTo(disposable);
             networkService.ObserveToExecute<HoldCommand>(OnHoldExecuted).AddTo(disposable);
             connectionStateHolder.Subscribe(_ => UpdateState()).AddTo(disposable);

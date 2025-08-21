@@ -1,6 +1,6 @@
 ﻿using R3;
 
-namespace Infrastructure.QuestService
+namespace Infrastructure.QuestService.Abstract
 {
     public class TaskBase : ITask
     {
@@ -9,5 +9,8 @@ namespace Infrastructure.QuestService
 
         Observable<(string Title, string Description)> ITask.DisplayData => DisplayData;
         ReadOnlyReactiveProperty<bool> ITask.IsDone => IsDone;
+        public virtual void Start()
+        {
+        }
     }
 }
