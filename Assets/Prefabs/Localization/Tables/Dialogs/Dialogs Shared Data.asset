@@ -24,7 +24,11 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 10138343738294272
-    m_Key: PetruhaReplica_1
+    m_Key: Beginning_1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11279811211280384
+    m_Key: Beginning_2
     m_Metadata:
       m_Items: []
   m_Metadata:

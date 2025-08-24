@@ -9,13 +9,10 @@ using UnityEngine;
 
 namespace Infrastructure.QuestService.Abstract
 {
-    public class TaskSequence : ITask, IDisposable
+    public class TaskBag : ITask, IDisposable
     {
         [SerializeReference]
         private List<ITask> tasks;
-
-        private IDisposable activeTaskDisposable;
-        private int currentIndex;
 
         Observable<(string Title, string Description)> ITask.DisplayData =>
             Observable.Merge(tasks.Select(item => item.DisplayData));
@@ -41,35 +38,10 @@ namespace Infrastructure.QuestService.Abstract
                 return;
             }
 
-            StartTaskAt(currentIndex);
-        }
-
-        private void StartTaskAt(int index)
-        {
-            if (index >= tasks.Count)
+            foreach (ITask task in tasks)
             {
-                return;
+                task.Start();
             }
-
-            ITask task = tasks[index];
-            currentIndex = index;
-
-            activeTaskDisposable?.Dispose();
-            activeTaskDisposable = task.IsDone
-                .Where(done => done)
-                .Take(1)
-                .Subscribe(_ =>
-                {
-                    if (task is IDisposable disposable)
-                    {
-                        disposable.Dispose();
-                    }
-
-                    activeTaskDisposable?.Dispose();
-                    StartTaskAt(index + 1);
-                });
-
-            task.Start();
         }
 
         void IDisposable.Dispose()
@@ -77,9 +49,9 @@ namespace Infrastructure.QuestService.Abstract
             IEnumerable<IDisposable> disposables =
                 tasks.Select(task => task as IDisposable).Where(disposable => disposable != null);
 
-            foreach (IDisposable task in disposables)
+            foreach (IDisposable disposable in disposables)
             {
-                task.Dispose();
+                disposable.Dispose();
             }
         }
     }

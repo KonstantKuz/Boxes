@@ -19,7 +19,7 @@ using UnityEngine.InputSystem;
 namespace Configuration.Mediator
 {
     [Serializable]
-    public partial class BallInteractionMediator : IBallInteractionMediator, IInitializable
+    public partial class BallInteractionMediator : IBallInteractionMediator, IInitializable, IUpdatable
     {
         [SerializeField]
         private BallInteractionConfig ballInteractionConfig;
@@ -56,7 +56,6 @@ namespace Configuration.Mediator
         {
             inputService.DefaultContextActions.Take.performed += TryHoldBall;
             inputService.DefaultContextActions.Action.performed += TryKickBall;
-            inputService.DefaultContextActions.Aim.performed += TryCaptureBall;
         }
 
         void IBallInteractionMediator.RegisterBall(Ball ball)
@@ -78,6 +77,14 @@ namespace Configuration.Mediator
         bool IBallInteractionMediator.IsBallOutOfBounds(out Plane outOfBoundsSide)
         {
             return !cameraService.IsVisible(ball.Bounds, out outOfBoundsSide);
+        }
+
+        void IUpdatable.Update()
+        {
+            if (inputService.DefaultContextActions.Aim.IsPressed())
+            {
+                TryCaptureBall();
+            }
         }
 
         bool IBallInteractionMediator.IsPredictionVisible(out Vector3 direction)
@@ -153,7 +160,7 @@ namespace Configuration.Mediator
             }
         }
 
-        private void TryCaptureBall(InputAction.CallbackContext context)
+        private void TryCaptureBall()
         {
             if (ballInteractionConfig.AutoCaptureTime <= 0)
             {

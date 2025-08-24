@@ -1,5 +1,6 @@
 ﻿using System;
 using Configuration.QuestTasks.Beginning;
+using Cysharp.Threading.Tasks;
 using Infrastructure.Bootstrap;
 using Infrastructure.QuestService.Abstract;
 using R3;
@@ -12,8 +13,8 @@ namespace Infrastructure.QuestService
 {
     public class QuestService : IQuestService, IInitializable
     {
-        [SerializeField]
-        private BeginningTaskSequence beginningTaskSequence;
+        [SerializeReference]
+        private TaskSequence beginningTaskSequence;
 
         private Container container;
         private readonly ReactiveProperty<ITask> activeTask = new();
@@ -28,10 +29,14 @@ namespace Infrastructure.QuestService
 
         void IInitializable.Initialize()
         {
-            AttributeInjector.Inject(beginningTaskSequence, container);
-            ((ITask)beginningTaskSequence).Start();
-            activeTask.Value = beginningTaskSequence;
-            ((ITask) beginningTaskSequence).IsDone.Subscribe(CleanActiveTask);
+            UniTask.Void(async () =>
+            {
+                AttributeInjector.Inject(beginningTaskSequence, container);
+                await UniTask.Yield();
+                ((ITask)beginningTaskSequence).Start();
+                activeTask.Value = beginningTaskSequence;
+                ((ITask) beginningTaskSequence).IsDone.Subscribe(CleanActiveTask);
+            });
         }
 
         private void CleanActiveTask(bool isDone)

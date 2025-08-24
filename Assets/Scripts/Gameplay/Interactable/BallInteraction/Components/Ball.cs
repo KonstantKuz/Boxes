@@ -1,5 +1,4 @@
 using System;
-using System.Linq;
 using Gameplay.Interactable.BallInteraction.Abstract;
 using Gameplay.Interactable.BallInteraction.Command;
 using Gameplay.Interactable.BallInteraction.State;
@@ -84,6 +83,7 @@ namespace Gameplay.Interactable.BallInteraction.Components
 
             float targetSpeed = (1.0f + Config.KickSpeedModifier * kicksCount) * Config.MinSpeed;
 
+            rigidbody.isKinematic = false;
             rigidbody.velocity = kickContext.Direction.normalized * targetSpeed;
 
             internalState.DistanceSinceLastKick = 0;
@@ -120,20 +120,6 @@ namespace Gameplay.Interactable.BallInteraction.Components
                 return;
             }
 
-            // Vector3 pos = transform.position;
-            // Vector3 dir = lastVelocity.normalized;
-            //
-            // if (Physics.Raycast(pos - dir * 0.1f, dir, out RaycastHit hit, 1f))
-            // {
-            //     // Берём нормаль именно из того места, куда реально летел мяч
-            //     Vector3 normal = hit.normal;
-            //
-            //     // Правильное отражение
-            //     Vector3 reflected = Vector3.Reflect(lastVelocity, normal);
-            //
-            //     rigidbody.velocity = reflected.normalized * lastVelocity.magnitude;
-            // }
-
             bool isResetRequired = Config.ResetConditions.HasFlag(ResetCondition.Collision);
 
             if (other.gameObject.TryGetComponent(out IBallReactionInitiator reactionInitiator))
@@ -155,6 +141,8 @@ namespace Gameplay.Interactable.BallInteraction.Components
             BallSharedState state = StateHolder.GetState();
 
             statusEffect.SetActive(state.KicksCount >= Config.StatusKicksCount);
+
+            rigidbody.isKinematic = state.HasHolder || internalState?.CaptureContext?.InitiatorNetId > 0;
         }
 
         private void FixedUpdate()
@@ -172,9 +160,7 @@ namespace Gameplay.Interactable.BallInteraction.Components
 
             if (hasValidHolder)
             {
-                Vector3 interpolated =
-                    Vector3.Lerp(transform.position, holdInitiator.BallSocket.position, Time.fixedDeltaTime * 20);
-                rigidbody.MovePosition(interpolated);
+                rigidbody.MovePosition(holdInitiator.BallSocket.position);
                 return;
             }
 
@@ -186,8 +172,7 @@ namespace Gameplay.Interactable.BallInteraction.Components
             {
                 Vector3 targetPosition =
                     captureInitiator.BallSocket.TransformPoint(internalState.CaptureContext!.RelativePosition);
-                Vector3 interpolated = Vector3.Lerp(transform.position, targetPosition, Time.fixedDeltaTime * 20);
-                rigidbody.MovePosition(interpolated);
+                rigidbody.MovePosition(targetPosition);
                 return;
             }
 

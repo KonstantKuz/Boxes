@@ -31,6 +31,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4278316817579702593}
+  - {fileID: 335656688823900488}
   - {fileID: 4611147805928974171}
   - {fileID: 5078284019158788827}
   - {fileID: 2075146070700208455}
@@ -428,6 +429,7 @@ MonoBehaviour:
         dialogs:
         - {fileID: 11400000, guid: ff8e66283d301de48909ae873399dde6, type: 2}
         - {fileID: 11400000, guid: bd641bdd7da93a544a171e25bbd75794, type: 2}
+        - {fileID: 11400000, guid: 82d038918d632a8429f323d51018ee01, type: 2}
         dialogWindowType: {fileID: 11400000, guid: 5572b08fb13fd5d4cb257958a845e03c, type: 2}
 --- !u!114 &8211385589716824693
 MonoBehaviour:
@@ -445,6 +447,58 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   Data: 
+--- !u!1 &3625914963460771687
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 335656688823900488}
+  - component: {fileID: 6596543677441408231}
+  m_Layer: 0
+  m_Name: WorldRootService
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &335656688823900488
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3625914963460771687}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3767940849198152207}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6596543677441408231
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3625914963460771687}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b9eccbbb56c4720b72b5e83c0588899, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  worldService:
+    rid: 2942314557470146566
+  references:
+    version: 2
+    RefIds:
+    - rid: 2942314557470146566
+      type: {class: WorldService, ns: Infrastructure.World, asm: Assembly-CSharp}
+      data: 
 --- !u!1 &3822627722873215472
 GameObject:
   m_ObjectHideFlags: 0
@@ -498,16 +552,68 @@ MonoBehaviour:
       type: {class: QuestService, ns: Infrastructure.QuestService, asm: Assembly-CSharp}
       data:
         beginningTaskSequence:
-          goToNpcTask:
-            config: {fileID: 0}
-            targetTrigger: {fileID: 0}
-          npcDialogTask:
-            dialogOwner: {fileID: 0}
-          goToPlayTask:
-            config: {fileID: 0}
-            targetTrigger: {fileID: 0}
-          passBallTask:
-            config: {fileID: 0}
+          rid: 2942314557470146563
+    - rid: 2942314557470146563
+      type: {class: TaskSequence, ns: Infrastructure.QuestService.Abstract, asm: Assembly-CSharp}
+      data:
+        tasks:
+        - rid: 2942314557470146564
+        - rid: 2942314557470146573
+        - rid: 2942314557470146577
+        - rid: 2942314557470146574
+        - rid: 2942314557470146578
+        - rid: 2942314557470146570
+        - rid: 2942314557470146579
+        - rid: 2942314557470146571
+    - rid: 2942314557470146564
+      type: {class: NavigationTask, ns: Configuration.QuestTasks.Shared, asm: Assembly-CSharp}
+      data:
+        config: {fileID: 11400000, guid: f383f888a2faf7f4ca04bd424a39abef, type: 2}
+        targetId: 84628986-6037-429c-8e9a-63956d74502f
+    - rid: 2942314557470146570
+      type: {class: PetruhaLeaveTask, ns: Configuration.QuestTasks.Beginning, asm: Assembly-CSharp}
+      data:
+        npcId: af8147ce-61e2-4738-ae01-609d7e3e5e1a
+    - rid: 2942314557470146571
+      type: {class: PassBallTask, ns: Configuration.QuestTasks.Beginning, asm: Assembly-CSharp}
+      data:
+        requiredCount: 3
+        config: {fileID: 11400000, guid: 862808ca6c1af954d92a933364f44cba, type: 2}
+    - rid: 2942314557470146573
+      type: {class: PetruhaAppearTask, ns: Configuration.QuestTasks.Beginning, asm: Assembly-CSharp}
+      data:
+        npcId: af8147ce-61e2-4738-ae01-609d7e3e5e1a
+    - rid: 2942314557470146574
+      type: {class: TaskBag, ns: Infrastructure.QuestService.Abstract, asm: Assembly-CSharp}
+      data:
+        tasks:
+        - rid: 2942314557470146575
+        - rid: 2942314557470146576
+    - rid: 2942314557470146575
+      type: {class: NpcNavigationTask, ns: Configuration.QuestTasks.Shared, asm: Assembly-CSharp}
+      data:
+        npcId: af8147ce-61e2-4738-ae01-609d7e3e5e1a
+        targetId: 68744049-5105-4e1c-b16a-fb640380ed1c
+        isAwaitRequired: 1
+    - rid: 2942314557470146576
+      type: {class: NavigationTask, ns: Configuration.QuestTasks.Shared, asm: Assembly-CSharp}
+      data:
+        config: {fileID: 11400000, guid: deabe43701ab55f4f882fe302e19826d, type: 2}
+        targetId: 68744049-5105-4e1c-b16a-fb640380ed1c
+    - rid: 2942314557470146577
+      type: {class: DialogTask, ns: Configuration.QuestTasks.Shared, asm: Assembly-CSharp}
+      data:
+        dialogSequence: {fileID: 11400000, guid: bd641bdd7da93a544a171e25bbd75794, type: 2}
+    - rid: 2942314557470146578
+      type: {class: DialogTask, ns: Configuration.QuestTasks.Shared, asm: Assembly-CSharp}
+      data:
+        dialogSequence: {fileID: 11400000, guid: 82d038918d632a8429f323d51018ee01, type: 2}
+    - rid: 2942314557470146579
+      type: {class: NpcNavigationTask, ns: Configuration.QuestTasks.Shared, asm: Assembly-CSharp}
+      data:
+        npcId: af8147ce-61e2-4738-ae01-609d7e3e5e1a
+        targetId: 84628986-6037-429c-8e9a-63956d74502f
+        isAwaitRequired: 0
 --- !u!1 &5534225987147343979
 GameObject:
   m_ObjectHideFlags: 0

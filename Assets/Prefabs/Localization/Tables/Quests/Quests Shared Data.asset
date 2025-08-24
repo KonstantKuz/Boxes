@@ -28,7 +28,11 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 729768523841536
-    m_Key: GoToPetruhaDescription
+    m_Key: EmptyDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1852088441225216
+    m_Key: GoToStationTitle
     m_Metadata:
       m_Items: []
   m_Metadata:

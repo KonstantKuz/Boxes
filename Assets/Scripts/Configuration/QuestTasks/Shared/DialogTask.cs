@@ -1,5 +1,6 @@
 ﻿using System;
-using Gameplay.Interactable.Dialog;
+using Infrastructure.DialogService;
+using Infrastructure.DialogService.Abstract;
 using Infrastructure.DialogService.Command;
 using Infrastructure.Network.Abstract;
 using Infrastructure.QuestService.Abstract;
@@ -9,24 +10,25 @@ using UnityEngine;
 namespace Configuration.QuestTasks.Shared
 {
     [Serializable]
-    public class NpcDialogTask : TaskBase, IDisposable
+    public class DialogTask : TaskBase, IDisposable
     {
         [SerializeField]
-        private DialogOwner dialogOwner;
+        private DialogSequence dialogSequence;
 
         private IDisposable disposable;
         private INetworkService networkService;
+        private IDialogService dialogService;
 
         [Inject]
-        private void Construct(INetworkService networkService)
+        private void Construct(INetworkService networkService, IDialogService dialogService)
         {
             this.networkService = networkService;
+            this.dialogService = dialogService;
         }
 
         public override void Start()
         {
-            dialogOwner.gameObject.SetActive(true);
-            dialogOwner.StartDialog(0);
+            dialogService.StartDialog(0, dialogSequence.Id);
 
             disposable = networkService.ObserveToReact<StopDialogCommand>(OnDialogStop);
         }

@@ -1,7 +1,9 @@
 ﻿using System;
+using Infrastructure;
 using Infrastructure.NavigationService;
 using Infrastructure.QuestService;
 using Infrastructure.QuestService.Abstract;
+using Infrastructure.World;
 using R3;
 using R3.Triggers;
 using Reflex.Attributes;
@@ -16,22 +18,31 @@ namespace Configuration.QuestTasks.Shared
         private TaskConfig config;
 
         [SerializeField]
-        private Transform targetTrigger;
+        private string targetId;
 
         private INavigationService navigationService;
+        private IWorldService worldService;
+
         private IDisposable triggerDisposable;
 
         [Inject]
-        private void Construct(INavigationService navigationService)
+        private void Construct(INavigationService navigationService, IWorldService worldService)
         {
             this.navigationService = navigationService;
+            this.worldService = worldService;
         }
 
         public override void Start()
         {
             DisplayData.Value = (config.Title.GetLocalizedString(), config.Description.GetLocalizedString());
-            navigationService.SetActiveTarget(targetTrigger);
-            triggerDisposable = targetTrigger.OnTriggerEnterAsObservable()
+            if (!worldService.TryGetById(Guid.Parse(targetId), out IWorldObject target))
+            {
+                this.Log(LogType.Error, "Target not found");
+                return;
+            }
+
+            navigationService.SetActiveTarget(target.Value.transform);
+            triggerDisposable = target.Value.transform.OnTriggerEnterAsObservable()
                 .Where(item => item.CompareTag("Player"))
                 .Subscribe(_ => IsDone.Value = true);
         }

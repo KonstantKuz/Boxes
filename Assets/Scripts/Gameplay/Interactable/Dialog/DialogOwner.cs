@@ -1,12 +1,11 @@
 ﻿using Infrastructure.DialogService;
 using Infrastructure.DialogService.Abstract;
-using Mirror;
 using Reflex.Attributes;
 using UnityEngine;
 
 namespace Gameplay.Interactable.Dialog
 {
-    public class DialogOwner : NetworkBehaviour
+    public class DialogOwner : MonoBehaviour
     {
         [SerializeField]
         private DialogSequence dialogSequence;

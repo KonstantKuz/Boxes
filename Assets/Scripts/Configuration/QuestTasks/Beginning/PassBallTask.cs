@@ -17,14 +17,17 @@ namespace Configuration.QuestTasks.Beginning
     public class PassBallTask : TaskBase, IDisposable
     {
         [SerializeField]
+        private int requiredCount;
+
+        [SerializeField]
         private TaskConfig config;
 
         private INetworkService networkService;
         private INetworkStateHolder<ConnectionState> connectionStateHolder;
 
         private CompositeDisposable disposable;
-        private HashSet<uint> holders;
-        private HashSet<uint> kickers;
+        private Dictionary<uint, int> holders;
+        private Dictionary<uint, int> kickers;
 
         [Inject]
         private void Construct(
@@ -35,8 +38,8 @@ namespace Configuration.QuestTasks.Beginning
             this.networkService = networkService;
             this.connectionStateHolder = connectionStateHolder;
 
-            holders = new HashSet<uint>();
-            kickers = new HashSet<uint>();
+            holders = new Dictionary<uint, int>();
+            kickers = new Dictionary<uint, int>();
             disposable = new CompositeDisposable();
         }
 
@@ -51,18 +54,20 @@ namespace Configuration.QuestTasks.Beginning
 
         private void OnHoldExecuted(HoldCommand holdCommand)
         {
-            if (holders.Add(holdCommand.InitiatorNetId))
-            {
-                UpdateState();
-            }
+            holders.TryGetValue(holdCommand.InitiatorNetId, out int count);
+            count++;
+            holders[holdCommand.InitiatorNetId] = count;
+
+            UpdateState();
         }
 
         private void OnKickExecuted(KickCommand kickCommand)
         {
-            if (kickers.Add(kickCommand.InitiatorNetId))
-            {
-                UpdateState();
-            }
+            kickers.TryGetValue(kickCommand.InitiatorNetId, out int count);
+            count++;
+            kickers[kickCommand.InitiatorNetId] = count;
+
+            UpdateState();
         }
 
         private void UpdateState()
@@ -77,12 +82,15 @@ namespace Configuration.QuestTasks.Beginning
             int totalPlayersCount = players.Count;
             IList<object> args = new List<object>
             {
-                new IntVariable { Value = holders.Count },
-                new IntVariable { Value = kickers.Count },
-                new IntVariable { Value = totalPlayersCount }
+                new IntVariable { Value = holders.Sum(item => item.Value) },
+                new IntVariable { Value = kickers.Sum(item => item.Value) },
+                new IntVariable { Value = requiredCount * players.Count }
             };
             DisplayData.Value = (config.Title.GetLocalizedString(), config.Description.GetLocalizedString(args));
-            IsDone.Value = players.All(id => holders.Contains(id) && kickers.Contains(id));
+            IsDone.Value = players.All(playerId =>
+                holders.TryGetValue(playerId, out int holdCount) && holdCount >= requiredCount &&
+                kickers.TryGetValue(playerId, out int kickerCount) && kickerCount >= requiredCount
+            );
         }
 
         void IDisposable.Dispose()

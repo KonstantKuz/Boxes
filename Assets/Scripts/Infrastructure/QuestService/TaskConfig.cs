@@ -24,10 +24,7 @@ namespace Infrastructure.QuestService
         [Button]
         private void GenerateGuid()
         {
-            if (string.IsNullOrEmpty(guid))
-            {
-                guid = Guid.NewGuid().ToString();
-            }
+            guid = Guid.NewGuid().ToString();
         }
     }
 }
