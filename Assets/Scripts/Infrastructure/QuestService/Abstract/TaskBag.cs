@@ -9,18 +9,13 @@ using UnityEngine;
 
 namespace Infrastructure.QuestService.Abstract
 {
-    public class TaskBag : ITask, IDisposable
+    public class TaskBag : TaskBase, IDisposable
     {
         [SerializeReference]
         private List<ITask> tasks;
 
-        Observable<(string Title, string Description)> ITask.DisplayData =>
-            Observable.Merge(tasks.Select(item => item.DisplayData));
-
-        ReadOnlyReactiveProperty<bool> ITask.IsDone => Observable
-            .CombineLatest(tasks.Select(item => item.IsDone))
-            .Select(values => values.All(value => value))
-            .ToReadOnlyReactiveProperty();
+        private IDisposable displayDataDisposable;
+        private IDisposable isDoneDisposable;
 
         [Inject]
         private void Construct(Container container)
@@ -31,12 +26,21 @@ namespace Infrastructure.QuestService.Abstract
             }
         }
 
-        public void Start()
+        public override void Start()
         {
             if (tasks == null || tasks.Count == 0)
             {
                 return;
             }
+
+            displayDataDisposable = Observable
+                .Merge(tasks.Select(item => item.DisplayData))
+                .Subscribe(value => DisplayData.Value = value);
+
+            isDoneDisposable = Observable
+                .CombineLatest(tasks.Select(item => item.IsDone))
+                .Select(values => values.All(value => value))
+                .Subscribe(value => IsDone.Value = value);
 
             foreach (ITask task in tasks)
             {
@@ -53,6 +57,9 @@ namespace Infrastructure.QuestService.Abstract
             {
                 disposable.Dispose();
             }
+
+            displayDataDisposable?.Dispose();
+            isDoneDisposable?.Dispose();
         }
     }
 }

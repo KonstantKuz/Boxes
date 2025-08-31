@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Infrastructure.DialogService
 {
     [Serializable]
-    [CreateAssetMenu(fileName = "DialogSequence", menuName = "Infrastructure/Dialog/Sequence")]
+    [CreateAssetMenu(fileName = nameof(DialogSequence), menuName = GlobalParams.Root + nameof(DialogSequence))]
     public class DialogSequence : ScriptableObject
     {
         [SerializeField]

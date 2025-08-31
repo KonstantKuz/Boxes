@@ -5,7 +5,7 @@ using UnityEngine.Localization;
 
 namespace Infrastructure.QuestService
 {
-    [CreateAssetMenu(fileName = nameof(TaskConfig), menuName = GlobalParams.TaskConfigPath + nameof(TaskConfig))]
+    [CreateAssetMenu(fileName = nameof(TaskConfig), menuName = GlobalParams.QuestsPath + nameof(TaskConfig))]
     public class TaskConfig : ScriptableObject
     {
         [SerializeField]

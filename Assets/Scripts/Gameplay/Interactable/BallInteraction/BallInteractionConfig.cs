@@ -1,10 +1,14 @@
 ﻿using System;
+using Infrastructure;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace Gameplay.Interactable.BallInteraction
 {
-    [CreateAssetMenu(fileName = "BallInteractionConfig", menuName = "Configs/BallInteractionConfig")]
+    [CreateAssetMenu(
+        fileName = nameof(BallInteractionConfig),
+        menuName = GlobalParams.ConfigPath + nameof(BallInteractionConfig)
+    )]
     public class BallInteractionConfig : ScriptableObject
     {
         [TitleGroup("Base params")]

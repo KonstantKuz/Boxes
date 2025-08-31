@@ -9,7 +9,8 @@ using UnityEngine;
 
 namespace Infrastructure.QuestService.Abstract
 {
-    public class TaskSequence : ITask, IDisposable
+    [Serializable]
+    public class TaskSequence : TaskBase, IDisposable
     {
         [SerializeReference]
         private List<ITask> tasks;
@@ -17,13 +18,8 @@ namespace Infrastructure.QuestService.Abstract
         private IDisposable activeTaskDisposable;
         private int currentIndex;
 
-        Observable<(string Title, string Description)> ITask.DisplayData =>
-            Observable.Merge(tasks.Select(item => item.DisplayData));
-
-        ReadOnlyReactiveProperty<bool> ITask.IsDone => Observable
-            .CombineLatest(tasks.Select(item => item.IsDone))
-            .Select(values => values.All(value => value))
-            .ToReadOnlyReactiveProperty();
+        private IDisposable displayDataDisposable;
+        private IDisposable isDoneDisposable;
 
         [Inject]
         private void Construct(Container container)
@@ -34,12 +30,27 @@ namespace Infrastructure.QuestService.Abstract
             }
         }
 
-        public void Start()
+        public void Start(int taskIndex)
+        {
+            currentIndex = taskIndex;
+            ((ITask) this).Start();
+        }
+
+        public override void Start()
         {
             if (tasks == null || tasks.Count == 0)
             {
                 return;
             }
+
+            displayDataDisposable = Observable
+                .Merge(tasks.Select(item => item.DisplayData))
+                .Subscribe(value => DisplayData.Value = value);
+
+            isDoneDisposable = Observable
+                .CombineLatest(tasks.Select(item => item.IsDone))
+                .Select(values => values.All(value => value))
+                .Subscribe(value => IsDone.Value = value);
 
             StartTaskAt(currentIndex);
         }
@@ -81,6 +92,9 @@ namespace Infrastructure.QuestService.Abstract
             {
                 task.Dispose();
             }
+
+            displayDataDisposable?.Dispose();
+            isDoneDisposable?.Dispose();
         }
     }
 }

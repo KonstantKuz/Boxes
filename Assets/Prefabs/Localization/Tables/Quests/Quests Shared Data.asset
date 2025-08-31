@@ -35,6 +35,22 @@ MonoBehaviour:
     m_Key: GoToStationTitle
     m_Metadata:
       m_Items: []
+  - m_Id: 4412709355503616
+    m_Key: LearnStatusTitle
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4412740628234240
+    m_Key: LearnStatusDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4453720756699136
+    m_Key: GoToMarketTitle
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4453744991387648
+    m_Key: GoToMarketDescription
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

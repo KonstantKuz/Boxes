@@ -33,19 +33,32 @@ namespace UI.HUD
                 return;
             }
 
-            Vector3 screenPoint =
-                cameraService.Camera.WorldToScreenPoint(target.position);
+            Vector3 screenPositionRaw = cameraService.Camera.WorldToScreenPoint(target.position);
+            Vector2 screenPosition = new Vector2(screenPositionRaw.x, screenPositionRaw.y);
 
-            if (screenPoint.z < 0)
+            Rect screenRect = new Rect(margin, margin, Screen.width - 2 * margin, Screen.height - 2 * margin);
+
+            if (screenRect.Contains(screenPosition))
             {
-                screenPoint.x = Screen.width - screenPoint.x;
-                screenPoint.y = Screen.height - screenPoint.y;
+                markerTransform.position = screenPosition;
+                return;
             }
 
-            float x = Mathf.Clamp(screenPoint.x, margin, Screen.width - margin);
-            float y = Mathf.Clamp(screenPoint.y, margin, Screen.height - margin);
+            Vector3 localTarget = cameraService.Camera.transform.InverseTransformPoint(target.position);
+            Vector2 direction = new Vector2(localTarget.x, localTarget.y).normalized;
 
-            markerTransform.position = new Vector3(x, y, 0f);
+            Vector2 screenCenter = new Vector2(Screen.width / 2f, Screen.height / 2f);
+            Vector2 halfSize = new Vector2(screenRect.width / 2f, screenRect.height / 2f);
+
+            float scaleX = halfSize.x / Mathf.Abs(direction.x);
+            float scaleY = halfSize.y / Mathf.Abs(direction.y);
+            float scale = Mathf.Min(scaleX, scaleY);
+
+            Vector2 intersection = screenCenter + direction * scale;
+            intersection.x = Mathf.Clamp(intersection.x, screenRect.xMin, screenRect.xMax);
+            intersection.y = Mathf.Clamp(intersection.y, screenRect.yMin, screenRect.yMax);
+
+            markerTransform.position = intersection;
         }
     }
 }

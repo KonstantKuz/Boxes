@@ -40,6 +40,23 @@ MonoBehaviour:
     m_Localized: ' '
     m_Metadata:
       m_Items: []
+  - m_Id: 4412709355503616
+    m_Localized: Brake electric box
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4412740628234240
+    m_Localized: Pass the ball a few times to charge it and redirect it towards the
+      target
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4453720756699136
+    m_Localized: Go to market
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4453744991387648
+    m_Localized: Go to market and find new ball
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

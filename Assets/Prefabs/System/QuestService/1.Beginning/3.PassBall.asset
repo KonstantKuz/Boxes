@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4b047716ac874e58a536c5cd3a0a1512, type: 3}
-  m_Name: 3.PassBallTaskConfig
+  m_Name: 3.PassBall
   m_EditorClassIdentifier: 
   guid: 558a10e3-bbab-41a6-89a9-6a9be533719e
   title:

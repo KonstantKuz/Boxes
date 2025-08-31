@@ -4,7 +4,10 @@ using UnityEngine;
 
 namespace Infrastructure.World
 {
-    [CreateAssetMenu(fileName = nameof(WorldObjectTypeId), menuName = nameof(WorldObjectTypeId))]
+    [CreateAssetMenu(
+        fileName = nameof(WorldObjectTypeId),
+        menuName = GlobalParams.Root + nameof(WorldObjectTypeId)
+    )]
     public class WorldObjectTypeId : ScriptableObject
     {
         [SerializeField]

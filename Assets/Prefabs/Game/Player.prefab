@@ -385,9 +385,9 @@ MonoBehaviour:
   syncInterval: 0
   destroyComponents:
   - {fileID: 114808892733143080}
+  - {fileID: 114415904454639492}
   - {fileID: 114854587450894338}
   - {fileID: 6544972154663908213}
-  - {fileID: 114415904454639492}
   - {fileID: 114842684940577594}
   destroyGameObjects: []
 --- !u!114 &1926354744543443417

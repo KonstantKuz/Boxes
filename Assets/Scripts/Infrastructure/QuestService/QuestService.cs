@@ -1,5 +1,5 @@
 ﻿using System;
-using Configuration.QuestTasks.Beginning;
+using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using Infrastructure.Bootstrap;
 using Infrastructure.QuestService.Abstract;
@@ -11,13 +11,24 @@ using UnityEngine;
 
 namespace Infrastructure.QuestService
 {
+    [Serializable]
     public class QuestService : IQuestService, IInitializable
     {
+        private readonly ReactiveProperty<ITask> activeTask = new();
+
         [SerializeReference]
         private TaskSequence beginningTaskSequence;
 
+        [SerializeField]
+        private int currentQuestIndex;
+
+        [SerializeField]
+        private int currentTaskIndex;
+
+        [SerializeReference]
+        private List<TaskSequence> quests;
+
         private Container container;
-        private readonly ReactiveProperty<ITask> activeTask = new();
 
         ReactiveProperty<ITask> IQuestService.ActiveTask => activeTask;
 
@@ -29,26 +40,40 @@ namespace Infrastructure.QuestService
 
         void IInitializable.Initialize()
         {
+            foreach (TaskSequence quest in quests)
+            {
+                AttributeInjector.Inject(quest, container);
+            }
+
             UniTask.Void(async () =>
             {
-                AttributeInjector.Inject(beginningTaskSequence, container);
                 await UniTask.Yield();
-                ((ITask)beginningTaskSequence).Start();
-                activeTask.Value = beginningTaskSequence;
-                ((ITask) beginningTaskSequence).IsDone.Subscribe(CleanActiveTask);
+                StartCurrentQuest();
             });
         }
 
-        private void CleanActiveTask(bool isDone)
+        private void StartCurrentQuest()
+        {
+            TaskSequence currentQuest = quests[currentQuestIndex];
+            currentQuest.Start(currentTaskIndex);
+            activeTask.Value = currentQuest;
+            ((ITask) currentQuest).IsDone.Subscribe(OnCurrentQuestDone);
+        }
+
+        private void OnCurrentQuestDone(bool isDone)
         {
             if (isDone)
             {
                 if (activeTask.Value is IDisposable disposable)
                 {
-                    disposable?.Dispose();
+                    disposable.Dispose();
                 }
 
-                activeTask.Value = null;
+                currentQuestIndex++;
+                if (currentQuestIndex < quests.Count)
+                {
+                    StartCurrentQuest();
+                }
             }
         }
     }

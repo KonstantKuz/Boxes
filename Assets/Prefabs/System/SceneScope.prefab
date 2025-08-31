@@ -553,6 +553,11 @@ MonoBehaviour:
       data:
         beginningTaskSequence:
           rid: 2942314557470146563
+        currentQuestIndex: 0
+        currentTaskIndex: 0
+        quests:
+        - rid: 2942314721992507408
+        - rid: 2942314721992507420
     - rid: 2942314557470146563
       type: {class: TaskSequence, ns: Infrastructure.QuestService.Abstract, asm: Assembly-CSharp}
       data:
@@ -565,6 +570,7 @@ MonoBehaviour:
         - rid: 2942314557470146570
         - rid: 2942314557470146579
         - rid: 2942314557470146571
+        - rid: 2942314718196924418
     - rid: 2942314557470146564
       type: {class: NavigationTask, ns: Configuration.QuestTasks.Shared, asm: Assembly-CSharp}
       data:
@@ -614,6 +620,90 @@ MonoBehaviour:
         npcId: af8147ce-61e2-4738-ae01-609d7e3e5e1a
         targetId: 84628986-6037-429c-8e9a-63956d74502f
         isAwaitRequired: 0
+    - rid: 2942314718196924418
+      type: {class: LearnStatusTask, ns: Configuration.QuestTasks.Beginning, asm: Assembly-CSharp}
+      data:
+        config: {fileID: 11400000, guid: 9874710ffe0e30c4290008b2c48763cb, type: 2}
+        triggerId: f9b6d66c-a9a1-4247-8d6c-08d5fa4936d3
+        requiredHitPoints: 3
+    - rid: 2942314721992507408
+      type: {class: TaskSequence, ns: Infrastructure.QuestService.Abstract, asm: Assembly-CSharp}
+      data:
+        tasks:
+        - rid: 2942314721992507409
+        - rid: 2942314721992507410
+        - rid: 2942314721992507411
+        - rid: 2942314721992507412
+        - rid: 2942314721992507413
+        - rid: 2942314721992507414
+        - rid: 2942314721992507415
+        - rid: 2942314721992507416
+        - rid: 2942314721992507417
+    - rid: 2942314721992507409
+      type: {class: NavigationTask, ns: Configuration.QuestTasks.Shared, asm: Assembly-CSharp}
+      data:
+        config: {fileID: 11400000, guid: f383f888a2faf7f4ca04bd424a39abef, type: 2}
+        targetId: 84628986-6037-429c-8e9a-63956d74502f
+    - rid: 2942314721992507410
+      type: {class: PetruhaAppearTask, ns: Configuration.QuestTasks.Beginning, asm: Assembly-CSharp}
+      data:
+        npcId: af8147ce-61e2-4738-ae01-609d7e3e5e1a
+    - rid: 2942314721992507411
+      type: {class: DialogTask, ns: Configuration.QuestTasks.Shared, asm: Assembly-CSharp}
+      data:
+        dialogSequence: {fileID: 11400000, guid: bd641bdd7da93a544a171e25bbd75794, type: 2}
+    - rid: 2942314721992507412
+      type: {class: TaskBag, ns: Infrastructure.QuestService.Abstract, asm: Assembly-CSharp}
+      data:
+        tasks:
+        - rid: 2942314721992507418
+        - rid: 2942314721992507419
+    - rid: 2942314721992507413
+      type: {class: DialogTask, ns: Configuration.QuestTasks.Shared, asm: Assembly-CSharp}
+      data:
+        dialogSequence: {fileID: 11400000, guid: 82d038918d632a8429f323d51018ee01, type: 2}
+    - rid: 2942314721992507414
+      type: {class: PetruhaLeaveTask, ns: Configuration.QuestTasks.Beginning, asm: Assembly-CSharp}
+      data:
+        npcId: af8147ce-61e2-4738-ae01-609d7e3e5e1a
+    - rid: 2942314721992507415
+      type: {class: NpcNavigationTask, ns: Configuration.QuestTasks.Shared, asm: Assembly-CSharp}
+      data:
+        npcId: af8147ce-61e2-4738-ae01-609d7e3e5e1a
+        targetId: 84628986-6037-429c-8e9a-63956d74502f
+        isAwaitRequired: 0
+    - rid: 2942314721992507416
+      type: {class: PassBallTask, ns: Configuration.QuestTasks.Beginning, asm: Assembly-CSharp}
+      data:
+        requiredCount: 3
+        config: {fileID: 11400000, guid: 862808ca6c1af954d92a933364f44cba, type: 2}
+    - rid: 2942314721992507417
+      type: {class: LearnStatusTask, ns: Configuration.QuestTasks.Beginning, asm: Assembly-CSharp}
+      data:
+        config: {fileID: 11400000, guid: 9874710ffe0e30c4290008b2c48763cb, type: 2}
+        triggerId: f9b6d66c-a9a1-4247-8d6c-08d5fa4936d3
+        requiredHitPoints: 3
+    - rid: 2942314721992507418
+      type: {class: NpcNavigationTask, ns: Configuration.QuestTasks.Shared, asm: Assembly-CSharp}
+      data:
+        npcId: af8147ce-61e2-4738-ae01-609d7e3e5e1a
+        targetId: 68744049-5105-4e1c-b16a-fb640380ed1c
+        isAwaitRequired: 1
+    - rid: 2942314721992507419
+      type: {class: NavigationTask, ns: Configuration.QuestTasks.Shared, asm: Assembly-CSharp}
+      data:
+        config: {fileID: 11400000, guid: deabe43701ab55f4f882fe302e19826d, type: 2}
+        targetId: 68744049-5105-4e1c-b16a-fb640380ed1c
+    - rid: 2942314721992507420
+      type: {class: TaskSequence, ns: Infrastructure.QuestService.Abstract, asm: Assembly-CSharp}
+      data:
+        tasks:
+        - rid: 2942314721992507421
+    - rid: 2942314721992507421
+      type: {class: NavigationTask, ns: Configuration.QuestTasks.Shared, asm: Assembly-CSharp}
+      data:
+        config: {fileID: 11400000, guid: 1a42345b02afc9a428966473d1ab56b9, type: 2}
+        targetId: d8197522-84dc-433b-b7d1-8746743cc650
 --- !u!1 &5534225987147343979
 GameObject:
   m_ObjectHideFlags: 0
@@ -730,14 +820,6 @@ MonoBehaviour:
     - m_Name: 
       m_Id: 1f10ad38-07c1-4095-a6c9-621ffe492ce4
       m_Path: <Keyboard>/backquote
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Cheats
-      m_Flags: 0
-    - m_Name: 
-      m_Id: e54c0ede-51ba-4843-927e-3f50dc96ddca
-      m_Path: <Gamepad>/start
       m_Interactions: 
       m_Processors: 
       m_Groups: 
