@@ -31,7 +31,7 @@ namespace Configuration.Mediator
         private Dictionary<uint, IBallInteractionInitiator> initiators;
 
         private Ball ball;
-        private IBallInteractionInitiator initiator;
+        private IBallInteractionInitiator localInitiator;
         private CancellationTokenSource kickTokenSource;
         private CancellationTokenSource captureTokenSource;
         private float lastKickTime;
@@ -64,14 +64,14 @@ namespace Configuration.Mediator
             this.ball.StateHolder.Subscribe(value => stateReactive.Value = value);
         }
 
-        void IBallInteractionMediator.RegisterInitiator(uint netId, IBallInteractionInitiator initiator, bool isLocalPlayer)
+        void IBallInteractionMediator.RegisterInitiator(IBallInteractionInitiator initiator, bool isLocalPlayer)
         {
             if (isLocalPlayer)
             {
-                this.initiator = initiator;
+                localInitiator = initiator;
             }
 
-            initiators.Add(netId, initiator);
+            initiators.Add(initiator.NetId, initiator);
         }
 
         bool IBallInteractionMediator.IsBallOutOfBounds(out Plane outOfBoundsSide)
@@ -91,15 +91,15 @@ namespace Configuration.Mediator
         {
             direction = Vector3.zero;
 
-            if (initiator == null)
+            if (localInitiator == null)
             {
                 return false;
             }
 
-            direction = initiator.KickDirection;
+            direction = localInitiator.KickDirection;
 
-            float distance = Vector3.Distance(initiator.Position, ball.transform.position);
-            bool isInRange = distance < ballInteractionConfig.InteractionDistance + ball.transform.localScale.x / 2;
+            float distance = Vector3.Distance(localInitiator.Position, ball.transform.position);
+            bool isInRange = distance <= ballInteractionConfig.InteractionDistance;
 
             return isInRange && inputService.DefaultContextActions.Aim.IsPressed();
         }
@@ -111,11 +111,11 @@ namespace Configuration.Mediator
                 return;
             }
 
-            float distance = (initiator.Position - ball.transform.position).magnitude;
+            float distance = (localInitiator.Position - ball.transform.position).magnitude;
 
             if (distance <= ballInteractionConfig.InteractionDistance)
             {
-                networkService.SendCommand(new HoldCommand(initiator.NetId));
+                networkService.SendCommand(new HoldCommand(localInitiator.NetId));
                 captureTokenSource?.Cancel();
                 kickTokenSource?.Cancel();
             }
@@ -140,7 +140,7 @@ namespace Configuration.Mediator
                 {
                     time += Time.fixedDeltaTime;
 
-                    float distance = (initiator.Position - ball.transform.position).magnitude;
+                    float distance = (localInitiator.Position - ball.transform.position).magnitude;
 
                     if (distance <= ballInteractionConfig.InteractionDistance)
                     {
@@ -148,7 +148,7 @@ namespace Configuration.Mediator
                         captureTokenSource?.Cancel();
                         captureTokenSource = null;
                         lastKickTime = Time.time;
-                        KickCommand command = new KickCommand(initiator.NetId, initiator.KickDirection);
+                        KickCommand command = new KickCommand(localInitiator.NetId, localInitiator.KickDirection);
                         networkService.SendCommand(command);
                         break;
                     }
@@ -176,7 +176,7 @@ namespace Configuration.Mediator
                 return;
             }
 
-            float distance = (initiator.Position - ball.transform.position).magnitude;
+            float distance = (localInitiator.Position - ball.transform.position).magnitude;
 
             if (distance <= ballInteractionConfig.InteractionDistance)
             {
@@ -192,8 +192,8 @@ namespace Configuration.Mediator
                     return;
                 }
 
-                Vector3 relativePosition = initiator.BallSocket.InverseTransformPoint(ball.transform.position);
-                networkService.SendCommand(new CaptureCommand(initiator.NetId, relativePosition));
+                Vector3 relativePosition = localInitiator.BallSocket.InverseTransformPoint(ball.transform.position);
+                networkService.SendCommand(new CaptureCommand(localInitiator.NetId, relativePosition));
 
                 float elapsedTime = 0;
                 while (elapsedTime < ballInteractionConfig.AutoCaptureTime)
@@ -209,7 +209,7 @@ namespace Configuration.Mediator
                     return;
                 }
 
-                KickCommand command = new KickCommand(initiator.NetId, initiator.KickDirection);
+                KickCommand command = new KickCommand(localInitiator.NetId, localInitiator.KickDirection);
                 networkService.SendCommand(command);
 
                 lastKickTime = Time.time;

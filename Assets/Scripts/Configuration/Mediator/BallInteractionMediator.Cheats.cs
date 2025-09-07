@@ -24,7 +24,7 @@ namespace Configuration.Mediator
         {
             if (GUILayout.Button("Get ball"))
             {
-                networkService.SendCommand(new HoldCommand(initiator.NetId));
+                networkService.SendCommand(new HoldCommand(localInitiator.NetId));
             }
 
             if (GUILayout.Button("Show config"))

@@ -18,7 +18,7 @@ namespace Gameplay.Interactable.BallInteraction.Components
         uint IBallInteractionInitiator.NetId => netId;
         Transform IBallInteractionInitiator.BallSocket => ballSocket;
         Vector3 IBallInteractionInitiator.Position => transform.position;
-        public Vector3 KickDirection => kickDirectionRoot.forward;
+        Vector3 IBallInteractionInitiator.KickDirection => kickDirectionRoot.forward;
 
         [Inject]
         private void Construct(IBallInteractionMediator ballInteractionMediator)
@@ -28,7 +28,7 @@ namespace Gameplay.Interactable.BallInteraction.Components
 
         public override void OnStartClient()
         {
-            ballInteractionMediator.RegisterInitiator(netId, this, isLocalPlayer);
+            ballInteractionMediator.RegisterInitiator(this, isLocalPlayer);
         }
     }
 }

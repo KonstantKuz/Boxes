@@ -66,6 +66,7 @@ Transform:
   m_Children:
   - {fileID: 4535641168829052}
   - {fileID: 6031273226373417185}
+  - {fileID: 6593830295200270571}
   m_Father: {fileID: 4095570033422622}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &114131511506615486
@@ -183,14 +184,15 @@ GameObject:
   - component: {fileID: 114842684940577594}
   - component: {fileID: 114611966454256686}
   - component: {fileID: 4136974530054710152}
+  - component: {fileID: 5005981399707072953}
   - component: {fileID: 1926354744543443417}
   - component: {fileID: -1875703483867997965}
   - component: {fileID: 5310817766423843871}
+  - component: {fileID: 8881657034625016996}
   - component: {fileID: 399605138208539146}
   - component: {fileID: 8055033012567592229}
-  - component: {fileID: 8881657034625016996}
   - component: {fileID: 2530539809940299626}
-  - component: {fileID: 5005981399707072953}
+  - component: {fileID: 769201147506110654}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -390,6 +392,45 @@ MonoBehaviour:
   - {fileID: 6544972154663908213}
   - {fileID: 114842684940577594}
   destroyGameObjects: []
+--- !u!114 &5005981399707072953
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1189618843407812}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b589439b2c7c8d43af6357b9316f277, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onCameraTransformChanged:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 114854587450894338}
+        m_TargetAssemblyTypeName: CMF.AdvancedWalkerController, Assembly-CSharp-firstpass
+        m_MethodName: SetCameraTransform
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 114415904454639492}
+        m_TargetAssemblyTypeName: CMF.TurnTowardControllerVelocity, Assembly-CSharp-firstpass
+        m_MethodName: SetCameraTransform
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1926354744543443417
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -475,6 +516,24 @@ MonoBehaviour:
   rotationSensitivity: 0.01
   positionPrecision: 0.01
   scalePrecision: 0.01
+--- !u!114 &8881657034625016996
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1189618843407812}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79f3cf3b8a7cf6b408ba3be0cbf9cb88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  injectables:
+  - {fileID: 6544972154663908213}
+  - {fileID: 399605138208539146}
+  - {fileID: 2530539809940299626}
+  - {fileID: 5005981399707072953}
+  - {fileID: 769201147506110654}
 --- !u!114 &399605138208539146
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -506,23 +565,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interactionDistanceColor: {r: 0, g: 1, b: 0, a: 1}
   config: {fileID: 11400000, guid: 2c8a617761150bd4d957bc207bb0cde3, type: 2}
---- !u!114 &8881657034625016996
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1189618843407812}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 79f3cf3b8a7cf6b408ba3be0cbf9cb88, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  injectables:
-  - {fileID: 6544972154663908213}
-  - {fileID: 399605138208539146}
-  - {fileID: 2530539809940299626}
-  - {fileID: 5005981399707072953}
 --- !u!114 &2530539809940299626
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -539,7 +581,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   interactionDistance: 2
---- !u!114 &5005981399707072953
+--- !u!114 &769201147506110654
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -548,15 +590,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 1189618843407812}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3b589439b2c7c8d43af6357b9316f277, type: 3}
+  m_Script: {fileID: 11500000, guid: 8619e6874e3740f68d48b482ac5bef20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onCameraTransformChanged:
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  OnSpeedModifierChanged:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 114854587450894338}
         m_TargetAssemblyTypeName: CMF.AdvancedWalkerController, Assembly-CSharp-firstpass
-        m_MethodName: SetCameraTransform
+        m_MethodName: SetSpeedModifier
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -566,18 +611,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 114415904454639492}
-        m_TargetAssemblyTypeName: CMF.TurnTowardControllerVelocity, Assembly-CSharp-firstpass
-        m_MethodName: SetCameraTransform
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+  socket: {fileID: 6593830295200270571}
 --- !u!1 &1234082977098520
 GameObject:
   m_ObjectHideFlags: 0
@@ -1075,6 +1109,37 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.4, z: 1.3}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4037651715078038}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &5352294083294895442
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6593830295200270571}
+  m_Layer: 0
+  m_Name: BoxesSocket
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6593830295200270571
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5352294083294895442}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.08, z: 0.93}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

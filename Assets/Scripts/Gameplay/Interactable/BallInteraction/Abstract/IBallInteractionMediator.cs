@@ -13,7 +13,7 @@ namespace Gameplay.Interactable.BallInteraction.Abstract
         ReadOnlyReactiveProperty<BallSharedState>  BallState { get; }
         IReadOnlyDictionary<uint, IBallInteractionInitiator> Initiators { get; }
         void RegisterBall(Ball ball);
-        void RegisterInitiator(uint netId, IBallInteractionInitiator initiator, bool isLocalPlayer);
+        void RegisterInitiator(IBallInteractionInitiator initiator, bool isLocalPlayer);
         bool IsBallOutOfBounds(out Plane outOfBoundsSide);
         bool IsPredictionVisible(out Vector3 direction);
     }

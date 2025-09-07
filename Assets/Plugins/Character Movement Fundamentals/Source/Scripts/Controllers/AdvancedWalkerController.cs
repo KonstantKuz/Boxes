@@ -75,6 +75,10 @@ namespace CMF
 		[Tooltip("Optional camera transform used for calculating movement direction. If assigned, character movement will take camera view into account.")]
 		public Transform cameraTransform;
 
+		private float speedModifier = 1f;
+
+		private float MovementSpeed => movementSpeed * speedModifier;
+
 		//Get references to all necessary components;
 		void Awake () {
 			mover = GetComponent<Mover>();
@@ -91,6 +95,11 @@ namespace CMF
 		public void SetCameraTransform(Transform target)
 		{
 			cameraTransform = target;
+		}
+
+		public void SetSpeedModifier(float speedModifier)
+		{
+			this.speedModifier = speedModifier;
 		}
 
 		//This function is called right after Awake(); It can be overridden by inheriting scripts;
@@ -214,7 +223,7 @@ namespace CMF
 			Vector3 _velocity = CalculateMovementDirection();
 
 			//Multiply (normalized) velocity with movement speed;
-			_velocity *= movementSpeed;
+			_velocity *= MovementSpeed;
 
 			return _velocity;
 		}
@@ -392,7 +401,7 @@ namespace CMF
 				Vector3 _movementVelocity = CalculateMovementVelocity();
 
 				//If controller has received additional momentum from somewhere else;
-				if(_horizontalMomentum.magnitude > movementSpeed)
+				if(_horizontalMomentum.magnitude > MovementSpeed)
 				{
 					//Prevent unwanted accumulation of speed in the direction of the current momentum;
 					if(VectorMath.GetDotProduct(_movementVelocity, _horizontalMomentum.normalized) > 0f)
@@ -407,7 +416,7 @@ namespace CMF
 				{
 					//Clamp _horizontal velocity to prevent accumulation of speed;
 					_horizontalMomentum += _movementVelocity * Time.deltaTime * airControlRate;
-					_horizontalMomentum = Vector3.ClampMagnitude(_horizontalMomentum, movementSpeed);
+					_horizontalMomentum = Vector3.ClampMagnitude(_horizontalMomentum, MovementSpeed);
 				}
 			}
 

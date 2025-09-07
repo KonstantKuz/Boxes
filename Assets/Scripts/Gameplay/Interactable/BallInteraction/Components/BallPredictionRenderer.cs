@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Gameplay.Interactable.BallInteraction.Components
 {
     [RequireComponent(typeof(Ball))]
-    public class LocalPredictionRenderer : MonoBehaviour
+    public class BallPredictionRenderer : MonoBehaviour
     {
         [SerializeField]
         private Transform directionRenderer;
