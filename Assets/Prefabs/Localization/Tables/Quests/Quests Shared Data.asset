@@ -51,6 +51,14 @@ MonoBehaviour:
     m_Key: GoToMarketDescription
     m_Metadata:
       m_Items: []
+  - m_Id: 8468733221781504
+    m_Key: LoadMarketBoxesTitle
+    m_Metadata:
+      m_Items: []
+  - m_Id: 8468772019093504
+    m_Key: LoadMarketBoxesDescription
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

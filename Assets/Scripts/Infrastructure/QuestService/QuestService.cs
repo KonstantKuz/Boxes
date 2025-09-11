@@ -16,17 +16,14 @@ namespace Infrastructure.QuestService
     {
         private readonly ReactiveProperty<ITask> activeTask = new();
 
-        [SerializeReference]
-        private TaskSequence beginningTaskSequence;
-
         [SerializeField]
         private int currentQuestIndex;
 
         [SerializeField]
         private int currentTaskIndex;
 
-        [SerializeReference]
-        private List<TaskSequence> quests;
+        [SerializeField]
+        private List<Quest> quests;
 
         private Container container;
 
@@ -40,21 +37,22 @@ namespace Infrastructure.QuestService
 
         void IInitializable.Initialize()
         {
-            foreach (TaskSequence quest in quests)
+            foreach (Quest quest in quests)
             {
-                AttributeInjector.Inject(quest, container);
+                AttributeInjector.Inject(quest.TaskSequence, container);
             }
 
             UniTask.Void(async () =>
             {
                 await UniTask.Yield();
+                await UniTask.WaitForFixedUpdate();
                 StartCurrentQuest();
             });
         }
 
         private void StartCurrentQuest()
         {
-            TaskSequence currentQuest = quests[currentQuestIndex];
+            TaskSequence currentQuest = quests[currentQuestIndex].TaskSequence;
             currentQuest.Start(currentTaskIndex);
             activeTask.Value = currentQuest;
             ((ITask) currentQuest).IsDone.Subscribe(OnCurrentQuestDone);

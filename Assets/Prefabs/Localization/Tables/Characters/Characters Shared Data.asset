@@ -23,6 +23,14 @@ MonoBehaviour:
     m_Key: Petruha
     m_Metadata:
       m_Items: []
+  - m_Id: 17854440088387584
+    m_Key: Loader
+    m_Metadata:
+      m_Items: []
+  - m_Id: 17854480987045888
+    m_Key: Tycoon
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

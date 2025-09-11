@@ -17,12 +17,15 @@ namespace Infrastructure.World
                 return;
             }
 
-            if (!objectsByTypeId.TryGetValue(worldObject.TypeId, out List<IWorldObject> objects))
+            if (worldObject.TypeId != Guid.Empty)
             {
-                objectsByTypeId[worldObject.TypeId] = objects = new List<IWorldObject>();
-            }
+                if (!objectsByTypeId.TryGetValue(worldObject.TypeId, out List<IWorldObject> objects))
+                {
+                    objectsByTypeId[worldObject.TypeId] = objects = new List<IWorldObject>();
+                }
 
-            objects.Add(worldObject);
+                objects.Add(worldObject);
+            }
         }
 
         bool IWorldService.TryGetById(Guid id, out IWorldObject worldObject)

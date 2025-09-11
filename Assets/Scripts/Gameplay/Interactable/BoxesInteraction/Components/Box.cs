@@ -13,15 +13,17 @@ namespace Gameplay.Interactable.BoxesInteraction.Components
         private BoxStateHolder stateHolder;
 
         [SerializeField]
-        private Rigidbody rigidbody;
+        private new Rigidbody rigidbody;
 
         [SerializeField]
-        private Collider collider;
+        private new Collider collider;
 
         private IBoxesInteractionMediator boxesInteractionMediator;
 
         public INetworkStateHolder<BoxSharedState> StateHolder => stateHolder;
+        public BoxSharedState State => stateHolder.GetStateOrDefault<BoxSharedState>();
         public Rigidbody Rigidbody => rigidbody;
+        public Collider Collider => collider;
 
         [Inject]
         private void Construct(IBoxesInteractionMediator boxesInteractionMediator)
@@ -36,10 +38,8 @@ namespace Gameplay.Interactable.BoxesInteraction.Components
 
         public bool TryTake(uint initiatorNetId)
         {
-            BoxSharedState state = StateHolder.GetState();
-
             bool hasValidHolder = boxesInteractionMediator.Initiators.TryGetValue(
-                state.HolderNetId, out IBoxInteractionInitiator holdInitiator
+                State.HolderNetId, out IBoxInteractionInitiator holdInitiator
             );
 
             if (!hasValidHolder)
@@ -53,13 +53,11 @@ namespace Gameplay.Interactable.BoxesInteraction.Components
 
         public bool TryRelease(uint initiatorNetId)
         {
-            BoxSharedState state = StateHolder.GetState();
-
             bool hasValidHolder = boxesInteractionMediator.Initiators.TryGetValue(
-                state.HolderNetId, out IBoxInteractionInitiator holdInitiator
+                State.HolderNetId, out IBoxInteractionInitiator holdInitiator
             );
 
-            if (hasValidHolder && state.HolderNetId == initiatorNetId)
+            if (hasValidHolder && State.HolderNetId == initiatorNetId)
             {
                 StateHolder.WriteState(BoxSharedState.Default);
                 return true;
@@ -70,13 +68,11 @@ namespace Gameplay.Interactable.BoxesInteraction.Components
 
         public bool TryThrow(uint initiatorNetId)
         {
-            BoxSharedState state = StateHolder.GetState();
-
             bool hasValidHolder = boxesInteractionMediator.Initiators.TryGetValue(
-                state.HolderNetId, out IBoxInteractionInitiator holdInitiator
+                State.HolderNetId, out IBoxInteractionInitiator holdInitiator
             );
 
-            if (hasValidHolder && state.HolderNetId == initiatorNetId)
+            if (hasValidHolder && State.HolderNetId == initiatorNetId)
             {
                 rigidbody.isKinematic = false;
                 float y = boxesInteractionMediator.Config.ThrowForce.y;
@@ -91,8 +87,7 @@ namespace Gameplay.Interactable.BoxesInteraction.Components
 
         private void Update()
         {
-            bool hasHolder = stateHolder.GetStateOrDefault<BoxSharedState>().HasHolder;
-            rigidbody.isKinematic = collider.isTrigger = hasHolder;
+            rigidbody.isKinematic = collider.isTrigger = State.HasHolder;
         }
 
         private void FixedUpdate()
@@ -102,10 +97,8 @@ namespace Gameplay.Interactable.BoxesInteraction.Components
                 return;
             }
 
-            BoxSharedState state = stateHolder.GetStateOrDefault<BoxSharedState>();
-
             bool hasValidHolder = boxesInteractionMediator.Initiators.TryGetValue(
-                state.HolderNetId, out IBoxInteractionInitiator holdInitiator
+                State.HolderNetId, out IBoxInteractionInitiator holdInitiator
             );
 
             if (hasValidHolder)

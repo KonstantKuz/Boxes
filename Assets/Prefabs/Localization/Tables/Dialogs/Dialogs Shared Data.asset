@@ -31,6 +31,18 @@ MonoBehaviour:
     m_Key: Beginning_2
     m_Metadata:
       m_Items: []
+  - m_Id: 17862220115460096
+    m_Key: MarketWork_1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 17862355536953344
+    m_Key: MarketWork_2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 17862599456702464
+    m_Key: MarketWork_3
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

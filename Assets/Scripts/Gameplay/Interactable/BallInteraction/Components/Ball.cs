@@ -17,10 +17,10 @@ namespace Gameplay.Interactable.BallInteraction.Components
         private BallStateHolder ballStateHolder;
 
         [SerializeField]
-        private Collider collider;
+        private new Collider collider;
 
         [SerializeField]
-        private Rigidbody rigidbody;
+        private new Rigidbody rigidbody;
 
         [SerializeField]
         private GameObject statusEffect;

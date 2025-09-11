@@ -57,6 +57,14 @@ MonoBehaviour:
     m_Localized: Go to market and find new ball
     m_Metadata:
       m_Items: []
+  - m_Id: 8468772019093504
+    m_Localized: '{0}/{1}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 8468733221781504
+    m_Localized: Load boxes
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

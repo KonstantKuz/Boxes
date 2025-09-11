@@ -30,7 +30,7 @@ namespace Gameplay.Interactable.BoxesInteraction.Components
 
         private void Update()
         {
-            if (box && directionRenderer && box.StateHolder.GetState().HasHolder)
+            if (box && directionRenderer && box.State.HasHolder)
             {
                 bool isVisible = boxInteractionMediator.IsPredictionVisible(out Vector3 targetPosition);
                 directionRenderer.gameObject.SetActive(isVisible);

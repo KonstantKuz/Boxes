@@ -14,7 +14,7 @@ namespace Infrastructure.World
         private WorldObjectTypeId typeId;
 
         public Guid Id => Guid.Parse(id);
-        public Guid TypeId => typeId.TypeId;
+        public Guid TypeId => typeId?.TypeId ?? Guid.Empty;
         public GameObject Value => gameObject;
 
         [Inject]

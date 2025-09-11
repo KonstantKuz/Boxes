@@ -41,7 +41,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2449177684329750874}
   m_Layer: 0
-  m_Name: PetruhaQuest
+  m_Name: 1.Beginning
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
