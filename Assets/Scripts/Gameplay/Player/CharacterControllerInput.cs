@@ -38,7 +38,10 @@ namespace Gameplay.Player
         private void Update()
         {
             Vector2 lookDirection = inputService.DefaultContextActions.Aim.ReadValue<Vector2>();
-            turnController.SetTargetDirection(lookDirection);
+            if (turnController != null)
+            {
+                turnController.SetTargetDirection(lookDirection);
+            }
         }
     }
 }

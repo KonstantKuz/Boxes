@@ -13,9 +13,6 @@ namespace CMF
 		//Speed at which this gameobject turns toward the controller's velocity;
 		public float turnSpeed = 500f;
 
-		Transform parentTransform;
-		Transform tr;
-
 		private Transform cameraTransform;
 
 		//Current (local) rotation around the (local) y axis of this gameobject;
@@ -32,9 +29,6 @@ namespace CMF
 
 		//Setup;
 		void Start () {
-			tr = transform;
-			parentTransform = tr.parent;
-
 			//Throw warning if no controller has been assigned;
 			if(controller == null)
 			{
@@ -50,9 +44,14 @@ namespace CMF
 
 		public void SetTargetDirection(Vector3 targetDirection)
 		{
+			if (cameraTransform == null)
+			{
+				return;
+			}
+
 			Vector3 result = Vector3.zero;
-			result += Vector3.ProjectOnPlane(cameraTransform.right, tr.up).normalized * targetDirection.x;
-			result += Vector3.ProjectOnPlane(cameraTransform.forward, tr.up).normalized * targetDirection.y;
+			result += Vector3.ProjectOnPlane(cameraTransform.right, transform.up).normalized * targetDirection.x;
+			result += Vector3.ProjectOnPlane(cameraTransform.forward, transform.up).normalized * targetDirection.y;
 			this.targetDirection = result;
 		}
 
@@ -71,7 +70,7 @@ namespace CMF
 			}
 
 			//Project velocity onto a plane defined by the 'up' direction of the parent transform;
-			_velocity = Vector3.ProjectOnPlane(_velocity, parentTransform.up);
+			_velocity = Vector3.ProjectOnPlane(_velocity, transform.parent.up);
 
 			float _magnitudeThreshold = 0.001f;
 
@@ -83,10 +82,10 @@ namespace CMF
 			_velocity.Normalize();
 
 			//Get current 'forward' vector;
-			Vector3 _currentForward = tr.forward;
+			Vector3 _currentForward = transform.forward;
 
 			//Calculate (signed) angle between velocity and forward direction;
-			float _angleDifference = VectorMath.GetAngle(_currentForward, _velocity, parentTransform.up);
+			float _angleDifference = VectorMath.GetAngle(_currentForward, _velocity, transform.parent.up);
 
 			//Calculate angle factor;
 			float _factor = Mathf.InverseLerp(0f, fallOffAngle, Mathf.Abs(_angleDifference));
@@ -110,7 +109,7 @@ namespace CMF
 				currentYRotation += 360f;
 
 			//Set transform rotation using Quaternion.Euler;
-			tr.localRotation = Quaternion.Euler(0f, currentYRotation, 0f);
+			transform.localRotation = Quaternion.Euler(0f, currentYRotation, 0f);
 
 		}
 
