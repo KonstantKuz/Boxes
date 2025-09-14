@@ -296,6 +296,9 @@ MonoBehaviour:
   ignoreCollisionMask:
     serializedVersion: 2
     m_Bits: 128
+  penetrationTestMask:
+    serializedVersion: 2
+    m_Bits: 1
 --- !u!114 &7375889129080995096
 MonoBehaviour:
   m_ObjectHideFlags: 0

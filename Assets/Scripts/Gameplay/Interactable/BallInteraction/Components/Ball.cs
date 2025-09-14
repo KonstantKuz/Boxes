@@ -28,6 +28,9 @@ namespace Gameplay.Interactable.BallInteraction.Components
         [SerializeField]
         private LayerMask ignoreCollisionMask;
 
+        [SerializeField]
+        private LayerMask penetrationTestMask;
+
         private INetworkService networkService;
         private INetworkFactory networkFactory;
         private IBallInteractionMediator ballInteractionMediator;
@@ -160,7 +163,16 @@ namespace Gameplay.Interactable.BallInteraction.Components
 
             if (hasValidHolder)
             {
-                rigidbody.MovePosition(holdInitiator.BallSocket.position);
+                Vector3 safePosition = holdInitiator.Position;
+                safePosition.y = holdInitiator.BallSocket.position.y;
+
+                Vector3 resultPosition = CollisionExtension.ResolvePenetration(
+                    safePosition,
+                    holdInitiator.BallSocket.position,
+                    collider.bounds.extents.magnitude,
+                    penetrationTestMask
+                );
+                rigidbody.MovePosition(resultPosition);
                 return;
             }
 
@@ -170,9 +182,19 @@ namespace Gameplay.Interactable.BallInteraction.Components
 
             if (hasValidCaptureTarget)
             {
+                Vector3 safePosition = captureInitiator.Position;
+                safePosition.y = captureInitiator.BallSocket.position.y;
+
                 Vector3 targetPosition =
                     captureInitiator.BallSocket.TransformPoint(internalState.CaptureContext!.RelativePosition);
-                rigidbody.MovePosition(targetPosition);
+
+                Vector3 resultPosition = CollisionExtension.ResolvePenetration(
+                    safePosition,
+                    targetPosition,
+                    collider.bounds.extents.magnitude,
+                    penetrationTestMask
+                );
+                rigidbody.MovePosition(resultPosition);
                 return;
             }
 
