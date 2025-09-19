@@ -325,7 +325,7 @@ MonoBehaviour:
   jumpSpeed: 10
   jumpDuration: 0.2
   airFriction: 0.5
-  groundFriction: 100
+  groundFriction: 1000
   gravity: 50
   slideGravity: 0
   slopeLimit: 80
