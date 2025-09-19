@@ -40,7 +40,7 @@ namespace Configuration.QuestTasks.Beginning
             }
 
             DestructibleReactionInitiator reactionInitiator =
-                statusTrigger.Value.AddComponent<DestructibleReactionInitiator>();
+                statusTrigger.Value.GetComponent<DestructibleReactionInitiator>();
 
             IDamageable damageable = reactionInitiator;
             damageable.Initialize(requiredHitPoints);
