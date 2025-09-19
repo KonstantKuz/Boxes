@@ -14,7 +14,7 @@ using UnityEngine.SceneManagement;
 
 namespace Infrastructure.Network
 {
-    public class CustomNetworkManager : NetworkManager, IPostBuildInjectable, INetworkFactory
+    public class CustomNetworkManager : NetworkManager, IPostBuildInjectable, INetworkFactory, INetworkManager
     {
         private INetworkService networkService;
         private INetworkStateHolder<ConnectionState> connectionStateHolder;
@@ -28,6 +28,8 @@ namespace Infrastructure.Network
 
         public Dictionary<uint, GameObject> Spawned =>
             NetworkClient.spawned.ToDictionary(item => item.Key, item => item.Value.gameObject);
+
+        bool INetworkManager.IsServer => NetworkServer.active;
 
         [Inject]
         private void Construct(INetworkService networkService, INetworkStateHolder<ConnectionState> connectionStateHolder)

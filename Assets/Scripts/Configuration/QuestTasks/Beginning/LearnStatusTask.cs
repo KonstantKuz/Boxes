@@ -11,6 +11,7 @@ using UnityEngine;
 
 namespace Configuration.QuestTasks.Beginning
 {
+    [Serializable]
     public class LearnStatusTask : TaskBase, IDisposable
     {
         [SerializeField]

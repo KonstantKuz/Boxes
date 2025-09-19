@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using Infrastructure.Bootstrap;
+using Infrastructure.Network.Abstract;
 using Infrastructure.QuestService.Abstract;
+using Infrastructure.QuestService.State;
 using R3;
 using Reflex.Attributes;
 using Reflex.Core;
@@ -26,13 +28,21 @@ namespace Infrastructure.QuestService
         private List<Quest> quests;
 
         private Container container;
+        private INetworkStateHolder<ActiveQuestSharedState> questStateHolder;
+        private INetworkManager networkManager;
 
         ReactiveProperty<ITask> IQuestService.ActiveTask => activeTask;
 
         [Inject]
-        private void Construct(Container container)
+        private void Construct(
+            Container container,
+            INetworkStateHolder<ActiveQuestSharedState> questStateHolder,
+            INetworkManager networkManager
+        )
         {
             this.container = container;
+            this.questStateHolder = questStateHolder;
+            this.networkManager = networkManager;
         }
 
         void IInitializable.Initialize()
@@ -42,12 +52,31 @@ namespace Infrastructure.QuestService
                 AttributeInjector.Inject(quest.TaskSequence, container);
             }
 
+            questStateHolder.Subscribe(OnStateChanged);
+
+            if (!networkManager.IsServer)
+            {
+                return;
+            }
+
             UniTask.Void(async () =>
             {
                 await UniTask.Yield();
                 await UniTask.WaitForFixedUpdate();
-                StartCurrentQuest();
+                questStateHolder.WriteState(new ActiveQuestSharedState(currentQuestIndex, currentTaskIndex));
             });
+        }
+
+        private void OnStateChanged(ActiveQuestSharedState state)
+        {
+            if (Equals(state, ActiveQuestSharedState.Default))
+            {
+                return;
+            }
+
+            currentQuestIndex = state.QuestIndex;
+            currentTaskIndex = state.TaskIndex;
+            StartCurrentQuest();
         }
 
         private void StartCurrentQuest()
@@ -60,6 +89,11 @@ namespace Infrastructure.QuestService
 
         private void OnCurrentQuestDone(bool isDone)
         {
+            if (!networkManager.IsServer)
+            {
+                return;
+            }
+
             if (isDone)
             {
                 if (activeTask.Value is IDisposable disposable)

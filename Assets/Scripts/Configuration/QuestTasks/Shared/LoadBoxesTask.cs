@@ -13,6 +13,7 @@ using UnityEngine.Localization.SmartFormat.PersistentVariables;
 
 namespace Configuration.QuestTasks.Shared
 {
+    [Serializable]
     public class LoadBoxesTask : TaskBase, IDisposable
     {
         [SerializeField]

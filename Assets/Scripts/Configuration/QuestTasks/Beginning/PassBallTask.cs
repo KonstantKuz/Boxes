@@ -45,8 +45,8 @@ namespace Configuration.QuestTasks.Beginning
 
         public override void Start()
         {
-            networkService.ObserveToExecute<KickCommand>(OnKickExecuted).AddTo(disposable);
-            networkService.ObserveToExecute<HoldCommand>(OnHoldExecuted).AddTo(disposable);
+            networkService.ObserveToReact<KickCommand>(OnKickExecuted).AddTo(disposable);
+            networkService.ObserveToReact<HoldCommand>(OnHoldExecuted).AddTo(disposable);
             connectionStateHolder.Subscribe(_ => UpdateState()).AddTo(disposable);
 
             UpdateState();
@@ -56,6 +56,7 @@ namespace Configuration.QuestTasks.Beginning
         {
             holders.TryGetValue(holdCommand.InitiatorNetId, out int count);
             count++;
+            count = Mathf.Clamp(count, 0, requiredCount);
             holders[holdCommand.InitiatorNetId] = count;
 
             UpdateState();
@@ -65,6 +66,7 @@ namespace Configuration.QuestTasks.Beginning
         {
             kickers.TryGetValue(kickCommand.InitiatorNetId, out int count);
             count++;
+            count = Mathf.Clamp(count, 0, requiredCount);
             kickers[kickCommand.InitiatorNetId] = count;
 
             UpdateState();
@@ -79,7 +81,6 @@ namespace Configuration.QuestTasks.Beginning
                 return;
             }
 
-            int totalPlayersCount = players.Count;
             IList<object> args = new List<object>
             {
                 new IntVariable { Value = holders.Sum(item => item.Value) },
@@ -87,6 +88,7 @@ namespace Configuration.QuestTasks.Beginning
                 new IntVariable { Value = requiredCount * players.Count }
             };
             DisplayData.Value = (config.Title.GetLocalizedString(), config.Description.GetLocalizedString(args));
+
             IsDone.Value = players.All(playerId =>
                 holders.TryGetValue(playerId, out int holdCount) && holdCount >= requiredCount &&
                 kickers.TryGetValue(playerId, out int kickerCount) && kickerCount >= requiredCount
