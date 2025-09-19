@@ -32,14 +32,14 @@ namespace Configuration.QuestTasks.Shared
 
         public override void Start()
         {
-            if (!worldService.TryGetById(Guid.Parse(npcId), out IWorldObject npc) ||
+            if (!worldService.TryGetById(npcId, out IWorldObject npc) ||
                 !npc.TryGetComponent(out NavMeshAgent npcAgent))
             {
                 this.Log(LogType.Error, $"Npc not found with id {npcId}");
                 return;
             }
 
-            if (!worldService.TryGetById(Guid.Parse(targetId), out IWorldObject target) ||
+            if (!worldService.TryGetById(targetId, out IWorldObject target) ||
                 !target.TryGetComponent(out Transform targetTransform))
             {
                 this.Log(LogType.Error, $"Target not found with id {targetId}");

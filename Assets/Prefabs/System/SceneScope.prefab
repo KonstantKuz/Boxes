@@ -484,6 +484,7 @@ MonoBehaviour:
         - {fileID: 11400000, guid: ff8e66283d301de48909ae873399dde6, type: 2}
         - {fileID: 11400000, guid: bd641bdd7da93a544a171e25bbd75794, type: 2}
         - {fileID: 11400000, guid: 82d038918d632a8429f323d51018ee01, type: 2}
+        - {fileID: 11400000, guid: 0b620bea28d24cd4fbc64b3f17da1a9d, type: 2}
         dialogWindowType: {fileID: 11400000, guid: 5572b08fb13fd5d4cb257958a845e03c, type: 2}
 --- !u!114 &8211385589716824693
 MonoBehaviour:
@@ -563,6 +564,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1860510742888022239}
   - component: {fileID: 1901350109941390844}
+  - component: {fileID: 7663389876828686202}
+  - component: {fileID: 3871567048221668021}
   m_Layer: 0
   m_Name: QuestService
   m_TagString: Untagged
@@ -599,6 +602,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1191e67548584f269bcc75da53dd4ec0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  questStateHolder: {fileID: 7663389876828686202}
   questService:
     rid: 2942314443011784710
   references:
@@ -610,8 +614,41 @@ MonoBehaviour:
         currentQuestIndex: 0
         currentTaskIndex: 0
         quests:
-        - {fileID: 6021338114061977619}
         - {fileID: 3996301211525365867}
+        - {fileID: 6021338114061977619}
+--- !u!114 &7663389876828686202
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3822627722873215472}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ef27e82ca5a43c49d00319216ea4529, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  Data: 
+--- !u!114 &3871567048221668021
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3822627722873215472}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  _assetId: 852949180
+  serverOnly: 0
+  visibility: 0
+  hasSpawned: 0
 --- !u!1 &5534225987147343979
 GameObject:
   m_ObjectHideFlags: 0
@@ -1091,6 +1128,7 @@ MonoBehaviour:
       data:
         tasks:
         - rid: 6608447775718506512
+        - rid: 6608447947131322368
         - rid: 6608447775718506514
         - rid: 6608447775718506513
     - rid: 6608447775718506512
@@ -1109,6 +1147,11 @@ MonoBehaviour:
       data:
         config: {fileID: 11400000, guid: 1a42345b02afc9a428966473d1ab56b9, type: 2}
         targetId: 84435ff3-ff94-4a90-9440-c50e20c862f8
+    - rid: 6608447947131322368
+      type: {class: DialogTask, ns: Configuration.QuestTasks.Shared, asm: Assembly-CSharp}
+      data:
+        dialogSequence: {fileID: 11400000, guid: 0b620bea28d24cd4fbc64b3f17da1a9d, type: 2}
+        cameraTargetId: 84657a7f-2d4e-4efd-a9e5-19fcd028cf0b
 --- !u!1 &9012567134885567325
 GameObject:
   m_ObjectHideFlags: 0
@@ -1268,7 +1311,7 @@ MonoBehaviour:
   m_BlendUpdateMethod: 1
   m_DefaultBlend:
     m_Style: 1
-    m_Time: 2
+    m_Time: 0.5
     m_CustomCurve:
       serializedVersion: 2
       m_Curve: []
@@ -1357,6 +1400,7 @@ MonoBehaviour:
       type: {class: DialogTask, ns: Configuration.QuestTasks.Shared, asm: Assembly-CSharp}
       data:
         dialogSequence: {fileID: 11400000, guid: bd641bdd7da93a544a171e25bbd75794, type: 2}
+        cameraTargetId: 
     - rid: 6608447775718506503
       type: {class: TaskBag, ns: Infrastructure.QuestService.Abstract, asm: Assembly-CSharp}
       data:
@@ -1367,6 +1411,7 @@ MonoBehaviour:
       type: {class: DialogTask, ns: Configuration.QuestTasks.Shared, asm: Assembly-CSharp}
       data:
         dialogSequence: {fileID: 11400000, guid: 82d038918d632a8429f323d51018ee01, type: 2}
+        cameraTargetId: 
     - rid: 6608447775718506505
       type: {class: PetruhaLeaveTask, ns: Configuration.QuestTasks.Beginning, asm: Assembly-CSharp}
       data:

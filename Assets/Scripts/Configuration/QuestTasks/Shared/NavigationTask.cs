@@ -35,7 +35,7 @@ namespace Configuration.QuestTasks.Shared
         public override void Start()
         {
             DisplayData.Value = (config.Title.GetLocalizedString(), config.Description.GetLocalizedString());
-            if (!worldService.TryGetById(Guid.Parse(targetId), out IWorldObject target))
+            if (!worldService.TryGetById(targetId, out IWorldObject target))
             {
                 this.Log(LogType.Error, $"Target not found with id {targetId}");
                 return;

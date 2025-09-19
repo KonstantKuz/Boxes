@@ -39,14 +39,14 @@ namespace Configuration.QuestTasks.Shared
 
         public override void Start()
         {
-            if (!worldService.TryGetById(Guid.Parse(sourceStorageId), out IWorldObject source) ||
+            if (!worldService.TryGetById(sourceStorageId, out IWorldObject source) ||
                 !source.Value.TryGetComponent(out sourceStorage))
             {
                 this.Log(LogType.Error, $"Could not find storage with id {sourceStorageId}");
                 return;
             }
 
-            if (!worldService.TryGetById(Guid.Parse(targetStorageId), out IWorldObject target) ||
+            if (!worldService.TryGetById(targetStorageId, out IWorldObject target) ||
                 !target.Value.TryGetComponent(out targetStorage))
             {
                 this.Log(LogType.Error, $"Could not find storage with id {targetStorageId}");
@@ -66,7 +66,7 @@ namespace Configuration.QuestTasks.Shared
             };
 
             DisplayData.Value = (config.Title.GetLocalizedString(), config.Description.GetLocalizedString(args));
-            IsDone.Value = sourceStorage.Boxes.Count <= 0;
+            IsDone.Value = targetStorage.Boxes.Count >= requiredCount;
         }
 
         void IDisposable.Dispose()

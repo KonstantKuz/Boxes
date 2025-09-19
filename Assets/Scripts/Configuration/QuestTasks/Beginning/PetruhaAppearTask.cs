@@ -28,7 +28,7 @@ namespace Configuration.QuestTasks.Beginning
 
         public override void Start()
         {
-            if (!worldService.TryGetById(Guid.Parse(npcId), out IWorldObject worldObject) ||
+            if (!worldService.TryGetById(npcId, out IWorldObject worldObject) ||
                 !worldObject.TryGetComponent(out IBallInteractionInitiator initiator))
             {
                 this.Log(LogType.Error, "Petruha leave task failed");

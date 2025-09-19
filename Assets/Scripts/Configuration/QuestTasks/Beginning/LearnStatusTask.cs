@@ -33,7 +33,7 @@ namespace Configuration.QuestTasks.Beginning
 
         public override void Start()
         {
-            if (!worldService.TryGetById(Guid.Parse(triggerId), out IWorldObject statusTrigger))
+            if (!worldService.TryGetById(triggerId, out IWorldObject statusTrigger))
             {
                 this.Log(LogType.Error, $"Could not find trigger with id {triggerId}");
                 return;
