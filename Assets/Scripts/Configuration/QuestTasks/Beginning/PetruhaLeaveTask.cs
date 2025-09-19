@@ -36,7 +36,7 @@ namespace Configuration.QuestTasks.Beginning
                 return;
             }
 
-            disposable = networkService.ObserveToExecute<KickCommand>(_ => IsDone.Value = true);
+            disposable = networkService.ObserveToReact<KickCommand>(_ => IsDone.Value = true);
             networkService.SendCommand(new KickCommand(initiator.NetId, initiator.KickDirection));
         }
 

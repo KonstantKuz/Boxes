@@ -52,31 +52,12 @@ namespace Infrastructure.QuestService
                 AttributeInjector.Inject(quest.TaskSequence, container);
             }
 
-            questStateHolder.Subscribe(OnStateChanged);
-
-            if (!networkManager.IsServer)
-            {
-                return;
-            }
-
             UniTask.Void(async () =>
             {
                 await UniTask.Yield();
                 await UniTask.WaitForFixedUpdate();
-                questStateHolder.WriteState(new ActiveQuestSharedState(currentQuestIndex, currentTaskIndex));
+                StartCurrentQuest();
             });
-        }
-
-        private void OnStateChanged(ActiveQuestSharedState state)
-        {
-            if (Equals(state, ActiveQuestSharedState.Default))
-            {
-                return;
-            }
-
-            currentQuestIndex = state.QuestIndex;
-            currentTaskIndex = state.TaskIndex;
-            StartCurrentQuest();
         }
 
         private void StartCurrentQuest()
@@ -89,11 +70,6 @@ namespace Infrastructure.QuestService
 
         private void OnCurrentQuestDone(bool isDone)
         {
-            if (!networkManager.IsServer)
-            {
-                return;
-            }
-
             if (isDone)
             {
                 if (activeTask.Value is IDisposable disposable)
