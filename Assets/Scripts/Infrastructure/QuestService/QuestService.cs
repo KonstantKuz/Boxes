@@ -14,7 +14,7 @@ using UnityEngine;
 namespace Infrastructure.QuestService
 {
     [Serializable]
-    public class QuestService : IQuestService, IInitializable
+    public class QuestService : IQuestService, IInitializable, IDisposable
     {
         private readonly ReactiveProperty<ITask> activeTask = new();
 
@@ -27,7 +27,6 @@ namespace Infrastructure.QuestService
         [SerializeField]
         private List<Quest> quests;
 
-        private Container container;
         private INetworkStateHolder<ActiveQuestSharedState> questStateHolder;
         private INetworkManager networkManager;
 
@@ -40,18 +39,17 @@ namespace Infrastructure.QuestService
             INetworkManager networkManager
         )
         {
-            this.container = container;
             this.questStateHolder = questStateHolder;
             this.networkManager = networkManager;
-        }
 
-        void IInitializable.Initialize()
-        {
             foreach (Quest quest in quests)
             {
                 AttributeInjector.Inject(quest.TaskSequence, container);
             }
+        }
 
+        void IInitializable.Initialize()
+        {
             questStateHolder.Subscribe(UpdateLocalState);
 
             if (!networkManager.IsServer)
@@ -65,6 +63,16 @@ namespace Infrastructure.QuestService
                 await UniTask.WaitForFixedUpdate();
                 questStateHolder.WriteState(new ActiveQuestSharedState(currentQuestIndex, currentTaskIndex));
             });
+        }
+
+        void IDisposable.Dispose()
+        {
+            if (activeTask.Value is IDisposable disposable)
+            {
+                disposable.Dispose();
+            }
+
+            activeTask?.Dispose();
         }
 
         private void UpdateLocalState(ActiveQuestSharedState state)
