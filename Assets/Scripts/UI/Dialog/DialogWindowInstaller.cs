@@ -1,4 +1,5 @@
-﻿using Reflex.Core;
+﻿using Infrastructure;
+using Reflex.Core;
 using UnityEngine;
 
 namespace UI.Dialog
@@ -10,6 +11,7 @@ namespace UI.Dialog
 
         void IInstaller.InstallBindings(ContainerBuilder containerBuilder)
         {
+            this.Log(LogType.Log, "InstallBindings");
             DialogWindow dialogWindow = Instantiate(dialogWindowPrefab);
             containerBuilder.AddSingleton(dialogWindow, dialogWindow.GetType().GetInterfaces());
         }

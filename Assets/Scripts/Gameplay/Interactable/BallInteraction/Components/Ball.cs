@@ -32,11 +32,8 @@ namespace Gameplay.Interactable.BallInteraction.Components
         private LayerMask penetrationTestMask;
 
         private INetworkService networkService;
-        private INetworkFactory networkFactory;
         private IBallInteractionMediator ballInteractionMediator;
 
-        private NetworkRigidbodyExtended networkRigidbody;
-        private NetworkTransformExtended networkTransform;
         private Transform socketTransform;
         private BallInternalState internalState;
 
@@ -47,12 +44,10 @@ namespace Gameplay.Interactable.BallInteraction.Components
         [Inject]
         private void Construct(
             INetworkService networkService,
-            INetworkFactory networkFactory,
             IBallInteractionMediator ballInteractionMediator
         )
         {
             this.networkService = networkService;
-            this.networkFactory = networkFactory;
             this.ballInteractionMediator = ballInteractionMediator;
 
             internalState = new BallInternalState();

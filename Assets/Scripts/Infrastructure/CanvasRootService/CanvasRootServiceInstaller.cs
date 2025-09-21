@@ -10,6 +10,7 @@ namespace Infrastructure.CanvasRootService
 
         void IInstaller.InstallBindings(ContainerBuilder containerBuilder)
         {
+            this.Log(LogType.Log, "InstallBindings");
             CanvasRoot canvasRoot = Instantiate(canvasRootPrefab);
             containerBuilder.AddSingleton(canvasRoot);
             containerBuilder.AddSingleton(typeof(CanvasRootService), typeof(CanvasRootService).GetInterfaces());

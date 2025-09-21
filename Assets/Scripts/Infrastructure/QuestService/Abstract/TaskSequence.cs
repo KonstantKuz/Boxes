@@ -21,6 +21,8 @@ namespace Infrastructure.QuestService.Abstract
         private IDisposable displayDataDisposable;
         private IDisposable isDoneDisposable;
 
+        public int TaskCount => tasks.Count;
+
         [Inject]
         private void Construct(Container container)
         {

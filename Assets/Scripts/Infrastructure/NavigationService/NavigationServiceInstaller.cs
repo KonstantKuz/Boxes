@@ -10,6 +10,7 @@ namespace Infrastructure.NavigationService
 
         void IInstaller.InstallBindings(ContainerBuilder containerBuilder)
         {
+            this.Log(LogType.Log, "InstallBindings");
             containerBuilder.AddSingleton(navigationService, navigationService.GetType().GetInterfaces());
         }
     }

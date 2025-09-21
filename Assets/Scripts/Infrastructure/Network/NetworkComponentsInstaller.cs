@@ -19,13 +19,14 @@ namespace Infrastructure.Network
 
         void IInstaller.InstallBindings(ContainerBuilder containerBuilder)
         {
+            this.Log(LogType.Log, "InstallBindings");
             containerBuilder.AddSingleton(networkService, networkService.GetType().GetInterfaces());
             containerBuilder.AddSingleton(connectionStateHolder, connectionStateHolder.GetType().GetInterfaces());
             containerBuilder.AddSingleton(networkSerializer, networkSerializer.GetType().GetInterfaces());
 
-            containerBuilder.AddSingleton(
-                (CustomNetworkManager) NetworkManager.singleton, typeof(CustomNetworkManager).GetInterfaces()
-            );
+            CustomNetworkManager customManager = (CustomNetworkManager) NetworkManager.singleton;
+
+            containerBuilder.AddSingleton(customManager, customManager.GetType().GetInterfaces());
 
             TypeByteMapper byteMapper = TypeByteMapper.Build(typeof(INetworkState), typeof(INetworkCommand));
 

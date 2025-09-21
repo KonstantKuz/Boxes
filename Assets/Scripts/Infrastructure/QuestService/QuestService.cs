@@ -52,12 +52,35 @@ namespace Infrastructure.QuestService
                 AttributeInjector.Inject(quest.TaskSequence, container);
             }
 
+            questStateHolder.Subscribe(UpdateLocalState);
+
+            if (!networkManager.IsServer)
+            {
+                return;
+            }
+
             UniTask.Void(async () =>
             {
                 await UniTask.Yield();
                 await UniTask.WaitForFixedUpdate();
-                StartCurrentQuest();
+                questStateHolder.WriteState(new ActiveQuestSharedState(currentQuestIndex, currentTaskIndex));
             });
+        }
+
+        private void UpdateLocalState(ActiveQuestSharedState state)
+        {
+            if (Equals(state, ActiveQuestSharedState.Default))
+            {
+                return;
+            }
+
+            currentQuestIndex = state.QuestIndex;
+            currentTaskIndex = state.TaskIndex;
+
+            if (currentQuestIndex < quests.Count && currentTaskIndex < quests[currentQuestIndex].TaskSequence.TaskCount)
+            {
+                StartCurrentQuest();
+            }
         }
 
         private void StartCurrentQuest()
@@ -70,6 +93,11 @@ namespace Infrastructure.QuestService
 
         private void OnCurrentQuestDone(bool isDone)
         {
+            if (!networkManager.IsServer)
+            {
+                return;
+            }
+
             if (isDone)
             {
                 if (activeTask.Value is IDisposable disposable)
@@ -80,7 +108,7 @@ namespace Infrastructure.QuestService
                 currentQuestIndex++;
                 if (currentQuestIndex < quests.Count)
                 {
-                    StartCurrentQuest();
+                    questStateHolder.WriteState(new ActiveQuestSharedState(currentQuestIndex, currentTaskIndex));
                 }
             }
         }

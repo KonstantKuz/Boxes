@@ -33,6 +33,9 @@ namespace Gameplay.Interactable.BallInteraction
         [SerializeField]
         private float kickWindowTime;
 
+        [SerializeField]
+        private float holdWindowTime;
+
         [TitleGroup("Status params")]
         [SerializeField]
         private int statusKicksCount;
@@ -67,6 +70,7 @@ namespace Gameplay.Interactable.BallInteraction
         public float InteractionDistance => interactionDistance;
         public float KickSpeedModifier => kickSpeedModifier;
         public float KickWindowTime => kickWindowTime;
+        public float HoldWindowTime => holdWindowTime;
         public float MinSpeed => minSpeed;
         public float MaxSpeed => maxSpeed;
         public float MaxHeight => maxHeight;

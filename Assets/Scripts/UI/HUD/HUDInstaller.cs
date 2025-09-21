@@ -1,3 +1,4 @@
+using Infrastructure;
 using Reflex.Core;
 using UnityEngine;
 
@@ -10,6 +11,7 @@ namespace UI.HUD
 
         void IInstaller.InstallBindings(ContainerBuilder containerBuilder)
         {
+            this.Log(LogType.Log, "InstallBindings");
             HUD hud = Instantiate(hudPrefab);
             containerBuilder.AddSingleton(hud, hud.GetType().GetInterfaces());
         }

@@ -34,6 +34,7 @@ namespace Configuration.Mediator
         private IBallInteractionInitiator localInitiator;
         private CancellationTokenSource kickTokenSource;
         private CancellationTokenSource captureTokenSource;
+        private CancellationTokenSource holdTokenSource;
         private float lastKickTime;
 
         BallInteractionConfig IBallInteractionMediator.Config => ballInteractionConfig;
@@ -76,7 +77,8 @@ namespace Configuration.Mediator
 
         bool IBallInteractionMediator.IsBallOutOfBounds(out Plane outOfBoundsSide)
         {
-            return !cameraService.IsVisible(ball.Bounds, out outOfBoundsSide);
+            outOfBoundsSide = default;
+            return ball != null && !cameraService.IsVisible(ball.Bounds, out outOfBoundsSide);
         }
 
         void IUpdatable.Update()
@@ -106,18 +108,41 @@ namespace Configuration.Mediator
 
         private void TryHoldBall(InputAction.CallbackContext context)
         {
-            if (ball == null)
+            if (ball == null || holdTokenSource != null)
             {
                 return;
             }
 
-            float distance = (localInitiator.Position - ball.transform.position).magnitude;
+            holdTokenSource = new CancellationTokenSource();
 
-            if (distance <= ballInteractionConfig.InteractionDistance)
+            TryHoldBallAsync(holdTokenSource.Token).Forget();
+
+            async UniTask TryHoldBallAsync(CancellationToken token)
             {
-                networkService.SendCommand(new HoldCommand(localInitiator.NetId));
-                captureTokenSource?.Cancel();
-                kickTokenSource?.Cancel();
+                float time = 0;
+
+                while (!token.IsCancellationRequested && time < ballInteractionConfig.HoldWindowTime)
+                {
+                    time += Time.fixedDeltaTime;
+
+                    float distance = (localInitiator.Position - ball.transform.position).magnitude;
+
+                    if (distance <= ballInteractionConfig.InteractionDistance)
+                    {
+                        holdTokenSource = null;
+                        captureTokenSource?.Cancel();
+                        captureTokenSource = null;
+                        kickTokenSource?.Cancel();
+                        kickTokenSource = null;
+
+                        networkService.SendCommand(new HoldCommand(localInitiator.NetId));
+                        break;
+                    }
+
+                    await UniTask.WaitForFixedUpdate();
+                }
+
+                holdTokenSource = null;
             }
         }
 

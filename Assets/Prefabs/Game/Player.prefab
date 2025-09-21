@@ -321,7 +321,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementSpeed: 10
-  airControlRate: 20
+  airControlRate: 5
   jumpSpeed: 10
   jumpDuration: 0.2
   airFriction: 0.5

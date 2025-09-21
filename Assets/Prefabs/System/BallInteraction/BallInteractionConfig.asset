@@ -19,6 +19,7 @@ MonoBehaviour:
   heightDampingStrength: 50
   outOfBoundsPullForce: 20
   kickWindowTime: 0.5
+  holdWindowTime: 0.5
   statusKicksCount: 3
   kickSpeedModifier: 0.25
   statusDampingDistance: 50

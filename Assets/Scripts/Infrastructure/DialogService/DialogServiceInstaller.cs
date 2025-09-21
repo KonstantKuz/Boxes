@@ -18,6 +18,7 @@ namespace Infrastructure.DialogService
 
         void IInstaller.InstallBindings(ContainerBuilder containerBuilder)
         {
+            this.Log(LogType.Log, "InstallBindings");
             containerBuilder.AddSingleton(service, service.GetType().GetInterfaces());
             containerBuilder.AddSingleton(mediator, mediator.GetType().GetInterfaces());
             containerBuilder.AddSingleton(dialogStateHolder, dialogStateHolder.GetType().GetInterfaces());

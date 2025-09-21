@@ -103,7 +103,7 @@ MonoBehaviour:
     version: 2
     RefIds:
     - rid: 6608447674772094979
-      type: {class: BoxesInteractionMediator, ns: Configuration.Mediator, asm: Assembly-CSharp}
+      type: {class: BoxesInteractionMediator, ns: Configuration.Mediator, asm: Boxes}
       data:
         config: {fileID: 11400000, guid: 4fb49aee934c77248b3534344accba6b, type: 2}
 --- !u!1 &2150022631485788379
@@ -238,7 +238,7 @@ MonoBehaviour:
     version: 2
     RefIds:
     - rid: 2942314237941252100
-      type: {class: BallInteractionMediator, ns: Configuration.Mediator, asm: Assembly-CSharp}
+      type: {class: BallInteractionMediator, ns: Configuration.Mediator, asm: Boxes}
       data:
         ballInteractionConfig: {fileID: 11400000, guid: 2c8a617761150bd4d957bc207bb0cde3, type: 2}
 --- !u!1 &2418985253115657278
@@ -313,7 +313,7 @@ MonoBehaviour:
     version: 2
     RefIds:
     - rid: 2942314168798412802
-      type: {class: MessagePackNetworkSerializer, ns: Infrastructure.Network, asm: Assembly-CSharp}
+      type: {class: MessagePackNetworkSerializer, ns: Infrastructure.Network, asm: Boxes}
       data: 
 --- !u!114 &6130401782108694326
 MonoBehaviour:
@@ -398,10 +398,10 @@ MonoBehaviour:
     version: 2
     RefIds:
     - rid: 2942314237941252098
-      type: {class: InputService, ns: Infrastructure.InputService, asm: Assembly-CSharp}
+      type: {class: InputService, ns: Infrastructure.InputService, asm: Boxes}
       data: 
     - rid: 2942314237941252099
-      type: {class: InputServiceMediator, ns: Configuration.Mediator, asm: Assembly-CSharp}
+      type: {class: InputServiceMediator, ns: Configuration.Mediator, asm: Boxes}
       data: 
 --- !u!1 &3591493214298313367
 GameObject:
@@ -475,10 +475,10 @@ MonoBehaviour:
     version: 2
     RefIds:
     - rid: 2942314082134130698
-      type: {class: DialogService, ns: Infrastructure.DialogService, asm: Assembly-CSharp}
+      type: {class: DialogService, ns: Infrastructure.DialogService, asm: Boxes}
       data: 
     - rid: 2942314082134130699
-      type: {class: DialogServiceMediator, ns: Configuration.Mediator, asm: Assembly-CSharp}
+      type: {class: DialogServiceMediator, ns: Configuration.Mediator, asm: Boxes}
       data:
         dialogs:
         - {fileID: 11400000, guid: ff8e66283d301de48909ae873399dde6, type: 2}
@@ -552,7 +552,7 @@ MonoBehaviour:
     version: 2
     RefIds:
     - rid: 2942314557470146566
-      type: {class: WorldService, ns: Infrastructure.World, asm: Assembly-CSharp}
+      type: {class: WorldService, ns: Infrastructure.World, asm: Boxes}
       data: 
 --- !u!1 &3822627722873215472
 GameObject:
@@ -609,7 +609,7 @@ MonoBehaviour:
     version: 2
     RefIds:
     - rid: 2942314443011784710
-      type: {class: QuestService, ns: Infrastructure.QuestService, asm: Assembly-CSharp}
+      type: {class: QuestService, ns: Infrastructure.QuestService, asm: Boxes}
       data:
         currentQuestIndex: 0
         currentTaskIndex: 0
@@ -701,11 +701,11 @@ MonoBehaviour:
     version: 2
     RefIds:
     - rid: 2942314084841029634
-      type: {class: CameraService, ns: Infrastructure.CameraService, asm: Assembly-CSharp}
+      type: {class: CameraService, ns: Infrastructure.CameraService, asm: Boxes}
       data:
         cameraTarget: {fileID: 7587537103340924033}
     - rid: 2942314084841029635
-      type: {class: CameraServiceMediator, ns: Configuration.Mediator, asm: Assembly-CSharp}
+      type: {class: CameraServiceMediator, ns: Configuration.Mediator, asm: Boxes}
       data:
         sharedMode: 1
 --- !u!1 &5966557292213139459
@@ -826,10 +826,10 @@ MonoBehaviour:
     version: 2
     RefIds:
     - rid: 2942314082134130696
-      type: {class: WindowService, ns: Infrastructure.WindowService, asm: Assembly-CSharp}
+      type: {class: WindowService, ns: Infrastructure.WindowService, asm: Boxes}
       data: 
     - rid: 2942314082134130697
-      type: {class: WindowServiceMediator, ns: Configuration.Mediator, asm: Assembly-CSharp}
+      type: {class: WindowServiceMediator, ns: Configuration.Mediator, asm: Boxes}
       data: 
 --- !u!114 &5653272982984029224
 MonoBehaviour:
@@ -919,6 +919,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fd1482e4a9dee141aecc5bcd0a4f0f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  predefinedInstallers:
+  - {fileID: 6783381043972654020}
+  - {fileID: 7647804226817960368}
+  - {fileID: 6596543677441408231}
+  - {fileID: 9054410955444309965}
+  - {fileID: 4879271077625400302}
+  - {fileID: 8171476274062909527}
+  - {fileID: 1443127775864027227}
+  - {fileID: 4887326896134978320}
+  - {fileID: 1901350109941390844}
+  - {fileID: 2417830112276842661}
 --- !u!1 &7519232643318920114
 GameObject:
   m_ObjectHideFlags: 0
@@ -943,8 +954,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7519232643318920114}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 15, y: 0.5, z: -8}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 811.9, y: -0.0000076293945, z: 187.6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1000,7 +1011,7 @@ MonoBehaviour:
     version: 2
     RefIds:
     - rid: 2942314488009064450
-      type: {class: NavigationService, ns: Infrastructure.NavigationService, asm: Assembly-CSharp}
+      type: {class: NavigationService, ns: Infrastructure.NavigationService, asm: Boxes}
       data: 
 --- !u!1 &8506501947066740673
 GameObject:
@@ -1034,7 +1045,7 @@ Transform:
   m_Children:
   - {fileID: 957825535088085971}
   m_Father: {fileID: 6262193475212739509}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0.5, y: 0, z: 0}
 --- !u!114 &3792648698098068055
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1124,7 +1135,7 @@ MonoBehaviour:
     version: 2
     RefIds:
     - rid: 6608447775718506511
-      type: {class: TaskSequence, ns: Infrastructure.QuestService.Abstract, asm: Assembly-CSharp}
+      type: {class: TaskSequence, ns: Infrastructure.QuestService.Abstract, asm: Boxes}
       data:
         tasks:
         - rid: 6608447775718506512
@@ -1132,23 +1143,23 @@ MonoBehaviour:
         - rid: 6608447775718506514
         - rid: 6608447775718506513
     - rid: 6608447775718506512
-      type: {class: NavigationTask, ns: Configuration.QuestTasks.Shared, asm: Assembly-CSharp}
+      type: {class: NavigationTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}
       data:
         config: {fileID: 11400000, guid: 1a42345b02afc9a428966473d1ab56b9, type: 2}
         targetId: d8197522-84dc-433b-b7d1-8746743cc650
     - rid: 6608447775718506513
-      type: {class: LoadBoxesTask, ns: Configuration.QuestTasks.Shared, asm: Assembly-CSharp}
+      type: {class: LoadBoxesTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}
       data:
         config: {fileID: 11400000, guid: 5483bf4591c843c4ea653b5897f88313, type: 2}
         sourceStorageId: e86ab916-1797-4b52-842d-555cd295b080
         targetStorageId: b92905ab-870d-415d-ad84-50a827fd042d
     - rid: 6608447775718506514
-      type: {class: NavigationTask, ns: Configuration.QuestTasks.Shared, asm: Assembly-CSharp}
+      type: {class: NavigationTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}
       data:
         config: {fileID: 11400000, guid: 1a42345b02afc9a428966473d1ab56b9, type: 2}
         targetId: 84435ff3-ff94-4a90-9440-c50e20c862f8
     - rid: 6608447947131322368
-      type: {class: DialogTask, ns: Configuration.QuestTasks.Shared, asm: Assembly-CSharp}
+      type: {class: DialogTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}
       data:
         dialogSequence: {fileID: 11400000, guid: 0b620bea28d24cd4fbc64b3f17da1a9d, type: 2}
         cameraTargetId: 84657a7f-2d4e-4efd-a9e5-19fcd028cf0b
@@ -1181,13 +1192,13 @@ Transform:
   m_GameObject: {fileID: 9012567134885567325}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0.880232, z: -0.47454372, w: 0}
-  m_LocalPosition: {x: 15, y: 30.9, z: 12}
+  m_LocalPosition: {x: 811.9, y: 30.399992, z: 207.6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8830458802183850072}
   m_Father: {fileID: 8795506885024739516}
-  m_LocalEulerAnglesHint: {x: 64.5, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 56.659, y: 0, z: 145.128}
 --- !u!20 &7004771167883112715
 Camera:
   m_ObjectHideFlags: 0
@@ -1375,7 +1386,7 @@ MonoBehaviour:
     version: 2
     RefIds:
     - rid: 6608447775718506499
-      type: {class: TaskSequence, ns: Infrastructure.QuestService.Abstract, asm: Assembly-CSharp}
+      type: {class: TaskSequence, ns: Infrastructure.QuestService.Abstract, asm: Boxes}
       data:
         tasks:
         - rid: 6608447775718506500
@@ -1388,59 +1399,59 @@ MonoBehaviour:
         - rid: 6608447775718506507
         - rid: 6608447775718506508
     - rid: 6608447775718506500
-      type: {class: NavigationTask, ns: Configuration.QuestTasks.Shared, asm: Assembly-CSharp}
+      type: {class: NavigationTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}
       data:
         config: {fileID: 11400000, guid: f383f888a2faf7f4ca04bd424a39abef, type: 2}
         targetId: 84628986-6037-429c-8e9a-63956d74502f
     - rid: 6608447775718506501
-      type: {class: PetruhaAppearTask, ns: Configuration.QuestTasks.Beginning, asm: Assembly-CSharp}
+      type: {class: PetruhaAppearTask, ns: Configuration.QuestTasks.Beginning, asm: Boxes}
       data:
         npcId: af8147ce-61e2-4738-ae01-609d7e3e5e1a
     - rid: 6608447775718506502
-      type: {class: DialogTask, ns: Configuration.QuestTasks.Shared, asm: Assembly-CSharp}
+      type: {class: DialogTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}
       data:
         dialogSequence: {fileID: 11400000, guid: bd641bdd7da93a544a171e25bbd75794, type: 2}
         cameraTargetId: 
     - rid: 6608447775718506503
-      type: {class: TaskBag, ns: Infrastructure.QuestService.Abstract, asm: Assembly-CSharp}
+      type: {class: TaskBag, ns: Infrastructure.QuestService.Abstract, asm: Boxes}
       data:
         tasks:
         - rid: 6608447775718506509
         - rid: 6608447775718506510
     - rid: 6608447775718506504
-      type: {class: DialogTask, ns: Configuration.QuestTasks.Shared, asm: Assembly-CSharp}
+      type: {class: DialogTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}
       data:
         dialogSequence: {fileID: 11400000, guid: 82d038918d632a8429f323d51018ee01, type: 2}
         cameraTargetId: 
     - rid: 6608447775718506505
-      type: {class: PetruhaLeaveTask, ns: Configuration.QuestTasks.Beginning, asm: Assembly-CSharp}
+      type: {class: PetruhaLeaveTask, ns: Configuration.QuestTasks.Beginning, asm: Boxes}
       data:
         npcId: af8147ce-61e2-4738-ae01-609d7e3e5e1a
     - rid: 6608447775718506506
-      type: {class: NpcNavigationTask, ns: Configuration.QuestTasks.Shared, asm: Assembly-CSharp}
+      type: {class: NpcNavigationTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}
       data:
         npcId: af8147ce-61e2-4738-ae01-609d7e3e5e1a
         targetId: 84628986-6037-429c-8e9a-63956d74502f
         isAwaitRequired: 0
     - rid: 6608447775718506507
-      type: {class: PassBallTask, ns: Configuration.QuestTasks.Beginning, asm: Assembly-CSharp}
+      type: {class: PassBallTask, ns: Configuration.QuestTasks.Beginning, asm: Boxes}
       data:
         requiredCount: 3
         config: {fileID: 11400000, guid: 862808ca6c1af954d92a933364f44cba, type: 2}
     - rid: 6608447775718506508
-      type: {class: LearnStatusTask, ns: Configuration.QuestTasks.Beginning, asm: Assembly-CSharp}
+      type: {class: LearnStatusTask, ns: Configuration.QuestTasks.Beginning, asm: Boxes}
       data:
         config: {fileID: 11400000, guid: 9874710ffe0e30c4290008b2c48763cb, type: 2}
         triggerId: f9b6d66c-a9a1-4247-8d6c-08d5fa4936d3
         requiredHitPoints: 3
     - rid: 6608447775718506509
-      type: {class: NpcNavigationTask, ns: Configuration.QuestTasks.Shared, asm: Assembly-CSharp}
+      type: {class: NpcNavigationTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}
       data:
         npcId: af8147ce-61e2-4738-ae01-609d7e3e5e1a
         targetId: 68744049-5105-4e1c-b16a-fb640380ed1c
         isAwaitRequired: 1
     - rid: 6608447775718506510
-      type: {class: NavigationTask, ns: Configuration.QuestTasks.Shared, asm: Assembly-CSharp}
+      type: {class: NavigationTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}
       data:
         config: {fileID: 11400000, guid: deabe43701ab55f4f882fe302e19826d, type: 2}
         targetId: 68744049-5105-4e1c-b16a-fb640380ed1c

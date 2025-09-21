@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Infrastructure.Components;
 using Reflex.Core;
 using Reflex.Extensions;
@@ -14,11 +15,17 @@ namespace Infrastructure.Bootstrap
 
         void IInstaller.InstallBindings(ContainerBuilder containerBuilder)
         {
+            this.Log(LogType.Log, "InstallBindings");
             containerBuilder.OnContainerBuilt += Initialize;
         }
 
         private void Initialize(Container container)
         {
+            this.Log(
+                LogType.Log,
+                $"Container built with registered types : " +
+                $"{string.Join(",", container.Contracts.Select(type => type.Name))}"
+            );
             this.container = container;
 
             foreach (IPostBuildInjectable postBuildInjectable in container.All<IPostBuildInjectable>())

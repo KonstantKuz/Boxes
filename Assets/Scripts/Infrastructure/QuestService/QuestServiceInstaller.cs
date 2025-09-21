@@ -19,6 +19,7 @@ namespace Infrastructure.QuestService
 
         void IInstaller.InstallBindings(ContainerBuilder containerBuilder)
         {
+            this.Log(LogType.Log, "InstallBindings");
             containerBuilder.AddSingleton(questStateHolder, questStateHolder.GetType().GetInterfaces());
             containerBuilder.AddSingleton(questService, questService.GetType().GetInterfaces());
 

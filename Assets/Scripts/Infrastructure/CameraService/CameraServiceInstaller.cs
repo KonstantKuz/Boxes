@@ -13,6 +13,7 @@ namespace Infrastructure.CameraService
 
         void IInstaller.InstallBindings(ContainerBuilder containerBuilder)
         {
+            this.Log(LogType.Log, "InstallBindings");
             containerBuilder.AddSingleton(service, service.GetType().GetInterfaces());
             containerBuilder.AddSingleton(mediator, mediator.GetType().GetInterfaces());
         }

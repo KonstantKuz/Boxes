@@ -14,6 +14,7 @@ namespace Infrastructure.InputService
 
         void IInstaller.InstallBindings(ContainerBuilder containerBuilder)
         {
+            this.Log(LogType.Log, "InstallBindings");
             containerBuilder.AddSingleton(inputService, inputService.GetType().GetInterfaces());
             containerBuilder.AddSingleton(mediator, mediator.GetType().GetInterfaces());
         }
