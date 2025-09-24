@@ -24,6 +24,7 @@ namespace Configuration.Mediator
         {
             if (GUILayout.Button("Get ball"))
             {
+                ball.gameObject.SetActive(true);
                 networkService.SendCommand(new HoldCommand(localInitiator.NetId));
             }
 

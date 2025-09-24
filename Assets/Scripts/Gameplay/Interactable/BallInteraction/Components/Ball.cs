@@ -120,7 +120,12 @@ namespace Gameplay.Interactable.BallInteraction.Components
 
             bool isResetRequired = Config.ResetConditions.HasFlag(ResetCondition.Collision);
 
-            if (other.gameObject.TryGetComponent(out IBallReactionInitiator reactionInitiator))
+            IBallReactionInitiator reactionInitiator =
+                other.gameObject.GetComponentInParent<IBallReactionInitiator>() ??
+                other.gameObject.GetComponent<IBallReactionInitiator>() ??
+                other.gameObject.GetComponentInChildren<IBallReactionInitiator>();
+
+            if (reactionInitiator != null)
             {
                 BallSharedState state = StateHolder.GetState();
                 reactionInitiator.TryExecuteReaction(other, state );

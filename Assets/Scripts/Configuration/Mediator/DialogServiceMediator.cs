@@ -10,6 +10,7 @@ using Infrastructure.InputService.Abstract;
 using Infrastructure.Network.Abstract;
 using Infrastructure.WindowService.Abstract;
 using Mirror;
+using R3;
 using Reflex.Attributes;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -58,10 +59,11 @@ namespace Configuration.Mediator
             networkService.ObserveToExecute<StopDialogCommand>(CleanDialogState);
         }
 
-        void IDialogServiceMediator.StartDialog(uint initiatorId, Guid dialogId)
+        IDisposable IDialogServiceMediator.StartDialog(uint initiatorId, Guid dialogId)
         {
             StartDialogCommand command = new StartDialogCommand {DialogId = dialogId, InitiatorId = initiatorId};
             networkService.SendCommand(command);
+            return Disposable.Create(() => networkService.SendCommand(new StopDialogCommand()));
         }
 
         bool IDialogServiceMediator.TryGetDialog(Guid dialogId, out DialogSequence dialogSequence)

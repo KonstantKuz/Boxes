@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 40732021d3474b2ea4be049a6f484cc7, type: 3}
-  m_Name: 1.Loader
+  m_Name: 1.LoadBoxes
   m_EditorClassIdentifier: 
   guid: b179e18a-1116-421b-bf63-81049059e0ed
   replicas:

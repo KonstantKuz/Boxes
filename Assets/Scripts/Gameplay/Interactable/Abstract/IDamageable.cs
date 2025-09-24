@@ -6,7 +6,7 @@ namespace Gameplay.Interactable.Abstract
     {
         int MaxHitPoints { get; }
         ReadOnlyReactiveProperty<int> CurrentHitPoints { get; }
-        void Initialize(int maxHitPoints);
+        void Initialize(int initialHitPoints = 0);
         void TakeDamage(int hitPoints);
     }
 }

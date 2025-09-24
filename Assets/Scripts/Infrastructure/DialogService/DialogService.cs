@@ -15,9 +15,9 @@ namespace Infrastructure.DialogService
             this.mediator = mediator;
         }
 
-        void IDialogService.StartDialog(uint initiatorId, Guid dialogId)
+        IDisposable IDialogService.StartDialog(uint initiatorId, Guid dialogId)
         {
-            mediator.StartDialog(initiatorId, dialogId);
+            return mediator.StartDialog(initiatorId, dialogId);
         }
 
         bool IDialogService.TryGetDialog(Guid dialogId, out DialogSequence dialogSequence)

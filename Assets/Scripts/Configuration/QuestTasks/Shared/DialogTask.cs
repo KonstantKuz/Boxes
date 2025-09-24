@@ -5,6 +5,7 @@ using Infrastructure.DialogService.Command;
 using Infrastructure.Network.Abstract;
 using Infrastructure.QuestService.Abstract;
 using Infrastructure.World;
+using R3;
 using Reflex.Attributes;
 using UnityEngine;
 
@@ -19,16 +20,23 @@ namespace Configuration.QuestTasks.Shared
         [SerializeField]
         private string cameraTargetId;
 
-        private IDisposable disposable;
+        private CompositeDisposable disposable;
         private INetworkService networkService;
+        private INetworkManager networkManager;
         private IDialogService dialogService;
         private IWorldService worldService;
         private IWorldObject cameraTarget;
 
         [Inject]
-        private void Construct(INetworkService networkService, IDialogService dialogService, IWorldService worldService)
+        private void Construct(
+            INetworkService networkService,
+            INetworkManager networkManager,
+            IDialogService dialogService,
+            IWorldService worldService
+        )
         {
             this.networkService = networkService;
+            this.networkManager = networkManager;
             this.dialogService = dialogService;
             this.worldService = worldService;
         }
@@ -40,9 +48,14 @@ namespace Configuration.QuestTasks.Shared
                 cameraTarget.Value.SetActive(true);
             }
 
-            dialogService.StartDialog(0, dialogSequence.Id);
+            disposable = new CompositeDisposable();
 
-            disposable = networkService.ObserveToReact<StopDialogCommand>(OnDialogStop);
+            networkService.ObserveToReact<StopDialogCommand>(OnDialogStop).AddTo(disposable);
+
+            if (networkManager.IsServer)
+            {
+                dialogService.StartDialog(0, dialogSequence.Id).AddTo(disposable);
+            }
         }
 
         private void OnDialogStop(StopDialogCommand context)
@@ -53,6 +66,7 @@ namespace Configuration.QuestTasks.Shared
 
         void IDisposable.Dispose()
         {
+            cameraTarget?.Value.SetActive(false);
             disposable?.Dispose();
         }
     }

@@ -100,7 +100,7 @@ namespace Infrastructure.Network
                 AttributeInjector.Inject(gameObjectContext, SceneManager.GetActiveScene().GetSceneContainer());
             }
 
-            spawned.gameObject.SetActive(true);
+            spawned.gameObject.SetActive(wasPrefabActive);
 
             return spawned;
         }

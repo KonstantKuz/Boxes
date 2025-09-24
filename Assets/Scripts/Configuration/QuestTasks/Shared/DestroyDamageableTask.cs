@@ -9,10 +9,10 @@ using R3;
 using Reflex.Attributes;
 using UnityEngine;
 
-namespace Configuration.QuestTasks.Beginning
+namespace Configuration.QuestTasks.Shared
 {
     [Serializable]
-    public class LearnStatusTask : TaskBase, IDisposable
+    public class DestroyDamageableTask : TaskBase, IDisposable
     {
         [SerializeField]
         private TaskConfig config;

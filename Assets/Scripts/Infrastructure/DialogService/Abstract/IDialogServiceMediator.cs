@@ -5,7 +5,7 @@ namespace Infrastructure.DialogService.Abstract
 {
     public interface IDialogServiceMediator : IPostBuildInjectable
     {
-        void StartDialog(uint initiatorId, Guid dialogId);
+        IDisposable StartDialog(uint initiatorId, Guid dialogId);
 
         bool TryGetDialog(Guid dialogId, out DialogSequence dialogSequence);
     }

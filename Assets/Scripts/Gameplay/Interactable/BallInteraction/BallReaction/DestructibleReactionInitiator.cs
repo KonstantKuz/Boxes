@@ -38,13 +38,17 @@ namespace Gameplay.Interactable.BallInteraction.BallReaction
                 return;
             }
 
-            ((IDamageable)this).Initialize(maxHitPoints);
+            ((IDamageable)this).Initialize();
         }
 
-        void IDamageable.Initialize(int maxHitPoints)
+        void IDamageable.Initialize(int initialHitPoints)
         {
+            if (initialHitPoints > 0)
+            {
+                maxHitPoints = initialHitPoints;
+            }
+
             currentHitPointsReactive = new ReactiveProperty<int>(maxHitPoints);
-            this.maxHitPoints = maxHitPoints;
             currentHitPoints = maxHitPoints;
             gameObject.SetActive(true);
             isInitialized = true;

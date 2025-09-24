@@ -59,6 +59,14 @@ MonoBehaviour:
     m_Key: LoadMarketBoxesDescription
     m_Metadata:
       m_Items: []
+  - m_Id: 12997743284961280
+    m_Key: GoToParkingTitle
+    m_Metadata:
+      m_Items: []
+  - m_Id: 12997814948839424
+    m_Key: GoToParkingDescription
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

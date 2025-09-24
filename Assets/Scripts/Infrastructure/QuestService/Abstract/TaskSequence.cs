@@ -15,6 +15,7 @@ namespace Infrastructure.QuestService.Abstract
         [SerializeReference]
         private List<ITask> tasks;
 
+        private ReactiveProperty<ITask> activeTask;
         private IDisposable activeTaskDisposable;
         private int currentIndex;
 
@@ -22,10 +23,14 @@ namespace Infrastructure.QuestService.Abstract
         private IDisposable isDoneDisposable;
 
         public int TaskCount => tasks.Count;
+        public List<ITask> Tasks => tasks;
+        public ReadOnlyReactiveProperty<ITask> ActiveTask => activeTask;
 
         [Inject]
         private void Construct(Container container)
         {
+            activeTask = new ReactiveProperty<ITask>();
+
             foreach (ITask task in tasks)
             {
                 AttributeInjector.Inject(task, container);
@@ -83,6 +88,7 @@ namespace Infrastructure.QuestService.Abstract
                 });
 
             task.Start();
+            activeTask.Value = task;
         }
 
         void IDisposable.Dispose()

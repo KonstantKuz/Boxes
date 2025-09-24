@@ -485,6 +485,7 @@ MonoBehaviour:
         - {fileID: 11400000, guid: bd641bdd7da93a544a171e25bbd75794, type: 2}
         - {fileID: 11400000, guid: 82d038918d632a8429f323d51018ee01, type: 2}
         - {fileID: 11400000, guid: 0b620bea28d24cd4fbc64b3f17da1a9d, type: 2}
+        - {fileID: 11400000, guid: 46581212a95d3044ea0229fed49504d7, type: 2}
         dialogWindowType: {fileID: 11400000, guid: 5572b08fb13fd5d4cb257958a845e03c, type: 2}
 --- !u!114 &8211385589716824693
 MonoBehaviour:
@@ -588,6 +589,7 @@ Transform:
   m_Children:
   - {fileID: 6899194196782010927}
   - {fileID: 7094297897583242212}
+  - {fileID: 2203009025645711833}
   m_Father: {fileID: 3767940849198152207}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1901350109941390844
@@ -616,6 +618,7 @@ MonoBehaviour:
         quests:
         - {fileID: 3996301211525365867}
         - {fileID: 6021338114061977619}
+        - {fileID: 8525166254047559314}
 --- !u!114 &7663389876828686202
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -708,6 +711,90 @@ MonoBehaviour:
       type: {class: CameraServiceMediator, ns: Configuration.Mediator, asm: Boxes}
       data:
         sharedMode: 1
+--- !u!1 &5857390498980522360
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2203009025645711833}
+  - component: {fileID: 8525166254047559314}
+  m_Layer: 0
+  m_Name: 3.ParkingMess
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2203009025645711833
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5857390498980522360}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1860510742888022239}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8525166254047559314
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5857390498980522360}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1aa7015d472bf2d498a46add40ce4aa4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  taskSequence:
+    rid: 6608447775718506511
+  references:
+    version: 2
+    RefIds:
+    - rid: 6608447775718506511
+      type: {class: TaskSequence, ns: Infrastructure.QuestService.Abstract, asm: Boxes}
+      data:
+        tasks:
+        - rid: 6608447775718506512
+        - rid: 6608448059785084931
+        - rid: 6608448059785084936
+        - rid: 6608448059785084937
+        - rid: 6608448059785084938
+    - rid: 6608447775718506512
+      type: {class: NavigationTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}
+      data:
+        config: {fileID: 11400000, guid: 6153a11856c57ed40b6257b54eb45659, type: 2}
+        targetId: 4adbb169-52bf-4ec0-8e11-31f7b24c6005
+    - rid: 6608448059785084931
+      type: {class: DestroyDamageableTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}
+      data:
+        config: {fileID: 11400000, guid: 6153a11856c57ed40b6257b54eb45659, type: 2}
+        triggerId: 5f0ef165-5917-4445-bcbe-f4defd243ffc
+        requiredHitPoints: 1
+    - rid: 6608448059785084936
+      type: {class: SetActiveTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}
+      data:
+        targetId: 022647ea-50a5-4512-8479-e6154804977d
+        positionId: 
+    - rid: 6608448059785084937
+      type: {class: SetActiveTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}
+      data:
+        targetId: d65fea4c-2574-4946-955c-3971489ce582
+        positionId: 
+    - rid: 6608448059785084938
+      type: {class: DialogTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}
+      data:
+        dialogSequence: {fileID: 11400000, guid: 46581212a95d3044ea0229fed49504d7, type: 2}
+        cameraTargetId: 
 --- !u!1 &5966557292213139459
 GameObject:
   m_ObjectHideFlags: 0
@@ -919,17 +1006,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fd1482e4a9dee141aecc5bcd0a4f0f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  predefinedInstallers:
-  - {fileID: 6783381043972654020}
-  - {fileID: 7647804226817960368}
-  - {fileID: 6596543677441408231}
-  - {fileID: 9054410955444309965}
-  - {fileID: 4879271077625400302}
-  - {fileID: 8171476274062909527}
-  - {fileID: 1443127775864027227}
-  - {fileID: 4887326896134978320}
-  - {fileID: 1901350109941390844}
-  - {fileID: 2417830112276842661}
 --- !u!1 &7519232643318920114
 GameObject:
   m_ObjectHideFlags: 0
@@ -1439,7 +1515,7 @@ MonoBehaviour:
         requiredCount: 3
         config: {fileID: 11400000, guid: 862808ca6c1af954d92a933364f44cba, type: 2}
     - rid: 6608447775718506508
-      type: {class: LearnStatusTask, ns: Configuration.QuestTasks.Beginning, asm: Boxes}
+      type: {class: DestroyDamageableTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}
       data:
         config: {fileID: 11400000, guid: 9874710ffe0e30c4290008b2c48763cb, type: 2}
         triggerId: f9b6d66c-a9a1-4247-8d6c-08d5fa4936d3

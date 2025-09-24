@@ -34,6 +34,10 @@ MonoBehaviour:
     m_Localized: Tycoon
     m_Metadata:
       m_Items: []
+  - m_Id: 22420520970600448
+    m_Localized: Bandit
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

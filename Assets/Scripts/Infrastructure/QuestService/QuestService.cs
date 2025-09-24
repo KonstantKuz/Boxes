@@ -14,7 +14,7 @@ using UnityEngine;
 namespace Infrastructure.QuestService
 {
     [Serializable]
-    public class QuestService : IQuestService, IInitializable, IDisposable
+    public partial class QuestService : IQuestService, IInitializable, IDisposable
     {
         private readonly ReactiveProperty<ITask> activeTask = new();
 
@@ -93,10 +93,20 @@ namespace Infrastructure.QuestService
 
         private void StartCurrentQuest()
         {
+            if (activeTask.Value is IDisposable disposable)
+            {
+                disposable.Dispose();
+            }
+
             TaskSequence currentQuest = quests[currentQuestIndex].TaskSequence;
             currentQuest.Start(currentTaskIndex);
             activeTask.Value = currentQuest;
             ((ITask) currentQuest).IsDone.Subscribe(OnCurrentQuestDone);
+
+            this.Log(LogType.Log, $"Start quest {quests[currentQuestIndex].name}");
+            currentQuest.ActiveTask.Subscribe(
+                task => this.Log(LogType.Log, $"Start task {task.GetType()}")
+            );
         }
 
         private void OnCurrentQuestDone(bool isDone)
@@ -108,16 +118,9 @@ namespace Infrastructure.QuestService
 
             if (isDone)
             {
-                if (activeTask.Value is IDisposable disposable)
-                {
-                    disposable.Dispose();
-                }
-
                 currentQuestIndex++;
-                if (currentQuestIndex < quests.Count)
-                {
-                    questStateHolder.WriteState(new ActiveQuestSharedState(currentQuestIndex, currentTaskIndex));
-                }
+                currentTaskIndex = 0;
+                questStateHolder.WriteState(new ActiveQuestSharedState(currentQuestIndex, currentTaskIndex));
             }
         }
     }
