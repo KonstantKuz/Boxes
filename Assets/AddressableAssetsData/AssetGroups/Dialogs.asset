@@ -41,6 +41,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - Dialog
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a75fef72a86e2f74781a87442993e40b
+    m_Address: Assets/Prefabs/Game/Quests/4.AngarWork/Dialogs/4.1.Greeting.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Dialog
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: bd641bdd7da93a544a171e25bbd75794
     m_Address: Assets/Prefabs/System/DialogService/Dialogs/1.Beginning/1.GoToPlay.asset
     m_ReadOnly: 0

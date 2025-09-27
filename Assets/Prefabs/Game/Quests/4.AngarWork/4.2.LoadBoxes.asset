@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b047716ac874e58a536c5cd3a0a1512, type: 3}
+  m_Name: 4.2.LoadBoxes
+  m_EditorClassIdentifier: 
+  guid: b73d1136-8bc2-4948-8e2d-d6d6d8322f5f
+  title:
+    m_TableReference:
+      m_TableCollectionName: GUID:4f30de7ea324cb7458745a4eeb0596d2
+    m_TableEntryReference:
+      m_KeyId: 8468733221781504
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  description:
+    m_TableReference:
+      m_TableCollectionName: GUID:4f30de7ea324cb7458745a4eeb0596d2
+    m_TableEntryReference:
+      m_KeyId: 8468772019093504
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  references:
+    version: 2
+    RefIds: []

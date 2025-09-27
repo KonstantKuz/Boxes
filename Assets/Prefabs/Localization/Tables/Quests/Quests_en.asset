@@ -73,6 +73,10 @@ MonoBehaviour:
     m_Localized: Go to parking and damage some cars
     m_Metadata:
       m_Items: []
+  - m_Id: 14120676610916352
+    m_Localized: Go to angar
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

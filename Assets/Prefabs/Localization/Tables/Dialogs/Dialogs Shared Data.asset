@@ -15,56 +15,56 @@ MonoBehaviour:
   m_TableCollectionName: Dialogs
   m_TableCollectionNameGuidString: c7283c37c72611143890a140b42ae0e0
   m_Entries:
-  - m_Id: 9417719808
-    m_Key: TestReplica_1
-    m_Metadata:
-      m_Items: []
-  - m_Id: 187096825856
-    m_Key: TestReplica_2
-    m_Metadata:
-      m_Items: []
   - m_Id: 10138343738294272
-    m_Key: Beginning_1
+    m_Key: 1.1.BeginningReplica
     m_Metadata:
       m_Items: []
   - m_Id: 11279811211280384
-    m_Key: Beginning_2
+    m_Key: 1.2.BeginningReplica
     m_Metadata:
       m_Items: []
   - m_Id: 17862220115460096
-    m_Key: MarketWork_1
+    m_Key: 2.1.MarketWorkReplica
     m_Metadata:
       m_Items: []
   - m_Id: 17862355536953344
-    m_Key: MarketWork_2
+    m_Key: 2.2.MarketWorkReplica
     m_Metadata:
       m_Items: []
   - m_Id: 17862599456702464
-    m_Key: MarketWork_3
-    m_Metadata:
-      m_Items: []
-  - m_Id: 22427364531224576
-    m_Key: ParkingMess_1
-    m_Metadata:
-      m_Items: []
-  - m_Id: 22427445233827840
-    m_Key: ParkingMess_2
-    m_Metadata:
-      m_Items: []
-  - m_Id: 22427485679501312
-    m_Key: ParkingMess_3
+    m_Key: 2.3.MarketWorkReplica
     m_Metadata:
       m_Items: []
   - m_Id: 23455693535297536
-    m_Key: MarketWork_4
+    m_Key: 2.4.MarketWorkReplica
     m_Metadata:
       m_Items: []
   - m_Id: 23456107542462464
-    m_Key: MarketWork_5
+    m_Key: 2.5.MarketWorkReplica
     m_Metadata:
       m_Items: []
   - m_Id: 23456182775693312
-    m_Key: MarketWork_6
+    m_Key: 2.6.MarketWorkReplica
+    m_Metadata:
+      m_Items: []
+  - m_Id: 22427364531224576
+    m_Key: 3.1.ParkingMessReplica
+    m_Metadata:
+      m_Items: []
+  - m_Id: 22427445233827840
+    m_Key: 3.2.ParkingMessReplica
+    m_Metadata:
+      m_Items: []
+  - m_Id: 22427485679501312
+    m_Key: 3.3.ParkingMessReplica
+    m_Metadata:
+      m_Items: []
+  - m_Id: 23529445191172096
+    m_Key: 4.1.AngarWorkReplica
+    m_Metadata:
+      m_Items: []
+  - m_Id: 23529610664853504
+    m_Key: 4.2.AngarWorkReplica
     m_Metadata:
       m_Items: []
   m_Metadata:

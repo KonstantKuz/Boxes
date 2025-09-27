@@ -15,10 +15,6 @@ MonoBehaviour:
   m_TableCollectionName: Characters
   m_TableCollectionNameGuidString: caa61e2efc11df641a8846cbc72f28de
   m_Entries:
-  - m_Id: 14723514368
-    m_Key: TestCharacter
-    m_Metadata:
-      m_Items: []
   - m_Id: 10131890692538368
     m_Key: Petruha
     m_Metadata:
@@ -33,6 +29,10 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 22420520970600448
     m_Key: Bandit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 23522188558712832
+    m_Key: Watchman
     m_Metadata:
       m_Items: []
   m_Metadata:

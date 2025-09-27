@@ -52,11 +52,11 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 8468733221781504
-    m_Key: LoadMarketBoxesTitle
+    m_Key: LoadBoxesTitle
     m_Metadata:
       m_Items: []
   - m_Id: 8468772019093504
-    m_Key: LoadMarketBoxesDescription
+    m_Key: LoadBoxesDescription
     m_Metadata:
       m_Items: []
   - m_Id: 12997743284961280
@@ -65,6 +65,10 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 12997814948839424
     m_Key: GoToParkingDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14120676610916352
+    m_Key: 4.1.GoToAngarTitle
     m_Metadata:
       m_Items: []
   m_Metadata:

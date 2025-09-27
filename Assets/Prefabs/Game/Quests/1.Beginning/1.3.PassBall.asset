@@ -1,0 +1,57 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b047716ac874e58a536c5cd3a0a1512, type: 3}
+  m_Name: 1.3.PassBall
+  m_EditorClassIdentifier: 
+  guid: 558a10e3-bbab-41a6-89a9-6a9be533719e
+  title:
+    m_TableReference:
+      m_TableCollectionName: GUID:4f30de7ea324cb7458745a4eeb0596d2
+    m_TableEntryReference:
+      m_KeyId: 5035376640
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  description:
+    m_TableReference:
+      m_TableCollectionName: GUID:4f30de7ea324cb7458745a4eeb0596d2
+    m_TableEntryReference:
+      m_KeyId: 189408591872
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables:
+    - name: TakeCount
+      variable:
+        rid: 2942314443011784715
+    - name: PassCount
+      variable:
+        rid: 2942314443011784716
+    - name: TotalPlayersCount
+      variable:
+        rid: 2942314443011784717
+  references:
+    version: 2
+    RefIds:
+    - rid: 2942314443011784715
+      type: {class: IntVariable, ns: UnityEngine.Localization.SmartFormat.PersistentVariables, asm: Unity.Localization}
+      data:
+        m_Value: 0
+    - rid: 2942314443011784716
+      type: {class: IntVariable, ns: UnityEngine.Localization.SmartFormat.PersistentVariables, asm: Unity.Localization}
+      data:
+        m_Value: 0
+    - rid: 2942314443011784717
+      type: {class: IntVariable, ns: UnityEngine.Localization.SmartFormat.PersistentVariables, asm: Unity.Localization}
+      data:
+        m_Value: 0
