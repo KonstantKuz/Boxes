@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Cysharp.Threading.Tasks;
+using Infrastructure;
 using Infrastructure.Bootstrap;
 using Infrastructure.DialogService;
 using Infrastructure.DialogService.Abstract;
@@ -13,6 +15,7 @@ using Mirror;
 using R3;
 using Reflex.Attributes;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 using UnityEngine.InputSystem;
 
 namespace Configuration.Mediator
@@ -20,9 +23,6 @@ namespace Configuration.Mediator
     [Serializable]
     public class DialogServiceMediator : IDialogServiceMediator, IInitializable
     {
-        [SerializeField]
-        private List<DialogSequence> dialogs;
-
         [SerializeField]
         private WindowType dialogWindowType;
 
@@ -49,7 +49,7 @@ namespace Configuration.Mediator
 
         void IInitializable.Initialize()
         {
-            dialogsMap = dialogs.ToDictionary(item => item.Id, item => item);
+            LoadDialogsAsync().Forget();
 
             networkService.ObserveToReact<StartDialogCommand>(StartLocalDialog);
             networkService.ObserveToReact<StopDialogCommand>(StopLocalDialog);
@@ -57,6 +57,14 @@ namespace Configuration.Mediator
             networkService.ObserveToExecute<StartDialogCommand>(CreateDialogState);
             networkService.ObserveToExecute<ReadyDialogCommand>(UpdateDialogState);
             networkService.ObserveToExecute<StopDialogCommand>(CleanDialogState);
+        }
+
+        private async UniTask LoadDialogsAsync()
+        {
+            IList<DialogSequence> dialogs =
+                await Addressables.LoadAssetsAsync<DialogSequence>(GlobalParams.DialogsAddressableGroup, null);
+
+            dialogsMap = dialogs.ToDictionary(item => item.Id, item => item);
         }
 
         IDisposable IDialogServiceMediator.StartDialog(uint initiatorId, Guid dialogId)

@@ -1,0 +1,65 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a3302517e334611b8ca3e20f19d998c, type: 3}
+  m_Name: 2.MarketWork
+  m_EditorClassIdentifier: 
+  taskSequence:
+    rid: 6608448125118971921
+  references:
+    version: 2
+    RefIds:
+    - rid: 6608448125118971921
+      type: {class: TaskSequence, ns: Infrastructure.QuestService.Abstract, asm: Boxes}
+      data:
+        tasks:
+        - rid: 6608448125118971922
+        - rid: 6608448125118971923
+        - rid: 6608448125118971924
+        - rid: 6608448125118971925
+        - rid: 6608448125118971926
+        - rid: 6608448125118971927
+        - rid: 6608448125118971928
+    - rid: 6608448125118971922
+      type: {class: NavigationTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}
+      data:
+        config: {fileID: 11400000, guid: 1a42345b02afc9a428966473d1ab56b9, type: 2}
+        targetId: d8197522-84dc-433b-b7d1-8746743cc650
+    - rid: 6608448125118971923
+      type: {class: DialogTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}
+      data:
+        dialogSequence: {fileID: 11400000, guid: 0b620bea28d24cd4fbc64b3f17da1a9d, type: 2}
+        cameraTargetId: 84657a7f-2d4e-4efd-a9e5-19fcd028cf0b
+    - rid: 6608448125118971924
+      type: {class: NavigationTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}
+      data:
+        config: {fileID: 11400000, guid: 1a42345b02afc9a428966473d1ab56b9, type: 2}
+        targetId: 84435ff3-ff94-4a90-9440-c50e20c862f8
+    - rid: 6608448125118971925
+      type: {class: LoadBoxesTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}
+      data:
+        config: {fileID: 11400000, guid: 5483bf4591c843c4ea653b5897f88313, type: 2}
+        sourceStorageId: e86ab916-1797-4b52-842d-555cd295b080
+        targetStorageId: b92905ab-870d-415d-ad84-50a827fd042d
+    - rid: 6608448125118971926
+      type: {class: DialogTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}
+      data:
+        dialogSequence: {fileID: 11400000, guid: 9f917eefe9bf6cb4ea56c245e3a28dcd, type: 2}
+        cameraTargetId: 
+    - rid: 6608448125118971927
+      type: {class: SetActiveTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}
+      data:
+        targetId: 63b7fe1b-7227-49b7-8764-2ed172983148
+        positionId: d8197522-84dc-433b-b7d1-8746743cc650
+    - rid: 6608448125118971928
+      type: {class: PetruhaAppearTask, ns: Configuration.QuestTasks.Beginning, asm: Boxes}
+      data:
+        npcId: 10b0a6eb-0d99-41b0-b1db-23070ced43f9

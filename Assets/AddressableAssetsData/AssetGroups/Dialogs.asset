@@ -1,0 +1,55 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Dialogs
+  m_EditorClassIdentifier: 
+  m_GroupName: Dialogs
+  m_Data:
+    m_SerializedData: []
+  m_GUID: 2871a6791c5161249b8640fc71dedec1
+  m_SerializeEntries:
+  - m_GUID: 0b620bea28d24cd4fbc64b3f17da1a9d
+    m_Address: Assets/Prefabs/System/DialogService/Dialogs/2.MarketWork/1.LoadBoxes.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Dialog
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 46581212a95d3044ea0229fed49504d7
+    m_Address: Assets/Prefabs/System/DialogService/Dialogs/3.ParkingMess/1.GoToAngar.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Dialog
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 82d038918d632a8429f323d51018ee01
+    m_Address: Assets/Prefabs/System/DialogService/Dialogs/1.Beginning/2.GoHome.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Dialog
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9f917eefe9bf6cb4ea56c245e3a28dcd
+    m_Address: Assets/Prefabs/System/DialogService/Dialogs/2.MarketWork/2.GetBall.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Dialog
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: bd641bdd7da93a544a171e25bbd75794
+    m_Address: Assets/Prefabs/System/DialogService/Dialogs/1.Beginning/1.GoToPlay.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Dialog
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 4ea6727d09b5691458c0bb0f4427d8dc, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 584ae658fffb3a64d87429acc32198c1, type: 2}
+    - {fileID: 11400000, guid: a1182d82fd6caf84bba3a3521731121d, type: 2}

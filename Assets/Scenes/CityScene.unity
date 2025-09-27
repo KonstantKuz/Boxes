@@ -2987,7 +2987,7 @@ MonoBehaviour:
   OnHit:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 45669966}
+      - m_Target: {fileID: 125889174}
         m_TargetAssemblyTypeName: Gameplay.Interactable.BallInteraction.BallReaction.TransformShake,
           Boxes
         m_MethodName: Shake
@@ -5760,7 +5760,7 @@ MonoBehaviour:
   OnHit:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 45669966}
+      - m_Target: {fileID: 269083008}
         m_TargetAssemblyTypeName: Gameplay.Interactable.BallInteraction.BallReaction.TransformShake,
           Boxes
         m_MethodName: Shake
@@ -6228,7 +6228,7 @@ MonoBehaviour:
   OnHit:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 45669966}
+      - m_Target: {fileID: 325474992}
         m_TargetAssemblyTypeName: Gameplay.Interactable.BallInteraction.BallReaction.TransformShake,
           Boxes
         m_MethodName: Shake
@@ -7305,7 +7305,7 @@ MonoBehaviour:
   OnHit:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 45669966}
+      - m_Target: {fileID: 417767530}
         m_TargetAssemblyTypeName: Gameplay.Interactable.BallInteraction.BallReaction.TransformShake,
           Boxes
         m_MethodName: Shake
@@ -7511,7 +7511,7 @@ MonoBehaviour:
   OnHit:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 45669966}
+      - m_Target: {fileID: 425163357}
         m_TargetAssemblyTypeName: Gameplay.Interactable.BallInteraction.BallReaction.TransformShake,
           Boxes
         m_MethodName: Shake
@@ -9121,7 +9121,7 @@ MonoBehaviour:
   OnHit:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 45669966}
+      - m_Target: {fileID: 533668148}
         m_TargetAssemblyTypeName: Gameplay.Interactable.BallInteraction.BallReaction.TransformShake,
           Boxes
         m_MethodName: Shake
@@ -9747,7 +9747,7 @@ MonoBehaviour:
   OnHit:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 45669966}
+      - m_Target: {fileID: 578694809}
         m_TargetAssemblyTypeName: Gameplay.Interactable.BallInteraction.BallReaction.TransformShake,
           Boxes
         m_MethodName: Shake
@@ -10869,7 +10869,7 @@ MonoBehaviour:
   OnHit:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 45669966}
+      - m_Target: {fileID: 683454026}
         m_TargetAssemblyTypeName: Gameplay.Interactable.BallInteraction.BallReaction.TransformShake,
           Boxes
         m_MethodName: Shake
@@ -12397,7 +12397,7 @@ MonoBehaviour:
   OnHit:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 45669966}
+      - m_Target: {fileID: 749660633}
         m_TargetAssemblyTypeName: Gameplay.Interactable.BallInteraction.BallReaction.TransformShake,
           Boxes
         m_MethodName: Shake
@@ -13443,7 +13443,7 @@ MonoBehaviour:
   OnHit:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 45669966}
+      - m_Target: {fileID: 822202053}
         m_TargetAssemblyTypeName: Gameplay.Interactable.BallInteraction.BallReaction.TransformShake,
           Boxes
         m_MethodName: Shake
@@ -16018,7 +16018,7 @@ MonoBehaviour:
   OnHit:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 45669966}
+      - m_Target: {fileID: 972304084}
         m_TargetAssemblyTypeName: Gameplay.Interactable.BallInteraction.BallReaction.TransformShake,
           Boxes
         m_MethodName: Shake
@@ -16119,7 +16119,7 @@ MonoBehaviour:
   OnHit:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 45669966}
+      - m_Target: {fileID: 980397658}
         m_TargetAssemblyTypeName: Gameplay.Interactable.BallInteraction.BallReaction.TransformShake,
           Boxes
         m_MethodName: Shake
@@ -17911,7 +17911,7 @@ MonoBehaviour:
   OnHit:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 45669966}
+      - m_Target: {fileID: 1086312122}
         m_TargetAssemblyTypeName: Gameplay.Interactable.BallInteraction.BallReaction.TransformShake,
           Boxes
         m_MethodName: Shake
@@ -18924,7 +18924,7 @@ MonoBehaviour:
   OnHit:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 45669966}
+      - m_Target: {fileID: 1155420561}
         m_TargetAssemblyTypeName: Gameplay.Interactable.BallInteraction.BallReaction.TransformShake,
           Boxes
         m_MethodName: Shake
@@ -19237,7 +19237,7 @@ MonoBehaviour:
   OnHit:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 45669966}
+      - m_Target: {fileID: 1189226874}
         m_TargetAssemblyTypeName: Gameplay.Interactable.BallInteraction.BallReaction.TransformShake,
           Boxes
         m_MethodName: Shake
@@ -21923,7 +21923,7 @@ MonoBehaviour:
   OnHit:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 45669966}
+      - m_Target: {fileID: 1364375963}
         m_TargetAssemblyTypeName: Gameplay.Interactable.BallInteraction.BallReaction.TransformShake,
           Boxes
         m_MethodName: Shake
@@ -25858,7 +25858,7 @@ MonoBehaviour:
   OnHit:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 45669966}
+      - m_Target: {fileID: 1566952822}
         m_TargetAssemblyTypeName: Gameplay.Interactable.BallInteraction.BallReaction.TransformShake,
           Boxes
         m_MethodName: Shake
@@ -29265,6 +29265,10 @@ PrefabInstance:
       propertyPath: sceneId
       value: 2904043561
       objectReference: {fileID: 0}
+    - target: {fileID: 6021338114061977619, guid: 7b21fc5d586b934448580940c204ba9a, type: 3}
+      propertyPath: managedReferences[6608448125118971908].npcId
+      value: 10b0a6eb-0d99-41b0-b1db-23070ced43f9
+      objectReference: {fileID: 0}
     - target: {fileID: 6262193475212739509, guid: 7b21fc5d586b934448580940c204ba9a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 374
@@ -30331,7 +30335,7 @@ MonoBehaviour:
   OnHit:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 45669966}
+      - m_Target: {fileID: 1815240623}
         m_TargetAssemblyTypeName: Gameplay.Interactable.BallInteraction.BallReaction.TransformShake,
           Boxes
         m_MethodName: Shake
@@ -32493,7 +32497,7 @@ MonoBehaviour:
   OnHit:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 45669966}
+      - m_Target: {fileID: 1985719255}
         m_TargetAssemblyTypeName: Gameplay.Interactable.BallInteraction.BallReaction.TransformShake,
           Boxes
         m_MethodName: Shake
@@ -32699,7 +32703,7 @@ MonoBehaviour:
   OnHit:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 45669966}
+      - m_Target: {fileID: 2003603477}
         m_TargetAssemblyTypeName: Gameplay.Interactable.BallInteraction.BallReaction.TransformShake,
           Boxes
         m_MethodName: Shake
@@ -35231,7 +35235,7 @@ MonoBehaviour:
   OnHit:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 45669966}
+      - m_Target: {fileID: 2143482147}
         m_TargetAssemblyTypeName: Gameplay.Interactable.BallInteraction.BallReaction.TransformShake,
           Boxes
         m_MethodName: Shake

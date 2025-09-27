@@ -2,7 +2,6 @@ using System;
 using Gameplay.Interactable.BallInteraction.Abstract;
 using Gameplay.Interactable.BallInteraction.Command;
 using Gameplay.Interactable.BallInteraction.State;
-using Infrastructure.Components;
 using Infrastructure.Extensions;
 using Infrastructure.Network.Abstract;
 using Mirror;

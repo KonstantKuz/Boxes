@@ -53,7 +53,7 @@ namespace Infrastructure.WindowService
 
         void IWindowService.HideWindow(string id)
         {
-            if (ActiveWindow?.Id != id)
+            if (ActiveWindow != null && ActiveWindow.Id != id)
             {
                 Debug.LogWarning("Active window does not match the ID: " + id);
                 return;

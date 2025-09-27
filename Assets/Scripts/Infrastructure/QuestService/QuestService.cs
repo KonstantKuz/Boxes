@@ -10,6 +10,7 @@ using Reflex.Attributes;
 using Reflex.Core;
 using Reflex.Injectors;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace Infrastructure.QuestService
 {
@@ -27,6 +28,7 @@ namespace Infrastructure.QuestService
         [SerializeField]
         private List<Quest> quests;
 
+        private Container container;
         private INetworkStateHolder<ActiveQuestSharedState> questStateHolder;
         private INetworkManager networkManager;
 
@@ -39,13 +41,9 @@ namespace Infrastructure.QuestService
             INetworkManager networkManager
         )
         {
+            this.container = container;
             this.questStateHolder = questStateHolder;
             this.networkManager = networkManager;
-
-            foreach (Quest quest in quests)
-            {
-                AttributeInjector.Inject(quest.TaskSequence, container);
-            }
         }
 
         void IInitializable.Initialize()
@@ -85,7 +83,8 @@ namespace Infrastructure.QuestService
             currentQuestIndex = state.QuestIndex;
             currentTaskIndex = state.TaskIndex;
 
-            if (currentQuestIndex < quests.Count && currentTaskIndex < quests[currentQuestIndex].TaskSequence.TaskCount)
+            if (currentQuestIndex < quests.Count &&
+                currentTaskIndex < quests[currentQuestIndex].TaskSequence.TaskCount)
             {
                 StartCurrentQuest();
             }
@@ -98,7 +97,9 @@ namespace Infrastructure.QuestService
                 disposable.Dispose();
             }
 
-            TaskSequence currentQuest = quests[currentQuestIndex].TaskSequence;
+            Quest quest = Object.Instantiate(quests[currentQuestIndex]);
+            TaskSequence currentQuest = quest.TaskSequence;
+            AttributeInjector.Inject(currentQuest, container);
             currentQuest.Start(currentTaskIndex);
             activeTask.Value = currentQuest;
             ((ITask) currentQuest).IsDone.Subscribe(OnCurrentQuestDone);
