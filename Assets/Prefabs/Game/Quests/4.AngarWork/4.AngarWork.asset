@@ -37,7 +37,7 @@ MonoBehaviour:
       type: {class: NpcNavigationTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}
       data:
         npcId: 2b4f77a3-b815-483e-9276-d54cb1d5c5ec
-        targetId: 7fcc2fd6-c2c1-40cf-852a-12a56822f1af
+        targetId: e3fd98bc-f406-483f-bcbf-5e1ee2cbc72b
         isAwaitRequired: 0
     - rid: 4267941461344649220
       type: {class: SetActiveTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}
