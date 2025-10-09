@@ -17,8 +17,20 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: 2871a6791c5161249b8640fc71dedec1
   m_SerializeEntries:
+  - m_GUID: 09f4163335b4ed743bab3fbadfd10deb
+    m_Address: Assets/Prefabs/Game/Quests/4.AngarWork/Dialogs/4.2.MakeATea.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Dialog
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 0b620bea28d24cd4fbc64b3f17da1a9d
     m_Address: Assets/Prefabs/System/DialogService/Dialogs/2.MarketWork/1.LoadBoxes.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Dialog
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 16e7c228746fb474da42e11353164874
+    m_Address: Assets/Prefabs/Game/Quests/4.AngarWork/Dialogs/4.4.DigHim.asset
     m_ReadOnly: 0
     m_SerializedLabels:
     - Dialog
@@ -49,6 +61,12 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: bd641bdd7da93a544a171e25bbd75794
     m_Address: Assets/Prefabs/System/DialogService/Dialogs/1.Beginning/1.GoToPlay.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Dialog
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: dad2c20eeec1e754a8d870b3793700ee
+    m_Address: Assets/Prefabs/Game/Quests/4.AngarWork/Dialogs/4.3.ByeBye.asset
     m_ReadOnly: 0
     m_SerializedLabels:
     - Dialog

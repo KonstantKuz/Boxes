@@ -17,6 +17,77 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
+    - rid: 4267941461344649216
+      type: {class: DialogTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}
+      data:
+        dialogSequence: {fileID: 11400000, guid: 09f4163335b4ed743bab3fbadfd10deb, type: 2}
+        cameraTargetId: 
+    - rid: 4267941461344649217
+      type: {class: NpcNavigationTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}
+      data:
+        npcId: 2b4f77a3-b815-483e-9276-d54cb1d5c5ec
+        targetId: 7fcc2fd6-c2c1-40cf-852a-12a56822f1af
+        isAwaitRequired: 0
+    - rid: 4267941461344649218
+      type: {class: NavigationTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}
+      data:
+        config: {fileID: 11400000, guid: c5a8022af6305c44f9c739c6bad50834, type: 2}
+        targetId: 9b610216-25d1-43d0-8204-b7427c29edc6
+    - rid: 4267941461344649219
+      type: {class: NpcNavigationTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}
+      data:
+        npcId: 2b4f77a3-b815-483e-9276-d54cb1d5c5ec
+        targetId: 7fcc2fd6-c2c1-40cf-852a-12a56822f1af
+        isAwaitRequired: 0
+    - rid: 4267941461344649220
+      type: {class: SetActiveTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}
+      data:
+        targetId: 2e70d2b9-178b-4e8b-a042-fecd21b07a3d
+        positionId: 
+        value: 1
+    - rid: 4267941461344649223
+      type: {class: DialogTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}
+      data:
+        dialogSequence: {fileID: 11400000, guid: dad2c20eeec1e754a8d870b3793700ee, type: 2}
+        cameraTargetId: 
+    - rid: 4267941461344649224
+      type: {class: RaiseEvent, ns: Configuration.QuestTasks.Shared, asm: Boxes}
+      data:
+        targetId: 33135aaa-1954-4aeb-9715-3ee1ed557554
+    - rid: 4267941461344649225
+      type: {class: SetActiveTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}
+      data:
+        targetId: eb209d69-5938-4a51-bd57-3459307d67d5
+        positionId: 
+        value: 1
+    - rid: 4267941461344649226
+      type: {class: WaitForSecondsTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}
+      data:
+        seconds: 3
+    - rid: 4267941461344649227
+      type: {class: SetActiveTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}
+      data:
+        targetId: eb209d69-5938-4a51-bd57-3459307d67d5
+        positionId: 
+        value: 0
+    - rid: 4267941461344649228
+      type: {class: RaiseEvent, ns: Configuration.QuestTasks.Shared, asm: Boxes}
+      data:
+        targetId: 0f75ebe9-7600-4be1-b258-6ab84cc0b04a
+    - rid: 4267941461344649229
+      type: {class: NavigationTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}
+      data:
+        config: {fileID: 11400000, guid: 3a8be18a64b75b640a66224e8621730f, type: 2}
+        targetId: c88ad7eb-c6b0-4691-8648-e1b5e1b9fdcd
+    - rid: 4267941461344649230
+      type: {class: WaitForSecondsTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}
+      data:
+        seconds: 1
+    - rid: 4267941461344649231
+      type: {class: DialogTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}
+      data:
+        dialogSequence: {fileID: 11400000, guid: 16e7c228746fb474da42e11353164874, type: 2}
+        cameraTargetId: 
     - rid: 6608448125118971935
       type: {class: TaskSequence, ns: Infrastructure.QuestService.Abstract, asm: Boxes}
       data:
@@ -24,7 +95,21 @@ MonoBehaviour:
         - rid: 6608448125118971936
         - rid: 6608448125118971938
         - rid: 6608448125118971940
+        - rid: 4267941461344649217
         - rid: 6608448125118971939
+        - rid: 4267941461344649216
+        - rid: 4267941461344649219
+        - rid: 4267941461344649218
+        - rid: 4267941461344649220
+        - rid: 4267941461344649225
+        - rid: 4267941461344649223
+        - rid: 4267941461344649224
+        - rid: 4267941461344649226
+        - rid: 4267941461344649228
+        - rid: 4267941461344649227
+        - rid: 4267941461344649230
+        - rid: 4267941461344649229
+        - rid: 4267941461344649231
     - rid: 6608448125118971936
       type: {class: NavigationTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}
       data:
@@ -34,7 +119,7 @@ MonoBehaviour:
       type: {class: NpcNavigationTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}
       data:
         npcId: 2b4f77a3-b815-483e-9276-d54cb1d5c5ec
-        targetId: d48282ec-e1ed-40c8-b326-1ac4cc22c7cf
+        targetId: e3fd98bc-f406-483f-bcbf-5e1ee2cbc72b
         isAwaitRequired: 1
     - rid: 6608448125118971939
       type: {class: LoadBoxesTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}

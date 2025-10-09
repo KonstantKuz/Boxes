@@ -67,6 +67,18 @@ MonoBehaviour:
     m_Key: 4.2.AngarWorkReplica
     m_Metadata:
       m_Items: []
+  - m_Id: 27110195295535104
+    m_Key: 4.3.AngarWorkReplica
+    m_Metadata:
+      m_Items: []
+  - m_Id: 27116605869768704
+    m_Key: 4.4.AngarWorkReplica
+    m_Metadata:
+      m_Items: []
+  - m_Id: 27134200333320192
+    m_Key: 4.5.AngarWorkReplica
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

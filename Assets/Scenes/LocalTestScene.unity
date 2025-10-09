@@ -206,7 +206,7 @@ MonoBehaviour:
   onlineScene: Assets/Scenes/CityScene.unity
   offlineSceneLoadDelay: 0
   transport: {fileID: 1208961425}
-  networkAddress: 26.46.140.145
+  networkAddress: 26.180.46.63
   maxConnections: 100
   disconnectInactiveConnections: 0
   disconnectInactiveTimeout: 60

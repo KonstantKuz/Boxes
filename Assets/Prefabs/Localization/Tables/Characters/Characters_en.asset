@@ -38,6 +38,10 @@ MonoBehaviour:
     m_Localized: Bandit
     m_Metadata:
       m_Items: []
+  - m_Id: 27109855678545920
+    m_Localized: Unknown
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

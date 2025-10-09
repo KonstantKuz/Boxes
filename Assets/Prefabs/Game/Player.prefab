@@ -193,6 +193,8 @@ GameObject:
   - component: {fileID: 8055033012567592229}
   - component: {fileID: 2530539809940299626}
   - component: {fileID: 769201147506110654}
+  - component: {fileID: 2056892131784707128}
+  - component: {fileID: 4589138145979967656}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -534,6 +536,7 @@ MonoBehaviour:
   - {fileID: 2530539809940299626}
   - {fileID: 5005981399707072953}
   - {fileID: 769201147506110654}
+  - {fileID: 4589138145979967656}
 --- !u!114 &399605138208539146
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -612,6 +615,78 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   socket: {fileID: 6593830295200270571}
+--- !u!114 &2056892131784707128
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1189618843407812}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d3f1bc61e0e4ca9976e0ff6ad608fc0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnValueChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  OnInvertedValueChanged:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6544972154663908213}
+        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 114854587450894338}
+        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &4589138145979967656
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1189618843407812}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0dc8ce9e27b2c4e4697483d474f29032, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  isOnPipeChanged:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2056892131784707128}
+        m_TargetAssemblyTypeName: Infrastructure.Components.BoolEvent, Boxes
+        m_MethodName: Raise
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1234082977098520
 GameObject:
   m_ObjectHideFlags: 0

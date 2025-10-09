@@ -37,6 +37,7 @@ Transform:
   - {fileID: 2075146070700208455}
   - {fileID: 7162937362513168890}
   - {fileID: 3392004803924381998}
+  - {fileID: 2424628249851647055}
   - {fileID: 1860510742888022239}
   - {fileID: 8075975336023164089}
   m_Father: {fileID: 8795506885024739516}
@@ -997,6 +998,59 @@ MonoBehaviour:
     - rid: 2942314488009064450
       type: {class: NavigationService, ns: Infrastructure.NavigationService, asm: Boxes}
       data: 
+--- !u!1 &8112127696428757284
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2424628249851647055}
+  - component: {fileID: 4889902678755804106}
+  m_Layer: 0
+  m_Name: PipeInteraction
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2424628249851647055
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8112127696428757284}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3767940849198152207}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4889902678755804106
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8112127696428757284}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03daad430eefb8b448c2c8524bb968c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mediator:
+    rid: 4267941509647564802
+  references:
+    version: 2
+    RefIds:
+    - rid: 4267941509647564802
+      type: {class: PipeInteractionMediator, ns: Configuration.Mediator, asm: Boxes}
+      data:
+        interactionDistance: 2
 --- !u!1 &8506501947066740673
 GameObject:
   m_ObjectHideFlags: 0

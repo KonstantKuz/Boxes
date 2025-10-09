@@ -16,6 +16,9 @@ namespace Configuration.QuestTasks.Shared
         [SerializeField]
         private string positionId;
 
+        [SerializeField]
+        private bool value = true;
+
         private IWorldService worldService;
 
         [Inject]
@@ -41,7 +44,7 @@ namespace Configuration.QuestTasks.Shared
                 return;
             }
 
-            worldObject.Value.SetActive(true);
+            worldObject.Value.SetActive(value);
             if (positionObject != null)
             {
                 worldObject.Value.transform.position = positionObject.Value.transform.position;
