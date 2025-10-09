@@ -1,4 +1,5 @@
 using System;
+using CMF;
 using Gameplay.Interactable.PipeInteraction.Abstract;
 using Gameplay.Interactable.PipeInteraction.State;
 using Mirror;
@@ -17,6 +18,7 @@ namespace Gameplay.Interactable.PipeInteraction
         private IPipeInteractionMediator mediator;
         private IDisposable stateSubscription;
         private bool isOnPipe;
+        private TurnTowardControllerVelocity turnController;
 
         public uint NetId => netId;
         public Vector3 Position => transform.position;
@@ -29,6 +31,7 @@ namespace Gameplay.Interactable.PipeInteraction
 
         public override void OnStartClient()
         {
+            turnController = GetComponentInChildren<TurnTowardControllerVelocity>();
             mediator.RegisterInitiator(this, isLocalPlayer);
 
             stateSubscription = mediator.PipeState.Subscribe(OnPipeStateChanged);
@@ -60,6 +63,11 @@ namespace Gameplay.Interactable.PipeInteraction
             if (wasOnPipe != isOnPipe)
             {
                 isOnPipeChanged.Invoke(isOnPipe);
+            }
+
+            if (isOnPipe)
+            {
+                transform.GetChild(0).transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
             }
         }
     }

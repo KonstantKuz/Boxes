@@ -275,14 +275,15 @@ namespace Gameplay.Interactable.PipeInteraction
                 return 0f;
             }
 
-            float totalInput = 0f;
+            float[] inputs = State.PlayerInputs.Values.Select(value => value.y).ToArray();
 
-            foreach (Vector2 input in State.PlayerInputs.Values)
+            if (inputs.Any(input => Mathf.Approximately(input, 0f)))
             {
-                totalInput += input.y;
+                return 0f;
             }
 
-            return totalInput / State.PlayerCount;
+            float direction = Mathf.Sign(inputs[0]);
+            return inputs.All(i => Mathf.Approximately(Mathf.Sign(i), direction)) ? direction : 0f;
         }
 
         private void OnDrawGizmosSelected()

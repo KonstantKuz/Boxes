@@ -2497,7 +2497,7 @@ MonoBehaviour:
   stateHolder: {fileID: 88942377}
   rigidbody: {fileID: 88942372}
   moveForce: 50
-  rotationTorque: 5
+  rotationTorque: 20
   maxSpeed: 5
   pipeLength: 2
   forceMode: 5
