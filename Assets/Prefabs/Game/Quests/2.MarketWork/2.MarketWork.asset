@@ -17,14 +17,36 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
+    - rid: 4267941531072856066
+      type: {class: TaskBag, ns: Infrastructure.QuestService.Abstract, asm: Boxes}
+      data:
+        tasks:
+        - rid: 4267941531072856068
+        - rid: 4267941531072856071
+    - rid: 4267941531072856068
+      type: {class: NavigationTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}
+      data:
+        config: {fileID: 11400000, guid: 1a42345b02afc9a428966473d1ab56b9, type: 2}
+        targetId: 84435ff3-ff94-4a90-9440-c50e20c862f8
+    - rid: 4267941531072856071
+      type: {class: LoadBoxesTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}
+      data:
+        config: {fileID: 11400000, guid: 5483bf4591c843c4ea653b5897f88313, type: 2}
+        sourceStorageId: e86ab916-1797-4b52-842d-555cd295b080
+        targetStorageId: b92905ab-870d-415d-ad84-50a827fd042d
+    - rid: 4267941531072856073
+      type: {class: NavigationTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}
+      data:
+        config: {fileID: 11400000, guid: 1a42345b02afc9a428966473d1ab56b9, type: 2}
+        targetId: d8197522-84dc-433b-b7d1-8746743cc650
     - rid: 6608448125118971921
       type: {class: TaskSequence, ns: Infrastructure.QuestService.Abstract, asm: Boxes}
       data:
         tasks:
         - rid: 6608448125118971922
         - rid: 6608448125118971923
-        - rid: 6608448125118971924
-        - rid: 6608448125118971925
+        - rid: 4267941531072856066
+        - rid: 4267941531072856073
         - rid: 6608448125118971926
         - rid: 6608448125118971927
         - rid: 6608448125118971928
@@ -38,17 +60,6 @@ MonoBehaviour:
       data:
         dialogSequence: {fileID: 11400000, guid: 0b620bea28d24cd4fbc64b3f17da1a9d, type: 2}
         cameraTargetId: 84657a7f-2d4e-4efd-a9e5-19fcd028cf0b
-    - rid: 6608448125118971924
-      type: {class: NavigationTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}
-      data:
-        config: {fileID: 11400000, guid: 1a42345b02afc9a428966473d1ab56b9, type: 2}
-        targetId: 84435ff3-ff94-4a90-9440-c50e20c862f8
-    - rid: 6608448125118971925
-      type: {class: LoadBoxesTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}
-      data:
-        config: {fileID: 11400000, guid: 5483bf4591c843c4ea653b5897f88313, type: 2}
-        sourceStorageId: e86ab916-1797-4b52-842d-555cd295b080
-        targetStorageId: b92905ab-870d-415d-ad84-50a827fd042d
     - rid: 6608448125118971926
       type: {class: DialogTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}
       data:
@@ -59,6 +70,7 @@ MonoBehaviour:
       data:
         targetId: 63b7fe1b-7227-49b7-8764-2ed172983148
         positionId: d8197522-84dc-433b-b7d1-8746743cc650
+        value: 1
     - rid: 6608448125118971928
       type: {class: PetruhaAppearTask, ns: Configuration.QuestTasks.Beginning, asm: Boxes}
       data:

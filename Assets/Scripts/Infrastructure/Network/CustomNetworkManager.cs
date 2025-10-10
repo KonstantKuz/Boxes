@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Infrastructure.Bootstrap;
@@ -14,10 +15,11 @@ using UnityEngine.SceneManagement;
 
 namespace Infrastructure.Network
 {
-    public class CustomNetworkManager : NetworkManager, IPostBuildInjectable, INetworkFactory, INetworkManager
+    public class CustomNetworkManager : NetworkManager, IPostBuildInjectable, INetworkFactory, INetworkManager, IInitializable, IDisposable
     {
-        private INetworkService networkService;
         private INetworkStateHolder<ConnectionState> connectionStateHolder;
+        private ReactiveProperty<ConnectionState> stateReactive;
+        private IDisposable stateSubscription;
 
         private ReactiveCommand<Unit>  localSpawnStream;
         private int spawnedObjectsCount;
@@ -30,14 +32,27 @@ namespace Infrastructure.Network
             NetworkClient.spawned.ToDictionary(item => item.Key, item => item.Value.gameObject);
 
         bool INetworkManager.IsServer => NetworkServer.active;
+        ReadOnlyReactiveProperty<ConnectionState> INetworkManager.ConnectionState => stateReactive;
 
         [Inject]
-        private void Construct(INetworkService networkService, INetworkStateHolder<ConnectionState> connectionStateHolder)
+        private void Construct(INetworkStateHolder<ConnectionState> connectionStateHolder)
         {
-            this.networkService = networkService;
             this.connectionStateHolder = connectionStateHolder;
 
             localSpawnStream = new ReactiveCommand<Unit>();
+            stateReactive = new ReactiveProperty<ConnectionState>(State.ConnectionState.Default);
+        }
+
+        void IInitializable.Initialize()
+        {
+            stateSubscription = connectionStateHolder.Subscribe(state => stateReactive.Value = state);
+        }
+
+        void IDisposable.Dispose()
+        {
+            stateReactive?.Dispose();
+            localSpawnStream?.Dispose();
+            stateSubscription?.Dispose();
         }
 
         public override void OnServerAddPlayer(NetworkConnectionToClient conn)

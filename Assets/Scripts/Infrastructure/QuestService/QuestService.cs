@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using Infrastructure.Bootstrap;
 using Infrastructure.Network.Abstract;
+using Infrastructure.Network.State;
 using Infrastructure.QuestService.Abstract;
 using Infrastructure.QuestService.State;
 using R3;
@@ -31,6 +32,9 @@ namespace Infrastructure.QuestService
         private Container container;
         private INetworkStateHolder<ActiveQuestSharedState> questStateHolder;
         private INetworkManager networkManager;
+        private INetworkFactory networkFactory;
+
+        private Dictionary<Quest, QuestRoot> roots;
 
         ReactiveProperty<ITask> IQuestService.ActiveTask => activeTask;
 
@@ -38,12 +42,18 @@ namespace Infrastructure.QuestService
         private void Construct(
             Container container,
             INetworkStateHolder<ActiveQuestSharedState> questStateHolder,
-            INetworkManager networkManager
+            INetworkManager networkManager,
+            INetworkFactory networkFactory,
+            INetworkStateHolder<ConnectionState> connectionStateHolder
         )
         {
             this.container = container;
             this.questStateHolder = questStateHolder;
             this.networkManager = networkManager;
+            this.networkFactory = networkFactory;
+
+
+            roots = new Dictionary<Quest, QuestRoot>();
         }
 
         void IInitializable.Initialize()
@@ -61,6 +71,16 @@ namespace Infrastructure.QuestService
                 await UniTask.WaitForFixedUpdate();
                 questStateHolder.WriteState(new ActiveQuestSharedState(currentQuestIndex, currentTaskIndex));
             });
+        }
+
+        void IQuestService.RegisterQuestRoot(QuestRoot questRoot)
+        {
+            roots.Add(questRoot.Quest, questRoot);
+        }
+
+        void IQuestService.UnregisterQuestRoot(QuestRoot questRoot)
+        {
+            roots.Remove(questRoot.Quest);
         }
 
         void IDisposable.Dispose()

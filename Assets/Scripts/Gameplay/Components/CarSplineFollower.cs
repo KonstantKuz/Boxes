@@ -152,7 +152,6 @@ namespace Gameplay.Components
 
             return Mathf.Clamp01(distanceValue / splineLength);
         }
-
         [Button]
         private void ProjectStartPosition()
         {
@@ -163,9 +162,16 @@ namespace Gameplay.Components
             }
 
             float3 local = splineContainer.transform.InverseTransformPoint(transform.position);
-            SplineUtility.GetNearestPoint(splineContainer.Spline, local, out float3 nearestLocal, out float distance);
-            startDistance = distance * splineContainer.CalculateLength();
+            Spline spline = splineContainer.Spline;
+            SplineUtility.GetNearestPoint(spline, local, out float3 nearestLocal, out float t);
+            float3 tangentLocal = spline.EvaluateTangent(t);
+            Vector3 worldTangent = splineContainer.transform.TransformDirection(tangentLocal);
+
+            splineLength = splineContainer.CalculateLength();
+            startDistance = t * splineLength;
+
             transform.position = splineContainer.transform.TransformPoint(nearestLocal);
+            transform.rotation = Quaternion.LookRotation(worldTangent, Vector3.up);
         }
 
         private void OnDrawGizmos()

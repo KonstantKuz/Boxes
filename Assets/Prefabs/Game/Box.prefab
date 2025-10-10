@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2815072278396479072}
   - component: {fileID: 976116325908776849}
-  - component: {fileID: 5329567790359891486}
+  - component: {fileID: 8952630930859156714}
   - component: {fileID: 7752629103843483542}
   - component: {fileID: 8063582222754537205}
   - component: {fileID: 5279113201367942509}
@@ -59,7 +59,7 @@ MonoBehaviour:
   serverOnly: 0
   visibility: 0
   hasSpawned: 0
---- !u!114 &5329567790359891486
+--- !u!114 &8952630930859156714
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -68,7 +68,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1580651225094908911}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a553cb17010b2403e8523b558bffbc14, type: 3}
+  m_Script: {fileID: 11500000, guid: cb803efbe62c34d7baece46c9ffebad9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   syncDirection: 0
@@ -88,11 +88,11 @@ MonoBehaviour:
   showGizmos: 0
   showOverlay: 0
   overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
-  bufferResetMultiplier: 3
+  onlySyncOnChangeCorrectionMultiplier: 2
   useFixedUpdate: 0
-  positionSensitivity: 0.01
   rotationSensitivity: 0.01
-  scaleSensitivity: 0.01
+  positionPrecision: 0.01
+  scalePrecision: 0.01
 --- !u!33 &7752629103843483542
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -190,7 +190,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 1
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 2
 --- !u!75 &3746600595511008334
 ConstantForce:
   m_ObjectHideFlags: 0

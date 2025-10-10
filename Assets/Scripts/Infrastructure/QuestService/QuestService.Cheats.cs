@@ -1,11 +1,14 @@
 ﻿#if DEBUG
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using Infrastructure.Cheats;
 using Infrastructure.QuestService.Abstract;
 using Infrastructure.QuestService.State;
+using Mirror;
 using UnityEngine;
+using Object = System.Object;
 
 namespace Infrastructure.QuestService
 {
@@ -51,6 +54,19 @@ namespace Infrastructure.QuestService
 
             if (GUILayout.Button("Change quest"))
             {
+                if (roots.TryGetValue(quests[currentQuestIndex], out QuestRoot root))
+                {
+                    foreach (uint playerId in networkManager.ConnectionState.CurrentValue.Players)
+                    {
+                        if (networkFactory.Spawned.TryGetValue(playerId, out GameObject player))
+                        {
+                            player.GetComponent<NetworkTransformBase>().CmdTeleport(
+                                root.GetComponentInChildren<NetworkStartPosition>(true).transform.position
+                            );
+                        }
+                    }
+                }
+
                 questStateHolder.WriteState(new ActiveQuestSharedState(currentQuestIndex, currentTaskIndex));
             }
         }
