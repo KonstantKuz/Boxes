@@ -13,7 +13,7 @@ namespace Infrastructure.Network
 
         T INetworkSerializer.Deserialize<T>(byte[] data)
         {
-            return MessagePackSerializer.Deserialize<T>(data);
+            return data.Length > 0 ? MessagePackSerializer.Deserialize<T>(data) : default;
         }
 
         public string ConvertToJson(byte[] data)

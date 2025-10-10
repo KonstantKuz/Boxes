@@ -251,6 +251,11 @@ namespace Gameplay.Interactable.PipeInteraction
         {
             float totalTorque = 0f;
 
+            if (State.PlayerCount == 1)
+            {
+                return State.PlayerInputs.First().Value.x;
+            }
+
             foreach (KeyValuePair<uint, Vector2> kvp in State.PlayerInputs)
             {
                 uint playerNetId = kvp.Key;
@@ -295,6 +300,17 @@ namespace Gameplay.Interactable.PipeInteraction
             {
                 Vector3 worldPos = transform.TransformPoint(localPos);
                 Gizmos.DrawWireSphere(worldPos, 0.3f);
+            }
+        }
+
+        private void OnDisable()
+        {
+            if (State.PlayerCount > 0)
+            {
+                foreach (uint playerId in State.PlayerInputs.Keys)
+                {
+                    TryLeave(playerId);
+                }
             }
         }
     }

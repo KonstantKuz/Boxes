@@ -77,6 +77,18 @@ MonoBehaviour:
     m_Localized: Go to angar
     m_Metadata:
       m_Items: []
+  - m_Id: 18848558641954816
+    m_Localized: Go to park
+    m_Metadata:
+      m_Items: []
+  - m_Id: 17704177167876096
+    m_Localized: Make a tea
+    m_Metadata:
+      m_Items: []
+  - m_Id: 17726131987922944
+    m_Localized: Get out
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []
