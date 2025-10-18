@@ -1,13 +1,14 @@
 ﻿using System.Collections.Generic;
+using Mirror;
 using R3;
-using UnityEngine;
 
 namespace Infrastructure.Network.Abstract
 {
     public interface INetworkFactory
     {
         ReactiveCommand<Unit> LocalSpawnStream { get; }
-        GameObject LocalPlayer { get; }
-        Dictionary<uint, GameObject> Spawned { get; }
+        NetworkIdentity LocalPlayer { get; }
+        Dictionary<uint, NetworkIdentity> Players { get; }
+        Dictionary<uint, NetworkIdentity> Spawned { get; }
     }
 }

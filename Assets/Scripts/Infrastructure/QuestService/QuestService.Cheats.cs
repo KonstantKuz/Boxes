@@ -54,20 +54,7 @@ namespace Infrastructure.QuestService
 
             if (GUILayout.Button("Change quest"))
             {
-                if (roots.TryGetValue(quests[currentQuestIndex], out QuestRoot root))
-                {
-                    foreach (uint playerId in networkManager.ConnectionState.CurrentValue.Players)
-                    {
-                        if (networkFactory.Spawned.TryGetValue(playerId, out GameObject player))
-                        {
-                            player.GetComponent<NetworkTransformBase>().CmdTeleport(
-                                root.GetComponentInChildren<NetworkStartPosition>(true).transform.position
-                            );
-                        }
-                    }
-                }
-
-                questStateHolder.WriteState(new ActiveQuestSharedState(currentQuestIndex, currentTaskIndex));
+                ((IQuestService)this).RestartQuest();
             }
         }
 

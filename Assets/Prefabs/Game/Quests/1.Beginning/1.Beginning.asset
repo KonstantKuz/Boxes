@@ -1,4 +1,4 @@
-%YAML 1.1
+﻿%YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
 --- !u!114 &11400000
 MonoBehaviour:
@@ -36,7 +36,7 @@ MonoBehaviour:
         config: {fileID: 11400000, guid: f383f888a2faf7f4ca04bd424a39abef, type: 2}
         targetId: 84628986-6037-429c-8e9a-63956d74502f
     - rid: 6608448125118971911
-      type: {class: PetruhaAppearTask, ns: Configuration.QuestTasks.Beginning, asm: Boxes}
+      type: {class: PetruhaAppearTask, ns: Configuration.QuestTasks.Unique, asm: Boxes}
       data:
         npcId: af8147ce-61e2-4738-ae01-609d7e3e5e1a
     - rid: 6608448125118971912
@@ -56,7 +56,7 @@ MonoBehaviour:
         dialogSequence: {fileID: 11400000, guid: 82d038918d632a8429f323d51018ee01, type: 2}
         cameraTargetId: 
     - rid: 6608448125118971915
-      type: {class: PetruhaLeaveTask, ns: Configuration.QuestTasks.Beginning, asm: Boxes}
+      type: {class: PetruhaLeaveTask, ns: Configuration.QuestTasks.Unique, asm: Boxes}
       data:
         npcId: af8147ce-61e2-4738-ae01-609d7e3e5e1a
     - rid: 6608448125118971916
@@ -66,7 +66,7 @@ MonoBehaviour:
         targetId: 84628986-6037-429c-8e9a-63956d74502f
         isAwaitRequired: 0
     - rid: 6608448125118971917
-      type: {class: PassBallTask, ns: Configuration.QuestTasks.Beginning, asm: Boxes}
+      type: {class: PassBallTask, ns: Configuration.QuestTasks.Unique, asm: Boxes}
       data:
         requiredCount: 3
         config: {fileID: 11400000, guid: 862808ca6c1af954d92a933364f44cba, type: 2}

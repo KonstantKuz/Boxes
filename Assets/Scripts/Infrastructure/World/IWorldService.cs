@@ -7,6 +7,5 @@ namespace Infrastructure.World
     {
         void Register(IWorldObject worldObject);
         bool TryGetById(Guid id, out IWorldObject worldObject);
-        bool TryGetByTypeId(Guid typeId, out IWorldObject worldObject);
     }
 }

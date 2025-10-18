@@ -24,14 +24,15 @@ namespace Infrastructure.Network
         private ReactiveCommand<Unit>  localSpawnStream;
         private int spawnedObjectsCount;
         private int previousSpawnedObjectsCount;
+        private Dictionary<uint, NetworkIdentity> players;
 
         ReactiveCommand<Unit> INetworkFactory.LocalSpawnStream => localSpawnStream;
-        public GameObject LocalPlayer => Spawned.GetValueOrDefault(NetworkClient.localPlayer?.netId ?? 0);
-
-        public Dictionary<uint, GameObject> Spawned =>
-            NetworkClient.spawned.ToDictionary(item => item.Key, item => item.Value.gameObject);
+        NetworkIdentity INetworkFactory.LocalPlayer => NetworkClient.localPlayer;
+        Dictionary<uint, NetworkIdentity> INetworkFactory.Players => players;
+        Dictionary<uint, NetworkIdentity> INetworkFactory.Spawned => NetworkClient.spawned;
 
         bool INetworkManager.IsServer => NetworkServer.active;
+        bool INetworkManager.IsClientReady => NetworkClient.ready;
         ReadOnlyReactiveProperty<ConnectionState> INetworkManager.ConnectionState => stateReactive;
 
         [Inject]
@@ -40,7 +41,8 @@ namespace Infrastructure.Network
             this.connectionStateHolder = connectionStateHolder;
 
             localSpawnStream = new ReactiveCommand<Unit>();
-            stateReactive = new ReactiveProperty<ConnectionState>(State.ConnectionState.Default);
+            stateReactive = new ReactiveProperty<ConnectionState>(ConnectionState.Default);
+            players = new Dictionary<uint, NetworkIdentity>();
         }
 
         void IInitializable.Initialize()
@@ -116,6 +118,11 @@ namespace Infrastructure.Network
             }
 
             spawned.gameObject.SetActive(wasPrefabActive);
+
+            if (prefab == playerPrefab && spawned.TryGetComponent(out NetworkIdentity networkIdentity))
+            {
+                players.TryAdd(networkIdentity.netId, networkIdentity);
+            }
 
             return spawned;
         }

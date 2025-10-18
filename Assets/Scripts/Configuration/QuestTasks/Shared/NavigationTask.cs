@@ -43,7 +43,7 @@ namespace Configuration.QuestTasks.Shared
 
             navigationService.SetActiveTarget(target.Value.transform);
             triggerDisposable = target.Value.transform.OnTriggerEnterAsObservable()
-                .Where(item => item.CompareTag("Player"))
+                .Where(item => item.CompareTag(GlobalParams.PlayerTag))
                 .Subscribe(_ => IsDone.Value = true);
         }
 

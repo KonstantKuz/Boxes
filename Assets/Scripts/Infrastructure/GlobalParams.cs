@@ -8,5 +8,8 @@
         public const string DialogsPath = Root + "Dialogs/";
 
         public const string DialogsAddressableGroup = "Dialog";
+
+        public const string AsphaltTag = "Asphalt";
+        public const string PlayerTag = "Player";
     }
 }

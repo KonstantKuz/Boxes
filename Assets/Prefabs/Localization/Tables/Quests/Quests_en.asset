@@ -89,6 +89,10 @@ MonoBehaviour:
     m_Localized: Get out
     m_Metadata:
       m_Items: []
+  - m_Id: 21648634154172416
+    m_Localized: Find docs
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

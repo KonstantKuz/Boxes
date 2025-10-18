@@ -58,17 +58,17 @@ namespace Infrastructure.QuestService
 
         void IInitializable.Initialize()
         {
-            questStateHolder.Subscribe(UpdateLocalState);
-
-            if (!networkManager.IsServer)
-            {
-                return;
-            }
-
             UniTask.Void(async () =>
             {
-                await UniTask.Yield();
-                await UniTask.WaitForFixedUpdate();
+                await UniTask.WaitUntil(() => networkFactory.LocalPlayer != null && networkManager.IsClientReady);
+
+                questStateHolder.Subscribe(UpdateLocalState);
+
+                if (!networkManager.IsServer)
+                {
+                    return;
+                }
+
                 questStateHolder.WriteState(new ActiveQuestSharedState(currentQuestIndex, currentTaskIndex));
             });
         }
@@ -81,6 +81,17 @@ namespace Infrastructure.QuestService
         void IQuestService.UnregisterQuestRoot(QuestRoot questRoot)
         {
             roots.Remove(questRoot.Quest);
+        }
+
+        void IQuestService.RestartQuest()
+        {
+            if (!networkManager.IsServer)
+            {
+                return;
+            }
+
+            currentTaskIndex = 0;
+            questStateHolder.WriteState(new ActiveQuestSharedState(currentQuestIndex, currentTaskIndex, true));
         }
 
         void IDisposable.Dispose()
@@ -106,15 +117,31 @@ namespace Infrastructure.QuestService
             if (currentQuestIndex < quests.Count &&
                 currentTaskIndex < quests[currentQuestIndex].TaskSequence.TaskCount)
             {
-                StartCurrentQuest();
+                StartCurrentQuest().Forget();
             }
         }
 
-        private void StartCurrentQuest()
+        private async UniTask StartCurrentQuest()
         {
             if (activeTask.Value is IDisposable disposable)
             {
                 disposable.Dispose();
+            }
+
+            if (roots.TryGetValue(quests[currentQuestIndex], out QuestRoot root))
+            {
+                await root.ResetState();
+
+                if (questStateHolder.GetState().RestartRequired)
+                {
+                    if (networkFactory.LocalPlayer.TryGetComponent(out Rigidbody rigidbody))
+                    {
+                        rigidbody.velocity = Vector3.zero;
+                        rigidbody.angularVelocity = Vector3.zero;
+                        rigidbody.MovePosition(root.Spawn.position);
+                        rigidbody.MoveRotation(root.Spawn.rotation);
+                    }
+                }
             }
 
             Quest quest = Object.Instantiate(quests[currentQuestIndex]);

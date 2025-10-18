@@ -38,7 +38,7 @@ namespace Configuration.QuestTasks.Shared
             IWorldObject positionObject = null;
 
             if (!string.IsNullOrEmpty(positionId) &&
-                !worldService.TryGetById(targetId, out positionObject))
+                !worldService.TryGetById(positionId, out positionObject))
             {
                 this.Log(LogType.Error, $"Position object with id {positionId} was not found");
                 return;

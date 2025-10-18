@@ -42,6 +42,10 @@ MonoBehaviour:
     m_Localized: Unknown
     m_Metadata:
       m_Items: []
+  - m_Id: 28972470625222656
+    m_Localized: Policeman
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

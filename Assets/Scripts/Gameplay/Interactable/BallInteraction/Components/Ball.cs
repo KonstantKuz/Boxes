@@ -203,9 +203,9 @@ namespace Gameplay.Interactable.BallInteraction.Components
             {
                 float heightExcess = transform.position.y - Config.MaxHeight;
                 float verticalDampingForce = heightExcess * Config.HeightDampingStrength;
-                Vector3 velocity = rigidbody.velocity;
-                velocity.y /= Config.HeightDampingStrength;
-                rigidbody.velocity = velocity;
+                // Vector3 velocity = rigidbody.velocity;
+                // velocity.y /= Config.HeightDampingStrength;
+                // rigidbody.velocity = velocity;
                 rigidbody.AddForce(Vector3.down * verticalDampingForce, ForceMode.Acceleration);
             }
 
@@ -252,9 +252,9 @@ namespace Gameplay.Interactable.BallInteraction.Components
                     ExecuteResetCounter();
                 }
 
-                Debug.Log($"Kicks count = {kicksCount}. " +
-                          $"Velocity = {rigidbody.velocity.magnitude}." +
-                          $" Reset Speed = {resetSpeed}");
+                // Debug.Log($"Kicks count = {kicksCount}. " +
+                //           $"Velocity = {rigidbody.velocity.magnitude}." +
+                //           $" Reset Speed = {resetSpeed}");
             }
 
             if (rigidbody.velocity.magnitude > Config.MaxSpeed)

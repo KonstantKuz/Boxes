@@ -47,6 +47,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - Dialog
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 909399a8106a65045b172ce7b5de6b91
+    m_Address: Assets/Prefabs/Game/Quests/5.DigTheCarpet/Dialogs/5.2.Uiuiu.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Dialog
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 9f917eefe9bf6cb4ea56c245e3a28dcd
     m_Address: Assets/Prefabs/System/DialogService/Dialogs/2.MarketWork/2.GetBall.asset
     m_ReadOnly: 0
@@ -61,6 +67,12 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: bd641bdd7da93a544a171e25bbd75794
     m_Address: Assets/Prefabs/System/DialogService/Dialogs/1.Beginning/1.GoToPlay.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Dialog
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d50975f0c62a62e46958ae8e9de58abb
+    m_Address: Assets/Prefabs/Game/Quests/5.DigTheCarpet/Dialogs/5.1.Uiuiu.asset
     m_ReadOnly: 0
     m_SerializedLabels:
     - Dialog

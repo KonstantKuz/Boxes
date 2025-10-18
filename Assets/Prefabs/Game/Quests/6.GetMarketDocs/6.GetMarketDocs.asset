@@ -1,0 +1,79 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a3302517e334611b8ca3e20f19d998c, type: 3}
+  m_Name: 6.GetMarketDocs
+  m_EditorClassIdentifier: 
+  taskSequence:
+    rid: 4267941707039375362
+  references:
+    version: 2
+    RefIds:
+    - rid: 4267941707039375362
+      type: {class: TaskSequence, ns: Infrastructure.QuestService.Abstract, asm: Boxes}
+      data:
+        tasks:
+        - rid: 4267941707039375363
+        - rid: 4267941707039375364
+    - rid: 4267941707039375363
+      type: {class: NavigationTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}
+      data:
+        config: {fileID: 11400000, guid: 93f753760a42c3043975d011e36b7929, type: 2}
+        targetId: 3573f14b-9448-417d-8e2b-a6ec9cad4446
+    - rid: 4267941707039375364
+      type: {class: TaskBag, ns: Infrastructure.QuestService.Abstract, asm: Boxes}
+      data:
+        tasks:
+        - rid: 4267941707039375365
+        - rid: 4267941707039375366
+        - rid: 4267941707039375367
+        - rid: 4267941707039375368
+        - rid: 4267941707039375369
+        - rid: 4267941707039375370
+    - rid: 4267941707039375365
+      type: {class: DestroyDamageableTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}
+      data:
+        config: {fileID: 11400000, guid: d9e26e0e899b0104aacf262282f6e361, type: 2}
+        triggerId: ce35f184-1aa6-4919-b3b5-e8444ad2ca81
+        requiredHitPoints: 1
+    - rid: 4267941707039375366
+      type: {class: DestroyDamageableTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}
+      data:
+        config: {fileID: 11400000, guid: d9e26e0e899b0104aacf262282f6e361, type: 2}
+        triggerId: f3898329-abd9-4aee-afed-6a7f47894f4d
+        requiredHitPoints: 1
+    - rid: 4267941707039375367
+      type: {class: DestroyDamageableTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}
+      data:
+        config: {fileID: 11400000, guid: d9e26e0e899b0104aacf262282f6e361, type: 2}
+        triggerId: 23cedd23-c2ae-40ab-930d-1add9bdad2dd
+        requiredHitPoints: 1
+    - rid: 4267941707039375368
+      type: {class: DestroyDamageableTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}
+      data:
+        config: {fileID: 11400000, guid: d9e26e0e899b0104aacf262282f6e361, type: 2}
+        triggerId: c492ef14-1134-4ac9-ba9b-7e6a8efacaf5
+        requiredHitPoints: 1
+    - rid: 4267941707039375369
+      type: {class: DestroyDamageableTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}
+      data:
+        config: {fileID: 11400000, guid: d9e26e0e899b0104aacf262282f6e361, type: 2}
+        triggerId: 61925c40-9248-4ee9-b2ce-300798a908c7
+        requiredHitPoints: 1
+    - rid: 4267941707039375370
+      type: {class: DoorPatrolTask, ns: Configuration.QuestTasks.Unique, asm: Boxes}
+      data:
+        doorIds:
+        - 1c98aa94-04cc-4e3b-8a92-cdc9597c008d
+        - 79e43a37-bcc5-4076-8f38-ff231c984a15
+        disturbPeriod: 15
+        knockInterval: 5
+        knockIntervalRandomness: 1

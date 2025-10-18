@@ -62,13 +62,6 @@ namespace Configuration.Mediator
             initiators.Add(initiator.NetId, initiator);
         }
 
-        (Vector3 faceDirection, Vector3 position) IPipeInteractionMediator.GetTransformState(uint playerNetId)
-        {
-            return pipe == null
-                ? (Vector3.zero, Vector3.zero)
-                : (pipe.transform.forward, pipe.GetPlayerWorldPosition(playerNetId));
-        }
-
         void IUpdatable.Update()
         {
             if (pipe == null || localInitiator == null)
@@ -107,7 +100,7 @@ namespace Configuration.Mediator
             }
             else
             {
-                float distance = Vector3.Distance(localInitiator.Position, pipe.transform.position);
+                float distance = Vector3.Distance(localInitiator.Transform.position, pipe.transform.position);
                 if (distance <= interactionDistance)
                 {
                     pipe.TryJoin(localInitiator.NetId);

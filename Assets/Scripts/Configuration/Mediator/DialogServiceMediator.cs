@@ -29,7 +29,7 @@ namespace Configuration.Mediator
         private INetworkService networkService;
         private IWindowService windowService;
         private IInputService inputService;
-        private INetworkStateHolder<DialogState > dialogStateHolder;
+        private INetworkStateHolder<DialogState> dialogStateHolder;
 
         private Dictionary<Guid, DialogSequence> dialogsMap;
 

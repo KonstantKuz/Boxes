@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using Gameplay.Interactable.BallInteraction.Components;
 using Gameplay.Interactable.BallInteraction.State;
 using Infrastructure.Bootstrap;
@@ -9,6 +9,7 @@ namespace Gameplay.Interactable.BallInteraction.Abstract
 {
     public interface IBallInteractionMediator : IPostBuildInjectable
     {
+        Ball Ball { get; }
         BallInteractionConfig Config { get; }
         ReadOnlyReactiveProperty<BallSharedState>  BallState { get; }
         IReadOnlyDictionary<uint, IBallInteractionInitiator> Initiators { get; }

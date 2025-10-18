@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Threading;
 using Cysharp.Threading.Tasks;
@@ -37,6 +37,7 @@ namespace Configuration.Mediator
         private CancellationTokenSource holdTokenSource;
         private float lastKickTime;
 
+        Ball IBallInteractionMediator.Ball => ball;
         BallInteractionConfig IBallInteractionMediator.Config => ballInteractionConfig;
         ReadOnlyReactiveProperty<BallSharedState> IBallInteractionMediator.BallState => stateReactive;
 

@@ -21,9 +21,13 @@ MonoBehaviour:
       type: {class: TaskSequence, ns: Infrastructure.QuestService.Abstract, asm: Boxes}
       data:
         tasks:
+        - rid: 4267941617079156738
         - rid: 4267941531072856078
         - rid: 4267941531072856075
         - rid: 4267941531072856076
+        - rid: 4267941578008166406
+        - rid: 4267941578008166407
+        - rid: 4267941578008166408
     - rid: 4267941531072856075
       type: {class: NavigationTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}
       data:
@@ -41,3 +45,22 @@ MonoBehaviour:
         targetId: 59ecba01-6009-4b99-aaf9-7ab32b517fb7
         positionId: 
         value: 1
+    - rid: 4267941578008166406
+      type: {class: RaiseEvent, ns: Configuration.QuestTasks.Shared, asm: Boxes}
+      data:
+        targetId: ce1077c9-ba01-45c5-b7ad-0202f8403e52
+    - rid: 4267941578008166407
+      type: {class: DialogTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}
+      data:
+        dialogSequence: {fileID: 11400000, guid: d50975f0c62a62e46958ae8e9de58abb, type: 2}
+        cameraTargetId: 
+    - rid: 4267941578008166408
+      type: {class: SetActiveTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}
+      data:
+        targetId: a291c5c5-03db-47b2-bf70-e49ce9868345
+        positionId: 
+        value: 0
+    - rid: 4267941617079156738
+      type: {class: RaiseEvent, ns: Configuration.QuestTasks.Shared, asm: Boxes}
+      data:
+        targetId: 5708775b-c498-49f9-965b-8498411aaa26

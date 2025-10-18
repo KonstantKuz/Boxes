@@ -5,6 +5,7 @@ using Gameplay.Interactable.PipeInteraction.Abstract;
 using Gameplay.Interactable.PipeInteraction.Command;
 using Gameplay.Interactable.PipeInteraction.State;
 using Infrastructure;
+using Infrastructure.InputService.Abstract;
 using Infrastructure.Network.Abstract;
 using Mirror;
 using Reflex.Attributes;
@@ -15,6 +16,8 @@ namespace Gameplay.Interactable.PipeInteraction
     [RequireComponent(typeof(Rigidbody))]
     public class Pipe : NetworkBehaviour
     {
+        private const string Asphalt = "Asphalt";
+
         [SerializeField]
         private PipeStateHolder stateHolder;
 
@@ -22,7 +25,10 @@ namespace Gameplay.Interactable.PipeInteraction
         private new Rigidbody rigidbody;
 
         [SerializeField]
-        private float moveForce = 10f;
+        private float minMoveForce = 0.3f;
+
+        [SerializeField]
+        private float maxMoveForce = 5f;
 
         [SerializeField]
         private float rotationTorque = 5f;
@@ -31,29 +37,53 @@ namespace Gameplay.Interactable.PipeInteraction
         private float maxSpeed = 5f;
 
         [SerializeField]
-        private float pipeLength = 4f;
+        private float maxAngularSpeed = 2f;
+
+        [SerializeField]
+        private float pipeLength = 2f;
+
+        [SerializeField]
+        private float velocityAlignmentStrength = 0.7f;
+
+        [SerializeField]
+        private float directionStabilizationForce = 2f;
+
+        [SerializeField]
+        private float stabilizationThreshold = 0.1f;
+
+        [SerializeField]
+        private float angularDamping = 0.8f;
 
         [SerializeField]
         private ForceMode forceMode;
 
         private INetworkService networkService;
         private IPipeInteractionMediator mediator;
+        private IInputService inputService;
         private IDisposable stateSubscription;
 
-        private readonly Dictionary<uint, Vector3> calculatedPositions = new Dictionary<uint, Vector3>();
+        private float moveForce;
+        private RaycastHit[] hits;
+        private Dictionary<uint, Vector3> calculatedPositions;
+        private Vector3 targetDirection;
 
         public INetworkStateHolder<PipeSharedState> StateHolder => stateHolder;
         public PipeSharedState State => StateHolder.GetState();
 
         [Inject]
-        private void Construct(INetworkService networkService, IPipeInteractionMediator mediator)
+        private void Construct(INetworkService networkService, IPipeInteractionMediator mediator, IInputService inputService)
         {
             this.networkService = networkService;
             this.mediator = mediator;
+            this.inputService = inputService;
         }
 
         private void Awake()
         {
+            hits = new RaycastHit[10];
+            calculatedPositions = new Dictionary<uint, Vector3>();
+
+            moveForce = minMoveForce;
             if (rigidbody == null)
             {
                 rigidbody = GetComponent<Rigidbody>();
@@ -77,6 +107,17 @@ namespace Gameplay.Interactable.PipeInteraction
             networkService.ObserveToExecute<JoinPipeCommand>(ExecuteJoin);
             networkService.ObserveToExecute<LeavePipeCommand>(ExecuteLeave);
             networkService.ObserveToExecute<UpdatePipeInputCommand>(ExecuteUpdateInput);
+        }
+
+        public void ResetState()
+        {
+            if (State.PlayerCount > 0)
+            {
+                foreach (uint playerId in State.PlayerInputs.Keys)
+                {
+                    TryLeave(playerId);
+                }
+            }
         }
 
         private void OnStateChanged(PipeSharedState state)
@@ -214,7 +255,25 @@ namespace Gameplay.Interactable.PipeInteraction
                 return;
             }
 
+            for (int i = 0; i < hits.Length; i++)
+            {
+                hits[i] = default;
+            }
+
+            Physics.RaycastNonAlloc(transform.position, Vector3.down, hits);
+            float targetForce =
+                hits.Any(hit => hit.collider?.CompareTag(Asphalt) ?? false) ? maxMoveForce : minMoveForce;
+
+            moveForce = Mathf.Lerp(moveForce, targetForce, Time.fixedDeltaTime * 5f);
+
             Vector2 combinedInput = CalculateCombinedInput();
+
+            Vector3 pipeForward = new Vector3(transform.forward.x, 0f, transform.forward.z).normalized;
+
+            if (Mathf.Abs(combinedInput.x) > stabilizationThreshold)
+            {
+                targetDirection = pipeForward;
+            }
 
             Vector3 localForward = transform.forward * combinedInput.y;
             Vector3 forceDirection = new Vector3(localForward.x, 0f, localForward.z);
@@ -226,12 +285,62 @@ namespace Gameplay.Interactable.PipeInteraction
             Vector3 velocity = rigidbody.velocity;
             velocity.y = 0f;
 
-            if (velocity.magnitude > maxSpeed)
+            if (velocity.magnitude > 0.1f)
             {
-                velocity = velocity.normalized * maxSpeed;
+                float velocityDirection = Mathf.Sign(Vector3.Dot(velocity, pipeForward));
+                Vector3 targetVelocity = pipeForward * velocity.magnitude * velocityDirection;
+                Vector3 alignedVelocity = Vector3.Lerp(velocity, targetVelocity, velocityAlignmentStrength);
+
+                if (alignedVelocity.magnitude > maxSpeed)
+                {
+                    alignedVelocity = alignedVelocity.normalized * maxSpeed;
+                }
+
+                velocity = alignedVelocity;
             }
 
             rigidbody.velocity = velocity;
+
+            Vector3 angularVelocity = rigidbody.angularVelocity;
+
+            if (Mathf.Abs(combinedInput.x) < stabilizationThreshold && combinedInput.y != 0f && targetDirection != Vector3.zero)
+            {
+                float angle = Vector3.SignedAngle(pipeForward, targetDirection, Vector3.up);
+
+                if (Mathf.Abs(angle) > 1f)
+                {
+                    float correctionVelocity = angle * directionStabilizationForce * Time.fixedDeltaTime;
+                    angularVelocity.y = Mathf.Lerp(angularVelocity.y, correctionVelocity, 0.5f);
+                }
+                else
+                {
+                    angularVelocity.y *= angularDamping;
+                }
+            }
+
+            if (Mathf.Abs(angularVelocity.y) > maxAngularSpeed)
+            {
+                angularVelocity.y = Mathf.Sign(angularVelocity.y) * maxAngularSpeed;
+            }
+
+            rigidbody.angularVelocity = angularVelocity;
+        }
+
+        private void Update()
+        {
+            if (State.PlayerCount == 0)
+            {
+                return;
+            }
+
+            foreach (IPipeInteractionInitiator initiator in mediator.Initiators.Values)
+            {
+                if (State.HasPlayer(initiator.NetId))
+                {
+                    initiator.Transform.position = GetPlayerWorldPosition(initiator.NetId);
+                    initiator.Transform.forward = transform.forward;
+                }
+            }
         }
 
         private Vector2 CalculateCombinedInput()
@@ -254,6 +363,11 @@ namespace Gameplay.Interactable.PipeInteraction
             if (State.PlayerCount == 1)
             {
                 return State.PlayerInputs.First().Value.x;
+            }
+
+            if (inputService.DefaultContextActions.Boost.IsPressed())
+            {
+                return 0;
             }
 
             foreach (KeyValuePair<uint, Vector2> kvp in State.PlayerInputs)
@@ -282,6 +396,11 @@ namespace Gameplay.Interactable.PipeInteraction
 
             float[] inputs = State.PlayerInputs.Values.Select(value => value.y).ToArray();
 
+            if (inputService.DefaultContextActions.Boost.IsPressed())
+            {
+                return inputs.FirstOrDefault(i => Mathf.Abs(i) > 0);
+            }
+
             if (inputs.Any(input => Mathf.Approximately(input, 0f)))
             {
                 return 0f;
@@ -291,27 +410,9 @@ namespace Gameplay.Interactable.PipeInteraction
             return inputs.All(i => Mathf.Approximately(Mathf.Sign(i), direction)) ? direction : 0f;
         }
 
-        private void OnDrawGizmosSelected()
-        {
-            RecalculatePositions();
-            Gizmos.color = Color.yellow;
-
-            foreach (Vector3 localPos in calculatedPositions.Values)
-            {
-                Vector3 worldPos = transform.TransformPoint(localPos);
-                Gizmos.DrawWireSphere(worldPos, 0.3f);
-            }
-        }
-
         private void OnDisable()
         {
-            if (State.PlayerCount > 0)
-            {
-                foreach (uint playerId in State.PlayerInputs.Keys)
-                {
-                    TryLeave(playerId);
-                }
-            }
+            ResetState();
         }
     }
 }

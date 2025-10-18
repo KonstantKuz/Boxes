@@ -12,6 +12,5 @@ namespace Gameplay.Interactable.PipeInteraction.Abstract
         IReadOnlyDictionary<uint, IPipeInteractionInitiator> Initiators { get; }
         void RegisterPipe(Pipe pipe);
         void RegisterInitiator(IPipeInteractionInitiator initiator, bool isLocalPlayer);
-        (Vector3 faceDirection, Vector3 position) GetTransformState(uint playerNetId);
     }
 }

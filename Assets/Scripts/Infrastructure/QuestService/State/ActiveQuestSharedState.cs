@@ -6,7 +6,7 @@ namespace Infrastructure.QuestService.State
     [MessagePackObject]
     public struct ActiveQuestSharedState : INetworkState
     {
-        public static ActiveQuestSharedState Default => new ActiveQuestSharedState(-1, -1);
+        public static ActiveQuestSharedState Default => new(-1, -1);
 
         [Key(0)]
         public int QuestIndex { get; }
@@ -14,10 +14,14 @@ namespace Infrastructure.QuestService.State
         [Key(1)]
         public int TaskIndex { get; }
 
-        public ActiveQuestSharedState(int questIndex, int taskIndex)
+        [Key(2)]
+        public bool RestartRequired { get; }
+
+        public ActiveQuestSharedState(int questIndex, int taskIndex, bool restartRequired = false)
         {
             QuestIndex = questIndex;
             TaskIndex = taskIndex;
+            RestartRequired = restartRequired;
         }
     }
 }

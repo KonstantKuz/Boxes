@@ -8,5 +8,6 @@ namespace Infrastructure.QuestService.Abstract
         ReactiveProperty<ITask> ActiveTask { get; }
         void RegisterQuestRoot(QuestRoot questRoot);
         void UnregisterQuestRoot(QuestRoot questRoot);
+        void RestartQuest();
     }
 }

@@ -39,6 +39,10 @@ MonoBehaviour:
     m_Key: Unknown
     m_Metadata:
       m_Items: []
+  - m_Id: 28972470625222656
+    m_Key: Policeman
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

@@ -1,0 +1,312 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09324dd78384fd24398546417d5a0bd1, type: 3}
+  m_Name: RoadGraph
+  m_EditorClassIdentifier: 
+  nodes:
+  - position: {x: 9, y: 0, z: 12}
+    edgeIndices: 0000000001000000
+  - position: {x: 9, y: 0, z: 128}
+    edgeIndices: 000000000200000003000000
+  - position: {x: 152, y: 0, z: 12}
+    edgeIndices: 01000000080000000b000000
+  - position: {x: 85.5, y: 0, z: 128}
+    edgeIndices: 020000000400000007000000
+  - position: {x: 9, y: 0, z: 214}
+    edgeIndices: 030000000a00000018000000
+  - position: {x: 85.5, y: 0, z: 214}
+    edgeIndices: 0400000006000000090000000a000000
+  - position: {x: 152, y: 0, z: 128}
+    edgeIndices: 0500000007000000080000000d000000
+  - position: {x: 152, y: 0, z: 214}
+    edgeIndices: 05000000090000000e000000
+  - position: {x: 85.5, y: 0, z: 303}
+    edgeIndices: 060000000f00000019000000
+  - position: {x: 219, y: 0, z: 12}
+    edgeIndices: 0b0000000c00000017000000
+  - position: {x: 219, y: 0, z: 128}
+    edgeIndices: 0c0000000d00000010000000
+  - position: {x: 152, y: 0, z: 303}
+    edgeIndices: 0e0000000f0000001a00000025000000
+  - position: {x: 296.5, y: 0, z: 128}
+    edgeIndices: 100000001100000013000000
+  - position: {x: 361.5, y: 0, z: 128}
+    edgeIndices: 110000001200000014000000
+  - position: {x: 427, y: 0, z: 128}
+    edgeIndices: 120000001500000016000000
+  - position: {x: 296.5, y: 0, z: 217}
+    edgeIndices: 130000001b0000001c000000
+  - position: {x: 361.5, y: 0, z: 217}
+    edgeIndices: 140000001c0000001d000000
+  - position: {x: 427, y: 0, z: 217}
+    edgeIndices: 150000001d0000001f000000
+  - position: {x: 427, y: 0, z: 12}
+    edgeIndices: 1600000017000000
+  - position: {x: 9, y: 0, z: 303}
+    edgeIndices: 180000001900000026000000
+  - position: {x: 296.5, y: 0, z: 303}
+    edgeIndices: 1a0000001b0000001e00000024000000
+  - position: {x: 427, y: 0, z: 303}
+    edgeIndices: 1e0000001f00000020000000
+  - position: {x: 427, y: 0, z: 419.5}
+    edgeIndices: 2000000023000000
+  - position: {x: 9, y: 0, z: 419.5}
+    edgeIndices: 2100000026000000
+  - position: {x: 152, y: 0, z: 419.5}
+    edgeIndices: 210000002200000025000000
+  - position: {x: 296.5, y: 0, z: 419.5}
+    edgeIndices: 220000002300000024000000
+  - position: {x: 152, y: 0, z: 362}
+    edgeIndices: 27000000
+  - position: {x: 296.5, y: 0, z: 362}
+    edgeIndices: 27000000
+  edges:
+  - startNodeIndex: 0
+    endNodeIndex: 1
+    splineIndex: 0
+    startT: 0
+    endT: 1
+    length: 116
+  - startNodeIndex: 0
+    endNodeIndex: 2
+    splineIndex: 1
+    startT: 0
+    endT: 1
+    length: 143
+  - startNodeIndex: 1
+    endNodeIndex: 3
+    splineIndex: 2
+    startT: 0
+    endT: 1
+    length: 76.5
+  - startNodeIndex: 1
+    endNodeIndex: 4
+    splineIndex: 3
+    startT: 0
+    endT: 1
+    length: 86
+  - startNodeIndex: 3
+    endNodeIndex: 5
+    splineIndex: 4
+    startT: 0
+    endT: 1
+    length: 86
+  - startNodeIndex: 6
+    endNodeIndex: 7
+    splineIndex: 5
+    startT: 0
+    endT: 1
+    length: 86
+  - startNodeIndex: 5
+    endNodeIndex: 8
+    splineIndex: 6
+    startT: 0
+    endT: 1
+    length: 89
+  - startNodeIndex: 3
+    endNodeIndex: 6
+    splineIndex: 7
+    startT: 0
+    endT: 1
+    length: 66.5
+  - startNodeIndex: 2
+    endNodeIndex: 6
+    splineIndex: 8
+    startT: 0
+    endT: 1
+    length: 116
+  - startNodeIndex: 5
+    endNodeIndex: 7
+    splineIndex: 9
+    startT: 0
+    endT: 1
+    length: 66.5
+  - startNodeIndex: 4
+    endNodeIndex: 5
+    splineIndex: 10
+    startT: 0
+    endT: 1
+    length: 76.5
+  - startNodeIndex: 2
+    endNodeIndex: 9
+    splineIndex: 11
+    startT: 0
+    endT: 1
+    length: 67
+  - startNodeIndex: 9
+    endNodeIndex: 10
+    splineIndex: 12
+    startT: 0
+    endT: 1
+    length: 116
+  - startNodeIndex: 6
+    endNodeIndex: 10
+    splineIndex: 13
+    startT: 0
+    endT: 1
+    length: 67
+  - startNodeIndex: 7
+    endNodeIndex: 11
+    splineIndex: 14
+    startT: 0
+    endT: 1
+    length: 89
+  - startNodeIndex: 8
+    endNodeIndex: 11
+    splineIndex: 15
+    startT: 0
+    endT: 1
+    length: 66.5
+  - startNodeIndex: 10
+    endNodeIndex: 12
+    splineIndex: 16
+    startT: 0
+    endT: 1
+    length: 77.5
+  - startNodeIndex: 12
+    endNodeIndex: 13
+    splineIndex: 17
+    startT: 0
+    endT: 1
+    length: 65
+  - startNodeIndex: 13
+    endNodeIndex: 14
+    splineIndex: 18
+    startT: 0
+    endT: 1
+    length: 65.5
+  - startNodeIndex: 12
+    endNodeIndex: 15
+    splineIndex: 19
+    startT: 0
+    endT: 1
+    length: 89
+  - startNodeIndex: 13
+    endNodeIndex: 16
+    splineIndex: 20
+    startT: 0
+    endT: 1
+    length: 89
+  - startNodeIndex: 14
+    endNodeIndex: 17
+    splineIndex: 21
+    startT: 0
+    endT: 1
+    length: 89
+  - startNodeIndex: 18
+    endNodeIndex: 14
+    splineIndex: 22
+    startT: 0
+    endT: 1
+    length: 116
+  - startNodeIndex: 9
+    endNodeIndex: 18
+    splineIndex: 23
+    startT: 0
+    endT: 1
+    length: 208
+  - startNodeIndex: 4
+    endNodeIndex: 19
+    splineIndex: 24
+    startT: 0
+    endT: 1
+    length: 89
+  - startNodeIndex: 19
+    endNodeIndex: 8
+    splineIndex: 25
+    startT: 0
+    endT: 1
+    length: 76.5
+  - startNodeIndex: 11
+    endNodeIndex: 20
+    splineIndex: 26
+    startT: 0
+    endT: 1
+    length: 144.5
+  - startNodeIndex: 15
+    endNodeIndex: 20
+    splineIndex: 27
+    startT: 0
+    endT: 1
+    length: 86
+  - startNodeIndex: 15
+    endNodeIndex: 16
+    splineIndex: 28
+    startT: 0
+    endT: 1
+    length: 65
+  - startNodeIndex: 16
+    endNodeIndex: 17
+    splineIndex: 29
+    startT: 0
+    endT: 1
+    length: 65.5
+  - startNodeIndex: 20
+    endNodeIndex: 21
+    splineIndex: 30
+    startT: 0
+    endT: 1
+    length: 130.5
+  - startNodeIndex: 17
+    endNodeIndex: 21
+    splineIndex: 31
+    startT: 0
+    endT: 1
+    length: 86
+  - startNodeIndex: 21
+    endNodeIndex: 22
+    splineIndex: 32
+    startT: 0
+    endT: 1
+    length: 116.5
+  - startNodeIndex: 23
+    endNodeIndex: 24
+    splineIndex: 33
+    startT: 0
+    endT: 1
+    length: 143
+  - startNodeIndex: 24
+    endNodeIndex: 25
+    splineIndex: 34
+    startT: 0
+    endT: 1
+    length: 144.5
+  - startNodeIndex: 25
+    endNodeIndex: 22
+    splineIndex: 35
+    startT: 0
+    endT: 1
+    length: 130.5
+  - startNodeIndex: 20
+    endNodeIndex: 25
+    splineIndex: 36
+    startT: 0
+    endT: 1
+    length: 116.5
+  - startNodeIndex: 11
+    endNodeIndex: 24
+    splineIndex: 37
+    startT: 0
+    endT: 1
+    length: 116.5
+  - startNodeIndex: 19
+    endNodeIndex: 23
+    splineIndex: 38
+    startT: 0
+    endT: 1
+    length: 116.5
+  - startNodeIndex: 26
+    endNodeIndex: 27
+    splineIndex: 39
+    startT: 0
+    endT: 1
+    length: 144.5

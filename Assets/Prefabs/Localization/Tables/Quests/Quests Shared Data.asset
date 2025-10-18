@@ -83,6 +83,10 @@ MonoBehaviour:
     m_Key: 5.1.GoToPark
     m_Metadata:
       m_Items: []
+  - m_Id: 21648634154172416
+    m_Key: 6.2.FindDocs
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

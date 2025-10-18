@@ -94,7 +94,7 @@ namespace Infrastructure.Network
         private void InvokeObserver<T>(Action<T> observer, byte[] bytes)
         {
             observer(serializer.Deserialize<T>(bytes));
-            Debug.Log($"Invoked {typeof(T).Name} {serializer.ConvertToJson(bytes)}");
+            // Debug.Log($"Invoked {typeof(T).Name} {serializer.ConvertToJson(bytes)}");
         }
     }
 }

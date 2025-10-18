@@ -88,6 +88,10 @@ MonoBehaviour:
       data:
         dialogSequence: {fileID: 11400000, guid: 16e7c228746fb474da42e11353164874, type: 2}
         cameraTargetId: 
+    - rid: 4267941644975210498
+      type: {class: RaiseEvent, ns: Configuration.QuestTasks.Shared, asm: Boxes}
+      data:
+        targetId: ef9a2af6-ef02-4806-b1cc-58ae0644fdae
     - rid: 6608448125118971935
       type: {class: TaskSequence, ns: Infrastructure.QuestService.Abstract, asm: Boxes}
       data:
@@ -110,6 +114,7 @@ MonoBehaviour:
         - rid: 4267941461344649228
         - rid: 4267941461344649229
         - rid: 4267941461344649231
+        - rid: 4267941644975210498
     - rid: 6608448125118971936
       type: {class: NavigationTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}
       data:
