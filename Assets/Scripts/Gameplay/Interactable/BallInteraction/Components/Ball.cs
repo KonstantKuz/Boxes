@@ -145,6 +145,8 @@ namespace Gameplay.Interactable.BallInteraction.Components
             statusEffect.SetActive(state.KicksCount >= Config.StatusKicksCount);
 
             rigidbody.isKinematic = state.HasHolder || internalState?.CaptureContext?.InitiatorNetId > 0;
+
+            collider.enabled = !state.HasHolder;
         }
 
         private void FixedUpdate()
