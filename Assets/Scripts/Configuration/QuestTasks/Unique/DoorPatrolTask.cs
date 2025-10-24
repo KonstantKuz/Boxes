@@ -98,7 +98,7 @@ namespace Configuration.QuestTasks.Unique
 
             List<Door> availableDoors = doors.Where(door => !door.IsBlocked).ToList();
             int randomIndex = random.Next(availableDoors.Count);
-            Door selectedDoor = availableDoors[randomIndex];
+            Door selectedDoor = availableDoors.Count > 0 ? availableDoors[randomIndex] : doors[randomIndex];
             int knockCount = selectedDoor.KnocksBeforeOpen;
 
             for (int i = 0; i <= knockCount; i++)

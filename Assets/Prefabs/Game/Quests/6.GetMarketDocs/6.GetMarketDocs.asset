@@ -23,6 +23,12 @@ MonoBehaviour:
         tasks:
         - rid: 4267941707039375363
         - rid: 4267941707039375364
+        - rid: 4267941776931160068
+        - rid: 4267941776931160067
+        - rid: 4267941776931160069
+        - rid: 4267941776931160070
+        - rid: 4267941776931160071
+        - rid: 4267941776931160072
     - rid: 4267941707039375363
       type: {class: NavigationTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}
       data:
@@ -32,42 +38,8 @@ MonoBehaviour:
       type: {class: TaskBag, ns: Infrastructure.QuestService.Abstract, asm: Boxes}
       data:
         tasks:
-        - rid: 4267941707039375365
-        - rid: 4267941707039375366
-        - rid: 4267941707039375367
-        - rid: 4267941707039375368
-        - rid: 4267941707039375369
+        - rid: 4267941776931160066
         - rid: 4267941707039375370
-    - rid: 4267941707039375365
-      type: {class: DestroyDamageableTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}
-      data:
-        config: {fileID: 11400000, guid: d9e26e0e899b0104aacf262282f6e361, type: 2}
-        triggerId: ce35f184-1aa6-4919-b3b5-e8444ad2ca81
-        requiredHitPoints: 1
-    - rid: 4267941707039375366
-      type: {class: DestroyDamageableTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}
-      data:
-        config: {fileID: 11400000, guid: d9e26e0e899b0104aacf262282f6e361, type: 2}
-        triggerId: f3898329-abd9-4aee-afed-6a7f47894f4d
-        requiredHitPoints: 1
-    - rid: 4267941707039375367
-      type: {class: DestroyDamageableTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}
-      data:
-        config: {fileID: 11400000, guid: d9e26e0e899b0104aacf262282f6e361, type: 2}
-        triggerId: 23cedd23-c2ae-40ab-930d-1add9bdad2dd
-        requiredHitPoints: 1
-    - rid: 4267941707039375368
-      type: {class: DestroyDamageableTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}
-      data:
-        config: {fileID: 11400000, guid: d9e26e0e899b0104aacf262282f6e361, type: 2}
-        triggerId: c492ef14-1134-4ac9-ba9b-7e6a8efacaf5
-        requiredHitPoints: 1
-    - rid: 4267941707039375369
-      type: {class: DestroyDamageableTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}
-      data:
-        config: {fileID: 11400000, guid: d9e26e0e899b0104aacf262282f6e361, type: 2}
-        triggerId: 61925c40-9248-4ee9-b2ce-300798a908c7
-        requiredHitPoints: 1
     - rid: 4267941707039375370
       type: {class: DoorPatrolTask, ns: Configuration.QuestTasks.Unique, asm: Boxes}
       data:
@@ -76,4 +48,41 @@ MonoBehaviour:
         - 79e43a37-bcc5-4076-8f38-ff231c984a15
         disturbPeriod: 15
         knockInterval: 5
-        knockIntervalRandomness: 1
+    - rid: 4267941776931160066
+      type: {class: DamageablePoolTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}
+      data:
+        config: {fileID: 11400000, guid: d9e26e0e899b0104aacf262282f6e361, type: 2}
+        triggerIds:
+        - ce35f184-1aa6-4919-b3b5-e8444ad2ca81
+        - f3898329-abd9-4aee-afed-6a7f47894f4d
+        - 23cedd23-c2ae-40ab-930d-1add9bdad2dd
+        - c492ef14-1134-4ac9-ba9b-7e6a8efacaf5
+        - 61925c40-9248-4ee9-b2ce-300798a908c7
+        singleTriggerHitPoints: 1
+        requiredTotalDamage: 3
+    - rid: 4267941776931160067
+      type: {class: NavigationTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}
+      data:
+        config: {fileID: 11400000, guid: 2cc61aa5432ddb14b9f2bd42143d17d0, type: 2}
+        targetId: 68b942d4-ee61-4b4e-a177-2a2dd7b4649a
+    - rid: 4267941776931160068
+      type: {class: RaiseEvent, ns: Configuration.QuestTasks.Shared, asm: Boxes}
+      data:
+        targetId: 6a672eaf-8094-413f-bbcd-29dce3639852
+    - rid: 4267941776931160069
+      type: {class: DialogTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}
+      data:
+        dialogSequence: {fileID: 11400000, guid: c44f5be395a95944da33971ac2c8f42f, type: 2}
+        cameraTargetId: 
+    - rid: 4267941776931160070
+      type: {class: RaiseEvent, ns: Configuration.QuestTasks.Shared, asm: Boxes}
+      data:
+        targetId: da3134a2-9af3-42ba-a4ff-a68b426f6bca
+    - rid: 4267941776931160071
+      type: {class: WaitForSecondsTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}
+      data:
+        seconds: 5
+    - rid: 4267941776931160072
+      type: {class: RaiseEvent, ns: Configuration.QuestTasks.Shared, asm: Boxes}
+      data:
+        targetId: af1240fe-c83b-404d-82ee-b46d75a3577d

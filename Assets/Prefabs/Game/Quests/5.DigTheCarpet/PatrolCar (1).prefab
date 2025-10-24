@@ -140,8 +140,8 @@ MonoBehaviour:
   rotationSpeed: 15
   nodeReachDistance: 0.5
   laneOffset: 2
-  useRandomRoute: 1
-  useAssignedRoute: 0
+  useRandomRoute: 0
+  useAssignedRoute: 1
   isDriving: 0
   targetReachedDistance: 10
   targetMovementThreshold: 2

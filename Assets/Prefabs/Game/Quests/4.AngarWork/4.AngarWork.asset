@@ -39,12 +39,6 @@ MonoBehaviour:
         npcId: 2b4f77a3-b815-483e-9276-d54cb1d5c5ec
         targetId: e3fd98bc-f406-483f-bcbf-5e1ee2cbc72b
         isAwaitRequired: 0
-    - rid: 4267941461344649220
-      type: {class: SetActiveTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}
-      data:
-        targetId: 2e70d2b9-178b-4e8b-a042-fecd21b07a3d
-        positionId: 
-        value: 1
     - rid: 4267941461344649223
       type: {class: DialogTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}
       data:
@@ -54,12 +48,6 @@ MonoBehaviour:
       type: {class: RaiseEvent, ns: Configuration.QuestTasks.Shared, asm: Boxes}
       data:
         targetId: 33135aaa-1954-4aeb-9715-3ee1ed557554
-    - rid: 4267941461344649225
-      type: {class: SetActiveTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}
-      data:
-        targetId: eb209d69-5938-4a51-bd57-3459307d67d5
-        positionId: 
-        value: 1
     - rid: 4267941461344649226
       type: {class: WaitForSecondsTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}
       data:
@@ -78,7 +66,7 @@ MonoBehaviour:
       type: {class: NavigationTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}
       data:
         config: {fileID: 11400000, guid: 3a8be18a64b75b640a66224e8621730f, type: 2}
-        targetId: c88ad7eb-c6b0-4691-8648-e1b5e1b9fdcd
+        targetId: d48282ec-e1ed-40c8-b326-1ac4cc22c7cf
     - rid: 4267941461344649230
       type: {class: WaitForSecondsTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}
       data:
@@ -92,6 +80,10 @@ MonoBehaviour:
       type: {class: RaiseEvent, ns: Configuration.QuestTasks.Shared, asm: Boxes}
       data:
         targetId: ef9a2af6-ef02-4806-b1cc-58ae0644fdae
+    - rid: 4267941776931160074
+      type: {class: RaiseEvent, ns: Configuration.QuestTasks.Shared, asm: Boxes}
+      data:
+        targetId: 07aa6352-caec-438d-a9cf-1f7548509bb0
     - rid: 6608448125118971935
       type: {class: TaskSequence, ns: Infrastructure.QuestService.Abstract, asm: Boxes}
       data:
@@ -104,8 +96,7 @@ MonoBehaviour:
         - rid: 4267941461344649216
         - rid: 4267941461344649219
         - rid: 4267941461344649218
-        - rid: 4267941461344649220
-        - rid: 4267941461344649225
+        - rid: 4267941776931160074
         - rid: 4267941461344649223
         - rid: 4267941461344649224
         - rid: 4267941461344649226

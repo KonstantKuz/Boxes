@@ -8,7 +8,7 @@ using UnityEngine.Events;
 
 namespace Gameplay.Interactable.BallInteraction.BallReaction
 {
-    public class DestructibleReactionInitiator : NetworkBehaviour, IBallReactionInitiator, IDamageable
+    public class DamageableReactionInitiator : NetworkBehaviour, IBallReactionInitiator, IDamageable
     {
         [SerializeField]
         private UnityEvent OnHit;

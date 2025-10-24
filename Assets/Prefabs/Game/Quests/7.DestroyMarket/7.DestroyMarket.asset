@@ -1,0 +1,73 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a3302517e334611b8ca3e20f19d998c, type: 3}
+  m_Name: 7.DestroyMarket
+  m_EditorClassIdentifier: 
+  taskSequence:
+    rid: 4267941846596190208
+  references:
+    version: 2
+    RefIds:
+    - rid: 4267941846596190208
+      type: {class: TaskSequence, ns: Infrastructure.QuestService.Abstract, asm: Boxes}
+      data:
+        tasks:
+        - rid: 4267941846596190209
+        - rid: 4267941846596190211
+        - rid: 4267941846596190212
+        - rid: 4267941846596190213
+        - rid: 4267941846596190217
+        - rid: 4267941846596190216
+        - rid: 4267941846596190218
+        - rid: 4267941846596190219
+    - rid: 4267941846596190209
+      type: {class: RaiseEvent, ns: Configuration.QuestTasks.Shared, asm: Boxes}
+      data:
+        targetId: 0276d55d-20b1-46e2-a3d7-21d258519fcd
+    - rid: 4267941846596190211
+      type: {class: WaitForSecondsTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}
+      data:
+        seconds: 2
+    - rid: 4267941846596190212
+      type: {class: RaiseEvent, ns: Configuration.QuestTasks.Shared, asm: Boxes}
+      data:
+        targetId: e0796011-26d2-4665-85bd-e698c2e001d0
+    - rid: 4267941846596190213
+      type: {class: DialogTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}
+      data:
+        dialogSequence: {fileID: 11400000, guid: e1ff7a23f82d1c141af4a633ee7ff505, type: 2}
+        cameraTargetId: 
+    - rid: 4267941846596190216
+      type: {class: NavigationTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}
+      data:
+        config: {fileID: 11400000, guid: e908add557fb62d4ea2e7811479c4a59, type: 2}
+        targetId: 46689b01-ec0c-40bd-8f6e-33fbe332ccc6
+    - rid: 4267941846596190217
+      type: {class: RaiseEvent, ns: Configuration.QuestTasks.Shared, asm: Boxes}
+      data:
+        targetId: 0276d55d-20b1-46e2-a3d7-21d258519fcd
+    - rid: 4267941846596190218
+      type: {class: RaiseEvent, ns: Configuration.QuestTasks.Shared, asm: Boxes}
+      data:
+        targetId: 0f5cd1e7-11e1-4ecd-9bef-d00e5119e66f
+    - rid: 4267941846596190219
+      type: {class: DamageablePoolTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}
+      data:
+        config: {fileID: 11400000, guid: e908add557fb62d4ea2e7811479c4a59, type: 2}
+        triggerIds:
+        - 0205337f-7b52-497c-8aa3-6cec3d8c1fa8
+        - e3c98aaa-497a-4cd8-a2dd-9f266ce6dcc6
+        - db6f79fb-4439-4d5d-9165-3ddc00b18253
+        - e44154c8-821d-42ed-8315-7dc2e4291e83
+        - bc51af1a-6caa-49db-9a73-6bb302b79a2e
+        singleTriggerHitPoints: 1
+        requiredTotalDamage: 3

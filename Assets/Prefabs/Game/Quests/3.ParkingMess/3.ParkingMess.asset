@@ -17,14 +17,17 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
+    - rid: 4267941776931160073
+      type: {class: RaiseEvent, ns: Configuration.QuestTasks.Shared, asm: Boxes}
+      data:
+        targetId: b1638b44-cecb-431a-be30-aa7f7a01d16c
     - rid: 6608448125118971929
       type: {class: TaskSequence, ns: Infrastructure.QuestService.Abstract, asm: Boxes}
       data:
         tasks:
         - rid: 6608448125118971930
         - rid: 6608448125118971931
-        - rid: 6608448125118971932
-        - rid: 6608448125118971933
+        - rid: 4267941776931160073
         - rid: 6608448125118971934
     - rid: 6608448125118971930
       type: {class: NavigationTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}
@@ -37,18 +40,8 @@ MonoBehaviour:
         config: {fileID: 11400000, guid: 6153a11856c57ed40b6257b54eb45659, type: 2}
         triggerId: 5f0ef165-5917-4445-bcbe-f4defd243ffc
         requiredHitPoints: 1
-    - rid: 6608448125118971932
-      type: {class: SetActiveTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}
-      data:
-        targetId: 022647ea-50a5-4512-8479-e6154804977d
-        positionId: 
-    - rid: 6608448125118971933
-      type: {class: SetActiveTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}
-      data:
-        targetId: d65fea4c-2574-4946-955c-3971489ce582
-        positionId: 
     - rid: 6608448125118971934
       type: {class: DialogTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}
       data:
         dialogSequence: {fileID: 11400000, guid: 46581212a95d3044ea0229fed49504d7, type: 2}
-        cameraTargetId: 
+        cameraTargetId: 3f129640-cfb6-428c-a455-88bb4fe989bf

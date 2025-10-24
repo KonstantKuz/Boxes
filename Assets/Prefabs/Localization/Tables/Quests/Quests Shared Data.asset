@@ -87,6 +87,14 @@ MonoBehaviour:
     m_Key: 6.2.FindDocs
     m_Metadata:
       m_Items: []
+  - m_Id: 22761665705656320
+    m_Key: 6.3.PassDocs
+    m_Metadata:
+      m_Items: []
+  - m_Id: 23873520050225152
+    m_Key: 7.1.DestroyCounters
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

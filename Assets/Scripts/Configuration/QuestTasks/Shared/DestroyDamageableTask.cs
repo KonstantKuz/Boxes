@@ -40,8 +40,8 @@ namespace Configuration.QuestTasks.Shared
                 return;
             }
 
-            DestructibleReactionInitiator reactionInitiator =
-                statusTrigger.Value.GetComponent<DestructibleReactionInitiator>();
+            DamageableReactionInitiator reactionInitiator =
+                statusTrigger.Value.GetComponent<DamageableReactionInitiator>();
 
             IDamageable damageable = reactionInitiator;
             damageable.Initialize(requiredHitPoints);

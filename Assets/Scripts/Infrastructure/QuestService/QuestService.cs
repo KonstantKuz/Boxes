@@ -19,6 +19,7 @@ namespace Infrastructure.QuestService
     public partial class QuestService : IQuestService, IInitializable, IDisposable
     {
         private readonly ReactiveProperty<ITask> activeTask = new();
+        private readonly ReactiveProperty<Quest> activeQuest = new();
 
         [SerializeField]
         private int currentQuestIndex;
@@ -36,6 +37,7 @@ namespace Infrastructure.QuestService
 
         private Dictionary<Quest, QuestRoot> roots;
 
+        ReadOnlyReactiveProperty<Quest> IQuestService.ActiveQuest => activeQuest;
         ReactiveProperty<ITask> IQuestService.ActiveTask => activeTask;
 
         [Inject]
@@ -148,7 +150,10 @@ namespace Infrastructure.QuestService
             TaskSequence currentQuest = quest.TaskSequence;
             AttributeInjector.Inject(currentQuest, container);
             currentQuest.Start(currentTaskIndex);
+
+            activeQuest.Value = quests[currentQuestIndex];
             activeTask.Value = currentQuest;
+
             ((ITask) currentQuest).IsDone.Subscribe(OnCurrentQuestDone);
 
             this.Log(LogType.Log, $"Start quest {quests[currentQuestIndex].name}");

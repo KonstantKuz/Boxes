@@ -36,6 +36,14 @@ namespace Gameplay.RoadSystem
             DetectCyclesAndAssignCars();
         }
 
+        public void SetActiveCars(bool active)
+        {
+            foreach (PatrolCar car in patrolCars)
+            {
+                car.gameObject.SetActive(active);
+            }
+        }
+
         public void SetPatrolActive(bool value)
         {
             // Если маршруты ещё не назначены, назначаем их

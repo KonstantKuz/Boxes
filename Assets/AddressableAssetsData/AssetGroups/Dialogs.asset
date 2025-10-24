@@ -71,6 +71,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - Dialog
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c44f5be395a95944da33971ac2c8f42f
+    m_Address: Assets/Prefabs/Game/Quests/6.GetMarketDocs/Dialogs/6.1.GoodJob.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Dialog
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: d50975f0c62a62e46958ae8e9de58abb
     m_Address: Assets/Prefabs/Game/Quests/5.DigTheCarpet/Dialogs/5.1.Uiuiu.asset
     m_ReadOnly: 0
@@ -79,6 +85,12 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: dad2c20eeec1e754a8d870b3793700ee
     m_Address: Assets/Prefabs/Game/Quests/4.AngarWork/Dialogs/4.3.ByeBye.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Dialog
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e1ff7a23f82d1c141af4a633ee7ff505
+    m_Address: Assets/Prefabs/Game/Quests/7.DestroyMarket/Dialogs/7.1.DestroyMarket.asset
     m_ReadOnly: 0
     m_SerializedLabels:
     - Dialog

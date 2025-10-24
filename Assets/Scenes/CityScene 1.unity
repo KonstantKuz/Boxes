@@ -134,6 +134,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PatrolCar (23)
       objectReference: {fileID: 0}
+    - target: {fileID: 1789992581675772993, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2712827138660170322, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
       propertyPath: roadSystem
       value: 
@@ -717,6 +721,73 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1439669701}
   m_LocalEulerAnglesHint: {x: 0, y: -60.125, z: 0}
+--- !u!1 &47415591
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 47415592}
+  - component: {fileID: 47415594}
+  - component: {fileID: 47415593}
+  m_Layer: 0
+  m_Name: StartTrigger
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &47415592
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 47415591}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 113.66048, y: -0, z: 393.37027}
+  m_LocalScale: {x: 5, y: 5, z: 5}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1921100741}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &47415593
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 47415591}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6c75c233ccb480cbeec0d804ee08e08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: 46689b01-ec0c-40bd-8f6e-33fbe332ccc6
+--- !u!135 &47415594
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 47415591}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &53722181
 GameObject:
   m_ObjectHideFlags: 0
@@ -1250,6 +1321,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 212125824}
     m_Modifications:
+    - target: {fileID: 937535941617448442, guid: aa031efa1547782489e49b78f47d544e, type: 3}
+      propertyPath: sceneId
+      value: 3540180525
+      objectReference: {fileID: 0}
     - target: {fileID: 5733865923746193402, guid: aa031efa1547782489e49b78f47d544e, type: 3}
       propertyPath: m_LocalPosition.x
       value: -60.47998
@@ -1522,6 +1597,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 212125824}
     m_Modifications:
+    - target: {fileID: 937535941617448442, guid: aa031efa1547782489e49b78f47d544e, type: 3}
+      propertyPath: sceneId
+      value: 1669726623
+      objectReference: {fileID: 0}
     - target: {fileID: 5733865923746193402, guid: aa031efa1547782489e49b78f47d544e, type: 3}
       propertyPath: m_LocalPosition.x
       value: -31.90744
@@ -1693,6 +1772,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PatrolCar (25)
       objectReference: {fileID: 0}
+    - target: {fileID: 1789992581675772993, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2712827138660170322, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
       propertyPath: roadSystem
       value: 
@@ -1763,6 +1846,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PatrolCar (27)
       objectReference: {fileID: 0}
+    - target: {fileID: 1789992581675772993, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2712827138660170322, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
       propertyPath: roadSystem
       value: 
@@ -1829,6 +1916,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 212125824}
     m_Modifications:
+    - target: {fileID: 937535941617448442, guid: aa031efa1547782489e49b78f47d544e, type: 3}
+      propertyPath: sceneId
+      value: 2880370364
+      objectReference: {fileID: 0}
     - target: {fileID: 5733865923746193402, guid: aa031efa1547782489e49b78f47d544e, type: 3}
       propertyPath: m_LocalPosition.x
       value: -61.079987
@@ -1996,6 +2087,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 212125824}
     m_Modifications:
+    - target: {fileID: 937535941617448442, guid: aa031efa1547782489e49b78f47d544e, type: 3}
+      propertyPath: sceneId
+      value: 2604601932
+      objectReference: {fileID: 0}
     - target: {fileID: 5733865923746193402, guid: aa031efa1547782489e49b78f47d544e, type: 3}
       propertyPath: m_LocalPosition.x
       value: -31.90744
@@ -2167,6 +2262,10 @@ GameObject:
   - component: {fileID: 131123750}
   - component: {fileID: 131123749}
   - component: {fileID: 131123748}
+  - component: {fileID: 131123754}
+  - component: {fileID: 131123753}
+  - component: {fileID: 131123752}
+  - component: {fileID: 131123751}
   m_Layer: 0
   m_Name: Tent (46)
   m_TagString: Untagged
@@ -2260,6 +2359,71 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 131123746}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &131123751
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 131123746}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 312ed8d275de4184a483674a55071877, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &131123752
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 131123746}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa42336d8854464439199773dc5f4d09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  OnHit:
+    m_PersistentCalls:
+      m_Calls: []
+  OnMaxHit:
+    m_PersistentCalls:
+      m_Calls: []
+  maxHitPoints: 0
+  isManualInitialization: 0
+--- !u!114 &131123753
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 131123746}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6c75c233ccb480cbeec0d804ee08e08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: bd309c13-e00d-4315-97fe-9529d002882d
+--- !u!114 &131123754
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 131123746}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 2656827729
+  _assetId: 0
+  serverOnly: 0
+  visibility: 0
+  hasSpawned: 0
 --- !u!1 &135437044
 GameObject:
   m_ObjectHideFlags: 0
@@ -2785,6 +2949,79 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 146526394}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &160301856
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 160301857}
+  - component: {fileID: 160301859}
+  - component: {fileID: 160301858}
+  m_Layer: 0
+  m_Name: CarDisappearEvent
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &160301857
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 160301856}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1921100741}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &160301858
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 160301856}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be92583f5f4e48c986623e883fd370cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnRaised:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 748898124}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &160301859
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 160301856}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6c75c233ccb480cbeec0d804ee08e08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: 0f5cd1e7-11e1-4ecd-9bef-d00e5119e66f
 --- !u!1001 &180660777
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2796,6 +3033,10 @@ PrefabInstance:
     - target: {fileID: 1789992581675772993, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
       propertyPath: m_Name
       value: PatrolCar (28)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1789992581675772993, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2712827138660170322, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
       propertyPath: roadSystem
@@ -2863,6 +3104,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 212125824}
     m_Modifications:
+    - target: {fileID: 937535941617448442, guid: aa031efa1547782489e49b78f47d544e, type: 3}
+      propertyPath: sceneId
+      value: 4284094840
+      objectReference: {fileID: 0}
     - target: {fileID: 5733865923746193402, guid: aa031efa1547782489e49b78f47d544e, type: 3}
       propertyPath: m_LocalPosition.x
       value: -16.579987
@@ -3030,6 +3275,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 212125824}
     m_Modifications:
+    - target: {fileID: 937535941617448442, guid: aa031efa1547782489e49b78f47d544e, type: 3}
+      propertyPath: sceneId
+      value: 308214676
+      objectReference: {fileID: 0}
     - target: {fileID: 5733865923746193402, guid: aa031efa1547782489e49b78f47d544e, type: 3}
       propertyPath: m_LocalPosition.x
       value: -75.879974
@@ -3119,8 +3368,53 @@ Transform:
   - {fileID: 1814010905}
   - {fileID: 775173029}
   - {fileID: 1581517096}
+  - {fileID: 1921100741}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &191835786
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 191835787}
+  - component: {fileID: 191835788}
+  m_Layer: 0
+  m_Name: Spawn
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &191835787
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 191835786}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 143.42, y: 0.59, z: 356.56}
+  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1921100741}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &191835788
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 191835786}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41f84591ce72545258ea98cb7518d8b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &195837074
 GameObject:
   m_ObjectHideFlags: 0
@@ -3133,6 +3427,10 @@ GameObject:
   - component: {fileID: 195837078}
   - component: {fileID: 195837077}
   - component: {fileID: 195837076}
+  - component: {fileID: 195837082}
+  - component: {fileID: 195837081}
+  - component: {fileID: 195837080}
+  - component: {fileID: 195837079}
   m_Layer: 0
   m_Name: Tent (33)
   m_TagString: Untagged
@@ -3226,6 +3524,71 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 195837074}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &195837079
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 195837074}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 312ed8d275de4184a483674a55071877, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &195837080
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 195837074}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa42336d8854464439199773dc5f4d09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  OnHit:
+    m_PersistentCalls:
+      m_Calls: []
+  OnMaxHit:
+    m_PersistentCalls:
+      m_Calls: []
+  maxHitPoints: 0
+  isManualInitialization: 0
+--- !u!114 &195837081
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 195837074}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6c75c233ccb480cbeec0d804ee08e08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: e06904b8-1743-462b-a9a8-663e175f69a6
+--- !u!114 &195837082
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 195837074}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 360891438
+  _assetId: 0
+  serverOnly: 0
+  visibility: 0
+  hasSpawned: 0
 --- !u!1 &202296652
 GameObject:
   m_ObjectHideFlags: 0
@@ -3628,6 +3991,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 212125824}
     m_Modifications:
+    - target: {fileID: 937535941617448442, guid: aa031efa1547782489e49b78f47d544e, type: 3}
+      propertyPath: sceneId
+      value: 2048412170
+      objectReference: {fileID: 0}
     - target: {fileID: 5733865923746193402, guid: aa031efa1547782489e49b78f47d544e, type: 3}
       propertyPath: m_LocalPosition.x
       value: -75.97998
@@ -4005,6 +4372,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 212125824}
     m_Modifications:
+    - target: {fileID: 937535941617448442, guid: aa031efa1547782489e49b78f47d544e, type: 3}
+      propertyPath: sceneId
+      value: 1341258752
+      objectReference: {fileID: 0}
     - target: {fileID: 5733865923746193402, guid: aa031efa1547782489e49b78f47d544e, type: 3}
       propertyPath: m_LocalPosition.x
       value: -60.47998
@@ -4178,6 +4549,10 @@ GameObject:
   - component: {fileID: 263287919}
   - component: {fileID: 263287918}
   - component: {fileID: 263287917}
+  - component: {fileID: 263287923}
+  - component: {fileID: 263287922}
+  - component: {fileID: 263287921}
+  - component: {fileID: 263287920}
   m_Layer: 0
   m_Name: Tent (42)
   m_TagString: Untagged
@@ -4271,6 +4646,71 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 263287915}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &263287920
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 263287915}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 312ed8d275de4184a483674a55071877, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &263287921
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 263287915}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa42336d8854464439199773dc5f4d09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  OnHit:
+    m_PersistentCalls:
+      m_Calls: []
+  OnMaxHit:
+    m_PersistentCalls:
+      m_Calls: []
+  maxHitPoints: 0
+  isManualInitialization: 0
+--- !u!114 &263287922
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 263287915}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6c75c233ccb480cbeec0d804ee08e08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: 179c040a-cbc5-4cef-ba01-3b758b5a99ed
+--- !u!114 &263287923
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 263287915}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 1218541886
+  _assetId: 0
+  serverOnly: 0
+  visibility: 0
+  hasSpawned: 0
 --- !u!1 &275958185
 GameObject:
   m_ObjectHideFlags: 0
@@ -5333,6 +5773,10 @@ GameObject:
   - component: {fileID: 470688571}
   - component: {fileID: 470688570}
   - component: {fileID: 470688569}
+  - component: {fileID: 470688576}
+  - component: {fileID: 470688575}
+  - component: {fileID: 470688574}
+  - component: {fileID: 470688573}
   m_Layer: 0
   m_Name: Tent (38)
   m_TagString: Untagged
@@ -5420,12 +5864,90 @@ Transform:
   m_GameObject: {fileID: 470688568}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 85.299995, y: -5, z: 329.33005}
+  m_LocalPosition: {x: 126.299995, y: 2, z: 388.33005}
   m_LocalScale: {x: 6, y: 4, z: 5}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1787200008}
+  m_Father: {fileID: 1921100741}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &470688573
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 470688568}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 312ed8d275de4184a483674a55071877, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &470688574
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 470688568}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa42336d8854464439199773dc5f4d09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  OnHit:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 470688573}
+        m_TargetAssemblyTypeName: Gameplay.Interactable.BallInteraction.BallReaction.TransformShake,
+          Boxes
+        m_MethodName: Shake
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnMaxHit:
+    m_PersistentCalls:
+      m_Calls: []
+  maxHitPoints: 0
+  isManualInitialization: 1
+--- !u!114 &470688575
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 470688568}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6c75c233ccb480cbeec0d804ee08e08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: a60e8cd8-1da9-493a-b14a-e318f3c17215
+--- !u!114 &470688576
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 470688568}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 3124179498
+  _assetId: 0
+  serverOnly: 0
+  visibility: 0
+  hasSpawned: 0
 --- !u!1001 &471452862
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5434,6 +5956,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 212125824}
     m_Modifications:
+    - target: {fileID: 937535941617448442, guid: aa031efa1547782489e49b78f47d544e, type: 3}
+      propertyPath: sceneId
+      value: 7420643
+      objectReference: {fileID: 0}
     - target: {fileID: 5733865923746193402, guid: aa031efa1547782489e49b78f47d544e, type: 3}
       propertyPath: m_LocalPosition.x
       value: -16.579987
@@ -5496,6 +6022,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 212125824}
     m_Modifications:
+    - target: {fileID: 937535941617448442, guid: aa031efa1547782489e49b78f47d544e, type: 3}
+      propertyPath: sceneId
+      value: 4181806031
+      objectReference: {fileID: 0}
     - target: {fileID: 5733865923746193402, guid: aa031efa1547782489e49b78f47d544e, type: 3}
       propertyPath: m_LocalPosition.x
       value: -76.17999
@@ -5561,6 +6091,10 @@ PrefabInstance:
     - target: {fileID: 1789992581675772993, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
       propertyPath: m_Name
       value: PatrolCar (7)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1789992581675772993, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2712827138660170322, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
       propertyPath: roadSystem
@@ -5628,6 +6162,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 212125824}
     m_Modifications:
+    - target: {fileID: 937535941617448442, guid: aa031efa1547782489e49b78f47d544e, type: 3}
+      propertyPath: sceneId
+      value: 1347707963
+      objectReference: {fileID: 0}
     - target: {fileID: 5733865923746193402, guid: aa031efa1547782489e49b78f47d544e, type: 3}
       propertyPath: m_LocalPosition.x
       value: -32.690002
@@ -5904,6 +6442,10 @@ GameObject:
   - component: {fileID: 491009094}
   - component: {fileID: 491009093}
   - component: {fileID: 491009092}
+  - component: {fileID: 491009098}
+  - component: {fileID: 491009097}
+  - component: {fileID: 491009096}
+  - component: {fileID: 491009095}
   m_Layer: 0
   m_Name: Tent (43)
   m_TagString: Untagged
@@ -5997,6 +6539,71 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 491009090}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &491009095
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 491009090}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 312ed8d275de4184a483674a55071877, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &491009096
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 491009090}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa42336d8854464439199773dc5f4d09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  OnHit:
+    m_PersistentCalls:
+      m_Calls: []
+  OnMaxHit:
+    m_PersistentCalls:
+      m_Calls: []
+  maxHitPoints: 0
+  isManualInitialization: 0
+--- !u!114 &491009097
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 491009090}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6c75c233ccb480cbeec0d804ee08e08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: a57f1fb4-165c-42df-ae71-9bbbb6a5a81d
+--- !u!114 &491009098
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 491009090}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 1008400933
+  _assetId: 0
+  serverOnly: 0
+  visibility: 0
+  hasSpawned: 0
 --- !u!1 &509116827
 GameObject:
   m_ObjectHideFlags: 0
@@ -6429,6 +7036,10 @@ GameObject:
   - component: {fileID: 548159609}
   - component: {fileID: 548159608}
   - component: {fileID: 548159607}
+  - component: {fileID: 548159613}
+  - component: {fileID: 548159612}
+  - component: {fileID: 548159611}
+  - component: {fileID: 548159610}
   m_Layer: 0
   m_Name: Tent (40)
   m_TagString: Untagged
@@ -6522,6 +7133,71 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 548159605}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &548159610
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 548159605}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 312ed8d275de4184a483674a55071877, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &548159611
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 548159605}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa42336d8854464439199773dc5f4d09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  OnHit:
+    m_PersistentCalls:
+      m_Calls: []
+  OnMaxHit:
+    m_PersistentCalls:
+      m_Calls: []
+  maxHitPoints: 0
+  isManualInitialization: 0
+--- !u!114 &548159612
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 548159605}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6c75c233ccb480cbeec0d804ee08e08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: f982e868-adfd-4850-b7c7-c4d0f4866d50
+--- !u!114 &548159613
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 548159605}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 2423480379
+  _assetId: 0
+  serverOnly: 0
+  visibility: 0
+  hasSpawned: 0
 --- !u!1001 &554826432
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6533,6 +7209,10 @@ PrefabInstance:
     - target: {fileID: 1789992581675772993, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
       propertyPath: m_Name
       value: PatrolCar (14)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1789992581675772993, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2712827138660170322, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
       propertyPath: roadSystem
@@ -6697,6 +7377,91 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1114167005}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &560328751
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 560328752}
+  - component: {fileID: 560328754}
+  - component: {fileID: 560328753}
+  m_Layer: 0
+  m_Name: CarAppearEvent
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &560328752
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 560328751}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1921100741}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &560328753
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 560328751}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be92583f5f4e48c986623e883fd370cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnRaised:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 748898124}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 748898126}
+        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+--- !u!114 &560328754
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 560328751}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6c75c233ccb480cbeec0d804ee08e08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: 0276d55d-20b1-46e2-a3d7-21d258519fcd
 --- !u!1001 &564538334
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6708,6 +7473,10 @@ PrefabInstance:
     - target: {fileID: 1789992581675772993, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
       propertyPath: m_Name
       value: PatrolCar (9)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1789992581675772993, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2712827138660170322, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
       propertyPath: roadSystem
@@ -6779,6 +7548,10 @@ GameObject:
   - component: {fileID: 564924348}
   - component: {fileID: 564924347}
   - component: {fileID: 564924346}
+  - component: {fileID: 564924352}
+  - component: {fileID: 564924351}
+  - component: {fileID: 564924350}
+  - component: {fileID: 564924349}
   m_Layer: 0
   m_Name: Tent (41)
   m_TagString: Untagged
@@ -6872,6 +7645,71 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 564924344}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &564924349
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 564924344}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 312ed8d275de4184a483674a55071877, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &564924350
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 564924344}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa42336d8854464439199773dc5f4d09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  OnHit:
+    m_PersistentCalls:
+      m_Calls: []
+  OnMaxHit:
+    m_PersistentCalls:
+      m_Calls: []
+  maxHitPoints: 0
+  isManualInitialization: 0
+--- !u!114 &564924351
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 564924344}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6c75c233ccb480cbeec0d804ee08e08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: 3e4af564-4fa4-4531-8c52-cd55a6c4a0e6
+--- !u!114 &564924352
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 564924344}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 4077530372
+  _assetId: 0
+  serverOnly: 0
+  visibility: 0
+  hasSpawned: 0
 --- !u!1 &569264956
 GameObject:
   m_ObjectHideFlags: 0
@@ -7199,6 +8037,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PatrolCar (19)
       objectReference: {fileID: 0}
+    - target: {fileID: 1789992581675772993, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2712827138660170322, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
       propertyPath: roadSystem
       value: 
@@ -7265,6 +8107,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 212125824}
     m_Modifications:
+    - target: {fileID: 937535941617448442, guid: aa031efa1547782489e49b78f47d544e, type: 3}
+      propertyPath: sceneId
+      value: 2195993674
+      objectReference: {fileID: 0}
     - target: {fileID: 5733865923746193402, guid: aa031efa1547782489e49b78f47d544e, type: 3}
       propertyPath: m_LocalPosition.x
       value: -31.880005
@@ -7327,6 +8173,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 212125824}
     m_Modifications:
+    - target: {fileID: 937535941617448442, guid: aa031efa1547782489e49b78f47d544e, type: 3}
+      propertyPath: sceneId
+      value: 1796229836
+      objectReference: {fileID: 0}
     - target: {fileID: 5733865923746193402, guid: aa031efa1547782489e49b78f47d544e, type: 3}
       propertyPath: m_LocalPosition.x
       value: -16.679993
@@ -7494,6 +8344,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 212125824}
     m_Modifications:
+    - target: {fileID: 937535941617448442, guid: aa031efa1547782489e49b78f47d544e, type: 3}
+      propertyPath: sceneId
+      value: 3532237757
+      objectReference: {fileID: 0}
     - target: {fileID: 5733865923746193402, guid: aa031efa1547782489e49b78f47d544e, type: 3}
       propertyPath: m_LocalPosition.x
       value: -31.90744
@@ -7559,6 +8413,10 @@ PrefabInstance:
     - target: {fileID: 1789992581675772993, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
       propertyPath: m_Name
       value: PatrolCar (17)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1789992581675772993, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2712827138660170322, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
       propertyPath: roadSystem
@@ -7626,6 +8484,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 212125824}
     m_Modifications:
+    - target: {fileID: 937535941617448442, guid: aa031efa1547782489e49b78f47d544e, type: 3}
+      propertyPath: sceneId
+      value: 2728674703
+      objectReference: {fileID: 0}
     - target: {fileID: 5733865923746193402, guid: aa031efa1547782489e49b78f47d544e, type: 3}
       propertyPath: m_LocalPosition.x
       value: -32.079987
@@ -8108,6 +8970,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 212125824}
     m_Modifications:
+    - target: {fileID: 937535941617448442, guid: aa031efa1547782489e49b78f47d544e, type: 3}
+      propertyPath: sceneId
+      value: 2517768903
+      objectReference: {fileID: 0}
     - target: {fileID: 5733865923746193402, guid: aa031efa1547782489e49b78f47d544e, type: 3}
       propertyPath: m_LocalPosition.x
       value: -32.179993
@@ -8173,6 +9039,10 @@ PrefabInstance:
     - target: {fileID: 1789992581675772993, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
       propertyPath: m_Name
       value: PatrolCar (24)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1789992581675772993, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2712827138660170322, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
       propertyPath: roadSystem
@@ -8685,6 +9555,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PatrolCar (29)
       objectReference: {fileID: 0}
+    - target: {fileID: 1789992581675772993, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2712827138660170322, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
       propertyPath: roadSystem
       value: 
@@ -8887,6 +9761,188 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 10.000002, y: 0.1, z: 10.000002}
   m_Center: {x: -0.000015258789, y: -0.1, z: -0.0000019073486}
+--- !u!1001 &748898123
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1921100741}
+    m_Modifications:
+    - target: {fileID: 937535941617448442, guid: aa031efa1547782489e49b78f47d544e, type: 3}
+      propertyPath: sceneId
+      value: 2007174385
+      objectReference: {fileID: 0}
+    - target: {fileID: 2095730182836580136, guid: aa031efa1547782489e49b78f47d544e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2095730182836580136, guid: aa031efa1547782489e49b78f47d544e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 2095730182836580136, guid: aa031efa1547782489e49b78f47d544e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2095730182836580136, guid: aa031efa1547782489e49b78f47d544e, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 2095730182836580136, guid: aa031efa1547782489e49b78f47d544e, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2095730182836580136, guid: aa031efa1547782489e49b78f47d544e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 2250042258689195358, guid: aa031efa1547782489e49b78f47d544e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2250042258689195358, guid: aa031efa1547782489e49b78f47d544e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 2250042258689195358, guid: aa031efa1547782489e49b78f47d544e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2250042258689195358, guid: aa031efa1547782489e49b78f47d544e, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 2250042258689195358, guid: aa031efa1547782489e49b78f47d544e, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2250042258689195358, guid: aa031efa1547782489e49b78f47d544e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 5733865923746193402, guid: aa031efa1547782489e49b78f47d544e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 146.84
+      objectReference: {fileID: 0}
+    - target: {fileID: 5733865923746193402, guid: aa031efa1547782489e49b78f47d544e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5733865923746193402, guid: aa031efa1547782489e49b78f47d544e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 338.38
+      objectReference: {fileID: 0}
+    - target: {fileID: 5733865923746193402, guid: aa031efa1547782489e49b78f47d544e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5733865923746193402, guid: aa031efa1547782489e49b78f47d544e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5733865923746193402, guid: aa031efa1547782489e49b78f47d544e, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5733865923746193402, guid: aa031efa1547782489e49b78f47d544e, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5733865923746193402, guid: aa031efa1547782489e49b78f47d544e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5733865923746193402, guid: aa031efa1547782489e49b78f47d544e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5733865923746193402, guid: aa031efa1547782489e49b78f47d544e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8555842854715740866, guid: aa031efa1547782489e49b78f47d544e, type: 3}
+      propertyPath: m_Name
+      value: Car
+      objectReference: {fileID: 0}
+    - target: {fileID: 8555842854715740866, guid: aa031efa1547782489e49b78f47d544e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 7817204291298444936, guid: aa031efa1547782489e49b78f47d544e, type: 3}
+    - {fileID: 3226414115550813644, guid: aa031efa1547782489e49b78f47d544e, type: 3}
+    - {fileID: 937535941617448442, guid: aa031efa1547782489e49b78f47d544e, type: 3}
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8555842854715740866, guid: aa031efa1547782489e49b78f47d544e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 748898127}
+    - targetCorrespondingSourceObject: {fileID: 8555842854715740866, guid: aa031efa1547782489e49b78f47d544e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 748898126}
+  m_SourcePrefab: {fileID: 100100000, guid: aa031efa1547782489e49b78f47d544e, type: 3}
+--- !u!1 &748898124 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8555842854715740866, guid: aa031efa1547782489e49b78f47d544e, type: 3}
+  m_PrefabInstance: {fileID: 748898123}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &748898125 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5733865923746193402, guid: aa031efa1547782489e49b78f47d544e, type: 3}
+  m_PrefabInstance: {fileID: 748898123}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &748898126
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 748898124}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c6c2ee3774e41f4a1d6df2f6740f8dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  splineContainer: {fileID: 900985445}
+  loop: 0
+  speed: 10
+  minSpeed: 4
+  startDistance: -2.7897382
+  frontAxisOffset: 2
+  rearAxisOffset: 2
+  rotationSmoothing: 8
+  turnPredictionDistance: 5
+  maxTurnAngle: 45
+  accelerationSmoothing: 4
+--- !u!54 &748898127
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 748898124}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &770301976
 GameObject:
   m_ObjectHideFlags: 0
@@ -9005,6 +10061,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 212125824}
     m_Modifications:
+    - target: {fileID: 937535941617448442, guid: aa031efa1547782489e49b78f47d544e, type: 3}
+      propertyPath: sceneId
+      value: 3030142926
+      objectReference: {fileID: 0}
     - target: {fileID: 5733865923746193402, guid: aa031efa1547782489e49b78f47d544e, type: 3}
       propertyPath: m_LocalPosition.x
       value: -61.079987
@@ -9070,6 +10130,10 @@ PrefabInstance:
     - target: {fileID: 1789992581675772993, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
       propertyPath: m_Name
       value: PatrolCar (6)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1789992581675772993, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2712827138660170322, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
       propertyPath: roadSystem
@@ -9137,6 +10201,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 212125824}
     m_Modifications:
+    - target: {fileID: 937535941617448442, guid: aa031efa1547782489e49b78f47d544e, type: 3}
+      propertyPath: sceneId
+      value: 1130916578
+      objectReference: {fileID: 0}
     - target: {fileID: 5733865923746193402, guid: aa031efa1547782489e49b78f47d544e, type: 3}
       propertyPath: m_LocalPosition.x
       value: -16.899994
@@ -9304,6 +10372,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 212125824}
     m_Modifications:
+    - target: {fileID: 937535941617448442, guid: aa031efa1547782489e49b78f47d544e, type: 3}
+      propertyPath: sceneId
+      value: 383982240
+      objectReference: {fileID: 0}
     - target: {fileID: 5733865923746193402, guid: aa031efa1547782489e49b78f47d544e, type: 3}
       propertyPath: m_LocalPosition.x
       value: -76.17999
@@ -9369,6 +10441,10 @@ PrefabInstance:
     - target: {fileID: 1789992581675772993, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
       propertyPath: m_Name
       value: PatrolCar (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1789992581675772993, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2712827138660170322, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
       propertyPath: roadSystem
@@ -9545,6 +10621,10 @@ GameObject:
   - component: {fileID: 871084148}
   - component: {fileID: 871084147}
   - component: {fileID: 871084146}
+  - component: {fileID: 871084152}
+  - component: {fileID: 871084151}
+  - component: {fileID: 871084150}
+  - component: {fileID: 871084149}
   m_Layer: 0
   m_Name: Tent (45)
   m_TagString: Untagged
@@ -9638,6 +10718,71 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 871084144}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &871084149
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 871084144}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 312ed8d275de4184a483674a55071877, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &871084150
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 871084144}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa42336d8854464439199773dc5f4d09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  OnHit:
+    m_PersistentCalls:
+      m_Calls: []
+  OnMaxHit:
+    m_PersistentCalls:
+      m_Calls: []
+  maxHitPoints: 0
+  isManualInitialization: 0
+--- !u!114 &871084151
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 871084144}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6c75c233ccb480cbeec0d804ee08e08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: aabc90fb-ac63-41bd-8a90-764533551089
+--- !u!114 &871084152
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 871084144}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 3256200353
+  _assetId: 0
+  serverOnly: 0
+  visibility: 0
+  hasSpawned: 0
 --- !u!1 &876599215
 GameObject:
   m_ObjectHideFlags: 0
@@ -9686,6 +10831,10 @@ PrefabInstance:
     - target: {fileID: 1789992581675772993, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
       propertyPath: m_Name
       value: PatrolCar (16)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1789992581675772993, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2712827138660170322, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
       propertyPath: roadSystem
@@ -9967,6 +11116,10 @@ GameObject:
   - component: {fileID: 896688107}
   - component: {fileID: 896688106}
   - component: {fileID: 896688105}
+  - component: {fileID: 896688111}
+  - component: {fileID: 896688110}
+  - component: {fileID: 896688109}
+  - component: {fileID: 896688108}
   m_Layer: 0
   m_Name: Tent (53)
   m_TagString: Untagged
@@ -10060,6 +11213,203 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 896688103}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &896688108
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 896688103}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 312ed8d275de4184a483674a55071877, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &896688109
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 896688103}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa42336d8854464439199773dc5f4d09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  OnHit:
+    m_PersistentCalls:
+      m_Calls: []
+  OnMaxHit:
+    m_PersistentCalls:
+      m_Calls: []
+  maxHitPoints: 0
+  isManualInitialization: 0
+--- !u!114 &896688110
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 896688103}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6c75c233ccb480cbeec0d804ee08e08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: c3f23365-f567-453c-a481-eb29b426b410
+--- !u!114 &896688111
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 896688103}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 2765457625
+  _assetId: 0
+  serverOnly: 0
+  visibility: 0
+  hasSpawned: 0
+--- !u!1 &900985443
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 900985444}
+  - component: {fileID: 900985445}
+  m_Layer: 0
+  m_Name: Spline
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &900985444
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 900985443}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 133.84, y: 0, z: 349.84}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1921100741}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &900985445
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 900985443}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dab5c7d4c32e743048dfca98e2d5914f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Spline:
+    m_EditModeType: 1
+    m_Knots: []
+    m_MetaData: []
+    m_Closed: 0
+    m_IntData:
+      m_Data: []
+    m_FloatData:
+      m_Data: []
+    m_Float4Data:
+      m_Data: []
+    m_ObjectData:
+      m_Data: []
+  m_Splines:
+  - m_EditModeType: 1
+    m_Knots:
+    - Position:
+        x: 13
+        y: 0
+        z: -11.459991
+      TangentIn:
+        x: 0
+        y: 0
+        z: 0
+      TangentOut:
+        x: 0
+        y: 0
+        z: 0
+      Rotation:
+        value:
+          x: 0
+          y: 1
+          z: 0
+          w: -0.00000004371139
+    - Position:
+        x: 13
+        y: 0
+        z: 14
+      TangentIn:
+        x: 0
+        y: 0
+        z: 0
+      TangentOut:
+        x: 0
+        y: 0
+        z: 0
+      Rotation:
+        value:
+          x: 0
+          y: 0.38268352
+          z: 0
+          w: 0.9238796
+    - Position:
+        x: 148.36002
+        y: 0
+        z: 13.959991
+      TangentIn:
+        x: -0
+        y: -0
+        z: -13.536003
+      TangentOut:
+        x: 0
+        y: 0
+        z: 13.536003
+      Rotation:
+        value:
+          x: 0
+          y: 0.7072113
+          z: 0
+          w: 0.7070023
+    m_MetaData:
+    - Mode: 1
+      Tension: 0.5
+    - Mode: 1
+      Tension: 0.5
+    - Mode: 0
+      Tension: 0.5
+    m_Closed: 0
+    m_IntData:
+      m_Data: []
+    m_FloatData:
+      m_Data: []
+    m_Float4Data:
+      m_Data: []
+    m_ObjectData:
+      m_Data: []
+  m_Knots:
+    m_KnotsLink: []
 --- !u!1001 &911942459
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10068,6 +11418,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 212125824}
     m_Modifications:
+    - target: {fileID: 937535941617448442, guid: aa031efa1547782489e49b78f47d544e, type: 3}
+      propertyPath: sceneId
+      value: 538506864
+      objectReference: {fileID: 0}
     - target: {fileID: 5733865923746193402, guid: aa031efa1547782489e49b78f47d544e, type: 3}
       propertyPath: m_LocalPosition.x
       value: -75.97998
@@ -10130,6 +11484,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 212125824}
     m_Modifications:
+    - target: {fileID: 937535941617448442, guid: aa031efa1547782489e49b78f47d544e, type: 3}
+      propertyPath: sceneId
+      value: 1072052055
+      objectReference: {fileID: 0}
     - target: {fileID: 5733865923746193402, guid: aa031efa1547782489e49b78f47d544e, type: 3}
       propertyPath: m_LocalPosition.x
       value: -16.679993
@@ -10301,6 +11659,10 @@ GameObject:
   - component: {fileID: 932432200}
   - component: {fileID: 932432199}
   - component: {fileID: 932432198}
+  - component: {fileID: 932432205}
+  - component: {fileID: 932432204}
+  - component: {fileID: 932432203}
+  - component: {fileID: 932432202}
   m_Layer: 0
   m_Name: Tent (37)
   m_TagString: Untagged
@@ -10388,12 +11750,90 @@ Transform:
   m_GameObject: {fileID: 932432197}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 59.210037, y: -5.5, z: 328.63}
+  m_LocalPosition: {x: 100.21004, y: 1.5, z: 387.63}
   m_LocalScale: {x: 5, y: 3, z: 6}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1787200008}
+  m_Father: {fileID: 1921100741}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &932432202
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 932432197}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 312ed8d275de4184a483674a55071877, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &932432203
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 932432197}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa42336d8854464439199773dc5f4d09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  OnHit:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 932432202}
+        m_TargetAssemblyTypeName: Gameplay.Interactable.BallInteraction.BallReaction.TransformShake,
+          Boxes
+        m_MethodName: Shake
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnMaxHit:
+    m_PersistentCalls:
+      m_Calls: []
+  maxHitPoints: 0
+  isManualInitialization: 1
+--- !u!114 &932432204
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 932432197}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6c75c233ccb480cbeec0d804ee08e08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: e44154c8-821d-42ed-8315-7dc2e4291e83
+--- !u!114 &932432205
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 932432197}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 1350214663
+  _assetId: 0
+  serverOnly: 0
+  visibility: 0
+  hasSpawned: 0
 --- !u!1 &936674874
 GameObject:
   m_ObjectHideFlags: 0
@@ -10406,6 +11846,10 @@ GameObject:
   - component: {fileID: 936674877}
   - component: {fileID: 936674876}
   - component: {fileID: 936674875}
+  - component: {fileID: 936674882}
+  - component: {fileID: 936674881}
+  - component: {fileID: 936674880}
+  - component: {fileID: 936674879}
   m_Layer: 0
   m_Name: Tent (36)
   m_TagString: Untagged
@@ -10499,6 +11943,71 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1787200008}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &936674879
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 936674874}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 312ed8d275de4184a483674a55071877, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &936674880
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 936674874}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa42336d8854464439199773dc5f4d09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  OnHit:
+    m_PersistentCalls:
+      m_Calls: []
+  OnMaxHit:
+    m_PersistentCalls:
+      m_Calls: []
+  maxHitPoints: 0
+  isManualInitialization: 0
+--- !u!114 &936674881
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 936674874}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6c75c233ccb480cbeec0d804ee08e08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: 44809f73-d0d3-4ad2-9824-af4b32a630b4
+--- !u!114 &936674882
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 936674874}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 1232675113
+  _assetId: 0
+  serverOnly: 0
+  visibility: 0
+  hasSpawned: 0
 --- !u!1 &948079742
 GameObject:
   m_ObjectHideFlags: 0
@@ -10828,6 +12337,10 @@ GameObject:
   - component: {fileID: 954310113}
   - component: {fileID: 954310112}
   - component: {fileID: 954310111}
+  - component: {fileID: 954310117}
+  - component: {fileID: 954310116}
+  - component: {fileID: 954310115}
+  - component: {fileID: 954310114}
   m_Layer: 0
   m_Name: Tent (44)
   m_TagString: Untagged
@@ -10921,6 +12434,71 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 954310109}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &954310114
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 954310109}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 312ed8d275de4184a483674a55071877, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &954310115
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 954310109}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa42336d8854464439199773dc5f4d09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  OnHit:
+    m_PersistentCalls:
+      m_Calls: []
+  OnMaxHit:
+    m_PersistentCalls:
+      m_Calls: []
+  maxHitPoints: 0
+  isManualInitialization: 0
+--- !u!114 &954310116
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 954310109}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6c75c233ccb480cbeec0d804ee08e08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: fefaf517-65df-4579-b395-14e738d26ed8
+--- !u!114 &954310117
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 954310109}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 1674368943
+  _assetId: 0
+  serverOnly: 0
+  visibility: 0
+  hasSpawned: 0
 --- !u!1 &994667100
 GameObject:
   m_ObjectHideFlags: 0
@@ -11037,6 +12615,10 @@ PrefabInstance:
     - target: {fileID: 1789992581675772993, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
       propertyPath: m_Name
       value: PatrolCar (13)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1789992581675772993, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2712827138660170322, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
       propertyPath: roadSystem
@@ -11831,6 +13413,79 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1061998052}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1067549765
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1067549766}
+  - component: {fileID: 1067549768}
+  - component: {fileID: 1067549767}
+  m_Layer: 0
+  m_Name: CarStopEvent
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1067549766
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1067549765}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1921100741}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1067549767
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1067549765}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be92583f5f4e48c986623e883fd370cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnRaised:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 748898126}
+        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &1067549768
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1067549765}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6c75c233ccb480cbeec0d804ee08e08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: e0796011-26d2-4665-85bd-e698c2e001d0
 --- !u!1001 &1067944955
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11842,6 +13497,10 @@ PrefabInstance:
     - target: {fileID: 1789992581675772993, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
       propertyPath: m_Name
       value: PatrolCar (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1789992581675772993, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2712827138660170322, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
       propertyPath: roadSystem
@@ -12162,6 +13821,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PatrolCar (18)
       objectReference: {fileID: 0}
+    - target: {fileID: 1789992581675772993, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2712827138660170322, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
       propertyPath: roadSystem
       value: 
@@ -12333,6 +13996,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 212125824}
     m_Modifications:
+    - target: {fileID: 937535941617448442, guid: aa031efa1547782489e49b78f47d544e, type: 3}
+      propertyPath: sceneId
+      value: 1798568207
+      objectReference: {fileID: 0}
     - target: {fileID: 5733865923746193402, guid: aa031efa1547782489e49b78f47d544e, type: 3}
       propertyPath: m_LocalPosition.x
       value: -61.179993
@@ -13345,6 +15012,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PatrolCar (8)
       objectReference: {fileID: 0}
+    - target: {fileID: 1789992581675772993, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2712827138660170322, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
       propertyPath: roadSystem
       value: 
@@ -13411,6 +15082,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 212125824}
     m_Modifications:
+    - target: {fileID: 937535941617448442, guid: aa031efa1547782489e49b78f47d544e, type: 3}
+      propertyPath: sceneId
+      value: 1283609645
+      objectReference: {fileID: 0}
     - target: {fileID: 5733865923746193402, guid: aa031efa1547782489e49b78f47d544e, type: 3}
       propertyPath: m_LocalPosition.x
       value: -75.879974
@@ -13477,6 +15152,10 @@ GameObject:
   - component: {fileID: 1229023870}
   - component: {fileID: 1229023869}
   - component: {fileID: 1229023868}
+  - component: {fileID: 1229023874}
+  - component: {fileID: 1229023873}
+  - component: {fileID: 1229023872}
+  - component: {fileID: 1229023871}
   m_Layer: 0
   m_Name: Tent (32)
   m_TagString: Untagged
@@ -13570,6 +15249,71 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1229023866}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1229023871
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1229023866}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 312ed8d275de4184a483674a55071877, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1229023872
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1229023866}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa42336d8854464439199773dc5f4d09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  OnHit:
+    m_PersistentCalls:
+      m_Calls: []
+  OnMaxHit:
+    m_PersistentCalls:
+      m_Calls: []
+  maxHitPoints: 0
+  isManualInitialization: 0
+--- !u!114 &1229023873
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1229023866}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6c75c233ccb480cbeec0d804ee08e08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: f5997182-4966-4f6d-8589-42806da1ff54
+--- !u!114 &1229023874
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1229023866}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 2976233834
+  _assetId: 0
+  serverOnly: 0
+  visibility: 0
+  hasSpawned: 0
 --- !u!1 &1230618862
 GameObject:
   m_ObjectHideFlags: 0
@@ -13582,6 +15326,10 @@ GameObject:
   - component: {fileID: 1230618865}
   - component: {fileID: 1230618864}
   - component: {fileID: 1230618863}
+  - component: {fileID: 1230618870}
+  - component: {fileID: 1230618869}
+  - component: {fileID: 1230618868}
+  - component: {fileID: 1230618867}
   m_Layer: 0
   m_Name: Tent (31)
   m_TagString: Untagged
@@ -13669,12 +15417,90 @@ Transform:
   m_GameObject: {fileID: 1230618862}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 72.59999, y: -5, z: 328.63}
+  m_LocalPosition: {x: 113.59999, y: 2, z: 387.63}
   m_LocalScale: {x: 5, y: 4, z: 5}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1787200008}
+  m_Father: {fileID: 1921100741}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1230618867
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1230618862}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 312ed8d275de4184a483674a55071877, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1230618868
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1230618862}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa42336d8854464439199773dc5f4d09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  OnHit:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1230618867}
+        m_TargetAssemblyTypeName: Gameplay.Interactable.BallInteraction.BallReaction.TransformShake,
+          Boxes
+        m_MethodName: Shake
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnMaxHit:
+    m_PersistentCalls:
+      m_Calls: []
+  maxHitPoints: 0
+  isManualInitialization: 1
+--- !u!114 &1230618869
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1230618862}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6c75c233ccb480cbeec0d804ee08e08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: e3c98aaa-497a-4cd8-a2dd-9f266ce6dcc6
+--- !u!114 &1230618870
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1230618862}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 4079987173
+  _assetId: 0
+  serverOnly: 0
+  visibility: 0
+  hasSpawned: 0
 --- !u!1 &1253845938
 GameObject:
   m_ObjectHideFlags: 0
@@ -13687,6 +15513,10 @@ GameObject:
   - component: {fileID: 1253845942}
   - component: {fileID: 1253845941}
   - component: {fileID: 1253845940}
+  - component: {fileID: 1253845946}
+  - component: {fileID: 1253845945}
+  - component: {fileID: 1253845944}
+  - component: {fileID: 1253845943}
   m_Layer: 0
   m_Name: Tent (34)
   m_TagString: Untagged
@@ -13780,6 +15610,71 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1253845938}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1253845943
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1253845938}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 312ed8d275de4184a483674a55071877, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1253845944
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1253845938}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa42336d8854464439199773dc5f4d09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  OnHit:
+    m_PersistentCalls:
+      m_Calls: []
+  OnMaxHit:
+    m_PersistentCalls:
+      m_Calls: []
+  maxHitPoints: 0
+  isManualInitialization: 0
+--- !u!114 &1253845945
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1253845938}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6c75c233ccb480cbeec0d804ee08e08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: 675be944-7098-4745-9034-690bb9a62beb
+--- !u!114 &1253845946
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1253845938}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 1943460624
+  _assetId: 0
+  serverOnly: 0
+  visibility: 0
+  hasSpawned: 0
 --- !u!1001 &1255269241
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13791,6 +15686,10 @@ PrefabInstance:
     - target: {fileID: 1789992581675772993, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
       propertyPath: m_Name
       value: PatrolCar (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1789992581675772993, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2712827138660170322, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
       propertyPath: roadSystem
@@ -14173,6 +16072,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 212125824}
     m_Modifications:
+    - target: {fileID: 937535941617448442, guid: aa031efa1547782489e49b78f47d544e, type: 3}
+      propertyPath: sceneId
+      value: 2956162023
+      objectReference: {fileID: 0}
     - target: {fileID: 5733865923746193402, guid: aa031efa1547782489e49b78f47d544e, type: 3}
       propertyPath: m_LocalPosition.x
       value: -75.51999
@@ -14554,6 +16457,10 @@ GameObject:
   - component: {fileID: 1319771172}
   - component: {fileID: 1319771171}
   - component: {fileID: 1319771170}
+  - component: {fileID: 1319771176}
+  - component: {fileID: 1319771175}
+  - component: {fileID: 1319771174}
+  - component: {fileID: 1319771173}
   m_Layer: 0
   m_Name: Tent (35)
   m_TagString: Untagged
@@ -14647,6 +16554,71 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1319771168}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1319771173
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1319771168}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 312ed8d275de4184a483674a55071877, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1319771174
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1319771168}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa42336d8854464439199773dc5f4d09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  OnHit:
+    m_PersistentCalls:
+      m_Calls: []
+  OnMaxHit:
+    m_PersistentCalls:
+      m_Calls: []
+  maxHitPoints: 0
+  isManualInitialization: 0
+--- !u!114 &1319771175
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1319771168}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6c75c233ccb480cbeec0d804ee08e08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: 4010f62d-d8f8-49cf-a96f-2f547bb4f6a0
+--- !u!114 &1319771176
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1319771168}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 1658965782
+  _assetId: 0
+  serverOnly: 0
+  visibility: 0
+  hasSpawned: 0
 --- !u!1 &1327325598
 GameObject:
   m_ObjectHideFlags: 0
@@ -14659,6 +16631,10 @@ GameObject:
   - component: {fileID: 1327325602}
   - component: {fileID: 1327325601}
   - component: {fileID: 1327325600}
+  - component: {fileID: 1327325606}
+  - component: {fileID: 1327325605}
+  - component: {fileID: 1327325604}
+  - component: {fileID: 1327325603}
   m_Layer: 0
   m_Name: Tent (52)
   m_TagString: Untagged
@@ -14752,6 +16728,71 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1327325598}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1327325603
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1327325598}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 312ed8d275de4184a483674a55071877, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1327325604
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1327325598}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa42336d8854464439199773dc5f4d09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  OnHit:
+    m_PersistentCalls:
+      m_Calls: []
+  OnMaxHit:
+    m_PersistentCalls:
+      m_Calls: []
+  maxHitPoints: 0
+  isManualInitialization: 0
+--- !u!114 &1327325605
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1327325598}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6c75c233ccb480cbeec0d804ee08e08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: 8ebe042d-30a8-421a-8189-4b2a7273f90c
+--- !u!114 &1327325606
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1327325598}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 3509970007
+  _assetId: 0
+  serverOnly: 0
+  visibility: 0
+  hasSpawned: 0
 --- !u!1001 &1328773528
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14763,6 +16804,10 @@ PrefabInstance:
     - target: {fileID: 1789992581675772993, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
       propertyPath: m_Name
       value: PatrolCar (11)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1789992581675772993, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2712827138660170322, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
       propertyPath: roadSystem
@@ -14830,6 +16875,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 212125824}
     m_Modifications:
+    - target: {fileID: 937535941617448442, guid: aa031efa1547782489e49b78f47d544e, type: 3}
+      propertyPath: sceneId
+      value: 3619975527
+      objectReference: {fileID: 0}
     - target: {fileID: 5733865923746193402, guid: aa031efa1547782489e49b78f47d544e, type: 3}
       propertyPath: m_LocalPosition.x
       value: -60.652527
@@ -16539,6 +18588,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 212125824}
     m_Modifications:
+    - target: {fileID: 937535941617448442, guid: aa031efa1547782489e49b78f47d544e, type: 3}
+      propertyPath: sceneId
+      value: 1017293278
+      objectReference: {fileID: 0}
     - target: {fileID: 5733865923746193402, guid: aa031efa1547782489e49b78f47d544e, type: 3}
       propertyPath: m_LocalPosition.x
       value: -60.47998
@@ -16902,6 +18955,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 212125824}
     m_Modifications:
+    - target: {fileID: 937535941617448442, guid: aa031efa1547782489e49b78f47d544e, type: 3}
+      propertyPath: sceneId
+      value: 3451432417
+      objectReference: {fileID: 0}
     - target: {fileID: 5733865923746193402, guid: aa031efa1547782489e49b78f47d544e, type: 3}
       propertyPath: m_LocalPosition.x
       value: -31.90744
@@ -17069,6 +19126,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 212125824}
     m_Modifications:
+    - target: {fileID: 937535941617448442, guid: aa031efa1547782489e49b78f47d544e, type: 3}
+      propertyPath: sceneId
+      value: 2205434453
+      objectReference: {fileID: 0}
     - target: {fileID: 5733865923746193402, guid: aa031efa1547782489e49b78f47d544e, type: 3}
       propertyPath: m_LocalPosition.x
       value: -75.07999
@@ -17131,6 +19192,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 212125824}
     m_Modifications:
+    - target: {fileID: 937535941617448442, guid: aa031efa1547782489e49b78f47d544e, type: 3}
+      propertyPath: sceneId
+      value: 233523316
+      objectReference: {fileID: 0}
     - target: {fileID: 5733865923746193402, guid: aa031efa1547782489e49b78f47d544e, type: 3}
       propertyPath: m_LocalPosition.x
       value: -75.879974
@@ -17298,6 +19363,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 212125824}
     m_Modifications:
+    - target: {fileID: 937535941617448442, guid: aa031efa1547782489e49b78f47d544e, type: 3}
+      propertyPath: sceneId
+      value: 1525711357
+      objectReference: {fileID: 0}
     - target: {fileID: 5733865923746193402, guid: aa031efa1547782489e49b78f47d544e, type: 3}
       propertyPath: m_LocalPosition.x
       value: -75.807434
@@ -17465,6 +19534,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 212125824}
     m_Modifications:
+    - target: {fileID: 937535941617448442, guid: aa031efa1547782489e49b78f47d544e, type: 3}
+      propertyPath: sceneId
+      value: 1761145402
+      objectReference: {fileID: 0}
     - target: {fileID: 5733865923746193402, guid: aa031efa1547782489e49b78f47d544e, type: 3}
       propertyPath: m_LocalPosition.x
       value: -16.579987
@@ -17561,6 +19634,10 @@ PrefabInstance:
     - target: {fileID: 1789992581675772993, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
       propertyPath: m_Name
       value: PatrolCar (20)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1789992581675772993, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2712827138660170322, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
       propertyPath: roadSystem
@@ -17733,6 +19810,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 212125824}
     m_Modifications:
+    - target: {fileID: 937535941617448442, guid: aa031efa1547782489e49b78f47d544e, type: 3}
+      propertyPath: sceneId
+      value: 4045048118
+      objectReference: {fileID: 0}
     - target: {fileID: 5733865923746193402, guid: aa031efa1547782489e49b78f47d544e, type: 3}
       propertyPath: m_LocalPosition.x
       value: -31.419983
@@ -17900,6 +19981,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 212125824}
     m_Modifications:
+    - target: {fileID: 937535941617448442, guid: aa031efa1547782489e49b78f47d544e, type: 3}
+      propertyPath: sceneId
+      value: 689194185
+      objectReference: {fileID: 0}
     - target: {fileID: 5733865923746193402, guid: aa031efa1547782489e49b78f47d544e, type: 3}
       propertyPath: m_LocalPosition.x
       value: -16.279999
@@ -18102,6 +20187,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PatrolCar (12)
       objectReference: {fileID: 0}
+    - target: {fileID: 1789992581675772993, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2712827138660170322, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
       propertyPath: roadSystem
       value: 
@@ -18172,6 +20261,10 @@ GameObject:
   - component: {fileID: 1521449178}
   - component: {fileID: 1521449177}
   - component: {fileID: 1521449176}
+  - component: {fileID: 1521449183}
+  - component: {fileID: 1521449182}
+  - component: {fileID: 1521449181}
+  - component: {fileID: 1521449180}
   m_Layer: 0
   m_Name: Tent (39)
   m_TagString: Untagged
@@ -18259,12 +20352,90 @@ Transform:
   m_GameObject: {fileID: 1521449175}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 72.59999, y: -5, z: 340.23}
+  m_LocalPosition: {x: 113.59999, y: 2, z: 399.23}
   m_LocalScale: {x: 6, y: 4, z: 5}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1787200008}
+  m_Father: {fileID: 1921100741}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1521449180
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1521449175}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 312ed8d275de4184a483674a55071877, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1521449181
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1521449175}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa42336d8854464439199773dc5f4d09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  OnHit:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1521449180}
+        m_TargetAssemblyTypeName: Gameplay.Interactable.BallInteraction.BallReaction.TransformShake,
+          Boxes
+        m_MethodName: Shake
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnMaxHit:
+    m_PersistentCalls:
+      m_Calls: []
+  maxHitPoints: 0
+  isManualInitialization: 1
+--- !u!114 &1521449182
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1521449175}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6c75c233ccb480cbeec0d804ee08e08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: db6f79fb-4439-4d5d-9165-3ddc00b18253
+--- !u!114 &1521449183
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1521449175}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 2874132611
+  _assetId: 0
+  serverOnly: 0
+  visibility: 0
+  hasSpawned: 0
 --- !u!1 &1523963314
 GameObject:
   m_ObjectHideFlags: 0
@@ -18378,6 +20549,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 212125824}
     m_Modifications:
+    - target: {fileID: 937535941617448442, guid: aa031efa1547782489e49b78f47d544e, type: 3}
+      propertyPath: sceneId
+      value: 3529938477
+      objectReference: {fileID: 0}
     - target: {fileID: 5733865923746193402, guid: aa031efa1547782489e49b78f47d544e, type: 3}
       propertyPath: m_LocalPosition.x
       value: -16.779999
@@ -18764,6 +20939,10 @@ GameObject:
   - component: {fileID: 1611333032}
   - component: {fileID: 1611333031}
   - component: {fileID: 1611333030}
+  - component: {fileID: 1611333036}
+  - component: {fileID: 1611333035}
+  - component: {fileID: 1611333034}
+  - component: {fileID: 1611333033}
   m_Layer: 0
   m_Name: Tent (54)
   m_TagString: Untagged
@@ -18780,11 +20959,11 @@ Transform:
   m_GameObject: {fileID: 1611333028}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 58.59999, y: -5.2, z: 340.73004}
+  m_LocalPosition: {x: 99.59999, y: 1.8000002, z: 399.73004}
   m_LocalScale: {x: 7, y: 3.6, z: 6}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1787200008}
+  m_Father: {fileID: 1921100741}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &1611333030
 BoxCollider:
@@ -18857,6 +21036,84 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1611333028}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1611333033
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1611333028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 312ed8d275de4184a483674a55071877, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1611333034
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1611333028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa42336d8854464439199773dc5f4d09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  OnHit:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1611333033}
+        m_TargetAssemblyTypeName: Gameplay.Interactable.BallInteraction.BallReaction.TransformShake,
+          Boxes
+        m_MethodName: Shake
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnMaxHit:
+    m_PersistentCalls:
+      m_Calls: []
+  maxHitPoints: 0
+  isManualInitialization: 1
+--- !u!114 &1611333035
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1611333028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6c75c233ccb480cbeec0d804ee08e08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: bc51af1a-6caa-49db-9a73-6bb302b79a2e
+--- !u!114 &1611333036
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1611333028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 2893635432
+  _assetId: 0
+  serverOnly: 0
+  visibility: 0
+  hasSpawned: 0
 --- !u!1 &1618938862
 GameObject:
   m_ObjectHideFlags: 0
@@ -18974,6 +21231,10 @@ GameObject:
   - component: {fileID: 1621750116}
   - component: {fileID: 1621750115}
   - component: {fileID: 1621750114}
+  - component: {fileID: 1621750121}
+  - component: {fileID: 1621750120}
+  - component: {fileID: 1621750119}
+  - component: {fileID: 1621750118}
   m_Layer: 0
   m_Name: Tent (30)
   m_TagString: Untagged
@@ -19061,12 +21322,90 @@ Transform:
   m_GameObject: {fileID: 1621750113}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 85.58992, y: -5.2, z: 340.33002}
+  m_LocalPosition: {x: 126.58992, y: 1.8000002, z: 399.33002}
   m_LocalScale: {x: 7, y: 3.6, z: 6}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1787200008}
+  m_Father: {fileID: 1921100741}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1621750118
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1621750113}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 312ed8d275de4184a483674a55071877, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1621750119
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1621750113}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa42336d8854464439199773dc5f4d09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  OnHit:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1621750118}
+        m_TargetAssemblyTypeName: Gameplay.Interactable.BallInteraction.BallReaction.TransformShake,
+          Boxes
+        m_MethodName: Shake
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnMaxHit:
+    m_PersistentCalls:
+      m_Calls: []
+  maxHitPoints: 0
+  isManualInitialization: 1
+--- !u!114 &1621750120
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1621750113}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6c75c233ccb480cbeec0d804ee08e08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: 0205337f-7b52-497c-8aa3-6cec3d8c1fa8
+--- !u!114 &1621750121
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1621750113}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 984631577
+  _assetId: 0
+  serverOnly: 0
+  visibility: 0
+  hasSpawned: 0
 --- !u!1 &1624021480
 GameObject:
   m_ObjectHideFlags: 0
@@ -19289,6 +21628,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PatrolCar (22)
       objectReference: {fileID: 0}
+    - target: {fileID: 1789992581675772993, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2712827138660170322, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
       propertyPath: roadSystem
       value: 
@@ -19358,6 +21701,10 @@ PrefabInstance:
     - target: {fileID: 1789992581675772993, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
       propertyPath: m_Name
       value: PatrolCar (10)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1789992581675772993, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2712827138660170322, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
       propertyPath: roadSystem
@@ -20037,6 +22384,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PatrolCar (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 1789992581675772993, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2712827138660170322, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
       propertyPath: roadSystem
       value: 
@@ -20107,6 +22458,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PatrolCar (30)
       objectReference: {fileID: 0}
+    - target: {fileID: 1789992581675772993, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2712827138660170322, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
       propertyPath: roadSystem
       value: 
@@ -20173,6 +22528,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 212125824}
     m_Modifications:
+    - target: {fileID: 937535941617448442, guid: aa031efa1547782489e49b78f47d544e, type: 3}
+      propertyPath: sceneId
+      value: 1357077353
+      objectReference: {fileID: 0}
     - target: {fileID: 5733865923746193402, guid: aa031efa1547782489e49b78f47d544e, type: 3}
       propertyPath: m_LocalPosition.x
       value: -60.47998
@@ -20445,6 +22804,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 212125824}
     m_Modifications:
+    - target: {fileID: 937535941617448442, guid: aa031efa1547782489e49b78f47d544e, type: 3}
+      propertyPath: sceneId
+      value: 826398479
+      objectReference: {fileID: 0}
     - target: {fileID: 5733865923746193402, guid: aa031efa1547782489e49b78f47d544e, type: 3}
       propertyPath: m_LocalPosition.x
       value: -16.779999
@@ -21829,10 +24192,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1621750117}
-  - {fileID: 1230618866}
-  - {fileID: 1521449179}
-  - {fileID: 470688572}
   - {fileID: 1229023867}
   - {fileID: 195837075}
   - {fileID: 1253845939}
@@ -21845,11 +24204,9 @@ Transform:
   - {fileID: 1811462525}
   - {fileID: 491009091}
   - {fileID: 954310110}
-  - {fileID: 932432201}
   - {fileID: 936674878}
   - {fileID: 1327325599}
   - {fileID: 896688104}
-  - {fileID: 1611333029}
   - {fileID: 1502035890}
   - {fileID: 675206117}
   - {fileID: 1874673629}
@@ -21885,6 +24242,10 @@ PrefabInstance:
     - target: {fileID: 1789992581675772993, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
       propertyPath: m_Name
       value: PatrolCar (26)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1789992581675772993, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2712827138660170322, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
       propertyPath: roadSystem
@@ -21956,6 +24317,10 @@ GameObject:
   - component: {fileID: 1811462528}
   - component: {fileID: 1811462527}
   - component: {fileID: 1811462526}
+  - component: {fileID: 1811462532}
+  - component: {fileID: 1811462531}
+  - component: {fileID: 1811462530}
+  - component: {fileID: 1811462529}
   m_Layer: 0
   m_Name: Tent (47)
   m_TagString: Untagged
@@ -22049,6 +24414,71 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1811462524}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1811462529
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1811462524}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 312ed8d275de4184a483674a55071877, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1811462530
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1811462524}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa42336d8854464439199773dc5f4d09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  OnHit:
+    m_PersistentCalls:
+      m_Calls: []
+  OnMaxHit:
+    m_PersistentCalls:
+      m_Calls: []
+  maxHitPoints: 0
+  isManualInitialization: 0
+--- !u!114 &1811462531
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1811462524}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6c75c233ccb480cbeec0d804ee08e08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: 5a3927d2-0610-4a1c-87d1-0c48a1beea3a
+--- !u!114 &1811462532
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1811462524}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 3548249539
+  _assetId: 0
+  serverOnly: 0
+  visibility: 0
+  hasSpawned: 0
 --- !u!1001 &1814010904
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -22623,6 +25053,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PatrolCar (21)
       objectReference: {fileID: 0}
+    - target: {fileID: 1789992581675772993, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2712827138660170322, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
       propertyPath: roadSystem
       value: 
@@ -22689,6 +25123,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 212125824}
     m_Modifications:
+    - target: {fileID: 937535941617448442, guid: aa031efa1547782489e49b78f47d544e, type: 3}
+      propertyPath: sceneId
+      value: 678138370
+      objectReference: {fileID: 0}
     - target: {fileID: 5733865923746193402, guid: aa031efa1547782489e49b78f47d544e, type: 3}
       propertyPath: m_LocalPosition.x
       value: -32.079987
@@ -23058,6 +25496,67 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1787200008}
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+--- !u!1 &1921100740
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1921100741}
+  - component: {fileID: 1921100742}
+  m_Layer: 0
+  m_Name: 7.DestroyMarket
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1921100741
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1921100740}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 191835787}
+  - {fileID: 748898125}
+  - {fileID: 560328752}
+  - {fileID: 1067549766}
+  - {fileID: 160301857}
+  - {fileID: 900985444}
+  - {fileID: 47415592}
+  - {fileID: 1621750117}
+  - {fileID: 1230618866}
+  - {fileID: 1521449179}
+  - {fileID: 470688572}
+  - {fileID: 932432201}
+  - {fileID: 1611333029}
+  m_Father: {fileID: 188354720}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1921100742
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1921100740}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 013ecfd5a32bae345bb0572b40cf7fdf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnQuestIsActiveChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  quest: {fileID: 11400000, guid: 0c64c6508b518d548ae5b16313feff7f, type: 2}
 --- !u!1 &1932988674
 GameObject:
   m_ObjectHideFlags: 0
@@ -23171,6 +25670,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 212125824}
     m_Modifications:
+    - target: {fileID: 937535941617448442, guid: aa031efa1547782489e49b78f47d544e, type: 3}
+      propertyPath: sceneId
+      value: 1222603120
+      objectReference: {fileID: 0}
     - target: {fileID: 5733865923746193402, guid: aa031efa1547782489e49b78f47d544e, type: 3}
       propertyPath: m_LocalPosition.x
       value: -76.00745
@@ -23233,6 +25736,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 212125824}
     m_Modifications:
+    - target: {fileID: 937535941617448442, guid: aa031efa1547782489e49b78f47d544e, type: 3}
+      propertyPath: sceneId
+      value: 405162073
+      objectReference: {fileID: 0}
     - target: {fileID: 5733865923746193402, guid: aa031efa1547782489e49b78f47d544e, type: 3}
       propertyPath: m_LocalPosition.x
       value: -16.579987
@@ -23295,6 +25802,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 212125824}
     m_Modifications:
+    - target: {fileID: 937535941617448442, guid: aa031efa1547782489e49b78f47d544e, type: 3}
+      propertyPath: sceneId
+      value: 956772629
+      objectReference: {fileID: 0}
     - target: {fileID: 5733865923746193402, guid: aa031efa1547782489e49b78f47d544e, type: 3}
       propertyPath: m_LocalPosition.x
       value: -60.47998
@@ -23360,6 +25871,10 @@ PrefabInstance:
     - target: {fileID: 1789992581675772993, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
       propertyPath: m_Name
       value: PatrolCar (15)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1789992581675772993, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2712827138660170322, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
       propertyPath: roadSystem
@@ -26275,6 +28790,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 212125824}
     m_Modifications:
+    - target: {fileID: 937535941617448442, guid: aa031efa1547782489e49b78f47d544e, type: 3}
+      propertyPath: sceneId
+      value: 24685502
+      objectReference: {fileID: 0}
     - target: {fileID: 5733865923746193402, guid: aa031efa1547782489e49b78f47d544e, type: 3}
       propertyPath: m_LocalPosition.x
       value: -32
@@ -27445,6 +29964,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PatrolCar (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 1789992581675772993, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2712827138660170322, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
       propertyPath: roadSystem
       value: 
@@ -27506,6 +30029,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 212125824}
     m_Modifications:
+    - target: {fileID: 937535941617448442, guid: aa031efa1547782489e49b78f47d544e, type: 3}
+      propertyPath: sceneId
+      value: 40730784
+      objectReference: {fileID: 0}
     - target: {fileID: 5733865923746193402, guid: aa031efa1547782489e49b78f47d544e, type: 3}
       propertyPath: m_LocalPosition.x
       value: -16.752533
@@ -27584,10 +30111,6 @@ PrefabInstance:
       propertyPath: sceneId
       value: 847499458
       objectReference: {fileID: 0}
-    - target: {fileID: 3896519103395117175, guid: 2122c912d1aa4164fad3a19ecdc2d7dd, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 5342181452690401804, guid: 2122c912d1aa4164fad3a19ecdc2d7dd, type: 3}
       propertyPath: sceneId
       value: 4138525692
@@ -27632,10 +30155,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6546285470294047084, guid: 2122c912d1aa4164fad3a19ecdc2d7dd, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 6824804321173167710, guid: 2122c912d1aa4164fad3a19ecdc2d7dd, type: 3}
       propertyPath: m_Name
       value: 6.GetMarketDocs
@@ -27678,37 +30197,13 @@ PrefabInstance:
       value: 5.DigTheCarpet
       objectReference: {fileID: 0}
     - target: {fileID: 5082491481355829428, guid: 9a990c30136227b408b675c52b4f7dd3, type: 3}
-      propertyPath: OnRaised.m_PersistentCalls.m_Calls.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 5082491481355829428, guid: 9a990c30136227b408b675c52b4f7dd3, type: 3}
-      propertyPath: OnRaised.m_PersistentCalls.m_Calls.Array.data[2].m_Mode
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 5082491481355829428, guid: 9a990c30136227b408b675c52b4f7dd3, type: 3}
       propertyPath: OnRaised.m_PersistentCalls.m_Calls.Array.data[2].m_Target
       value: 
       objectReference: {fileID: 2015509948}
     - target: {fileID: 5082491481355829428, guid: 9a990c30136227b408b675c52b4f7dd3, type: 3}
-      propertyPath: OnRaised.m_PersistentCalls.m_Calls.Array.data[2].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5082491481355829428, guid: 9a990c30136227b408b675c52b4f7dd3, type: 3}
-      propertyPath: OnRaised.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
-      value: SetPatrolActive
-      objectReference: {fileID: 0}
-    - target: {fileID: 5082491481355829428, guid: 9a990c30136227b408b675c52b4f7dd3, type: 3}
-      propertyPath: OnRaised.m_PersistentCalls.m_Calls.Array.data[2].m_TargetAssemblyTypeName
-      value: Gameplay.RoadSystem.PatrolSystem, Boxes
-      objectReference: {fileID: 0}
-    - target: {fileID: 5082491481355829428, guid: 9a990c30136227b408b675c52b4f7dd3, type: 3}
-      propertyPath: OnRaised.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_BoolArgument
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5082491481355829428, guid: 9a990c30136227b408b675c52b4f7dd3, type: 3}
-      propertyPath: OnRaised.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
+      propertyPath: OnRaised.m_PersistentCalls.m_Calls.Array.data[3].m_Target
+      value: 
+      objectReference: {fileID: 2015509948}
     - target: {fileID: 7379329697068942841, guid: 9a990c30136227b408b675c52b4f7dd3, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -27750,37 +30245,13 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9120462440552591331, guid: 9a990c30136227b408b675c52b4f7dd3, type: 3}
-      propertyPath: OnRaised.m_PersistentCalls.m_Calls.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 9120462440552591331, guid: 9a990c30136227b408b675c52b4f7dd3, type: 3}
-      propertyPath: OnRaised.m_PersistentCalls.m_Calls.Array.data[2].m_Mode
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 9120462440552591331, guid: 9a990c30136227b408b675c52b4f7dd3, type: 3}
       propertyPath: OnRaised.m_PersistentCalls.m_Calls.Array.data[2].m_Target
       value: 
       objectReference: {fileID: 2015509948}
     - target: {fileID: 9120462440552591331, guid: 9a990c30136227b408b675c52b4f7dd3, type: 3}
-      propertyPath: OnRaised.m_PersistentCalls.m_Calls.Array.data[2].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 9120462440552591331, guid: 9a990c30136227b408b675c52b4f7dd3, type: 3}
-      propertyPath: OnRaised.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
-      value: SetPatrolActive
-      objectReference: {fileID: 0}
-    - target: {fileID: 9120462440552591331, guid: 9a990c30136227b408b675c52b4f7dd3, type: 3}
-      propertyPath: OnRaised.m_PersistentCalls.m_Calls.Array.data[2].m_TargetAssemblyTypeName
-      value: Gameplay.RoadSystem.PatrolSystem, Boxes
-      objectReference: {fileID: 0}
-    - target: {fileID: 9120462440552591331, guid: 9a990c30136227b408b675c52b4f7dd3, type: 3}
-      propertyPath: OnRaised.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_BoolArgument
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 9120462440552591331, guid: 9a990c30136227b408b675c52b4f7dd3, type: 3}
-      propertyPath: OnRaised.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
+      propertyPath: OnRaised.m_PersistentCalls.m_Calls.Array.data[3].m_Target
+      value: 
+      objectReference: {fileID: 2015509948}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

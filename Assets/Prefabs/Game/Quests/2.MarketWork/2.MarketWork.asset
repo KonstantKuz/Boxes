@@ -1,4 +1,4 @@
-﻿%YAML 1.1
+%YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
 --- !u!114 &11400000
 MonoBehaviour:
@@ -27,7 +27,7 @@ MonoBehaviour:
       type: {class: NavigationTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}
       data:
         config: {fileID: 11400000, guid: 1a42345b02afc9a428966473d1ab56b9, type: 2}
-        targetId: 84435ff3-ff94-4a90-9440-c50e20c862f8
+        targetId: b92905ab-870d-415d-ad84-50a827fd042d
     - rid: 4267941531072856071
       type: {class: LoadBoxesTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}
       data:
@@ -49,7 +49,6 @@ MonoBehaviour:
         - rid: 4267941531072856073
         - rid: 6608448125118971926
         - rid: 6608448125118971927
-        - rid: 6608448125118971928
     - rid: 6608448125118971922
       type: {class: NavigationTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}
       data:
@@ -71,7 +70,3 @@ MonoBehaviour:
         targetId: 63b7fe1b-7227-49b7-8764-2ed172983148
         positionId: d8197522-84dc-433b-b7d1-8746743cc650
         value: 1
-    - rid: 6608448125118971928
-      type: {class: PetruhaAppearTask, ns: Configuration.QuestTasks.Unique, asm: Boxes}
-      data:
-        npcId: 10b0a6eb-0d99-41b0-b1db-23070ced43f9

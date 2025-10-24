@@ -5,7 +5,6 @@ using Infrastructure.QuestService.Abstract;
 using Infrastructure.World;
 using Reflex.Attributes;
 using UnityEngine;
-using Event = Infrastructure.Components.Event;
 
 namespace Configuration.QuestTasks.Shared
 {
@@ -58,7 +57,7 @@ namespace Configuration.QuestTasks.Shared
         public override void Start()
         {
             if (!worldService.TryGetById(targetId, out IWorldObject worldObject) ||
-                !worldObject.TryGetComponent(out Event eventObject))
+                !worldObject.TryGetComponent(out GameObjectEvent eventObject))
             {
                 this.Log(LogType.Error, $"Target object with id {targetId} was not found");
                 return;

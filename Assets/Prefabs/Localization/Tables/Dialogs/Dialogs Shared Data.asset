@@ -99,6 +99,30 @@ MonoBehaviour:
     m_Key: 5.5.DigTheCarpetReplica
     m_Metadata:
       m_Items: []
+  - m_Id: 32178855756283904
+    m_Key: 6.1.GetMarketDocsReplica
+    m_Metadata:
+      m_Items: []
+  - m_Id: 32173533029318656
+    m_Key: 6.2.GetMarketDocsReplica
+    m_Metadata:
+      m_Items: []
+  - m_Id: 33275396592091136
+    m_Key: 7.1.DestroyMarketReplica
+    m_Metadata:
+      m_Items: []
+  - m_Id: 33275547389902848
+    m_Key: 7.2.DestroyMarketReplica
+    m_Metadata:
+      m_Items: []
+  - m_Id: 33276277253324800
+    m_Key: 7.3.DestroyMarketReplica
+    m_Metadata:
+      m_Items: []
+  - m_Id: 33276501120106496
+    m_Key: 7.4.DestroyMarketReplica
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

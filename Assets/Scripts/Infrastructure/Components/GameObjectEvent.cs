@@ -3,7 +3,7 @@ using UnityEngine.Events;
 
 namespace Infrastructure.Components
 {
-    public class Event : MonoBehaviour
+    public class GameObjectEvent : MonoBehaviour
     {
         [SerializeField]
         private UnityEvent OnRaised;

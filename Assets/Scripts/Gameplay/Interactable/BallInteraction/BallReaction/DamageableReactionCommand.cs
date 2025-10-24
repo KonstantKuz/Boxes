@@ -4,12 +4,12 @@ using MessagePack;
 namespace Gameplay.Interactable.BallInteraction.BallReaction
 {
     [MessagePackObject]
-    public class DestructibleReactionCommand : INetworkCommand
+    public class DamageableReactionCommand : INetworkCommand
     {
         [Key(0)]
         public byte HitPoints { get; }
 
-        public DestructibleReactionCommand(byte hitPoints)
+        public DamageableReactionCommand(byte hitPoints)
         {
             HitPoints = hitPoints;
         }

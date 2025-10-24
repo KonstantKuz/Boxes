@@ -46,7 +46,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 5708775b-c498-49f9-965b-8498411aaa26
-  typeId: {fileID: 0}
 --- !u!114 &9120462440552591331
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -78,6 +77,30 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: Infrastructure.Network.Components.NetworkInitialStateHelper,
           Boxes
         m_MethodName: CmdSetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: Gameplay.RoadSystem.PatrolSystem, Boxes
+        m_MethodName: SetActiveCars
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: Gameplay.RoadSystem.PatrolSystem, Boxes
+        m_MethodName: SetPatrolActive
         m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -256,7 +279,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 59ecba01-6009-4b99-aaf9-7ab32b517fb7
-  typeId: {fileID: 0}
 --- !u!114 &2597788416417336
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -529,6 +551,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 013ecfd5a32bae345bb0572b40cf7fdf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OnQuestIsActiveChanged:
+    m_PersistentCalls:
+      m_Calls: []
   quest: {fileID: 11400000, guid: 687e7e225bce70046a6b6732cd8b6496, type: 2}
 --- !u!1 &5075035324002866420
 GameObject:
@@ -616,7 +641,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: a291c5c5-03db-47b2-bf70-e49ce9868345
-  typeId: {fileID: 0}
 --- !u!1 &6117034002764823596
 GameObject:
   m_ObjectHideFlags: 0
@@ -707,7 +731,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: ce1077c9-ba01-45c5-b7ad-0202f8403e52
-  typeId: {fileID: 0}
 --- !u!114 &5082491481355829428
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -723,6 +746,19 @@ MonoBehaviour:
   OnRaised:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 3941143449067454444}
+        m_TargetAssemblyTypeName: Infrastructure.Network.Components.NetworkInitialStateHelper,
+          Boxes
+        m_MethodName: CmdSetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 5934986139988502861}
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
@@ -735,9 +771,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 5075035324002866420}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: Gameplay.RoadSystem.PatrolSystem, Boxes
+        m_MethodName: SetPatrolActive
         m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -745,7 +781,19 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 1
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: Gameplay.RoadSystem.PatrolSystem, Boxes
+        m_MethodName: SetActiveCars
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
         m_CallState: 2
 --- !u!1 &7386225336146040037
 GameObject:
@@ -814,7 +862,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 084c7bec-4e64-4f7b-bad0-e783ce77eb46
-  typeId: {fileID: 11400000, guid: e2c8c265b6135224ab0a7568a4b545d4, type: 2}
 --- !u!1001 &5371134882661516556
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -949,7 +996,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 95d5eb42-8daa-44fb-86e8-b2a3a43d06e1
-  typeId: {fileID: 0}
 --- !u!114 &2210934896163574651
 MonoBehaviour:
   m_ObjectHideFlags: 0
