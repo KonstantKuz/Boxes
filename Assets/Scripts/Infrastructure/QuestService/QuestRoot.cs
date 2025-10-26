@@ -25,9 +25,6 @@ namespace Infrastructure.QuestService
         private IDisposable questSubscription;
         private NetworkStartPosition startPosition;
 
-        private InitialStateHelper[] initialStateHelpers;
-        private NetworkInitialStateHelper[] networkInitialStateHelpers;
-
         public Transform Spawn
         {
             get
@@ -64,11 +61,8 @@ namespace Infrastructure.QuestService
 
         public async UniTask ResetState()
         {
-            if (initialStateHelpers == null || networkInitialStateHelpers == null)
-            {
-                initialStateHelpers = GetComponentsInChildren<InitialStateHelper>(true);
-                networkInitialStateHelpers = GetComponentsInChildren<NetworkInitialStateHelper>(true);
-            }
+            InitialStateHelper[] initialStateHelpers = GetComponentsInChildren<InitialStateHelper>(true);
+            NetworkInitialStateHelper[] networkInitialStateHelpers = GetComponentsInChildren<NetworkInitialStateHelper>(true);
 
             await UniTask.WaitWhile(() => !NetworkClient.active);
 
