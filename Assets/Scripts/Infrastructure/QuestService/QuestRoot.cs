@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using Cysharp.Threading.Tasks;
 using Infrastructure.Components;
 using Infrastructure.Network.Components;
@@ -24,6 +25,9 @@ namespace Infrastructure.QuestService
         private IQuestService questService;
         private IDisposable questSubscription;
         private NetworkStartPosition startPosition;
+
+        private InitialStateHelper[] initialStateHelpers;
+        private NetworkInitialStateHelper[] networkInitialStateHelpers;
 
         public Transform Spawn
         {
@@ -61,10 +65,17 @@ namespace Infrastructure.QuestService
 
         public async UniTask ResetState()
         {
-            await UniTask.WaitWhile(() => !NetworkClient.active);
+            if (initialStateHelpers == null || networkInitialStateHelpers == null)
+            {
+                initialStateHelpers = GetComponentsInChildren<InitialStateHelper>(true);
+                networkInitialStateHelpers = GetComponentsInChildren<NetworkInitialStateHelper>(true);
+            }
 
-            InitialStateHelper[] initialStateHelpers = GetComponentsInChildren<InitialStateHelper>(true);
-            NetworkInitialStateHelper[] networkInitialStateHelpers = GetComponentsInChildren<NetworkInitialStateHelper>(true);
+            await UniTask.WaitWhile(() =>
+                !NetworkClient.active ||
+                !NetworkClient.ready ||
+                networkInitialStateHelpers.Any(item => item.netIdentity == null)
+            );
 
             foreach (InitialStateHelper stateHelper in initialStateHelpers)
             {
