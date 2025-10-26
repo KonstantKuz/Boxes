@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a3302517e334611b8ca3e20f19d998c, type: 3}
+  m_Name: 8.SeekTheTrader
+  m_EditorClassIdentifier: 
+  taskSequence:
+    rid: 4267941890726035462
+  references:
+    version: 2
+    RefIds:
+    - rid: 4267941890726035462
+      type: {class: TaskSequence, ns: Infrastructure.QuestService.Abstract, asm: Boxes}
+      data:
+        tasks:
+        - rid: 4267941890726035463
+    - rid: 4267941890726035463
+      type: {class: NavigationTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}
+      data:
+        config: {fileID: 0}
+        targetId: 817ef086-2726-453d-a0a0-7bdf0eacdf6e

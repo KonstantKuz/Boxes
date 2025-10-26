@@ -123,6 +123,18 @@ MonoBehaviour:
     m_Key: 7.4.DestroyMarketReplica
     m_Metadata:
       m_Items: []
+  - m_Id: 33979871740936192
+    m_Key: 7.5.DestroyMarketReplica
+    m_Metadata:
+      m_Items: []
+  - m_Id: 33980024979832832
+    m_Key: 7.6.DestroyMarketReplica
+    m_Metadata:
+      m_Items: []
+  - m_Id: 33980071897317376
+    m_Key: 7.7.DestroyMarketReplica
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

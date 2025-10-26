@@ -89,6 +89,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - Dialog
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: dda2f1c35d9c39348b8706ef1e434e53
+    m_Address: Assets/Prefabs/Game/Quests/7.DestroyMarket/Dialogs/7.2.WhatIsThis.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Dialog
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: e1ff7a23f82d1c141af4a633ee7ff505
     m_Address: Assets/Prefabs/Game/Quests/7.DestroyMarket/Dialogs/7.1.DestroyMarket.asset
     m_ReadOnly: 0

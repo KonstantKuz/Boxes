@@ -29,6 +29,9 @@ MonoBehaviour:
         - rid: 4267941846596190216
         - rid: 4267941846596190218
         - rid: 4267941846596190219
+        - rid: 4267941890726035456
+        - rid: 4267941890726035459
+        - rid: 4267941890726035458
     - rid: 4267941846596190209
       type: {class: RaiseEvent, ns: Configuration.QuestTasks.Shared, asm: Boxes}
       data:
@@ -71,3 +74,18 @@ MonoBehaviour:
         - bc51af1a-6caa-49db-9a73-6bb302b79a2e
         singleTriggerHitPoints: 1
         requiredTotalDamage: 3
+    - rid: 4267941890726035456
+      type: {class: RaiseEvent, ns: Configuration.QuestTasks.Shared, asm: Boxes}
+      data:
+        targetId: 5112c328-8acd-478e-9fc1-a9df591f7d97
+    - rid: 4267941890726035458
+      type: {class: DialogTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}
+      data:
+        dialogSequence: {fileID: 11400000, guid: dda2f1c35d9c39348b8706ef1e434e53, type: 2}
+        cameraTargetId: 
+    - rid: 4267941890726035459
+      type: {class: NpcNavigationTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}
+      data:
+        npcId: 70aea8c0-f3be-4645-b9f0-8dfeae083049
+        targetId: 9393712e-29f1-4191-88d4-95654f8d4093
+        isAwaitRequired: 1

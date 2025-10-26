@@ -27,8 +27,7 @@ MonoBehaviour:
         - rid: 4267941776931160067
         - rid: 4267941776931160069
         - rid: 4267941776931160070
-        - rid: 4267941776931160071
-        - rid: 4267941776931160072
+        - rid: 4267941890726035464
     - rid: 4267941707039375363
       type: {class: NavigationTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}
       data:
@@ -78,11 +77,14 @@ MonoBehaviour:
       type: {class: RaiseEvent, ns: Configuration.QuestTasks.Shared, asm: Boxes}
       data:
         targetId: da3134a2-9af3-42ba-a4ff-a68b426f6bca
-    - rid: 4267941776931160071
-      type: {class: WaitForSecondsTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}
+    - rid: 4267941890726035464
+      type: {class: DelayedTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}
       data:
         seconds: 5
-    - rid: 4267941776931160072
+        isAwaitRequired: 0
+        task:
+          rid: 4267941890726035465
+    - rid: 4267941890726035465
       type: {class: RaiseEvent, ns: Configuration.QuestTasks.Shared, asm: Boxes}
       data:
         targetId: af1240fe-c83b-404d-82ee-b46d75a3577d
