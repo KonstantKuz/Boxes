@@ -61,10 +61,10 @@ namespace Infrastructure.QuestService
 
         public async UniTask ResetState()
         {
+            await UniTask.WaitWhile(() => !NetworkClient.active);
+
             InitialStateHelper[] initialStateHelpers = GetComponentsInChildren<InitialStateHelper>(true);
             NetworkInitialStateHelper[] networkInitialStateHelpers = GetComponentsInChildren<NetworkInitialStateHelper>(true);
-
-            await UniTask.WaitWhile(() => !NetworkClient.active);
 
             foreach (InitialStateHelper stateHelper in initialStateHelpers)
             {
