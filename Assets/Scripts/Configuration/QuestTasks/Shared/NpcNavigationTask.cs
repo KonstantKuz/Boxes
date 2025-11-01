@@ -1,4 +1,5 @@
 ﻿using System;
+using Gameplay.Components;
 using Infrastructure;
 using Infrastructure.QuestService.Abstract;
 using Infrastructure.World;
@@ -52,17 +53,20 @@ namespace Configuration.QuestTasks.Shared
             {
                 IsDone.Value = true;
             }
-            else
+
+            disposable = Observable.EveryUpdate(UnityFrameProvider.Update).Subscribe(_ =>
             {
-                disposable = Observable.EveryUpdate(UnityFrameProvider.Update).Subscribe(_ =>
+                if (npcAgent.remainingDistance <= npcAgent.stoppingDistance)
                 {
-                    if (npcAgent.remainingDistance <= npcAgent.stoppingDistance)
+                    if (npcAgent.TryGetComponent(out RotateTowardsMovement rotation))
                     {
-                        IsDone.Value = true;
-                        disposable.Dispose();
+                        rotation.RotateTowards(targetTransform.forward);
                     }
-                });
-            }
+
+                    IsDone.Value = true;
+                    disposable.Dispose();
+                }
+            });
         }
 
         void IDisposable.Dispose()

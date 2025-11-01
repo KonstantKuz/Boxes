@@ -17,17 +17,16 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
+    - rid: 4157762568922333186
+      type: {class: NpcHoldBallTask, ns: Configuration.QuestTasks.Unique, asm: Boxes}
+      data:
+        npcId: 10b0a6eb-0d99-41b0-b1db-23070ced43f9
     - rid: 4267941531072856066
       type: {class: TaskBag, ns: Infrastructure.QuestService.Abstract, asm: Boxes}
       data:
         tasks:
-        - rid: 4267941531072856068
+        - rid: 4267941940353564677
         - rid: 4267941531072856071
-    - rid: 4267941531072856068
-      type: {class: NavigationTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}
-      data:
-        config: {fileID: 11400000, guid: 1a42345b02afc9a428966473d1ab56b9, type: 2}
-        targetId: b92905ab-870d-415d-ad84-50a827fd042d
     - rid: 4267941531072856071
       type: {class: LoadBoxesTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}
       data:
@@ -39,6 +38,10 @@ MonoBehaviour:
       data:
         config: {fileID: 11400000, guid: 1a42345b02afc9a428966473d1ab56b9, type: 2}
         targetId: d8197522-84dc-433b-b7d1-8746743cc650
+    - rid: 4267941940353564677
+      type: {class: ShowMarkerTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}
+      data:
+        targetId: b92905ab-870d-415d-ad84-50a827fd042d
     - rid: 6608448125118971921
       type: {class: TaskSequence, ns: Infrastructure.QuestService.Abstract, asm: Boxes}
       data:
@@ -48,7 +51,7 @@ MonoBehaviour:
         - rid: 4267941531072856066
         - rid: 4267941531072856073
         - rid: 6608448125118971926
-        - rid: 6608448125118971927
+        - rid: 4157762568922333186
     - rid: 6608448125118971922
       type: {class: NavigationTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}
       data:
@@ -64,9 +67,3 @@ MonoBehaviour:
       data:
         dialogSequence: {fileID: 11400000, guid: 9f917eefe9bf6cb4ea56c245e3a28dcd, type: 2}
         cameraTargetId: 
-    - rid: 6608448125118971927
-      type: {class: SetActiveTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}
-      data:
-        targetId: 63b7fe1b-7227-49b7-8764-2ed172983148
-        positionId: d8197522-84dc-433b-b7d1-8746743cc650
-        value: 1

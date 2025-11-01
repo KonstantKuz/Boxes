@@ -28,6 +28,7 @@ namespace Configuration.Mediator
         private Pipe pipe;
         private IPipeInteractionInitiator localInitiator;
 
+        Pipe IPipeInteractionMediator.Pipe => pipe;
         ReadOnlyReactiveProperty<PipeSharedState> IPipeInteractionMediator.PipeState => stateReactive;
         IReadOnlyDictionary<uint, IPipeInteractionInitiator> IPipeInteractionMediator.Initiators => initiators;
 

@@ -46,6 +46,14 @@ MonoBehaviour:
     m_Localized: Policeman
     m_Metadata:
       m_Items: []
+  - m_Id: 34700815266594816
+    m_Localized: Guard
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34703607498653696
+    m_Localized: Trader
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

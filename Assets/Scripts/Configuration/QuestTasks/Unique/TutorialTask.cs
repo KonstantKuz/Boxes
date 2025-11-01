@@ -14,7 +14,7 @@ using UnityEngine.Localization.SmartFormat.PersistentVariables;
 namespace Configuration.QuestTasks.Unique
 {
     [Serializable]
-    public class PassBallTask : TaskBase, IDisposable
+    public class TutorialTask : TaskBase, IDisposable
     {
         [SerializeField]
         private int requiredCount;

@@ -4,6 +4,7 @@ using Gameplay.Interactable.BallInteraction.Abstract;
 using Gameplay.Interactable.BallInteraction.Command;
 using Gameplay.Interactable.BallInteraction.Components;
 using Infrastructure.Network.Abstract;
+using Infrastructure.Network.Components;
 using Mirror;
 using Reflex.Attributes;
 using UnityEngine;
@@ -39,6 +40,7 @@ namespace Gameplay.Interactable.Door
 
         private Door door;
         private NavMeshAgent navMeshAgent;
+        private NetworkStateHelper networkStateHelper;
         private BallInteractionInitiator ballInteractionInitiator;
         private IBallInteractionMediator ballInteractionMediator;
         private INetworkService networkService;
@@ -54,16 +56,17 @@ namespace Gameplay.Interactable.Door
             this.networkService = networkService;
         }
 
-        public void StartSteal(Door door)
+        public void Activate(Door door)
         {
             this.door = door;
-            gameObject.SetActive(true);
+            networkStateHelper.CmdSetActive(true);
             navMeshAgent.transform.position = door.CharacterSpawnPoint.position;
         }
 
         private void Awake()
         {
             navMeshAgent = GetComponent<NavMeshAgent>();
+            networkStateHelper = GetComponent<NetworkStateHelper>();
             ballInteractionInitiator = GetComponent<BallInteractionInitiator>();
         }
 
@@ -77,7 +80,10 @@ namespace Gameplay.Interactable.Door
 
         private void OnDisable()
         {
-            StopAI();
+            if (isServer)
+            {
+                StopAI();
+            }
         }
 
         private void StartAI()
@@ -268,7 +274,7 @@ namespace Gameplay.Interactable.Door
             {
                 if (door != null)
                 {
-                    door.ReleasePatrol();
+                    door.ReleasePatrolRpc();
                 }
                 gameObject.SetActive(false);
                 return;
@@ -293,8 +299,8 @@ namespace Gameplay.Interactable.Door
 
                 if (reachedDestination || agentStopped)
                 {
-                    door.ReleasePatrol();
-                    gameObject.SetActive(false);
+                    door.ReleasePatrolRpc();
+                    networkStateHelper.CmdSetActive(false);
                     return;
                 }
 
@@ -303,7 +309,7 @@ namespace Gameplay.Interactable.Door
 
             if (door != null)
             {
-                door.ReleasePatrol();
+                door.ReleasePatrolRpc();
             }
         }
 

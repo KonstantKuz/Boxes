@@ -17,6 +17,10 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
+    - rid: 4157762568922333188
+      type: {class: NpcHoldBallTask, ns: Configuration.QuestTasks.Unique, asm: Boxes}
+      data:
+        npcId: 022647ea-50a5-4512-8479-e6154804977d
     - rid: 4267941776931160073
       type: {class: RaiseEvent, ns: Configuration.QuestTasks.Shared, asm: Boxes}
       data:
@@ -28,6 +32,7 @@ MonoBehaviour:
         - rid: 6608448125118971930
         - rid: 6608448125118971931
         - rid: 4267941776931160073
+        - rid: 4157762568922333188
         - rid: 6608448125118971934
     - rid: 6608448125118971930
       type: {class: NavigationTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}

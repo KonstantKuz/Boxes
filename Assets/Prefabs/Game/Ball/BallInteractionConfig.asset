@@ -25,7 +25,7 @@ MonoBehaviour:
   statusDampingDistance: 50
   autoCaptureTime: 0.3
   autoCaptureRechargeTime: 0.5
-  attractionRadius: 10
+  attractionRadius: 0
   attractionForce: 20
   attractionMinRequiredSpeed: 10
   resetConditions: 10

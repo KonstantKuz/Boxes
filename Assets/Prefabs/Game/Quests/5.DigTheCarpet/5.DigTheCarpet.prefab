@@ -61,18 +61,6 @@ MonoBehaviour:
   OnRaised:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2597788416417336}
-        m_TargetAssemblyTypeName: Gameplay.Interactable.PipeInteraction.Pipe, Boxes
-        m_MethodName: ResetState
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 3941143449067454444}
         m_TargetAssemblyTypeName: Infrastructure.Network.Components.NetworkInitialStateHelper,
           Boxes
@@ -100,7 +88,7 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Gameplay.RoadSystem.PatrolSystem, Boxes
-        m_MethodName: SetPatrolActive
+        m_MethodName: SetActivePatrol
         m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -127,13 +115,14 @@ GameObject:
   - component: {fileID: 2585036526807186238}
   - component: {fileID: 2597788416417336}
   - component: {fileID: 4489407591901783756}
+  - component: {fileID: 333550980589940677}
   m_Layer: 0
   m_Name: PipeController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &424070822423816069
 Transform:
   m_ObjectHideFlags: 0
@@ -266,6 +255,60 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
+  onIsActiveChanged:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5862211783422337364}
+        m_TargetAssemblyTypeName: UnityEngine.Collider, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 8337593939405055284}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 333550980589940677}
+        m_TargetAssemblyTypeName: Infrastructure.Components.BoolEvent, Boxes
+        m_MethodName: Raise
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 2597788416417336}
+        m_TargetAssemblyTypeName: Gameplay.Interactable.PipeInteraction.Pipe, Boxes
+        m_MethodName: ResetState
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  initialIsActive: 0
+  initialPosition: {x: 336.611, y: 0.5, z: 342.853}
+  initialRotation: {x: 0, y: -0.7071068, z: -0, w: 0.7071068}
 --- !u!114 &2585036526807186238
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -323,6 +366,42 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   Data: 
+--- !u!114 &333550980589940677
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1320453665211049223}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d3f1bc61e0e4ca9976e0ff6ad608fc0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onTrue:
+    m_PersistentCalls:
+      m_Calls: []
+  onFalse:
+    m_PersistentCalls:
+      m_Calls: []
+  OnValueChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  OnInvertedValueChanged:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8853282363407985782}
+        m_TargetAssemblyTypeName: UnityEngine.Rigidbody, UnityEngine
+        m_MethodName: set_isKinematic
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1503281332614694133
 GameObject:
   m_ObjectHideFlags: 0
@@ -551,6 +630,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 013ecfd5a32bae345bb0572b40cf7fdf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  onInitialize:
+    m_PersistentCalls:
+      m_Calls: []
+  onResetRequired:
+    m_PersistentCalls:
+      m_Calls: []
   OnQuestIsActiveChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -773,7 +858,7 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Gameplay.RoadSystem.PatrolSystem, Boxes
-        m_MethodName: SetPatrolActive
+        m_MethodName: SetActivePatrol
         m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -870,6 +955,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7379329697068942841}
     m_Modifications:
+    - target: {fileID: 633584054419814434, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1789992581675772993, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
       propertyPath: m_Name
       value: PatrolCar (1)
@@ -929,6 +1018,7 @@ PrefabInstance:
     - {fileID: 2712827138660170322, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
     - {fileID: 4150613227943154882, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
     - {fileID: 6996050640723223271, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
+    - {fileID: 212043263439920000, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
     m_RemovedGameObjects:
     - {fileID: 4241012809174580054, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
     m_AddedGameObjects: []
@@ -1117,6 +1207,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 234e7bec653fac142bf894a76905e1ac, type: 3}
+--- !u!1 &8337593939405055284 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 100000, guid: 234e7bec653fac142bf894a76905e1ac, type: 3}
+  m_PrefabInstance: {fileID: 8337593939405153172}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &8337593939405551892 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 234e7bec653fac142bf894a76905e1ac, type: 3}

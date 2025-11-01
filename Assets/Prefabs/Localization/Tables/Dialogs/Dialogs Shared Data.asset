@@ -135,6 +135,26 @@ MonoBehaviour:
     m_Key: 7.7.DestroyMarketReplica
     m_Metadata:
       m_Items: []
+  - m_Id: 34707583447187456
+    m_Key: 8.1.SeekTheTraderReplica
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34709010001281024
+    m_Key: 8.2.SeekTheTraderReplica
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34709825659191296
+    m_Key: 8.3.SeekTheTraderReplica
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34710139858698240
+    m_Key: 8.4.SeekTheTraderReplica
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34717767498317824
+    m_Key: 8.5.SeekTheTraderReplica
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

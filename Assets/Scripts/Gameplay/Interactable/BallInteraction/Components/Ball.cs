@@ -52,16 +52,16 @@ namespace Gameplay.Interactable.BallInteraction.Components
             internalState = new BallInternalState();
         }
 
+        private void Awake()
+        {
+            ballInteractionMediator.RegisterBall(this);
+        }
+
         public override void OnStartServer()
         {
             networkService.ObserveToExecute<KickCommand>(ExecuteKick);
             networkService.ObserveToExecute<HoldCommand>(ExecuteHold);
             networkService.ObserveToExecute<CaptureCommand>(ExecuteCapture);
-        }
-
-        public override void OnStartClient()
-        {
-            ballInteractionMediator.RegisterBall(this);
         }
 
         private void ExecuteKick(KickCommand kickContext)

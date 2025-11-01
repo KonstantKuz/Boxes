@@ -109,7 +109,7 @@ namespace Configuration.Mediator
 
         private void TryHoldBall(InputAction.CallbackContext context)
         {
-            if (ball == null || holdTokenSource != null)
+            if (ball == null || localInitiator == null || holdTokenSource != null)
             {
                 return;
             }
@@ -149,7 +149,7 @@ namespace Configuration.Mediator
 
         private void TryKickBall(InputAction.CallbackContext context)
         {
-            if (ball == null || kickTokenSource != null)
+            if (ball == null || localInitiator == null || kickTokenSource != null)
             {
                 return;
             }
@@ -196,8 +196,8 @@ namespace Configuration.Mediator
             float lastKickDeltaTime = Time.time - lastKickTime;
             bool isRecharged = lastKickDeltaTime > ballInteractionConfig.AutoCaptureRechargeTime;
 
-            if (ball == null || captureTokenSource != null || kickTokenSource != null || !isRecharged ||
-                ball.StateHolder.GetState().HasHolder)
+            if (ball == null || localInitiator == null || captureTokenSource != null
+                || kickTokenSource != null || !isRecharged || ball.StateHolder.GetState().HasHolder)
             {
                 return;
             }

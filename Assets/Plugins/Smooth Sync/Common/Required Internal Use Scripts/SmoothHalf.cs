@@ -6,19 +6,19 @@ namespace System
 {
     // Smooth Sync overview:
     // We use this to compress the floats so they take up less bytes over the network.
-    
+
     /// <summary>
-    /// Represents a half-precision floating point number. 
+    /// Represents a half-precision floating point number.
     /// </summary>
     /// <remarks>
     /// Note:
-    ///     Half is not fast enough and precision is also very bad, 
+    ///     Half is not fast enough and precision is also very bad,
     ///     so it should not be used for matemathical computation (use Single instead).
     ///     The main advantage of Half type is lower memory cost: two bytes per number.
     ///     Half is typically used in graphical applications.
-    ///     
-    /// Note: 
-    ///     All functions, where is used conversion half->float/float->half, 
+    ///
+    /// Note:
+    ///     All functions, where is used conversion half->float/float->half,
     ///     are approx. ten times slower than float->double/double->float, i.e. ~3ns on 2GHz CPU.
     ///
     /// References:
@@ -26,7 +26,7 @@ namespace System
     ///     - IEEE 754 revision, link: http://grouper.ieee.org/groups/754/
     /// </remarks>
     [Serializable]
-    public struct Half : IComparable, IFormattable, IConvertible, IComparable<Half>, IEquatable<Half>
+    public struct SmoothHalf : IComparable, IFormattable, IConvertible, IComparable<SmoothHalf>, IEquatable<SmoothHalf>
     {
         /// <summary>
         /// Internal representation of the half-precision floating-point number.
@@ -38,27 +38,27 @@ namespace System
         /// <summary>
         /// Represents the smallest positive System.Half value greater than zero. This field is constant.
         /// </summary>
-        public static readonly Half Epsilon = Half.ToHalf(0x0001);
+        public static readonly SmoothHalf Epsilon = SmoothHalf.ToHalf(0x0001);
         /// <summary>
         /// Represents the largest possible value of System.Half. This field is constant.
         /// </summary>
-        public static readonly Half MaxValue = Half.ToHalf(0x7bff);
+        public static readonly SmoothHalf MaxValue = SmoothHalf.ToHalf(0x7bff);
         /// <summary>
         /// Represents the smallest possible value of System.Half. This field is constant.
         /// </summary>
-        public static readonly Half MinValue = Half.ToHalf(0xfbff);
+        public static readonly SmoothHalf MinValue = SmoothHalf.ToHalf(0xfbff);
         /// <summary>
         /// Represents not a number (NaN). This field is constant.
         /// </summary>
-        public static readonly Half NaN = Half.ToHalf(0xfe00);
+        public static readonly SmoothHalf NaN = SmoothHalf.ToHalf(0xfe00);
         /// <summary>
         /// Represents negative infinity. This field is constant.
         /// </summary>
-        public static readonly Half NegativeInfinity = Half.ToHalf(0xfc00);
+        public static readonly SmoothHalf NegativeInfinity = SmoothHalf.ToHalf(0xfc00);
         /// <summary>
         /// Represents positive infinity. This field is constant.
         /// </summary>
-        public static readonly Half PositiveInfinity = Half.ToHalf(0x7c00);
+        public static readonly SmoothHalf PositiveInfinity = SmoothHalf.ToHalf(0x7c00);
         #endregion
 
         #region Constructors
@@ -66,68 +66,68 @@ namespace System
         /// Initializes a new instance of System.Half to the value of the specified single-precision floating-point number.
         /// </summary>
         /// <param name="value">The value to represent as a System.Half.</param>
-        public Half(float value) { this = HalfHelper.SingleToHalf(value); }
+        public SmoothHalf(float value) { this = HalfHelper.SingleToHalf(value); }
         /// <summary>
         /// Initializes a new instance of System.Half to the value of the specified 32-bit signed integer.
         /// </summary>
         /// <param name="value">The value to represent as a System.Half.</param>
-        public Half(int value) : this((float)value) { }
+        public SmoothHalf(int value) : this((float)value) { }
         /// <summary>
         /// Initializes a new instance of System.Half to the value of the specified 64-bit signed integer.
         /// </summary>
         /// <param name="value">The value to represent as a System.Half.</param>
-        public Half(long value) : this((float)value) { }
+        public SmoothHalf(long value) : this((float)value) { }
         /// <summary>
         /// Initializes a new instance of System.Half to the value of the specified double-precision floating-point number.
         /// </summary>
         /// <param name="value">The value to represent as a System.Half.</param>
-        public Half(double value) : this((float)value) { }
+        public SmoothHalf(double value) : this((float)value) { }
         /// <summary>
         /// Initializes a new instance of System.Half to the value of the specified decimal number.
         /// </summary>
         /// <param name="value">The value to represent as a System.Half.</param>
-        public Half(decimal value) : this((float)value) { }
+        public SmoothHalf(decimal value) : this((float)value) { }
         /// <summary>
         /// Initializes a new instance of System.Half to the value of the specified 32-bit unsigned integer.
         /// </summary>
         /// <param name="value">The value to represent as a System.Half.</param>
-        public Half(uint value) : this((float)value) { }
+        public SmoothHalf(uint value) : this((float)value) { }
         /// <summary>
         /// Initializes a new instance of System.Half to the value of the specified 64-bit unsigned integer.
         /// </summary>
         /// <param name="value">The value to represent as a System.Half.</param>
-        public Half(ulong value) : this((float)value) { }
+        public SmoothHalf(ulong value) : this((float)value) { }
         #endregion
-        
+
         #region Numeric operators
 
         /// <summary>
         /// Returns the result of multiplying the specified System.Half value by negative one.
         /// </summary>
-        /// <param name="half">A System.Half.</param>
+        /// <param name="smoothHalf">A System.Half.</param>
         /// <returns>A System.Half with the value of half, but the opposite sign. -or- Zero, if half is zero.</returns>
-        public static Half Negate(Half half) { return -half; }
+        public static SmoothHalf Negate(SmoothHalf smoothHalf) { return -smoothHalf; }
         /// <summary>
         /// Adds two specified System.Half values.
         /// </summary>
         /// <param name="half1">A System.Half.</param>
         /// <param name="half2">A System.Half.</param>
         /// <returns>A System.Half value that is the sum of half1 and half2.</returns>
-        public static Half Add(Half half1, Half half2) { return half1 + half2; }
+        public static SmoothHalf Add(SmoothHalf half1, SmoothHalf half2) { return half1 + half2; }
         /// <summary>
         /// Subtracts one specified System.Half value from another.
         /// </summary>
         /// <param name="half1">A System.Half (the minuend).</param>
         /// <param name="half2">A System.Half (the subtrahend).</param>
         /// <returns>The System.Half result of subtracting half2 from half1.</returns>
-        public static Half Subtract(Half half1, Half half2) { return half1 - half2; }
+        public static SmoothHalf Subtract(SmoothHalf half1, SmoothHalf half2) { return half1 - half2; }
         /// <summary>
         /// Multiplies two specified System.Half values.
         /// </summary>
         /// <param name="half1">A System.Half (the multiplicand).</param>
         /// <param name="half2">A System.Half (the multiplier).</param>
         /// <returns>A System.Half that is the result of multiplying half1 and half2.</returns>
-        public static Half Multiply(Half half1, Half half2) { return half1 * half2; }
+        public static SmoothHalf Multiply(SmoothHalf half1, SmoothHalf half2) { return half1 * half2; }
         /// <summary>
         /// Divides two specified System.Half values.
         /// </summary>
@@ -135,102 +135,102 @@ namespace System
         /// <param name="half2">A System.Half (the divisor).</param>
         /// <returns>The System.Half that is the result of dividing half1 by half2.</returns>
         /// <exception cref="System.DivideByZeroException">half2 is zero.</exception>
-        public static Half Divide(Half half1, Half half2) { return half1 / half2; }
+        public static SmoothHalf Divide(SmoothHalf half1, SmoothHalf half2) { return half1 / half2; }
 
         /// <summary>
         /// Returns the value of the System.Half operand (the sign of the operand is unchanged).
         /// </summary>
-        /// <param name="half">The System.Half operand.</param>
+        /// <param name="smoothHalf">The System.Half operand.</param>
         /// <returns>The value of the operand, half.</returns>
-        public static Half operator +(Half half) { return half; }
+        public static SmoothHalf operator +(SmoothHalf smoothHalf) { return smoothHalf; }
         /// <summary>
         /// Negates the value of the specified System.Half operand.
         /// </summary>
-        /// <param name="half">The System.Half operand.</param>
+        /// <param name="smoothHalf">The System.Half operand.</param>
         /// <returns>The result of half multiplied by negative one (-1).</returns>
-        public static Half operator -(Half half) { return HalfHelper.Negate(half); }
+        public static SmoothHalf operator -(SmoothHalf smoothHalf) { return HalfHelper.Negate(smoothHalf); }
         /// <summary>
         /// Increments the System.Half operand by 1.
         /// </summary>
-        /// <param name="half">The System.Half operand.</param>
+        /// <param name="smoothHalf">The System.Half operand.</param>
         /// <returns>The value of half incremented by 1.</returns>
-        public static Half operator ++(Half half) { return (Half)(half + 1f); }
+        public static SmoothHalf operator ++(SmoothHalf smoothHalf) { return (SmoothHalf)(smoothHalf + 1f); }
         /// <summary>
         /// Decrements the System.Half operand by one.
         /// </summary>
-        /// <param name="half">The System.Half operand.</param>
+        /// <param name="smoothHalf">The System.Half operand.</param>
         /// <returns>The value of half decremented by 1.</returns>
-        public static Half operator --(Half half) { return (Half)(half - 1f); }
+        public static SmoothHalf operator --(SmoothHalf smoothHalf) { return (SmoothHalf)(smoothHalf - 1f); }
         /// <summary>
         /// Adds two specified System.Half values.
         /// </summary>
         /// <param name="half1">A System.Half.</param>
         /// <param name="half2">A System.Half.</param>
         /// <returns>The System.Half result of adding half1 and half2.</returns>
-        public static Half operator +(Half half1, Half half2) { return (Half)((float)half1 + (float)half2); }
+        public static SmoothHalf operator +(SmoothHalf half1, SmoothHalf half2) { return (SmoothHalf)((float)half1 + (float)half2); }
         /// <summary>
         /// Subtracts two specified System.Half values.
         /// </summary>
         /// <param name="half1">A System.Half.</param>
         /// <param name="half2">A System.Half.</param>
-        /// <returns>The System.Half result of subtracting half1 and half2.</returns>        
-        public static Half operator -(Half half1, Half half2) { return (Half)((float)half1 - (float)half2); }
+        /// <returns>The System.Half result of subtracting half1 and half2.</returns>
+        public static SmoothHalf operator -(SmoothHalf half1, SmoothHalf half2) { return (SmoothHalf)((float)half1 - (float)half2); }
         /// <summary>
         /// Multiplies two specified System.Half values.
         /// </summary>
         /// <param name="half1">A System.Half.</param>
         /// <param name="half2">A System.Half.</param>
         /// <returns>The System.Half result of multiplying half1 by half2.</returns>
-        public static Half operator *(Half half1, Half half2) { return (Half)((float)half1 * (float)half2); }
+        public static SmoothHalf operator *(SmoothHalf half1, SmoothHalf half2) { return (SmoothHalf)((float)half1 * (float)half2); }
         /// <summary>
         /// Divides two specified System.Half values.
         /// </summary>
         /// <param name="half1">A System.Half (the dividend).</param>
         /// <param name="half2">A System.Half (the divisor).</param>
         /// <returns>The System.Half result of half1 by half2.</returns>
-        public static Half operator /(Half half1, Half half2) { return (Half)((float)half1 / (float)half2); }
+        public static SmoothHalf operator /(SmoothHalf half1, SmoothHalf half2) { return (SmoothHalf)((float)half1 / (float)half2); }
         /// <summary>
         /// Returns a value indicating whether two instances of System.Half are equal.
         /// </summary>
         /// <param name="half1">A System.Half.</param>
         /// <param name="half2">A System.Half.</param>
         /// <returns>true if half1 and half2 are equal; otherwise, false.</returns>
-        public static bool operator ==(Half half1, Half half2) { return (!IsNaN(half1) && (half1.internalValue == half2.internalValue)); }
+        public static bool operator ==(SmoothHalf half1, SmoothHalf half2) { return (!IsNaN(half1) && (half1.internalValue == half2.internalValue)); }
         /// <summary>
         /// Returns a value indicating whether two instances of System.Half are not equal.
         /// </summary>
         /// <param name="half1">A System.Half.</param>
         /// <param name="half2">A System.Half.</param>
         /// <returns>true if half1 and half2 are not equal; otherwise, false.</returns>
-        public static bool operator !=(Half half1, Half half2) { return !(half1.internalValue == half2.internalValue); }
+        public static bool operator !=(SmoothHalf half1, SmoothHalf half2) { return !(half1.internalValue == half2.internalValue); }
         /// <summary>
         /// Returns a value indicating whether a specified System.Half is less than another specified System.Half.
         /// </summary>
         /// <param name="half1">A System.Half.</param>
         /// <param name="half2">A System.Half.</param>
         /// <returns>true if half1 is less than half1; otherwise, false.</returns>
-        public static bool operator <(Half half1, Half half2) { return (float)half1 < (float)half2; }
+        public static bool operator <(SmoothHalf half1, SmoothHalf half2) { return (float)half1 < (float)half2; }
         /// <summary>
         /// Returns a value indicating whether a specified System.Half is greater than another specified System.Half.
         /// </summary>
         /// <param name="half1">A System.Half.</param>
         /// <param name="half2">A System.Half.</param>
         /// <returns>true if half1 is greater than half2; otherwise, false.</returns>
-        public static bool operator >(Half half1, Half half2) { return (float)half1 > (float)half2; }
+        public static bool operator >(SmoothHalf half1, SmoothHalf half2) { return (float)half1 > (float)half2; }
         /// <summary>
         /// Returns a value indicating whether a specified System.Half is less than or equal to another specified System.Half.
         /// </summary>
         /// <param name="half1">A System.Half.</param>
         /// <param name="half2">A System.Half.</param>
         /// <returns>true if half1 is less than or equal to half2; otherwise, false.</returns>
-        public static bool operator <=(Half half1, Half half2) { return (half1 == half2) || (half1 < half2); }
+        public static bool operator <=(SmoothHalf half1, SmoothHalf half2) { return (half1 == half2) || (half1 < half2); }
         /// <summary>
         /// Returns a value indicating whether a specified System.Half is greater than or equal to another specified System.Half.
         /// </summary>
         /// <param name="half1">A System.Half.</param>
         /// <param name="half2">A System.Half.</param>
         /// <returns>true if half1 is greater than or equal to half2; otherwise, false.</returns>
-        public static bool operator >=(Half half1, Half half2) { return (half1 == half2) || (half1 > half2); }
+        public static bool operator >=(SmoothHalf half1, SmoothHalf half2) { return (half1 == half2) || (half1 > half2); }
         #endregion
 
         #region Type casting operators
@@ -239,145 +239,145 @@ namespace System
         /// </summary>
         /// <param name="value">An 8-bit unsigned integer.</param>
         /// <returns>A System.Half that represents the converted 8-bit unsigned integer.</returns>
-        public static implicit operator Half(byte value) { return new Half((float)value); }
+        public static implicit operator SmoothHalf(byte value) { return new SmoothHalf((float)value); }
         /// <summary>
         /// Converts a 16-bit signed integer to a System.Half.
         /// </summary>
         /// <param name="value">A 16-bit signed integer.</param>
         /// <returns>A System.Half that represents the converted 16-bit signed integer.</returns>
-        public static implicit operator Half(short value) { return new Half((float)value); }
+        public static implicit operator SmoothHalf(short value) { return new SmoothHalf((float)value); }
         /// <summary>
         /// Converts a Unicode character to a System.Half.
         /// </summary>
         /// <param name="value">A Unicode character.</param>
         /// <returns>A System.Half that represents the converted Unicode character.</returns>
-        public static implicit operator Half(char value) { return new Half((float)value); }
+        public static implicit operator SmoothHalf(char value) { return new SmoothHalf((float)value); }
         /// <summary>
         /// Converts a 32-bit signed integer to a System.Half.
         /// </summary>
         /// <param name="value">A 32-bit signed integer.</param>
         /// <returns>A System.Half that represents the converted 32-bit signed integer.</returns>
-        public static implicit operator Half(int value) { return new Half((float)value); }
+        public static implicit operator SmoothHalf(int value) { return new SmoothHalf((float)value); }
         /// <summary>
         /// Converts a 64-bit signed integer to a System.Half.
         /// </summary>
         /// <param name="value">A 64-bit signed integer.</param>
         /// <returns>A System.Half that represents the converted 64-bit signed integer.</returns>
-        public static implicit operator Half(long value) { return new Half((float)value); }
+        public static implicit operator SmoothHalf(long value) { return new SmoothHalf((float)value); }
         /// <summary>
         /// Converts a single-precision floating-point number to a System.Half.
         /// </summary>
         /// <param name="value">A single-precision floating-point number.</param>
         /// <returns>A System.Half that represents the converted single-precision floating point number.</returns>
-        public static explicit operator Half(float value) { return new Half((float)value); }
+        public static explicit operator SmoothHalf(float value) { return new SmoothHalf((float)value); }
         /// <summary>
         /// Converts a double-precision floating-point number to a System.Half.
         /// </summary>
         /// <param name="value">A double-precision floating-point number.</param>
         /// <returns>A System.Half that represents the converted double-precision floating point number.</returns>
-        public static explicit operator Half(double value) { return new Half((float)value); }
+        public static explicit operator SmoothHalf(double value) { return new SmoothHalf((float)value); }
         /// <summary>
         /// Converts a decimal number to a System.Half.
         /// </summary>
         /// <param name="value">decimal number</param>
         /// <returns>A System.Half that represents the converted decimal number.</returns>
-        public static explicit operator Half(decimal value) { return new Half((float)value); }
+        public static explicit operator SmoothHalf(decimal value) { return new SmoothHalf((float)value); }
         /// <summary>
         /// Converts a System.Half to an 8-bit unsigned integer.
         /// </summary>
         /// <param name="value">A System.Half to convert.</param>
         /// <returns>An 8-bit unsigned integer that represents the converted System.Half.</returns>
-        public static explicit operator byte(Half value) { return (byte)(float)value; }
+        public static explicit operator byte(SmoothHalf value) { return (byte)(float)value; }
         /// <summary>
         /// Converts a System.Half to a Unicode character.
         /// </summary>
         /// <param name="value">A System.Half to convert.</param>
         /// <returns>A Unicode character that represents the converted System.Half.</returns>
-        public static explicit operator char(Half value) { return (char)(float)value; }
+        public static explicit operator char(SmoothHalf value) { return (char)(float)value; }
         /// <summary>
         /// Converts a System.Half to a 16-bit signed integer.
         /// </summary>
         /// <param name="value">A System.Half to convert.</param>
         /// <returns>A 16-bit signed integer that represents the converted System.Half.</returns>
-        public static explicit operator short(Half value) { return (short)(float)value; }
+        public static explicit operator short(SmoothHalf value) { return (short)(float)value; }
         /// <summary>
         /// Converts a System.Half to a 32-bit signed integer.
         /// </summary>
         /// <param name="value">A System.Half to convert.</param>
         /// <returns>A 32-bit signed integer that represents the converted System.Half.</returns>
-        public static explicit operator int(Half value) { return (int)(float)value; }
+        public static explicit operator int(SmoothHalf value) { return (int)(float)value; }
         /// <summary>
         /// Converts a System.Half to a 64-bit signed integer.
         /// </summary>
         /// <param name="value">A System.Half to convert.</param>
         /// <returns>A 64-bit signed integer that represents the converted System.Half.</returns>
-        public static explicit operator long(Half value) { return (long)(float)value; }
+        public static explicit operator long(SmoothHalf value) { return (long)(float)value; }
         /// <summary>
         /// Converts a System.Half to a single-precision floating-point number.
         /// </summary>
         /// <param name="value">A System.Half to convert.</param>
         /// <returns>A single-precision floating-point number that represents the converted System.Half.</returns>
-        public static implicit operator float(Half value) { return (float)HalfHelper.HalfToSingle(value); }
+        public static implicit operator float(SmoothHalf value) { return (float)HalfHelper.HalfToSingle(value); }
         /// <summary>
         /// Converts a System.Half to a double-precision floating-point number.
         /// </summary>
         /// <param name="value">A System.Half to convert.</param>
         /// <returns>A double-precision floating-point number that represents the converted System.Half.</returns>
-        public static implicit operator double(Half value) { return (double)(float)value; }
+        public static implicit operator double(SmoothHalf value) { return (double)(float)value; }
         /// <summary>
         /// Converts a System.Half to a decimal number.
         /// </summary>
         /// <param name="value">A System.Half to convert.</param>
         /// <returns>A decimal number that represents the converted System.Half.</returns>
-        public static explicit operator decimal(Half value) { return (decimal)(float)value; }
+        public static explicit operator decimal(SmoothHalf value) { return (decimal)(float)value; }
         /// <summary>
         /// Converts an 8-bit signed integer to a System.Half.
         /// </summary>
         /// <param name="value">An 8-bit signed integer.</param>
         /// <returns>A System.Half that represents the converted 8-bit signed integer.</returns>
-        public static implicit operator Half(sbyte value) { return new Half((float)value); }
+        public static implicit operator SmoothHalf(sbyte value) { return new SmoothHalf((float)value); }
         /// <summary>
         /// Converts a 16-bit unsigned integer to a System.Half.
         /// </summary>
         /// <param name="value">A 16-bit unsigned integer.</param>
         /// <returns>A System.Half that represents the converted 16-bit unsigned integer.</returns>
-        public static implicit operator Half(ushort value) { return new Half((float)value); }
+        public static implicit operator SmoothHalf(ushort value) { return new SmoothHalf((float)value); }
         /// <summary>
         /// Converts a 32-bit unsigned integer to a System.Half.
         /// </summary>
         /// <param name="value">A 32-bit unsigned integer.</param>
         /// <returns>A System.Half that represents the converted 32-bit unsigned integer.</returns>
-        public static implicit operator Half(uint value) { return new Half((float)value); }
+        public static implicit operator SmoothHalf(uint value) { return new SmoothHalf((float)value); }
         /// <summary>
         /// Converts a 64-bit unsigned integer to a System.Half.
         /// </summary>
         /// <param name="value">A 64-bit unsigned integer.</param>
         /// <returns>A System.Half that represents the converted 64-bit unsigned integer.</returns>
-        public static implicit operator Half(ulong value) { return new Half((float)value); }
+        public static implicit operator SmoothHalf(ulong value) { return new SmoothHalf((float)value); }
         /// <summary>
         /// Converts a System.Half to an 8-bit signed integer.
         /// </summary>
         /// <param name="value">A System.Half to convert.</param>
         /// <returns>An 8-bit signed integer that represents the converted System.Half.</returns>
-        public static explicit operator sbyte(Half value) { return (sbyte)(float)value; }
+        public static explicit operator sbyte(SmoothHalf value) { return (sbyte)(float)value; }
         /// <summary>
         /// Converts a System.Half to a 16-bit unsigned integer.
         /// </summary>
         /// <param name="value">A System.Half to convert.</param>
         /// <returns>A 16-bit unsigned integer that represents the converted System.Half.</returns>
-        public static explicit operator ushort(Half value) { return (ushort)(float)value; }
+        public static explicit operator ushort(SmoothHalf value) { return (ushort)(float)value; }
         /// <summary>
         /// Converts a System.Half to a 32-bit unsigned integer.
         /// </summary>
         /// <param name="value">A System.Half to convert.</param>
         /// <returns>A 32-bit unsigned integer that represents the converted System.Half.</returns>
-        public static explicit operator uint(Half value) { return (uint)(float)value; }
+        public static explicit operator uint(SmoothHalf value) { return (uint)(float)value; }
         /// <summary>
         /// Converts a System.Half to a 64-bit unsigned integer.
         /// </summary>
         /// <param name="value">A System.Half to convert.</param>
         /// <returns>A 64-bit unsigned integer that represents the converted System.Half.</returns>
-        public static explicit operator ulong(Half value) { return (ulong)(float)value; }
+        public static explicit operator ulong(SmoothHalf value) { return (ulong)(float)value; }
         #endregion
 
         /// <summary>
@@ -389,8 +389,8 @@ namespace System
         /// Return Value Meaning Less than zero This instance is less than value. Zero
         /// This instance is equal to value. Greater than zero This instance is greater than value.
         /// </returns>
-        public int CompareTo(Half other)
-        {            
+        public int CompareTo(SmoothHalf other)
+        {
             int result = 0;
             if (this < other)
             {
@@ -434,9 +434,9 @@ namespace System
             }
             else
             {
-                if (obj is Half)
+                if (obj is SmoothHalf)
                 {
-                    result = CompareTo((Half)obj);
+                    result = CompareTo((SmoothHalf)obj);
                 }
                 else
                 {
@@ -451,7 +451,7 @@ namespace System
         /// </summary>
         /// <param name="other">A System.Half object to compare to this instance.</param>
         /// <returns>true if value is equal to this instance; otherwise, false.</returns>
-        public bool Equals(Half other)
+        public bool Equals(SmoothHalf other)
         {
             return ((other == this) || (IsNaN(other) && IsNaN(this)));
         }
@@ -464,10 +464,10 @@ namespace System
         public override bool Equals(object obj)
         {
             bool result = false;
-            if (obj is Half)
+            if (obj is SmoothHalf)
             {
-                Half half = (Half)obj;
-                if ((half == this) || (IsNaN(half) && IsNaN(this)))
+                SmoothHalf smoothHalf = (SmoothHalf)obj;
+                if ((smoothHalf == this) || (IsNaN(smoothHalf) && IsNaN(this)))
                 {
                     result = true;
                 }
@@ -488,7 +488,7 @@ namespace System
         /// </summary>
         /// <returns>The enumerated constant (TypeCode)255.</returns>
         public TypeCode GetTypeCode()
-        { 
+        {
             return (TypeCode)255;
         }
 
@@ -498,7 +498,7 @@ namespace System
         /// </summary>
         /// <param name="value">The number to convert.</param>
         /// <returns>An array of bytes with length 2.</returns>
-        public static byte[] GetBytes(Half value)
+        public static byte[] GetBytes(SmoothHalf value)
         {
             return BitConverter.GetBytes(value.internalValue);
         }
@@ -506,8 +506,8 @@ namespace System
         /// Converts the value of a specified instance of System.Half to its equivalent binary representation.
         /// </summary>
         /// <param name="value">A System.Half value.</param>
-        /// <returns>A 16-bit unsigned integer that contain the binary representation of value.</returns>        
-        public static ushort GetBits(Half value)
+        /// <returns>A 16-bit unsigned integer that contain the binary representation of value.</returns>
+        public static ushort GetBits(SmoothHalf value)
         {
             return value.internalValue;
         }
@@ -524,18 +524,18 @@ namespace System
         /// </exception>
         /// <exception cref="System.ArgumentNullException">value is null.</exception>
         /// <exception cref="System.ArgumentOutOfRangeException">startIndex is less than zero or greater than the length of value minus 1.</exception>
-        public static Half ToHalf(byte[] value, int startIndex)
+        public static SmoothHalf ToHalf(byte[] value, int startIndex)
         {
-            return Half.ToHalf((ushort)BitConverter.ToInt16(value, startIndex));
+            return SmoothHalf.ToHalf((ushort)BitConverter.ToInt16(value, startIndex));
         }
         /// <summary>
         /// Returns a half-precision floating point number converted from its binary representation.
         /// </summary>
         /// <param name="bits">Binary representation of System.Half value</param>
         /// <returns>A half-precision floating point number formed by its binary representation.</returns>
-        public static Half ToHalf(ushort bits)
+        public static SmoothHalf ToHalf(ushort bits)
         {
-            return new Half { internalValue = bits };
+            return new SmoothHalf { internalValue = bits };
         }
 
         /// <summary>
@@ -547,7 +547,7 @@ namespace System
         /// than zero. 0 value is equal to zero. 1 value is greater than zero.
         /// </returns>
         /// <exception cref="System.ArithmeticException">value is equal to System.Half.NaN.</exception>
-        public static int Sign(Half value)
+        public static int Sign(SmoothHalf value)
         {
             if (value < 0)
             {
@@ -572,7 +572,7 @@ namespace System
         /// </summary>
         /// <param name="value">A number in the range System.Half.MinValue ≤ value ≤ System.Half.MaxValue.</param>
         /// <returns>A half-precision floating-point number, x, such that 0 ≤ x ≤System.Half.MaxValue.</returns>
-        public static Half Abs(Half value)
+        public static SmoothHalf Abs(SmoothHalf value)
         {
             return HalfHelper.Abs(value);
         }
@@ -585,7 +585,7 @@ namespace System
         /// Parameter value1 or value2, whichever is larger. If value1, or value2, or both val1
         /// and value2 are equal to System.Half.NaN, System.Half.NaN is returned.
         /// </returns>
-        public static Half Max(Half value1, Half value2)
+        public static SmoothHalf Max(SmoothHalf value1, SmoothHalf value2)
         {
             return (value1 < value2) ? value2 : value1;
         }
@@ -598,47 +598,47 @@ namespace System
         /// Parameter value1 or value2, whichever is smaller. If value1, or value2, or both val1
         /// and value2 are equal to System.Half.NaN, System.Half.NaN is returned.
         /// </returns>
-        public static Half Min(Half value1, Half value2)
+        public static SmoothHalf Min(SmoothHalf value1, SmoothHalf value2)
         {
             return (value1 < value2) ? value1 : value2;
-        }        
+        }
         #endregion
 
         /// <summary>
         /// Returns a value indicating whether the specified number evaluates to not a number (System.Half.NaN).
         /// </summary>
-        /// <param name="half">A half-precision floating-point number.</param>
+        /// <param name="smoothHalf">A half-precision floating-point number.</param>
         /// <returns>true if value evaluates to not a number (System.Half.NaN); otherwise, false.</returns>
-        public static bool IsNaN(Half half)
+        public static bool IsNaN(SmoothHalf smoothHalf)
         {
-            return HalfHelper.IsNaN(half);
+            return HalfHelper.IsNaN(smoothHalf);
         }
         /// <summary>
         /// Returns a value indicating whether the specified number evaluates to negative or positive infinity.
         /// </summary>
-        /// <param name="half">A half-precision floating-point number.</param>
+        /// <param name="smoothHalf">A half-precision floating-point number.</param>
         /// <returns>true if half evaluates to System.Half.PositiveInfinity or System.Half.NegativeInfinity; otherwise, false.</returns>
-        public static bool IsInfinity(Half half)
+        public static bool IsInfinity(SmoothHalf smoothHalf)
         {
-            return HalfHelper.IsInfinity(half);
+            return HalfHelper.IsInfinity(smoothHalf);
         }
         /// <summary>
         /// Returns a value indicating whether the specified number evaluates to negative infinity.
         /// </summary>
-        /// <param name="half">A half-precision floating-point number.</param>
+        /// <param name="smoothHalf">A half-precision floating-point number.</param>
         /// <returns>true if half evaluates to System.Half.NegativeInfinity; otherwise, false.</returns>
-        public static bool IsNegativeInfinity(Half half)
+        public static bool IsNegativeInfinity(SmoothHalf smoothHalf)
         {
-            return HalfHelper.IsNegativeInfinity(half);
+            return HalfHelper.IsNegativeInfinity(smoothHalf);
         }
         /// <summary>
         /// Returns a value indicating whether the specified number evaluates to positive infinity.
         /// </summary>
-        /// <param name="half">A half-precision floating-point number.</param>
+        /// <param name="smoothHalf">A half-precision floating-point number.</param>
         /// <returns>true if half evaluates to System.Half.PositiveInfinity; otherwise, false.</returns>
-        public static bool IsPositiveInfinity(Half half)
+        public static bool IsPositiveInfinity(SmoothHalf smoothHalf)
         {
-            return HalfHelper.IsPositiveInfinity(half);
+            return HalfHelper.IsPositiveInfinity(smoothHalf);
         }
 
         #region String operations (Parse and ToString)
@@ -650,12 +650,12 @@ namespace System
         /// <exception cref="System.ArgumentNullException">value is null.</exception>
         /// <exception cref="System.FormatException">value is not in the correct format.</exception>
         /// <exception cref="System.OverflowException">value represents a number less than System.Half.MinValue or greater than System.Half.MaxValue.</exception>
-        public static Half Parse(string value)
+        public static SmoothHalf Parse(string value)
         {
-            return (Half)float.Parse(value, CultureInfo.InvariantCulture);
+            return (SmoothHalf)float.Parse(value, CultureInfo.InvariantCulture);
         }
         /// <summary>
-        /// Converts the string representation of a number to its System.Half equivalent 
+        /// Converts the string representation of a number to its System.Half equivalent
         /// using the specified culture-specific format information.
         /// </summary>
         /// <param name="value">The string representation of the number to convert.</param>
@@ -664,9 +664,9 @@ namespace System
         /// <exception cref="System.ArgumentNullException">value is null.</exception>
         /// <exception cref="System.FormatException">value is not in the correct format.</exception>
         /// <exception cref="System.OverflowException">value represents a number less than System.Half.MinValue or greater than System.Half.MaxValue.</exception>
-        public static Half Parse(string value, IFormatProvider provider)
+        public static SmoothHalf Parse(string value, IFormatProvider provider)
         {
-            return (Half)float.Parse(value, provider);
+            return (SmoothHalf)float.Parse(value, provider);
         }
         /// <summary>
         /// Converts the string representation of a number in a specified style to its System.Half equivalent.
@@ -685,18 +685,18 @@ namespace System
         /// </exception>
         /// <exception cref="System.FormatException">value is not in the correct format.</exception>
         /// <exception cref="System.OverflowException">value represents a number less than System.Half.MinValue or greater than System.Half.MaxValue.</exception>
-        public static Half Parse(string value, NumberStyles style)
+        public static SmoothHalf Parse(string value, NumberStyles style)
         {
-            return (Half)float.Parse(value, style, CultureInfo.InvariantCulture);
+            return (SmoothHalf)float.Parse(value, style, CultureInfo.InvariantCulture);
         }
         /// <summary>
-        /// Converts the string representation of a number to its System.Half equivalent 
+        /// Converts the string representation of a number to its System.Half equivalent
         /// using the specified style and culture-specific format.
         /// </summary>
         /// <param name="value">The string representation of the number to convert.</param>
         /// <param name="style">
         /// A bitwise combination of System.Globalization.NumberStyles values that indicates
-        /// the style elements that can be present in value. A typical value to specify is 
+        /// the style elements that can be present in value. A typical value to specify is
         /// System.Globalization.NumberStyles.Number.
         /// </param>
         /// <param name="provider">An System.IFormatProvider object that supplies culture-specific information about the format of value.</param>
@@ -708,9 +708,9 @@ namespace System
         /// </exception>
         /// <exception cref="System.FormatException">value is not in the correct format.</exception>
         /// <exception cref="System.OverflowException">value represents a number less than System.Half.MinValue or greater than System.Half.MaxValue.</exception>
-        public static Half Parse(string value, NumberStyles style, IFormatProvider provider)
+        public static SmoothHalf Parse(string value, NumberStyles style, IFormatProvider provider)
         {
-            return (Half)float.Parse(value, style, provider);
+            return (SmoothHalf)float.Parse(value, style, provider);
         }
         /// <summary>
         /// Converts the string representation of a number to its System.Half equivalent.
@@ -725,16 +725,16 @@ namespace System
         /// or greater than System.Half.MaxValue. This parameter is passed uninitialized.
         /// </param>
         /// <returns>true if s was converted successfully; otherwise, false.</returns>
-        public static bool TryParse(string value, out Half result)
+        public static bool TryParse(string value, out SmoothHalf result)
         {
             float f;
             if (float.TryParse(value, out f))
             {
-                result = (Half)f;
+                result = (SmoothHalf)f;
                 return true;
             }
 
-            result = new Half();
+            result = new SmoothHalf();
             return false;
         }
         /// <summary>
@@ -757,21 +757,21 @@ namespace System
         /// </param>
         /// <returns>true if s was converted successfully; otherwise, false.</returns>
         /// <exception cref="System.ArgumentException">
-        /// style is not a System.Globalization.NumberStyles value. -or- style 
+        /// style is not a System.Globalization.NumberStyles value. -or- style
         /// is the System.Globalization.NumberStyles.AllowHexSpecifier value.
         /// </exception>
-        public static bool TryParse(string value, NumberStyles style, IFormatProvider provider, out Half result)
+        public static bool TryParse(string value, NumberStyles style, IFormatProvider provider, out SmoothHalf result)
         {
             bool parseResult = false;
             float f;
             if (float.TryParse(value, style, provider, out f))
             {
-                result = (Half)f;
+                result = (SmoothHalf)f;
                 parseResult = true;
             }
             else
             {
-                result = new Half();
+                result = new SmoothHalf();
             }
 
             return parseResult;
@@ -804,7 +804,7 @@ namespace System
             return ((float)this).ToString(format, CultureInfo.InvariantCulture);
         }
         /// <summary>
-        /// Converts the numeric value of this instance to its equivalent string representation 
+        /// Converts the numeric value of this instance to its equivalent string representation
         /// using the specified format and culture-specific format information.
         /// </summary>
         /// <param name="format">A numeric format string.</param>

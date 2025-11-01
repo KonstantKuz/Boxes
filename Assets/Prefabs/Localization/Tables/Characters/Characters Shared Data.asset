@@ -43,6 +43,14 @@ MonoBehaviour:
     m_Key: Policeman
     m_Metadata:
       m_Items: []
+  - m_Id: 34700815266594816
+    m_Key: Guard
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34703607498653696
+    m_Key: Trader
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

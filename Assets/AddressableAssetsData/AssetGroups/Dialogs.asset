@@ -35,6 +35,18 @@ MonoBehaviour:
     m_SerializedLabels:
     - Dialog
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1bd9c0e8246f6494eaba5efad7dbe36b
+    m_Address: Assets/Prefabs/Game/Quests/8.SeekTheTrader/Dialogs/8.1.SecretKeys.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Dialog
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3f42cefe4f3344b499935b820f10ee42
+    m_Address: Assets/Prefabs/Game/Quests/8.SeekTheTrader/Dialogs/8.2.Stop.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Dialog
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 46581212a95d3044ea0229fed49504d7
     m_Address: Assets/Prefabs/System/DialogService/Dialogs/3.ParkingMess/1.GoToAngar.asset
     m_ReadOnly: 0

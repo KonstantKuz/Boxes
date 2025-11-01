@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Infrastructure.Network.Components;
 using UnityEngine;
 
 namespace Gameplay.RoadSystem
@@ -26,7 +27,7 @@ namespace Gameplay.RoadSystem
 
         private void Awake()
         {
-            patrolCars = GetComponentsInChildren<PatrolCar>();
+            patrolCars = GetComponentsInChildren<PatrolCar>(true);
             foreach (PatrolCar car in patrolCars)
             {
                 car.SetSystem(this);
@@ -38,24 +39,22 @@ namespace Gameplay.RoadSystem
 
         public void SetActiveCars(bool active)
         {
-            foreach (PatrolCar car in patrolCars)
+            foreach (NetworkStateHelper stateHelper in patrolCars.Select(car => car.GetComponent<NetworkStateHelper>()))
             {
-                car.gameObject.SetActive(active);
+                stateHelper.CmdSetActive(active);
             }
         }
 
-        public void SetPatrolActive(bool value)
+        public void SetActivePatrol(bool value)
         {
-            // Если маршруты ещё не назначены, назначаем их
             if (value && !routesAssigned)
             {
                 DetectCyclesAndAssignCars();
             }
 
-            // Просто включаем/выключаем движение без пересчёта маршрутов
-            foreach (PatrolCar car in patrolCars)
+            foreach (IsServerConditionHelper helper in patrolCars.Select(car => car.GetComponent<IsServerConditionHelper>()))
             {
-                car.SetIsDriving(value);
+                helper.SetCondition(value);
             }
         }
 

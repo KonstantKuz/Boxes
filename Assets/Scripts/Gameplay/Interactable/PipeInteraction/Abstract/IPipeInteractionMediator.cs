@@ -8,6 +8,7 @@ namespace Gameplay.Interactable.PipeInteraction.Abstract
 {
     public interface IPipeInteractionMediator : IPostBuildInjectable
     {
+        Pipe Pipe { get; }
         ReadOnlyReactiveProperty<PipeSharedState> PipeState { get; }
         IReadOnlyDictionary<uint, IPipeInteractionInitiator> Initiators { get; }
         void RegisterPipe(Pipe pipe);

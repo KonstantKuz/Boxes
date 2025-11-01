@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -25,8 +25,9 @@ namespace CMF
 		public float movementSpeed = 7f;
 
 		//How fast the controller can change direction while in the air;
-		//Higher values result in more air control;
-		public float airControlRate = 2f;
+		//Range: 0 (no air control) to 1 (full air control);
+		[Range(0f, 1f)]
+		public float airControlRate = 0.1f;
 
 		//Jump speed;
 		public float jumpSpeed = 10f;
@@ -35,10 +36,10 @@ namespace CMF
 		public float jumpDuration = 0.2f;
 		float currentJumpStartTime = 0f;
 
-		//'AirFriction' determines how fast the controller loses its momentum while in the air;
 		//'GroundFriction' is used instead, if the controller is grounded;
-		public float airFriction = 0.5f;
-		public float groundFriction = 100f;
+		//Values should be between 0 (no friction, infinite sliding) and 1 (maximum friction, instant stop);
+		[Range(0f, 1f)]
+		public float groundFriction = 0.1f;
 
 		//Current momentum;
 		protected Vector3 momentum = Vector3.zero;
@@ -76,8 +77,10 @@ namespace CMF
 		public Transform cameraTransform;
 
 		private float speedModifier = 1f;
+		private float groundFrictionModifier = 1f;
 
-		private float MovementSpeed => movementSpeed * speedModifier;
+		private float MovementSpeed => Mathf.Clamp(movementSpeed * speedModifier, 0.1f, 1000);
+		private float GroundFriction => Mathf.Clamp(groundFriction * groundFrictionModifier, 0.1f, 1f);
 
 		//Get references to all necessary components;
 		void Awake () {
@@ -97,9 +100,14 @@ namespace CMF
 			cameraTransform = target;
 		}
 
-		public void SetSpeedModifier(float speedModifier)
+		public void AddSpeedModifier(float speedModifier)
 		{
-			this.speedModifier = speedModifier;
+			this.speedModifier += speedModifier;
+		}
+
+		public void AddGroundFrictionModifier(float groundFrictionModifier)
+		{
+			this.groundFrictionModifier += groundFrictionModifier;
 		}
 
 		//This function is called right after Awake(); It can be overridden by inheriting scripts;
@@ -150,18 +158,13 @@ namespace CMF
 			//Check if the player has initiated a jump;
 			HandleJumping();
 
-			//Calculate movement velocity;
-			Vector3 _velocity = Vector3.zero;
-			if(currentControllerState == ControllerState.Grounded)
-				_velocity = CalculateMovementVelocity();
-
 			//If local momentum is used, transform momentum into world space first;
 			Vector3 _worldMomentum = momentum;
 			if(useLocalMomentum)
 				_worldMomentum = tr.localToWorldMatrix * momentum;
 
-			//Add current momentum to velocity;
-			_velocity += _worldMomentum;
+			//Use momentum as velocity (all movement is physics-based);
+			Vector3 _velocity = _worldMomentum;
 
 			//If player is grounded or sliding on a slope, extend mover's sensor range;
 			//This enables the player to walk up/down stairs and slopes without losing ground contact;
@@ -389,35 +392,24 @@ namespace CMF
 			}
 
 			//Add gravity to vertical momentum;
-			_verticalMomentum -= tr.up * gravity * Time.deltaTime;
+			_verticalMomentum -= tr.up * gravity * Time.fixedDeltaTime;
 
 			//Remove any downward force if the controller is grounded;
 			if(currentControllerState == ControllerState.Grounded && VectorMath.GetDotProduct(_verticalMomentum, tr.up) < 0f)
 				_verticalMomentum = Vector3.zero;
 
-			//Manipulate momentum to steer controller in the air (if controller is not grounded or sliding);
+			//Calculate target velocity based on input;
+			Vector3 targetVelocity = CalculateMovementVelocity();
+
+			//Apply control and friction;
 			if(!IsGrounded())
 			{
-				Vector3 _movementVelocity = CalculateMovementVelocity();
-
-				//If controller has received additional momentum from somewhere else;
-				if(_horizontalMomentum.magnitude > MovementSpeed)
-				{
-					//Prevent unwanted accumulation of speed in the direction of the current momentum;
-					if(VectorMath.GetDotProduct(_movementVelocity, _horizontalMomentum.normalized) > 0f)
-						_movementVelocity = VectorMath.RemoveDotVector(_movementVelocity, _horizontalMomentum.normalized);
-
-					//Lower air control slightly with a multiplier to add some 'weight' to any momentum applied to the controller;
-					float _airControlMultiplier = 0.25f;
-					_horizontalMomentum += _movementVelocity * Time.deltaTime * airControlRate * _airControlMultiplier;
-				}
-				//If controller has not received additional momentum;
-				else
-				{
-					//Clamp _horizontal velocity to prevent accumulation of speed;
-					_horizontalMomentum += _movementVelocity * Time.deltaTime * airControlRate;
-					_horizontalMomentum = Vector3.ClampMagnitude(_horizontalMomentum, MovementSpeed);
-				}
+				//In air: limited control via airControlRate, friction for deceleration;
+				_horizontalMomentum = Vector3.Lerp(_horizontalMomentum, targetVelocity, airControlRate * Time.fixedDeltaTime * 10);
+			}
+			else
+			{
+				_horizontalMomentum = Vector3.Lerp(_horizontalMomentum, targetVelocity, GroundFriction * Time.fixedDeltaTime * 10);
 			}
 
 			//Steer controller on slopes;
@@ -435,11 +427,11 @@ namespace CMF
 				_horizontalMomentum += _slopeMovementVelocity * Time.fixedDeltaTime;
 			}
 
-			//Apply friction to horizontal momentum based on whether the controller is grounded;
-			if(currentControllerState == ControllerState.Grounded)
-				_horizontalMomentum = VectorMath.IncrementVectorTowardTargetVector(_horizontalMomentum, groundFriction, Time.deltaTime, Vector3.zero);
-			else
-				_horizontalMomentum = VectorMath.IncrementVectorTowardTargetVector(_horizontalMomentum, airFriction, Time.deltaTime, Vector3.zero);
+			// //Apply friction to horizontal momentum based on whether the controller is grounded;
+			// if(currentControllerState == ControllerState.Grounded)
+			// 	_horizontalMomentum = VectorMath.IncrementVectorTowardTargetVector(_horizontalMomentum, groundFriction, Time.deltaTime, Vector3.zero);
+			// else
+			// 	_horizontalMomentum = VectorMath.IncrementVectorTowardTargetVector(_horizontalMomentum, airFriction, Time.deltaTime, Vector3.zero);
 
 			//Add horizontal and vertical momentum back together;
 			momentum = _horizontalMomentum + _verticalMomentum;
@@ -456,7 +448,7 @@ namespace CMF
 
 				//Apply additional slide gravity;
 				Vector3 _slideDirection = Vector3.ProjectOnPlane(-tr.up, mover.GetGroundNormal()).normalized;
-				momentum += _slideDirection * slideGravity * Time.deltaTime;
+				momentum += _slideDirection * slideGravity * Time.fixedDeltaTime;
 			}
 
 			//If controller is jumping, override vertical velocity with jumpSpeed;
@@ -499,34 +491,38 @@ namespace CMF
 		//This function is called when the controller has lost ground contact, i.e. is either falling or rising, or generally in the air;
 		void OnGroundContactLost()
 		{
-			//If local momentum is used, transform momentum into world coordinates first;
-			if(useLocalMomentum)
-				momentum = tr.localToWorldMatrix * momentum;
+			//Momentum is already set correctly - just preserve it for air physics;
+			//No need to add input velocity, as momentum already contains the real current speed;
+			//Air control will be handled by HandleMomentum() using airControlRate;
 
-			//Get current movement velocity;
-			Vector3 _velocity = GetMovementVelocity();
-
-			//Check if the controller has both momentum and a current movement velocity;
-			if(_velocity.sqrMagnitude >= 0f && momentum.sqrMagnitude > 0f)
-			{
-				//Project momentum onto movement direction;
-				Vector3 _projectedMomentum = Vector3.Project(momentum, _velocity.normalized);
-				//Calculate dot product to determine whether momentum and movement are aligned;
-				float _dot = VectorMath.GetDotProduct(_projectedMomentum.normalized, _velocity.normalized);
-
-				//If current momentum is already pointing in the same direction as movement velocity,
-				//Don't add further momentum (or limit movement velocity) to prevent unwanted speed accumulation;
-				if(_projectedMomentum.sqrMagnitude >= _velocity.sqrMagnitude && _dot > 0f)
-					_velocity = Vector3.zero;
-				else if(_dot > 0f)
-					_velocity -= _projectedMomentum;
-			}
-
-			//Add movement velocity to momentum;
-			momentum += _velocity;
-
-			if(useLocalMomentum)
-				momentum = tr.worldToLocalMatrix * momentum;
+			// //If local momentum is used, transform momentum into world coordinates first;
+			// if(useLocalMomentum)
+			// 	momentum = tr.localToWorldMatrix * momentum;
+			//
+			// //Get current movement velocity;
+			// Vector3 _velocity = GetMovementVelocity();
+			//
+			// //Check if the controller has both momentum and a current movement velocity;
+			// if(_velocity.sqrMagnitude >= 0f && momentum.sqrMagnitude > 0f)
+			// {
+			// 	//Project momentum onto movement direction;
+			// 	Vector3 _projectedMomentum = Vector3.Project(momentum, _velocity.normalized);
+			// 	//Calculate dot product to determine whether momentum and movement are aligned;
+			// 	float _dot = VectorMath.GetDotProduct(_projectedMomentum.normalized, _velocity.normalized);
+			//
+			// 	//If current momentum is already pointing in the same direction as movement velocity,
+			// 	//Don't add further momentum (or limit movement velocity) to prevent unwanted speed accumulation;
+			// 	if(_projectedMomentum.sqrMagnitude >= _velocity.sqrMagnitude && _dot > 0f)
+			// 		_velocity = Vector3.zero;
+			// 	else if(_dot > 0f)
+			// 		_velocity -= _projectedMomentum;
+			// }
+			//
+			// //Add movement velocity to momentum;
+			// momentum += _velocity;
+			//
+			// if(useLocalMomentum)
+			// 	momentum = tr.worldToLocalMatrix * momentum;
 		}
 
 		//This function is called when the controller has landed on a surface after being in the air;

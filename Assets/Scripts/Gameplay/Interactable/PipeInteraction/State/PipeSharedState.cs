@@ -23,7 +23,7 @@ namespace Gameplay.Interactable.PipeInteraction.State
 
         public bool HasPlayer(uint playerNetId)
         {
-            return PlayerInputs.ContainsKey(playerNetId);
+            return PlayerInputs?.ContainsKey(playerNetId) ?? false;
         }
     }
 }

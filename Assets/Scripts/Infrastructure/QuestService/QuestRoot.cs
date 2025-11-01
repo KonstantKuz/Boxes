@@ -27,7 +27,7 @@ namespace Infrastructure.QuestService
         private NetworkStartPosition startPosition;
 
         private InitialStateHelper[] initialStateHelpers;
-        private NetworkInitialStateHelper[] networkInitialStateHelpers;
+        private NetworkStateHelper[] networkInitialStateHelpers;
 
         public Transform Spawn
         {
@@ -68,7 +68,7 @@ namespace Infrastructure.QuestService
             if (initialStateHelpers == null || networkInitialStateHelpers == null)
             {
                 initialStateHelpers = GetComponentsInChildren<InitialStateHelper>(true);
-                networkInitialStateHelpers = GetComponentsInChildren<NetworkInitialStateHelper>(true);
+                networkInitialStateHelpers = GetComponentsInChildren<NetworkStateHelper>(true);
             }
 
             await UniTask.WaitWhile(() =>
@@ -82,9 +82,9 @@ namespace Infrastructure.QuestService
                 stateHelper.ResetState();
             }
 
-            foreach (NetworkInitialStateHelper stateHelper in networkInitialStateHelpers)
+            foreach (NetworkStateHelper stateHelper in networkInitialStateHelpers)
             {
-                stateHelper.CmdResetState();
+                stateHelper.ResetState();
             }
         }
     }

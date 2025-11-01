@@ -2,12 +2,13 @@ using System;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using Gameplay.Interactable.BoxesInteraction.Components;
+using Mirror;
 using UnityEngine;
 using UnityEngine.Events;
 
 namespace Gameplay.Interactable.Door
 {
-    public class Door : MonoBehaviour
+    public class Door : NetworkBehaviour
     {
         [SerializeField]
         private UnityEvent OnKnock;
@@ -64,7 +65,8 @@ namespace Gameplay.Interactable.Door
             }
         }
 
-        public void Knock()
+        [ClientRpc]
+        public void KnockRpc()
         {
             if (isOpening || isPatrolActive)
             {
@@ -116,14 +118,15 @@ namespace Gameplay.Interactable.Door
                 if (patrolCharacter != null)
                 {
                     isPatrolActive = true;
-                    patrolCharacter.GetComponent<BallStealer>().StartSteal(this);
+                    patrolCharacter.GetComponent<BallStealer>().Activate(this);
                 }
 
                 isOpening = false;
             }
         }
 
-        public void ReleasePatrol()
+        [ClientRpc]
+        public void ReleasePatrolRpc()
         {
             isPatrolActive = false;
             currentKnocksCount = 0;

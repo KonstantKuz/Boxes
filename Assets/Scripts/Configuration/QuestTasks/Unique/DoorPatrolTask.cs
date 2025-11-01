@@ -5,6 +5,7 @@ using System.Threading;
 using Cysharp.Threading.Tasks;
 using Gameplay.Interactable.Door;
 using Infrastructure;
+using Infrastructure.Network.Abstract;
 using Infrastructure.QuestService.Abstract;
 using Infrastructure.World;
 using R3;
@@ -26,14 +27,16 @@ namespace Configuration.QuestTasks.Unique
         private float knockInterval = 2f;
 
         private IWorldService worldService;
+        private INetworkManager networkManager;
         private List<Door> doors;
         private CompositeDisposable disposables;
         private System.Random random;
 
         [Inject]
-        private void Construct(IWorldService worldService)
+        private void Construct(IWorldService worldService, INetworkManager networkManager)
         {
             this.worldService = worldService;
+            this.networkManager = networkManager;
 
             doors = new List<Door>();
             disposables = new CompositeDisposable();
@@ -43,6 +46,11 @@ namespace Configuration.QuestTasks.Unique
         public override void Start()
         {
             IsDone.Value = true;
+
+            if (!networkManager.IsServer)
+            {
+                return;
+            }
 
             foreach (string doorId in doorIds)
             {
@@ -103,7 +111,7 @@ namespace Configuration.QuestTasks.Unique
 
             for (int i = 0; i <= knockCount; i++)
             {
-                selectedDoor.Knock();
+                selectedDoor.KnockRpc();
                 await UniTask.Delay(TimeSpan.FromSeconds(knockInterval), cancellationToken: token);
             }
 

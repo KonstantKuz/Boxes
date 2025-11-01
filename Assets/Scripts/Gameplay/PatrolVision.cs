@@ -118,16 +118,23 @@ namespace Gameplay
             Vector3 forward = transform.forward;
             Quaternion leftRayRotation = Quaternion.Euler(0, -angle / 2, 0);
             Quaternion rightRayRotation = Quaternion.Euler(0, angle / 2, 0);
+            Quaternion topRayRotation = Quaternion.Euler(-angle / 2, 0, 0);
+            Quaternion bottomRayRotation = Quaternion.Euler(angle / 2, 0, 0);
             Vector3 leftRayDirection = leftRayRotation * forward;
             Vector3 rightRayDirection = rightRayRotation * forward;
+            Vector3 topRayDirection = topRayRotation * forward;
+            Vector3 bottomRayDirection = bottomRayRotation * forward;
 
             Gizmos.color = Color.yellow;
             Gizmos.DrawLine(transform.position, transform.position + leftRayDirection * radius);
             Gizmos.DrawLine(transform.position, transform.position + rightRayDirection * radius);
+            Gizmos.DrawLine(transform.position, transform.position + topRayDirection * radius);
+            Gizmos.DrawLine(transform.position, transform.position + bottomRayDirection * radius);
 
 #if UNITY_EDITOR
             UnityEditor.Handles.color = new Color(1f, 1f, 0f, 0.15f);
             UnityEditor.Handles.DrawSolidArc(transform.position, Vector3.up, leftRayDirection, angle, radius);
+            UnityEditor.Handles.DrawSolidArc(transform.position, Vector3.right, topRayDirection, angle, radius);
 #endif
         }
     }

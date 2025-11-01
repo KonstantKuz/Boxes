@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using Cysharp.Threading.Tasks;
 using Infrastructure.Bootstrap;
 using Infrastructure.Network.Abstract;
@@ -37,6 +38,7 @@ namespace Infrastructure.QuestService
 
         private Dictionary<Quest, QuestRoot> roots;
 
+        public ReadOnlyCollection<Quest> Quests => quests.AsReadOnly();
         ReadOnlyReactiveProperty<Quest> IQuestService.ActiveQuest => activeQuest;
         ReactiveProperty<ITask> IQuestService.ActiveTask => activeTask;
 

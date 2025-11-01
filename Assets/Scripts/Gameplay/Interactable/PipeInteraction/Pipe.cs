@@ -84,16 +84,11 @@ namespace Gameplay.Interactable.PipeInteraction
             calculatedPositions = new Dictionary<uint, Vector3>();
 
             moveForce = minMoveForce;
-            if (rigidbody == null)
-            {
-                rigidbody = GetComponent<Rigidbody>();
-            }
+            mediator.RegisterPipe(this);
         }
 
         public override void OnStartClient()
         {
-            mediator.RegisterPipe(this);
-
             stateSubscription = StateHolder.Subscribe(OnStateChanged);
         }
 
@@ -123,8 +118,12 @@ namespace Gameplay.Interactable.PipeInteraction
         private void OnStateChanged(PipeSharedState state)
         {
             RecalculatePositions();
-            IEnumerable<string> inputs = state.PlayerInputs.Select(item => $"[{item.Key}={item.Value}]");
-            this.Log(LogType.Log, $"Pipe state {string.Join("|", inputs)}");
+
+            if (State.PlayerCount > 0)
+            {
+                IEnumerable<string> inputs = state.PlayerInputs.Select(item => $"[{item.Key}={item.Value}]");
+                this.Log(LogType.Log, $"Pipe state {string.Join("|", inputs)}");
+            }
         }
 
         private void ExecuteJoin(JoinPipeCommand command)

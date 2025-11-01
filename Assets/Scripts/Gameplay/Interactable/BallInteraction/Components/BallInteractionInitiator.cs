@@ -1,5 +1,8 @@
-﻿using Gameplay.Interactable.Abstract;
+﻿using System.Threading;
+using Cysharp.Threading.Tasks;
+using Gameplay.Interactable.Abstract;
 using Gameplay.Interactable.BallInteraction.Abstract;
+using Mirror;
 using Reflex.Attributes;
 using UnityEngine;
 
@@ -14,6 +17,7 @@ namespace Gameplay.Interactable.BallInteraction.Components
         private Transform ballSocket;
 
         private IBallInteractionMediator ballInteractionMediator;
+        private CancellationTokenSource cancellation;
 
         uint IBallInteractionInitiator.NetId => netId;
         Transform IBallInteractionInitiator.BallSocket => ballSocket;
@@ -26,9 +30,24 @@ namespace Gameplay.Interactable.BallInteraction.Components
             this.ballInteractionMediator = ballInteractionMediator;
         }
 
-        public override void OnStartClient()
+        private void Awake()
         {
-            ballInteractionMediator.RegisterInitiator(this, isLocalPlayer);
+            cancellation = new CancellationTokenSource();
+
+            UniTask.Void(async () =>
+            {
+                await UniTask.WaitUntil(
+                    () => NetworkClient.ready && netIdentity != null, cancellationToken: cancellation.Token
+                );
+
+                ballInteractionMediator.RegisterInitiator(this, isLocalPlayer);
+            });
+        }
+
+        private void OnDestroy()
+        {
+            cancellation.Cancel();
+            cancellation.Dispose();
         }
     }
 }

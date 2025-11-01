@@ -11,7 +11,7 @@ using UnityEngine;
 namespace Configuration.QuestTasks.Unique
 {
     [Serializable]
-    public class PetruhaLeaveTask : TaskBase, IDisposable
+    public class NpcKickBallTask : TaskBase, IDisposable
     {
         [SerializeField]
         private string npcId;
@@ -32,7 +32,7 @@ namespace Configuration.QuestTasks.Unique
             if (!worldService.TryGetById(npcId, out IWorldObject worldObject) ||
                 !worldObject.TryGetComponent(out IBallInteractionInitiator initiator))
             {
-                this.Log(LogType.Error, "Petruha leave task failed");
+                this.Log(LogType.Error, $"Could not find npc or invalid npc with id {npcId}");
                 return;
             }
 

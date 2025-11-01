@@ -1,4 +1,4 @@
-﻿#if UNITY_EDITOR
+#if UNITY_EDITOR
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -42,6 +42,16 @@ namespace Editor
             [TableColumnWidth(360)]
             [Tooltip("Новый префикс namespace, например AtlantisClient.Game.UI.Shared")]
             public string NewNsPrefix = "AtlantisClient.Game.UI.Shared";
+
+            [LabelText("Old Class Name")]
+            [TableColumnWidth(200)]
+            [Tooltip("Старое имя класса (опционально). Например: OldClassName. Если не указано, работает только с namespace/assembly")]
+            public string OldClassName = "";
+
+            [LabelText("New Class Name")]
+            [TableColumnWidth(200)]
+            [Tooltip("Новое имя класса (опционально). Например: NewClassName")]
+            public string NewClassName = "";
         }
 
         [TitleGroup("Rules", "Правила миграции (добавьте нужные пары)", alignment: TitleAlignments.Left)]
@@ -52,10 +62,10 @@ namespace Editor
             new Rule()
             {
                 Enabled     = true,
-                OldAssembly = "Game.UI.Desktop",
-                NewAssembly = "Game.UI.Shared",
-                OldNsPrefix = "AtlantisClient.Game.UI.Desktop",
-                NewNsPrefix = "AtlantisClient.Game.UI.Shared"
+                OldAssembly = "Boxes",
+                NewAssembly = "Boxes",
+                OldNsPrefix = "",
+                NewNsPrefix = ""
             }
         };
 
@@ -603,7 +613,28 @@ namespace Editor
                 }
 
                 string tail = typeName.Substring(r.OldNsPrefix.Length);
-                string newTypeName = r.NewNsPrefix + tail;
+                string newTypeName;
+
+                // Если указано переименование класса
+                bool hasClassRename = !string.IsNullOrEmpty(r.OldClassName) && !string.IsNullOrEmpty(r.NewClassName);
+
+                if (hasClassRename)
+                {
+                    // Проверяем, что это именно тот класс который нужно переименовать
+                    string expectedOldFullName = r.OldNsPrefix + "." + r.OldClassName;
+
+                    if (!string.Equals(typeName, expectedOldFullName, StringComparison.Ordinal))
+                    {
+                        continue; // Это не тот класс
+                    }
+
+                    newTypeName = r.NewNsPrefix + "." + r.NewClassName;
+                }
+                else
+                {
+                    // Работаем как раньше - просто меняем namespace
+                    newTypeName = r.NewNsPrefix + tail;
+                }
 
                 Type newType = ResolveType(newTypeName, r.NewAssembly);
 
@@ -718,21 +749,51 @@ namespace Editor
                     continue;
                 }
 
-                if (txt.Contains(string.Concat(r.OldAssembly, " ", r.OldNsPrefix), StringComparison.Ordinal))
-                {
-                    return true;
-                }
+                bool hasClassRename = !string.IsNullOrEmpty(r.OldClassName) && !string.IsNullOrEmpty(r.NewClassName);
 
-                if (txt.Contains(string.Concat(r.OldNsPrefix, "."), StringComparison.Ordinal) &&
-                    txt.Contains(string.Concat(", ", r.OldAssembly), StringComparison.Ordinal))
+                if (hasClassRename)
                 {
-                    return true;
-                }
+                    // Ищем конкретный класс
+                    string oldFullClassName = r.OldNsPrefix + "." + r.OldClassName;
 
-                if (txt.Contains(string.Concat("ns: ", r.OldNsPrefix), StringComparison.Ordinal) &&
-                    txt.Contains(string.Concat("asm: ", r.OldAssembly), StringComparison.Ordinal))
+                    // Проверяем разные паттерны для конкретного класса
+                    if (txt.Contains(string.Concat(r.OldAssembly, " ", oldFullClassName), StringComparison.Ordinal))
+                    {
+                        return true;
+                    }
+
+                    if (txt.Contains(oldFullClassName, StringComparison.Ordinal) &&
+                        txt.Contains(string.Concat(", ", r.OldAssembly), StringComparison.Ordinal))
+                    {
+                        return true;
+                    }
+
+                    if (txt.Contains(string.Concat("class: ", r.OldClassName), StringComparison.Ordinal) &&
+                        txt.Contains(string.Concat("ns: ", r.OldNsPrefix), StringComparison.Ordinal) &&
+                        txt.Contains(string.Concat("asm: ", r.OldAssembly), StringComparison.Ordinal))
+                    {
+                        return true;
+                    }
+                }
+                else
                 {
-                    return true;
+                    // Ищем по namespace/assembly
+                    if (txt.Contains(string.Concat(r.OldAssembly, " ", r.OldNsPrefix), StringComparison.Ordinal))
+                    {
+                        return true;
+                    }
+
+                    if (txt.Contains(string.Concat(r.OldNsPrefix, "."), StringComparison.Ordinal) &&
+                        txt.Contains(string.Concat(", ", r.OldAssembly), StringComparison.Ordinal))
+                    {
+                        return true;
+                    }
+
+                    if (txt.Contains(string.Concat("ns: ", r.OldNsPrefix), StringComparison.Ordinal) &&
+                        txt.Contains(string.Concat("asm: ", r.OldAssembly), StringComparison.Ordinal))
+                    {
+                        return true;
+                    }
                 }
             }
 
@@ -758,43 +819,79 @@ namespace Editor
                     continue;
                 }
 
-                txt = Regex.Replace(
-                    txt,
-                    @"(?<=\bvalue:\s*)" + Regex.Escape(r.OldAssembly) + @"\s+" + Regex.Escape(r.OldNsPrefix) + @"\.",
-                    string.Concat(r.NewAssembly, " ", r.NewNsPrefix, "."),
-                    RegexOptions.Compiled
-                );
+                bool hasClassRename = !string.IsNullOrEmpty(r.OldClassName) && !string.IsNullOrEmpty(r.NewClassName);
 
-                txt = Regex.Replace(
-                    txt,
-                    @"(m_TargetAssemblyTypeName:\s*)" + Regex.Escape(r.OldNsPrefix) + @"\.([A-Za-z0-9_\.]+),\s*" + Regex.Escape(r.OldAssembly),
-                    "$1" + r.NewNsPrefix + @".$2, " + r.NewAssembly,
-                    RegexOptions.Compiled
-                );
+                if (hasClassRename)
+                {
+                    // Режим переименования конкретного класса
+                    string oldFullClassName = r.OldNsPrefix + "." + r.OldClassName;
+                    string newFullClassName = r.NewNsPrefix + "." + r.NewClassName;
 
-                txt = Regex.Replace(
-                    txt,
-                    @"type:\s*\{\s*class:\s*[^,]+,\s*ns:\s*" + Regex.Escape(r.OldNsPrefix) + @"([^}]*)asm:\s*" + Regex.Escape(r.OldAssembly) + @"\s*\}",
-                    delegate (Match m)
-                    {
-                        string block = m.Value;
+                    // Паттерн 1: value: Assembly Namespace.ClassName
+                    txt = Regex.Replace(
+                        txt,
+                        @"(?<=\bvalue:\s*)" + Regex.Escape(r.OldAssembly) + @"\s+" + Regex.Escape(oldFullClassName),
+                        string.Concat(r.NewAssembly, " ", newFullClassName),
+                        RegexOptions.Compiled
+                    );
 
-                        block = Regex.Replace(
-                            block,
-                            @"ns:\s*" + Regex.Escape(r.OldNsPrefix),
-                            "ns: " + r.NewNsPrefix
-                        );
+                    // Паттерн 2: m_TargetAssemblyTypeName: Namespace.ClassName, Assembly
+                    txt = Regex.Replace(
+                        txt,
+                        @"(m_TargetAssemblyTypeName:\s*)" + Regex.Escape(oldFullClassName) + @",\s*" + Regex.Escape(r.OldAssembly),
+                        "$1" + newFullClassName + ", " + r.NewAssembly,
+                        RegexOptions.Compiled
+                    );
 
-                        block = Regex.Replace(
-                            block,
-                            @"asm:\s*" + Regex.Escape(r.OldAssembly),
-                            "asm: " + r.NewAssembly
-                        );
+                    // Паттерн 3: type: {class: ClassName, ns: Namespace, asm: Assembly}
+                    txt = Regex.Replace(
+                        txt,
+                        @"type:\s*\{\s*class:\s*" + Regex.Escape(r.OldClassName) + @",\s*ns:\s*" + Regex.Escape(r.OldNsPrefix) + @",\s*asm:\s*" + Regex.Escape(r.OldAssembly) + @"\s*\}",
+                        "type: {class: " + r.NewClassName + ", ns: " + r.NewNsPrefix + ", asm: " + r.NewAssembly + "}",
+                        RegexOptions.Compiled
+                    );
+                }
+                else
+                {
+                    // Режим изменения namespace/assembly для всех классов
+                    txt = Regex.Replace(
+                        txt,
+                        @"(?<=\bvalue:\s*)" + Regex.Escape(r.OldAssembly) + @"\s+" + Regex.Escape(r.OldNsPrefix) + @"\.",
+                        string.Concat(r.NewAssembly, " ", r.NewNsPrefix, "."),
+                        RegexOptions.Compiled
+                    );
 
-                        return block;
-                    },
-                    RegexOptions.Compiled
-                );
+                    txt = Regex.Replace(
+                        txt,
+                        @"(m_TargetAssemblyTypeName:\s*)" + Regex.Escape(r.OldNsPrefix) + @"\.([A-Za-z0-9_\.]+),\s*" + Regex.Escape(r.OldAssembly),
+                        "$1" + r.NewNsPrefix + @".$2, " + r.NewAssembly,
+                        RegexOptions.Compiled
+                    );
+
+                    txt = Regex.Replace(
+                        txt,
+                        @"type:\s*\{\s*class:\s*[^,]+,\s*ns:\s*" + Regex.Escape(r.OldNsPrefix) + @"([^}]*)asm:\s*" + Regex.Escape(r.OldAssembly) + @"\s*\}",
+                        delegate (Match m)
+                        {
+                            string block = m.Value;
+
+                            block = Regex.Replace(
+                                block,
+                                @"ns:\s*" + Regex.Escape(r.OldNsPrefix),
+                                "ns: " + r.NewNsPrefix
+                            );
+
+                            block = Regex.Replace(
+                                block,
+                                @"asm:\s*" + Regex.Escape(r.OldAssembly),
+                                "asm: " + r.NewAssembly
+                            );
+
+                            return block;
+                        },
+                        RegexOptions.Compiled
+                    );
+                }
             }
 
             if (!string.Equals(txt, orig, StringComparison.Ordinal))

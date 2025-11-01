@@ -60,7 +60,7 @@ namespace Gameplay.Interactable.BoxesInteraction.Components
             if (currentBox != null && currentBox.TryRelease(netId))
             {
                 currentBox = null;
-                OnSpeedModifierChanged?.Invoke(1f);
+                SetSpeedModifierActive(false);
                 return;
             }
 
@@ -71,7 +71,7 @@ namespace Gameplay.Interactable.BoxesInteraction.Components
             if (box != null && box.TryTake(netIdentity.netId))
             {
                 currentBox = box;
-                OnSpeedModifierChanged?.Invoke(boxesInteractionMediator.Config.HolderSpeedModifier);
+                SetSpeedModifierActive(true);
             }
         }
 
@@ -80,8 +80,14 @@ namespace Gameplay.Interactable.BoxesInteraction.Components
             if (currentBox != null && currentBox.TryThrow(netId))
             {
                 currentBox = null;
-                OnSpeedModifierChanged?.Invoke(1f);
+                SetSpeedModifierActive(false);
             }
+        }
+
+        private void SetSpeedModifierActive(bool active)
+        {
+            float value = boxesInteractionMediator.Config.HolderSpeedModifier;
+            OnSpeedModifierChanged.Invoke(active ? value : -value);
         }
     }
 }

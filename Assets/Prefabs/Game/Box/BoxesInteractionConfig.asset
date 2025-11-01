@@ -14,5 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interactionDistance: 1.5
   throwForce: {x: 8, y: 2.5}
-  holderSpeedModifier: 0.5
+  holderSpeedModifier: -0.5
   extraGravity: -20
+  predictionRaycastHeight: 0

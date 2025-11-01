@@ -62,11 +62,6 @@ namespace Gameplay.RoadSystem
             patrolSystem = system;
         }
 
-        public void SetIsDriving(bool value)
-        {
-            OnIsDrivingChanged.Invoke(value);
-        }
-
         private void Awake()
         {
             hits = new Collider[10];
@@ -117,7 +112,8 @@ namespace Gameplay.RoadSystem
 
         private void PlayDialogAndRestart()
         {
-            patrolSystem.SetPatrolActive(false);
+            patrolSystem.SetActivePatrol(false);
+            pipeInteractionMediator.Pipe.ResetState();
 
             disposable?.Dispose();
             cameraTarget.SetActive(true);
@@ -134,7 +130,7 @@ namespace Gameplay.RoadSystem
             UniTask.Void(async () =>
             {
                 await UniTask.WaitForSeconds(3);
-                patrolSystem.SetPatrolActive(true);
+                patrolSystem.SetActivePatrol(true);
             });
         }
 
