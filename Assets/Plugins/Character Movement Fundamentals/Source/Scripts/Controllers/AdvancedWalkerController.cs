@@ -636,5 +636,12 @@ namespace CMF
 			else
 				momentum = _newMomentum;
 		}
+
+		public void ResetState()
+		{
+			savedMovementVelocity = Vector3.zero;
+			savedVelocity = Vector3.zero;
+			momentum = Vector3.zero;
+		}
 	}
 }

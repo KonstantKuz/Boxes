@@ -703,6 +703,7 @@ MonoBehaviour:
     - rid: 2942314084841029634
       type: {class: CameraService, ns: Infrastructure.CameraService, asm: Boxes}
       data:
+        smoothStep: 0
         cameraTarget: {fileID: 7587537103340924033}
     - rid: 2942314084841029635
       type: {class: CameraServiceMediator, ns: Configuration.Mediator, asm: Boxes}
@@ -1282,7 +1283,7 @@ MonoBehaviour:
   m_ShowCameraFrustum: 1
   m_IgnoreTimeScale: 0
   m_WorldUpOverride: {fileID: 0}
-  m_UpdateMethod: 2
+  m_UpdateMethod: 1
   m_BlendUpdateMethod: 1
   m_DefaultBlend:
     m_Style: 1

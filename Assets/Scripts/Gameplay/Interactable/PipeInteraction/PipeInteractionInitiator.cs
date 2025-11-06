@@ -17,9 +17,10 @@ namespace Gameplay.Interactable.PipeInteraction
         private IPipeInteractionMediator mediator;
         private IDisposable stateSubscription;
         private bool isOnPipe;
+        private Rigidbody rigidbody;
 
         public uint NetId => netId;
-        public Transform Transform => transform;
+        public Rigidbody Rigidbody => rigidbody ??= GetComponent<Rigidbody>();
 
         [Inject]
         private void Construct(IPipeInteractionMediator mediator)
@@ -52,6 +53,15 @@ namespace Gameplay.Interactable.PipeInteraction
             if (isOnPipe)
             {
                 transform.GetChild(0).transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
+            }
+        }
+
+        private void FixedUpdate()
+        {
+            if (mediator.PipeState.CurrentValue.HasPlayer(netId))
+            {
+                Rigidbody.MovePosition(mediator.Pipe.GetPlayerWorldPosition(netId));
+                Rigidbody.MoveRotation(Quaternion.LookRotation(mediator.Pipe.transform.forward));
             }
         }
     }

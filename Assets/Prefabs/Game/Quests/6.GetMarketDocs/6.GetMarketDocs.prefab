@@ -166,6 +166,7 @@ GameObject:
   - component: {fileID: 5465944118271161994}
   - component: {fileID: 8373411664056215786}
   - component: {fileID: 8208142790463774711}
+  - component: {fileID: 8731150022606098542}
   m_Layer: 0
   m_Name: PaperCloset (3)
   m_TagString: Untagged
@@ -376,6 +377,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+--- !u!114 &8731150022606098542
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2010248869491434900}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0129769725c64afc8e8ef8a38e49fb90, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3109425736608569257
 GameObject:
   m_ObjectHideFlags: 0
@@ -685,6 +698,7 @@ GameObject:
   - component: {fileID: 511801431444939512}
   - component: {fileID: 841064479087482736}
   - component: {fileID: 6167002330974611448}
+  - component: {fileID: 6566702166888314462}
   m_Layer: 0
   m_Name: PaperCloset (2)
   m_TagString: Untagged
@@ -895,6 +909,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+--- !u!114 &6566702166888314462
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4318040109290116292}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0129769725c64afc8e8ef8a38e49fb90, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4773454908723372825
 GameObject:
   m_ObjectHideFlags: 0
@@ -1090,6 +1116,7 @@ GameObject:
   - component: {fileID: 8353238421890664546}
   - component: {fileID: 2401946628000025300}
   - component: {fileID: 247259657406164900}
+  - component: {fileID: 1027184183910870228}
   m_Layer: 0
   m_Name: PaperCloset (5)
   m_TagString: Untagged
@@ -1300,6 +1327,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+--- !u!114 &1027184183910870228
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5625302489834155489}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0129769725c64afc8e8ef8a38e49fb90, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5782552302727213171
 GameObject:
   m_ObjectHideFlags: 0
@@ -1317,6 +1356,7 @@ GameObject:
   - component: {fileID: 4818106253446259854}
   - component: {fileID: 4172628930857039740}
   - component: {fileID: 7103849425818929767}
+  - component: {fileID: 5549693424807735228}
   m_Layer: 0
   m_Name: PaperCloset (4)
   m_TagString: Untagged
@@ -1527,6 +1567,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+--- !u!114 &5549693424807735228
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5782552302727213171}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0129769725c64afc8e8ef8a38e49fb90, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6312345755592771555
 GameObject:
   m_ObjectHideFlags: 0
@@ -1846,12 +1898,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 013ecfd5a32bae345bb0572b40cf7fdf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onInitialize:
-    m_PersistentCalls:
-      m_Calls: []
-  onResetRequired:
-    m_PersistentCalls:
-      m_Calls: []
   OnQuestIsActiveChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -2178,6 +2224,7 @@ GameObject:
   - component: {fileID: 2677422910947098158}
   - component: {fileID: 8371623905605880630}
   - component: {fileID: 6395525466644656785}
+  - component: {fileID: 5719770993022934385}
   m_Layer: 0
   m_Name: PaperCloset (1)
   m_TagString: Untagged
@@ -2388,6 +2435,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+--- !u!114 &5719770993022934385
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7342231268125391751}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0129769725c64afc8e8ef8a38e49fb90, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7692665791326335413
 GameObject:
   m_ObjectHideFlags: 0
@@ -3130,6 +3189,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8465129751193948199, guid: 0d0b926faf7662249aee8cb1e3d48e47, type: 3}
+      propertyPath: initialPosition.x
+      value: 79.14
+      objectReference: {fileID: 0}
+    - target: {fileID: 8465129751193948199, guid: 0d0b926faf7662249aee8cb1e3d48e47, type: 3}
+      propertyPath: initialPosition.y
+      value: 1.593
+      objectReference: {fileID: 0}
+    - target: {fileID: 8465129751193948199, guid: 0d0b926faf7662249aee8cb1e3d48e47, type: 3}
+      propertyPath: initialPosition.z
+      value: 321.79297
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3200,6 +3271,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8465129751193948199, guid: 0d0b926faf7662249aee8cb1e3d48e47, type: 3}
+      propertyPath: initialPosition.x
+      value: 79.14
+      objectReference: {fileID: 0}
+    - target: {fileID: 8465129751193948199, guid: 0d0b926faf7662249aee8cb1e3d48e47, type: 3}
+      propertyPath: initialPosition.y
+      value: 2.47
+      objectReference: {fileID: 0}
+    - target: {fileID: 8465129751193948199, guid: 0d0b926faf7662249aee8cb1e3d48e47, type: 3}
+      propertyPath: initialPosition.z
+      value: 321.304
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3218,6 +3301,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5784522508526044435}
     m_Modifications:
+    - target: {fileID: 633584054419814434, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1789992581675772993, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
       propertyPath: m_Name
       value: PatrolCar (1)
@@ -3438,6 +3525,18 @@ PrefabInstance:
     - target: {fileID: 2815072278396479072, guid: 0d0b926faf7662249aee8cb1e3d48e47, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8465129751193948199, guid: 0d0b926faf7662249aee8cb1e3d48e47, type: 3}
+      propertyPath: initialPosition.x
+      value: 78.243
+      objectReference: {fileID: 0}
+    - target: {fileID: 8465129751193948199, guid: 0d0b926faf7662249aee8cb1e3d48e47, type: 3}
+      propertyPath: initialPosition.y
+      value: 1.863
+      objectReference: {fileID: 0}
+    - target: {fileID: 8465129751193948199, guid: 0d0b926faf7662249aee8cb1e3d48e47, type: 3}
+      propertyPath: initialPosition.z
+      value: 321.304
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3731,6 +3830,8 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   initialIsActive: 0
+  initialPosition: {x: 79.92, y: 0, z: 323.8}
+  initialRotation: {x: -0, y: -0, z: -0, w: 1}
 --- !u!114 &2227605752500582975
 MonoBehaviour:
   m_ObjectHideFlags: 0

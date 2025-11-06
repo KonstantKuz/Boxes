@@ -1,9 +1,8 @@
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using Gameplay.Interactable.BallInteraction.Abstract;
-using Gameplay.Interactable.BallInteraction.Command;
 using Gameplay.Interactable.BallInteraction.Components;
-using Infrastructure.Network.Abstract;
+using Gameplay.Interactable.BallInteraction.State;
 using Infrastructure.Network.Components;
 using Mirror;
 using Reflex.Attributes;
@@ -43,17 +42,15 @@ namespace Gameplay.Interactable.Door
         private NetworkStateHelper networkStateHelper;
         private BallInteractionInitiator ballInteractionInitiator;
         private IBallInteractionMediator ballInteractionMediator;
-        private INetworkService networkService;
 
         private CancellationTokenSource aiTokenSource;
 
         private State currentState = State.Idle;
 
         [Inject]
-        private void Construct(IBallInteractionMediator ballInteractionMediator, INetworkService networkService)
+        private void Construct(IBallInteractionMediator ballInteractionMediator)
         {
             this.ballInteractionMediator = ballInteractionMediator;
-            this.networkService = networkService;
         }
 
         public void Activate(Door door)
@@ -191,7 +188,16 @@ namespace Gameplay.Interactable.Door
 
                 if (distanceToBall <= ballInteractionDistance)
                 {
-                    networkService.SendCommand(new HoldCommand(ballInteractionInitiator.netId));
+                    BallSharedState current = ball.StateHolder.GetState();
+                    ball.StateHolder.WriteState(new BallSharedState(
+                        kicksCount: current.KicksCount,
+                        ownerNetId: ballInteractionInitiator.netId,
+                        holderNetId: ballInteractionInitiator.netId,
+                        lastActionId: current.LastActionId + 1,
+                        lastActionType: BallActionType.Hold,
+                        lastKickDirection: Vector3.zero,
+                        lastKickInitiatorNetId: current.LastKickInitiatorNetId
+                    ));
 
                     await UniTask.Delay(200, cancellationToken: token);
 
@@ -260,7 +266,18 @@ namespace Gameplay.Interactable.Door
                     ? (escapePoint.position - transform.position).normalized
                     : transform.forward;
 
-                networkService.SendCommand(new KickCommand(ballInteractionInitiator.netId, kickDirection));
+                BallSharedState current = ball.StateHolder.GetState();
+                byte kicksCount = (byte)(current.KicksCount + 1);
+
+                ball.StateHolder.WriteState(new BallSharedState(
+                    kicksCount: kicksCount,
+                    ownerNetId: ballInteractionInitiator.netId,
+                    holderNetId: 0,
+                    lastActionId: current.LastActionId + 1,
+                    lastActionType: BallActionType.Kick,
+                    lastKickDirection: kickDirection,
+                    lastKickInitiatorNetId: ballInteractionInitiator.netId
+                ));
             }
 
             await UniTask.Delay(500, cancellationToken: token);

@@ -84,7 +84,7 @@ namespace Infrastructure.QuestService
 
             foreach (NetworkStateHelper stateHelper in networkInitialStateHelpers)
             {
-                stateHelper.ResetState();
+                stateHelper.CmdResetState();
             }
         }
     }

@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using Gameplay.Interactable.PipeInteraction.State;
 using Infrastructure.Bootstrap;
 using R3;
-using UnityEngine;
 
 namespace Gameplay.Interactable.PipeInteraction.Abstract
 {

@@ -58,6 +58,7 @@ namespace Gameplay.Interactable.PipeInteraction
         private ForceMode forceMode;
 
         private INetworkService networkService;
+        private INetworkManager networkManager;
         private IPipeInteractionMediator mediator;
         private IInputService inputService;
         private IDisposable stateSubscription;
@@ -71,9 +72,14 @@ namespace Gameplay.Interactable.PipeInteraction
         public PipeSharedState State => StateHolder.GetState();
 
         [Inject]
-        private void Construct(INetworkService networkService, IPipeInteractionMediator mediator, IInputService inputService)
+        private void Construct(
+            INetworkService networkService,
+            INetworkManager networkManager,
+            IPipeInteractionMediator mediator,
+            IInputService inputService)
         {
             this.networkService = networkService;
+            this.networkManager = networkManager;
             this.mediator = mediator;
             this.inputService = inputService;
         }
@@ -325,23 +331,6 @@ namespace Gameplay.Interactable.PipeInteraction
             rigidbody.angularVelocity = angularVelocity;
         }
 
-        private void Update()
-        {
-            if (State.PlayerCount == 0)
-            {
-                return;
-            }
-
-            foreach (IPipeInteractionInitiator initiator in mediator.Initiators.Values)
-            {
-                if (State.HasPlayer(initiator.NetId))
-                {
-                    initiator.Transform.position = GetPlayerWorldPosition(initiator.NetId);
-                    initiator.Transform.forward = transform.forward;
-                }
-            }
-        }
-
         private Vector2 CalculateCombinedInput()
         {
             if (State.PlayerCount == 0)
@@ -407,11 +396,6 @@ namespace Gameplay.Interactable.PipeInteraction
 
             float direction = Mathf.Sign(inputs[0]);
             return inputs.All(i => Mathf.Approximately(Mathf.Sign(i), direction)) ? direction : 0f;
-        }
-
-        private void OnDisable()
-        {
-            ResetState();
         }
     }
 }

@@ -1,6 +1,5 @@
 using Gameplay.Interactable.Abstract;
 using Gameplay.Interactable.BallInteraction.Abstract;
-using Gameplay.Interactable.BallInteraction.State;
 using Mirror;
 using R3;
 using UnityEngine;
@@ -22,14 +21,21 @@ namespace Gameplay.Interactable.BallInteraction.BallReaction
         [SerializeField]
         private bool isManualInitialization;
 
+        [SyncVar]
+        private bool isInitialized;
+
         [SyncVar(hook = nameof(OnHitPointsChanged))]
         private int currentHitPoints;
 
         private ReactiveProperty<int> currentHitPointsReactive;
-        private bool isInitialized;
 
         int IDamageable.MaxHitPoints => maxHitPoints;
         ReadOnlyReactiveProperty<int> IDamageable.CurrentHitPoints => currentHitPointsReactive;
+
+        private void Awake()
+        {
+            currentHitPointsReactive = new ReactiveProperty<int>();
+        }
 
         public override void OnStartServer()
         {
@@ -61,22 +67,25 @@ namespace Gameplay.Interactable.BallInteraction.BallReaction
                 return;
             }
 
-            currentHitPoints -= hitPoints;
+            CmdTakeDamage(hitPoints);
         }
 
-        bool IBallReactionInitiator.TryExecuteReaction(Collision collisionInfo, BallSharedState sharedState)
+        bool IBallReactionInitiator.TryExecuteReaction()
         {
             if (!isInitialized)
             {
                 return false;
             }
 
-            if (sharedState.KicksCount >= 3)
-            {
-                ((IDamageable)this).TakeDamage(1);
-            }
+            ((IDamageable)this).TakeDamage(1);
 
             return true;
+        }
+
+        [Command(requiresAuthority = false)]
+        private void CmdTakeDamage(int hitPoints)
+        {
+            currentHitPoints -= hitPoints;
         }
 
         private void OnHitPointsChanged(int oldValue, int newValue)

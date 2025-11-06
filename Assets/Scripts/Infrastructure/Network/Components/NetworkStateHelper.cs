@@ -1,5 +1,4 @@
-﻿using System;
-using Mirror;
+﻿using Mirror;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -57,13 +56,9 @@ namespace Infrastructure.Network.Components
             this.Log(LogType.Log, $"{gameObject.name} CmdSetActive {value}");
         }
 
-        public void ResetState()
+        [Command(requiresAuthority = false)]
+        public void CmdResetState()
         {
-            if (!isServer)
-            {
-                return;
-            }
-
             isActive = initialIsActive;
             transform.position = initialPosition;
             transform.rotation = initialRotation;
@@ -80,7 +75,7 @@ namespace Infrastructure.Network.Components
 
         private void Update()
         {
-            this.Log(LogType.Log, $"{gameObject.name} isActive = {isActive} currentPosition = {transform.position}");
+            // this.Log(LogType.Log, $"{gameObject.name} isActive = {isActive} currentPosition = {transform.position}");
         }
     }
 }

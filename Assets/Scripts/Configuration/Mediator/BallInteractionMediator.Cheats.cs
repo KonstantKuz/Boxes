@@ -1,7 +1,8 @@
-﻿#if DEBUG
+#if DEBUG
 using Gameplay.Interactable.BallInteraction;
-using Gameplay.Interactable.BallInteraction.Command;
+using Gameplay.Interactable.BallInteraction.State;
 using Infrastructure.Cheats;
+using Infrastructure.Network.Components;
 using UnityEngine;
 
 namespace Configuration.Mediator
@@ -24,8 +25,19 @@ namespace Configuration.Mediator
         {
             if (GUILayout.Button("Get ball"))
             {
-                ball.gameObject.SetActive(true);
-                networkService.SendCommand(new HoldCommand(localInitiator.NetId));
+                ball.GetComponent<NetworkStateHelper>().CmdSetActive(true);
+
+                BallSharedState current = ball.StateHolder.GetState();
+
+                ball.StateHolder.WriteState(new BallSharedState(
+                    kicksCount: 0,
+                    ownerNetId: localInitiator.NetId,
+                    holderNetId: localInitiator.NetId,
+                    lastActionId: current.LastActionId + 1,
+                    lastActionType: BallActionType.Hold,
+                    lastKickDirection: current.LastKickDirection,
+                    lastKickInitiatorNetId: current.LastKickInitiatorNetId
+                ));
             }
 
             if (GUILayout.Button("Show config"))

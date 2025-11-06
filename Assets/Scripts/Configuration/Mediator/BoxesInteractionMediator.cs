@@ -21,6 +21,7 @@ namespace Configuration.Mediator
         private Dictionary<uint, IBoxInteractionInitiator> initiators = new();
 
         BoxesInteractionConfig IBoxesInteractionMediator.Config => config;
+        IBoxInteractionInitiator IBoxesInteractionMediator.LocalInitiator => localInitiator;
         IReadOnlyDictionary<uint, IBoxInteractionInitiator> IBoxesInteractionMediator.Initiators => initiators;
 
         [Inject]

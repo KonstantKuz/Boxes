@@ -62,6 +62,19 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 3941143449067454444}
+        m_TargetAssemblyTypeName: Infrastructure.Network.Components.NetworkStateHelper,
+          Boxes
+        m_MethodName: CmdResetState
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 3941143449067454444}
         m_TargetAssemblyTypeName: Infrastructure.Network.Components.NetworkInitialStateHelper,
           Boxes
         m_MethodName: CmdSetActive
@@ -110,12 +123,13 @@ GameObject:
   - component: {fileID: 8853282363407985782}
   - component: {fileID: 5862211783422337364}
   - component: {fileID: 106389354653403640}
-  - component: {fileID: 6294583919576667768}
+  - component: {fileID: 3499349925389144255}
   - component: {fileID: 3941143449067454444}
   - component: {fileID: 2585036526807186238}
   - component: {fileID: 2597788416417336}
   - component: {fileID: 4489407591901783756}
   - component: {fileID: 333550980589940677}
+  - component: {fileID: 696059371799631524}
   m_Layer: 0
   m_Name: PipeController
   m_TagString: Untagged
@@ -206,7 +220,7 @@ MonoBehaviour:
   serverOnly: 0
   visibility: 0
   hasSpawned: 0
---- !u!114 &6294583919576667768
+--- !u!114 &3499349925389144255
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -215,31 +229,55 @@ MonoBehaviour:
   m_GameObject: {fileID: 1320453665211049223}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8ff3ba0becae47b8b9381191598957c8, type: 3}
+  m_Script: {fileID: 11500000, guid: ad225009ad414e1428332cab226f38fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  target: {fileID: 424070822423816069}
-  syncPosition: 1
-  syncRotation: 1
-  syncScale: 0
-  onlySyncOnChange: 1
-  compressRotation: 1
-  interpolatePosition: 1
-  interpolateRotation: 1
-  interpolateScale: 1
-  coordinateSpace: 0
-  timelineOffset: 1
-  showGizmos: 0
-  showOverlay: 0
-  overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
-  onlySyncOnChangeCorrectionMultiplier: 2
-  useFixedUpdate: 0
-  rotationSensitivity: 0.01
-  positionPrecision: 0.01
-  scalePrecision: 0.01
+  interpolationBackTime: 0.1
+  extrapolationMode: 0
+  useExtrapolationTimeLimit: 1
+  extrapolationTimeLimit: 5
+  useExtrapolationDistanceLimit: 0
+  extrapolationDistanceLimit: 20
+  sendPositionThreshold: 0
+  sendRotationThreshold: 0
+  sendScaleThreshold: 0
+  sendVelocityThreshold: 0
+  sendAngularVelocityThreshold: 0
+  receivedPositionThreshold: 0
+  receivedRotationThreshold: 0
+  snapPositionThreshold: 0
+  snapRotationThreshold: 0
+  snapScaleThreshold: 0
+  positionLerpSpeed: 0.85
+  rotationLerpSpeed: 0.85
+  scaleLerpSpeed: 0.85
+  timeCorrectionSpeed: 0.1
+  snapTimeThreshold: 0.3
+  syncPosition: 0
+  syncRotation: 0
+  syncScale: 7
+  syncVelocity: 7
+  syncAngularVelocity: 7
+  isPositionCompressed: 0
+  isRotationCompressed: 0
+  isScaleCompressed: 0
+  isVelocityCompressed: 0
+  isAngularVelocityCompressed: 0
+  automaticallyResetTime: 1
+  isSmoothingAuthorityChanges: 0
+  transformSource: 1
+  whenToUpdateTransform: 0
+  sendRate: 30
+  networkChannel: 1
+  childObjectToSync: {fileID: 0}
+  setVelocityInsteadOfPositionOnNonOwners: 0
+  maxPositionDifferenceForVelocitySyncing: 10
+  useLocalTransformOnly: 0
+  ownerChangeIndicator: 1
+  receivedStatesCounter: 0
 --- !u!114 &3941143449067454444
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -341,7 +379,7 @@ MonoBehaviour:
   rigidbody: {fileID: 8853282363407985782}
   minMoveForce: 0.3
   maxMoveForce: 5
-  rotationTorque: 5
+  rotationTorque: 2.5
   maxSpeed: 5
   maxAngularSpeed: 2
   pipeLength: 2
@@ -390,6 +428,37 @@ MonoBehaviour:
   OnInvertedValueChanged:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 696059371799631524}
+        m_TargetAssemblyTypeName: Infrastructure.Network.Components.IsServerConditionHelper,
+          Boxes
+        m_MethodName: SetCondition
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &696059371799631524
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1320453665211049223}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 592295f7266a421b9abd22ceafc9aa08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  onConditionChanged:
+    m_PersistentCalls:
+      m_Calls:
       - m_Target: {fileID: 8853282363407985782}
         m_TargetAssemblyTypeName: UnityEngine.Rigidbody, UnityEngine
         m_MethodName: set_isKinematic
@@ -402,6 +471,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  additionalCondition: 0
 --- !u!1 &1503281332614694133
 GameObject:
   m_ObjectHideFlags: 0
@@ -630,12 +700,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 013ecfd5a32bae345bb0572b40cf7fdf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onInitialize:
-    m_PersistentCalls:
-      m_Calls: []
-  onResetRequired:
-    m_PersistentCalls:
-      m_Calls: []
   OnQuestIsActiveChanged:
     m_PersistentCalls:
       m_Calls: []

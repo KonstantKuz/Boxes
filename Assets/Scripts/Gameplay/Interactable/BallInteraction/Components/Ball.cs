@@ -1,6 +1,4 @@
-using System;
 using Gameplay.Interactable.BallInteraction.Abstract;
-using Gameplay.Interactable.BallInteraction.Command;
 using Gameplay.Interactable.BallInteraction.State;
 using Infrastructure.Extensions;
 using Infrastructure.Network.Abstract;
@@ -30,26 +28,23 @@ namespace Gameplay.Interactable.BallInteraction.Components
         [SerializeField]
         private LayerMask penetrationTestMask;
 
-        private INetworkService networkService;
+        private INetworkManager networkManager;
         private IBallInteractionMediator ballInteractionMediator;
 
-        private Transform socketTransform;
-        private BallInternalState internalState;
+        private BallSharedState? previousState;
+        private BallSharedState? pendingAction;
+        private float localDistanceSinceLastKick;
+        private Vector3 localCaptureRelativePosition;
 
         public Bounds Bounds => collider.bounds;
         private BallInteractionConfig Config => ballInteractionMediator.Config;
         public INetworkStateHolder<BallSharedState> StateHolder => ballStateHolder;
 
         [Inject]
-        private void Construct(
-            INetworkService networkService,
-            IBallInteractionMediator ballInteractionMediator
-        )
+        private void Construct(INetworkManager networkManager, IBallInteractionMediator ballInteractionMediator)
         {
-            this.networkService = networkService;
+            this.networkManager = networkManager;
             this.ballInteractionMediator = ballInteractionMediator;
-
-            internalState = new BallInternalState();
         }
 
         private void Awake()
@@ -57,62 +52,125 @@ namespace Gameplay.Interactable.BallInteraction.Components
             ballInteractionMediator.RegisterBall(this);
         }
 
+        private void OnEnable()
+        {
+            rigidbody.isKinematic = collider.isTrigger = false;
+        }
+
+        private void OnDisable()
+        {
+            rigidbody.isKinematic = collider.isTrigger = true;
+        }
+
         public override void OnStartServer()
         {
-            networkService.ObserveToExecute<KickCommand>(ExecuteKick);
-            networkService.ObserveToExecute<HoldCommand>(ExecuteHold);
-            networkService.ObserveToExecute<CaptureCommand>(ExecuteCapture);
+            StateHolder.Subscribe(OnStateChangedServer);
         }
 
-        private void ExecuteKick(KickCommand kickContext)
+        public override void OnStartClient()
         {
-            BallSharedState state = StateHolder.GetState();
-            byte kicksCount = (byte) (state.KicksCount + 1);
-            kicksCount = (byte) Math.Clamp(kicksCount, 0, Config.StatusKicksCount);
+            StateHolder.Subscribe(OnStateChangedClient);
 
-            if (Config.ResetConditions.HasFlag(ResetCondition.SamePlayerKick) &&
-                kickContext.InitiatorNetId == internalState.LastKickerNetId)
+            if (isServer)
             {
-                kicksCount = 1;
+                networkManager.AssignAuthority(netIdentity);
+            }
+        }
+
+        public override void OnStartAuthority()
+        {
+            if (pendingAction.HasValue)
+            {
+                HandleAction(pendingAction.Value);
+                pendingAction = null;
+            }
+        }
+
+        private void OnStateChangedServer(BallSharedState newState)
+        {
+            if (!isServer)
+            {
+                return;
             }
 
-            StateHolder.WriteState(new BallSharedState(0, kicksCount));
-
-            float targetSpeed = (1.0f + Config.KickSpeedModifier * kicksCount) * Config.MinSpeed;
-
-            rigidbody.isKinematic = false;
-            rigidbody.velocity = kickContext.Direction.normalized * targetSpeed;
-
-            internalState.DistanceSinceLastKick = 0;
-            internalState.LastKickerNetId = kickContext.InitiatorNetId;
-            internalState.CaptureContext = null;
+            if (newState.OwnerNetId != previousState?.OwnerNetId && newState.OwnerNetId != 0)
+            {
+                networkManager.AssignAuthority(netIdentity, newState.OwnerNetId);
+            }
         }
 
-        private void ExecuteHold(HoldCommand holdContext)
+        private void OnStateChangedClient(BallSharedState newState)
         {
-            BallSharedState state = StateHolder.GetState();
-            byte kicksCount = Config.ResetConditions.HasFlag(ResetCondition.Hold) ? (byte) 0 : state.KicksCount;
-            StateHolder.WriteState(new BallSharedState(holdContext.InitiatorNetId, kicksCount));
+            if (newState.LastActionId != previousState?.LastActionId && newState.LastActionId > 0)
+            {
+                bool isKinematic = newState.LastActionType is BallActionType.Hold or BallActionType.Capture;
 
-            internalState.DistanceSinceLastKick = 0;
-            internalState.CaptureContext = null;
+                rigidbody.isKinematic = collider.isTrigger = isKinematic;
+                // collider.enabled = !isKinematic;
+
+                IBallInteractionInitiator localInitiator = ballInteractionMediator.LocalInitiator;
+                bool isLocal = localInitiator != null && newState.OwnerNetId == localInitiator.NetId;
+
+                if (isOwned && isLocal)
+                {
+                    HandleAction(newState);
+                    pendingAction = null;
+                }
+                else if (!isOwned && isLocal)
+                {
+                    pendingAction = newState;
+                }
+            }
+
+            previousState = newState;
         }
 
-        private void ExecuteCapture(CaptureCommand captureContext)
+        private void HandleAction(BallSharedState state)
         {
-            internalState.CaptureContext = captureContext;
-            internalState.DistanceSinceLastKick = 0;
+            switch (state.LastActionType)
+            {
+                case BallActionType.Kick:
+                    ApplyKickPhysics(state);
+                    break;
+
+                case BallActionType.Hold:
+                    ApplyHoldPhysics(state);
+                    break;
+
+                case BallActionType.Capture:
+                    ApplyCapturePhysics(state);
+                    break;
+            }
         }
 
-        private void ExecuteResetCounter()
+        private void ApplyKickPhysics(BallSharedState state)
         {
-            StateHolder.WriteState(BallSharedState.Default);
-            internalState.DistanceSinceLastKick = 0;
+            float targetSpeed = (1.0f + Config.KickSpeedModifier * state.KicksCount) * Config.MinSpeed;
+            rigidbody.velocity = state.LastKickDirection.normalized * targetSpeed;
+
+            localDistanceSinceLastKick = 0;
+            localCaptureRelativePosition = Vector3.zero;
+        }
+
+        private void ApplyHoldPhysics(BallSharedState state)
+        {
+            localDistanceSinceLastKick = 0;
+            localCaptureRelativePosition = Vector3.zero;
+        }
+
+        private void ApplyCapturePhysics(BallSharedState state)
+        {
+            if (ballInteractionMediator.Initiators.TryGetValue(state.OwnerNetId, out IBallInteractionInitiator ownerInitiator))
+            {
+                localCaptureRelativePosition = ownerInitiator.BallSocket.InverseTransformPoint(transform.position);
+            }
+
+            localDistanceSinceLastKick = 0;
         }
 
         private void OnCollisionEnter(Collision other)
         {
-            if (!isServer || other.IsInLayerMask(ignoreCollisionMask))
+            if (!isOwned || other.IsInLayerMask(ignoreCollisionMask))
             {
                 return;
             }
@@ -124,52 +182,61 @@ namespace Gameplay.Interactable.BallInteraction.Components
                 other.gameObject.GetComponent<IBallReactionInitiator>() ??
                 other.gameObject.GetComponentInChildren<IBallReactionInitiator>();
 
-            if (reactionInitiator != null)
+            bool hasStatus = StateHolder.GetState().KicksCount >= Config.StatusKicksCount;
+
+            if (hasStatus && reactionInitiator != null && reactionInitiator.TryExecuteReaction())
             {
-                BallSharedState state = StateHolder.GetState();
-                reactionInitiator.TryExecuteReaction(other, state );
-                isResetRequired = state.KicksCount >= Config.StatusKicksCount &&
-                                  Config.ResetConditions.HasFlag(ResetCondition.Reaction);
+                isResetRequired = Config.ResetConditions.HasFlag(ResetCondition.Reaction);
             }
 
             if (isResetRequired)
             {
-                ExecuteResetCounter();
+                ResetCounter();
             }
+        }
+
+        private void ResetCounter()
+        {
+            BallSharedState current = StateHolder.GetState();
+            StateHolder.WriteState(new BallSharedState(
+                kicksCount: 0,
+                ownerNetId: current.OwnerNetId,
+                holderNetId: current.HolderNetId,
+                lastActionId: current.LastActionId,
+                lastActionType: current.LastActionType,
+                lastKickDirection: current.LastKickDirection,
+                lastKickInitiatorNetId: current.LastKickInitiatorNetId
+            ));
+            localDistanceSinceLastKick = 0;
         }
 
         private void Update()
         {
-            BallSharedState state = StateHolder.GetState();
-
-            statusEffect.SetActive(state.KicksCount >= Config.StatusKicksCount);
-
-            rigidbody.isKinematic = state.HasHolder || internalState?.CaptureContext?.InitiatorNetId > 0;
-
-            collider.enabled = !state.HasHolder;
+            statusEffect.SetActive(StateHolder.GetState().KicksCount >= Config.StatusKicksCount);
         }
 
         private void FixedUpdate()
         {
-            if (!isServer)
+            if (!isOwned)
             {
                 return;
             }
 
             BallSharedState state = StateHolder.GetState();
 
-            bool hasValidHolder = ballInteractionMediator.Initiators.TryGetValue(
-                state.HolderNetId, out IBallInteractionInitiator holdInitiator
-            );
-
-            if (hasValidHolder)
+            if (state.HasHolder)
             {
-                Vector3 safePosition = holdInitiator.Position;
-                safePosition.y = holdInitiator.BallSocket.position.y;
+                if (!ballInteractionMediator.Initiators.TryGetValue(state.HolderNetId, out IBallInteractionInitiator holderInitiator))
+                {
+                    return;
+                }
+
+                Vector3 safePosition = holderInitiator.Position;
+                safePosition.y = holderInitiator.BallSocket.position.y;
 
                 Vector3 resultPosition = CollisionExtension.ResolvePenetration(
                     safePosition,
-                    holdInitiator.BallSocket.position,
+                    holderInitiator.BallSocket.position,
                     collider.bounds.extents.magnitude,
                     penetrationTestMask
                 );
@@ -177,17 +244,18 @@ namespace Gameplay.Interactable.BallInteraction.Components
                 return;
             }
 
-            bool hasValidCaptureTarget = ballInteractionMediator.Initiators.TryGetValue(
-                internalState.CaptureContext?.InitiatorNetId ?? 0, out IBallInteractionInitiator captureInitiator
-            );
-
-            if (hasValidCaptureTarget)
+            if (localCaptureRelativePosition != Vector3.zero)
             {
-                Vector3 safePosition = captureInitiator.Position;
-                safePosition.y = captureInitiator.BallSocket.position.y;
+                if (!ballInteractionMediator.Initiators.TryGetValue(state.OwnerNetId, out IBallInteractionInitiator ownerInitiator))
+                {
+                    return;
+                }
+
+                Vector3 safePosition = ownerInitiator.Position;
+                safePosition.y = ownerInitiator.BallSocket.position.y;
 
                 Vector3 targetPosition =
-                    captureInitiator.BallSocket.TransformPoint(internalState.CaptureContext!.RelativePosition);
+                    ownerInitiator.BallSocket.TransformPoint(localCaptureRelativePosition);
 
                 Vector3 resultPosition = CollisionExtension.ResolvePenetration(
                     safePosition,
@@ -199,15 +267,10 @@ namespace Gameplay.Interactable.BallInteraction.Components
                 return;
             }
 
-            internalState.DistanceSinceLastKick += rigidbody.velocity.magnitude * Time.fixedDeltaTime;
-
             if (transform.position.y > Config.MaxHeight)
             {
                 float heightExcess = transform.position.y - Config.MaxHeight;
                 float verticalDampingForce = heightExcess * Config.HeightDampingStrength;
-                // Vector3 velocity = rigidbody.velocity;
-                // velocity.y /= Config.HeightDampingStrength;
-                // rigidbody.velocity = velocity;
                 rigidbody.AddForce(Vector3.down * verticalDampingForce, ForceMode.Acceleration);
             }
 
@@ -237,6 +300,10 @@ namespace Gameplay.Interactable.BallInteraction.Components
                 }
             }
 
+            rigidbody.velocity = Vector3.ClampMagnitude(rigidbody.velocity, Config.MaxSpeed);
+
+            localDistanceSinceLastKick += rigidbody.velocity.magnitude * Time.fixedDeltaTime;
+
             int kicksCount = StateHolder.GetState().KicksCount;
 
             if (kicksCount > 0)
@@ -245,49 +312,13 @@ namespace Gameplay.Interactable.BallInteraction.Components
                 float initialSpeed = (1.0f + Config.KickSpeedModifier * kicksCount) * Config.MinSpeed;
 
                 float currentSpeed =
-                    Mathf.Lerp(initialSpeed, resetSpeed, internalState.DistanceSinceLastKick / Config.StatusDampingDistance);
+                    Mathf.Lerp(initialSpeed, resetSpeed, localDistanceSinceLastKick / Config.StatusDampingDistance);
 
                 rigidbody.velocity = rigidbody.velocity.normalized * currentSpeed;
 
                 if (rigidbody.velocity.magnitude < resetSpeed)
                 {
-                    ExecuteResetCounter();
-                }
-
-                // Debug.Log($"Kicks count = {kicksCount}. " +
-                //           $"Velocity = {rigidbody.velocity.magnitude}." +
-                //           $" Reset Speed = {resetSpeed}");
-            }
-
-            if (rigidbody.velocity.magnitude > Config.MaxSpeed)
-            {
-                rigidbody.velocity = rigidbody.velocity.normalized * Config.MaxSpeed;
-            }
-
-            if (rigidbody.velocity.magnitude > Config.AttractionMinRequiredSpeed)
-            {
-                float minDistance = float.MaxValue;
-                IBallInteractionInitiator nearestInitiator = null;
-
-                foreach (IBallInteractionInitiator initiator in ballInteractionMediator.Initiators.Values)
-                {
-                    if (initiator.NetId == internalState.LastKickerNetId)
-                    {
-                        continue;
-                    }
-
-                    float distance = Vector3.Distance(transform.position, initiator.BallSocket.position);
-                    if (distance <= Config.AttractionRadius && distance < minDistance)
-                    {
-                        minDistance = distance;
-                        nearestInitiator = initiator;
-                    }
-                }
-
-                if (nearestInitiator != null)
-                {
-                    Vector3 direction = (nearestInitiator.BallSocket.position - transform.position).normalized;
-                    rigidbody.AddForce(direction * Config.AttractionForce, ForceMode.Acceleration);
+                    ResetCounter();
                 }
             }
         }

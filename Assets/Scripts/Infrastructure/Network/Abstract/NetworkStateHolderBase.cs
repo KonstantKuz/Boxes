@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Mirror;
 using R3;
 using Reflex.Attributes;
@@ -29,7 +29,22 @@ namespace Infrastructure.Network.Abstract
 
         protected void WriteState<T>(T state) where T : INetworkState
         {
-            Data = Serializer.Serialize(state);
+            byte[] serializedState = Serializer.Serialize(state);
+
+            if (isServer)
+            {
+                Data = serializedState;
+            }
+            else
+            {
+                CmdWriteState(serializedState);
+            }
+        }
+
+        [Command(requiresAuthority = false)]
+        private void CmdWriteState(byte[] serializedState)
+        {
+            Data = serializedState;
         }
 
         protected IDisposable Subscribe<T>(Action<T> callback) where T : INetworkState

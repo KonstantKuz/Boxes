@@ -1,6 +1,7 @@
-﻿using System.Linq;
+using System.Linq;
 using Gameplay.Interactable.Abstract;
 using Gameplay.Interactable.BoxesInteraction.Abstract;
+using Gameplay.Interactable.BoxesInteraction.State;
 using Infrastructure.InputService.Abstract;
 using Reflex.Attributes;
 using UnityEngine;
@@ -41,7 +42,7 @@ namespace Gameplay.Interactable.BoxesInteraction.Components
         {
             if (isLocalPlayer)
             {
-                inputService.DefaultContextActions.Take.performed += TryTakeOrRelease;
+                inputService.DefaultContextActions.Take.performed += TryHoldOrRelease;
                 inputService.DefaultContextActions.Action.performed += TryThrow;
             }
         }
@@ -50,15 +51,24 @@ namespace Gameplay.Interactable.BoxesInteraction.Components
         {
             if (isLocalPlayer)
             {
-                inputService.DefaultContextActions.Take.performed -= TryTakeOrRelease;
+                inputService.DefaultContextActions.Take.performed -= TryHoldOrRelease;
                 inputService.DefaultContextActions.Action.performed -= TryThrow;
             }
         }
 
-        private void TryTakeOrRelease(InputAction.CallbackContext ctx)
+        private void TryHoldOrRelease(InputAction.CallbackContext ctx)
         {
-            if (currentBox != null && currentBox.TryRelease(netId))
+            if (currentBox != null)
             {
+                BoxSharedState current = currentBox.StateHolder.GetState();
+                currentBox.StateHolder.WriteState(new BoxSharedState(
+                    ownerNetId: netId,
+                    holderNetId: 0,
+                    lastActionId: current.LastActionId + 1,
+                    lastActionType: BoxActionType.Release,
+                    throwVelocity: Vector3.zero
+                ));
+
                 currentBox = null;
                 SetSpeedModifierActive(false);
                 return;
@@ -66,10 +76,21 @@ namespace Gameplay.Interactable.BoxesInteraction.Components
 
             Box box = GetInteractablesAround(boxesInteractionMediator.Config.InteractionDistance)
                 .Select(hit => hit.GetComponent<Box>())
-                .FirstOrDefault(owner => owner);
+                .Where(hit => hit != null)
+                .OrderByDescending(hit => Vector3.Distance(hit.transform.position, transform.position))
+                .FirstOrDefault(hit => hit);
 
-            if (box != null && box.TryTake(netIdentity.netId))
+            if (box != null && !box.State.HasHolder)
             {
+                BoxSharedState current = box.StateHolder.GetState();
+                box.StateHolder.WriteState(new BoxSharedState(
+                    ownerNetId: netId,
+                    holderNetId: netId,
+                    lastActionId: current.LastActionId + 1,
+                    lastActionType: BoxActionType.Hold,
+                    throwVelocity: Vector3.zero
+                ));
+
                 currentBox = box;
                 SetSpeedModifierActive(true);
             }
@@ -77,8 +98,22 @@ namespace Gameplay.Interactable.BoxesInteraction.Components
 
         private void TryThrow(InputAction.CallbackContext ctx)
         {
-            if (currentBox != null && currentBox.TryThrow(netId))
+            if (currentBox != null)
             {
+                BoxSharedState current = currentBox.StateHolder.GetState();
+
+                float y = boxesInteractionMediator.Config.ThrowForce.y;
+                float x = boxesInteractionMediator.Config.ThrowForce.x;
+                Vector3 throwVelocity = (socket.forward + Vector3.up * y) * x;
+
+                currentBox.StateHolder.WriteState(new BoxSharedState(
+                    ownerNetId: netId,
+                    holderNetId: 0,
+                    lastActionId: current.LastActionId + 1,
+                    lastActionType: BoxActionType.Throw,
+                    throwVelocity: throwVelocity
+                ));
+
                 currentBox = null;
                 SetSpeedModifierActive(false);
             }

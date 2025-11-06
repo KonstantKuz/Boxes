@@ -101,7 +101,7 @@ namespace Configuration.Mediator
             }
             else
             {
-                float distance = Vector3.Distance(localInitiator.Transform.position, pipe.transform.position);
+                float distance = Vector3.Distance(localInitiator.Rigidbody.position, pipe.transform.position);
                 if (distance <= interactionDistance)
                 {
                     pipe.TryJoin(localInitiator.NetId);

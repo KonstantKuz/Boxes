@@ -1,8 +1,7 @@
 ﻿using System;
 using Gameplay.Interactable.BallInteraction.Abstract;
-using Gameplay.Interactable.BallInteraction.Command;
+using Gameplay.Interactable.BallInteraction.State;
 using Infrastructure;
-using Infrastructure.Network.Abstract;
 using Infrastructure.QuestService.Abstract;
 using Infrastructure.World;
 using Reflex.Attributes;
@@ -11,20 +10,19 @@ using UnityEngine;
 namespace Configuration.QuestTasks.Unique
 {
     [Serializable]
-    public class NpcKickBallTask : TaskBase, IDisposable
+    public class NpcKickBallTask : TaskBase
     {
         [SerializeField]
         private string npcId;
 
         private IWorldService worldService;
-        private INetworkService networkService;
-        private IDisposable disposable;
+        private IBallInteractionMediator ballInteractionMediator;
 
         [Inject]
-        private void Construct(IWorldService worldService, INetworkService networkService)
+        private void Construct(IWorldService worldService, IBallInteractionMediator ballInteractionMediator)
         {
             this.worldService = worldService;
-            this.networkService = networkService;
+            this.ballInteractionMediator = ballInteractionMediator;
         }
 
         public override void Start()
@@ -36,13 +34,21 @@ namespace Configuration.QuestTasks.Unique
                 return;
             }
 
-            disposable = networkService.ObserveToReact<KickCommand>(_ => IsDone.Value = true);
-            networkService.SendCommand(new KickCommand(initiator.NetId, initiator.KickDirection));
-        }
+            if (ballInteractionMediator.Ball != null)
+            {
+                BallSharedState current = ballInteractionMediator.Ball.StateHolder.GetState();
+                ballInteractionMediator.Ball.StateHolder.WriteState(new BallSharedState(
+                    kicksCount: 0,
+                    ownerNetId: initiator.NetId,
+                    holderNetId: 0,
+                    lastActionId: current.LastActionId + 1,
+                    lastActionType: BallActionType.Kick,
+                    lastKickDirection: initiator.KickDirection,
+                    lastKickInitiatorNetId: initiator.NetId
+                ));
+            }
 
-        void IDisposable.Dispose()
-        {
-            disposable?.Dispose();
+            IsDone.Value = true;
         }
     }
 }

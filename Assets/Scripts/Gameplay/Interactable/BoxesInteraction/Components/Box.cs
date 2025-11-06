@@ -1,5 +1,4 @@
 ﻿using Gameplay.Interactable.BoxesInteraction.Abstract;
-using Gameplay.Interactable.BoxesInteraction.Command;
 using Gameplay.Interactable.BoxesInteraction.State;
 using Infrastructure.Network.Abstract;
 using Mirror;
@@ -19,8 +18,11 @@ namespace Gameplay.Interactable.BoxesInteraction.Components
         [SerializeField]
         private new Collider collider;
 
+        private INetworkManager networkManager;
         private IBoxesInteractionMediator boxesInteractionMediator;
-        private INetworkService networkService;
+
+        private BoxSharedState? previousState;
+        private BoxSharedState? pendingAction;
 
         public INetworkStateHolder<BoxSharedState> StateHolder => stateHolder;
         public BoxSharedState State => stateHolder.GetStateOrDefault<BoxSharedState>();
@@ -28,10 +30,10 @@ namespace Gameplay.Interactable.BoxesInteraction.Components
         public Collider Collider => collider;
 
         [Inject]
-        private void Construct(IBoxesInteractionMediator boxesInteractionMediator, INetworkService networkService)
+        private void Construct(INetworkManager networkManager, IBoxesInteractionMediator boxesInteractionMediator)
         {
+            this.networkManager = networkManager;
             this.boxesInteractionMediator = boxesInteractionMediator;
-            this.networkService = networkService;
         }
 
         private void Awake()
@@ -39,98 +41,94 @@ namespace Gameplay.Interactable.BoxesInteraction.Components
             GetComponent<ConstantForce>().force = Vector3.up * boxesInteractionMediator.Config.ExtraGravity;
         }
 
+        private void OnEnable()
+        {
+            rigidbody.isKinematic = collider.isTrigger = false;
+        }
+
+        private void OnDisable()
+        {
+            rigidbody.isKinematic = collider.isTrigger = true;
+        }
+
         public override void OnStartServer()
         {
-            networkService.ObserveToExecute<TakeBoxCommand>(ExecuteTake);
-            networkService.ObserveToExecute<ReleaseBoxCommand>(ExecuteRelease);
-            networkService.ObserveToExecute<ThrowBoxCommand>(ExecuteThrow);
+            StateHolder.Subscribe(OnStateChangedServer);
         }
 
-        private void ExecuteTake(TakeBoxCommand context)
+        public override void OnStartClient()
         {
-            if (context.TargetNetId == netId)
+            StateHolder.Subscribe(OnStateChangedClient);
+
+            if (isServer)
             {
-                StateHolder.WriteState(new BoxSharedState(context.InitiatorNetId));
+                networkManager.AssignAuthority(netIdentity);
             }
         }
 
-        private void ExecuteRelease(ReleaseBoxCommand context)
+        public override void OnStartAuthority()
         {
-            if (context.TargetNetId == netId)
+            if (pendingAction.HasValue)
             {
-                StateHolder.WriteState(BoxSharedState.Default);
+                HandleAction(pendingAction.Value);
+                pendingAction = null;
             }
         }
 
-        private void ExecuteThrow(ThrowBoxCommand context)
+        private void OnStateChangedServer(BoxSharedState newState)
         {
-            bool hasValidHolder = boxesInteractionMediator.Initiators.TryGetValue(
-                State.HolderNetId, out IBoxInteractionInitiator holdInitiator
-            );
-
-            if (context.TargetNetId == netId && hasValidHolder)
+            if (!isServer)
             {
-                rigidbody.isKinematic = false;
-                float y = boxesInteractionMediator.Config.ThrowForce.y;
-                float x = boxesInteractionMediator.Config.ThrowForce.x;
-                rigidbody.velocity = (holdInitiator.Socket.forward + Vector3.up * y) * x;
-                StateHolder.WriteState(BoxSharedState.Default);
+                return;
+            }
+
+            if (newState.OwnerNetId != previousState?.OwnerNetId && newState.OwnerNetId != 0)
+            {
+                networkManager.AssignAuthority(netIdentity, newState.OwnerNetId);
             }
         }
 
-        public bool TryTake(uint initiatorNetId)
+        private void OnStateChangedClient(BoxSharedState newState)
         {
-            bool hasValidHolder = boxesInteractionMediator.Initiators.TryGetValue(
-                State.HolderNetId, out IBoxInteractionInitiator holdInitiator
-            );
-
-            if (!hasValidHolder)
+            if (newState.LastActionId != previousState?.LastActionId && newState.LastActionId > 0)
             {
-                networkService.SendCommand(new TakeBoxCommand(initiatorNetId, netId));
-                return true;
+                rigidbody.isKinematic = collider.isTrigger = State.HasHolder;
+
+                IBoxInteractionInitiator localInitiator = boxesInteractionMediator.LocalInitiator;
+                bool isLocal = localInitiator != null && newState.OwnerNetId == localInitiator.NetId;
+
+                if (isOwned && isLocal)
+                {
+                    HandleAction(newState);
+                    pendingAction = null;
+                }
+                else if (!isOwned && isLocal)
+                {
+                    pendingAction = newState;
+                }
             }
 
-            return false;
+            previousState = newState;
         }
 
-        public bool TryRelease(uint initiatorNetId)
+        private void HandleAction(BoxSharedState state)
         {
-            bool hasValidHolder = boxesInteractionMediator.Initiators.TryGetValue(
-                State.HolderNetId, out IBoxInteractionInitiator holdInitiator
-            );
-
-            if (hasValidHolder && State.HolderNetId == initiatorNetId)
+            switch (state.LastActionType)
             {
-                networkService.SendCommand(new ReleaseBoxCommand(initiatorNetId, netId));
-                return true;
+                case BoxActionType.Throw:
+                    ApplyThrowPhysics(state);
+                    break;
             }
-
-            return false;
         }
 
-        public bool TryThrow(uint initiatorNetId)
+        private void ApplyThrowPhysics(BoxSharedState state)
         {
-            bool hasValidHolder = boxesInteractionMediator.Initiators.TryGetValue(
-                State.HolderNetId, out IBoxInteractionInitiator holdInitiator
-            );
-
-            if (hasValidHolder && State.HolderNetId == initiatorNetId)
-            {
-                networkService.SendCommand(new ThrowBoxCommand(initiatorNetId, netId));
-                return true;
-            }
-
-            return false;
-        }
-
-        private void Update()
-        {
-            rigidbody.isKinematic = collider.isTrigger = State.HasHolder;
+            rigidbody.velocity = state.ThrowVelocity;
         }
 
         private void FixedUpdate()
         {
-            if (!isServer)
+            if (!isOwned)
             {
                 return;
             }

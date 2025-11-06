@@ -1,6 +1,6 @@
-﻿using System;
+using System;
 using Gameplay.Interactable.BallInteraction.Abstract;
-using Gameplay.Interactable.BallInteraction.Command;
+using Gameplay.Interactable.BallInteraction.State;
 using Infrastructure;
 using Infrastructure.Network.Abstract;
 using Infrastructure.Network.Components;
@@ -18,20 +18,17 @@ namespace Configuration.QuestTasks.Unique
         private string npcId;
 
         private IWorldService worldService;
-        private INetworkService networkService;
         private INetworkManager networkManager;
         private IBallInteractionMediator ballInteractionMediator;
 
         [Inject]
         private void Construct(
             IWorldService worldService,
-            INetworkService networkService,
             INetworkManager networkManager,
             IBallInteractionMediator ballInteractionMediator
         )
         {
             this.worldService = worldService;
-            this.networkService = networkService;
             this.networkManager = networkManager;
             this.ballInteractionMediator = ballInteractionMediator;
         }
@@ -45,11 +42,21 @@ namespace Configuration.QuestTasks.Unique
                 return;
             }
 
-            if (networkManager.IsServer && ballInteractionMediator.Ball != null &&
+            if (ballInteractionMediator.Ball != null &&
                 ballInteractionMediator.Ball.TryGetComponent(out NetworkStateHelper ball))
             {
                 ball.CmdSetActive(true);
-                networkService.SendCommand(new HoldCommand(initiator.NetId));
+
+                BallSharedState current = ballInteractionMediator.Ball.StateHolder.GetState();
+                ballInteractionMediator.Ball.StateHolder.WriteState(new BallSharedState(
+                    kicksCount: current.KicksCount,
+                    ownerNetId: initiator.NetId,
+                    holderNetId: initiator.NetId,
+                    lastActionId: current.LastActionId + 1,
+                    lastActionType: BallActionType.Hold,
+                    lastKickDirection: Vector3.zero,
+                    lastKickInitiatorNetId: current.LastKickInitiatorNetId
+                ));
             }
 
             IsDone.Value = true;

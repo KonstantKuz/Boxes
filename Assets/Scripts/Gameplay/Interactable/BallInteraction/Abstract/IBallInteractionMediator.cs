@@ -13,6 +13,7 @@ namespace Gameplay.Interactable.BallInteraction.Abstract
         BallInteractionConfig Config { get; }
         ReadOnlyReactiveProperty<BallSharedState>  BallState { get; }
         IReadOnlyDictionary<uint, IBallInteractionInitiator> Initiators { get; }
+        IBallInteractionInitiator LocalInitiator { get; }
         void RegisterBall(Ball ball);
         void RegisterInitiator(IBallInteractionInitiator initiator, bool isLocalPlayer);
         bool IsBallOutOfBounds(out Plane outOfBoundsSide);

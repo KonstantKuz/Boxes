@@ -1,7 +1,8 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using Gameplay.Interactable.BallInteraction.Command;
+using Gameplay.Interactable.BallInteraction.Abstract;
+using Gameplay.Interactable.BallInteraction.State;
 using Infrastructure.Network.Abstract;
 using Infrastructure.Network.State;
 using Infrastructure.QuestService;
@@ -22,20 +23,21 @@ namespace Configuration.QuestTasks.Unique
         [SerializeField]
         private TaskConfig config;
 
-        private INetworkService networkService;
+        private IBallInteractionMediator ballInteractionMediator;
         private INetworkStateHolder<ConnectionState> connectionStateHolder;
 
         private CompositeDisposable disposable;
         private Dictionary<uint, int> holders;
         private Dictionary<uint, int> kickers;
+        private BallSharedState previousBallState;
 
         [Inject]
         private void Construct(
-            INetworkService networkService,
+            IBallInteractionMediator ballInteractionMediator,
             INetworkStateHolder<ConnectionState> connectionStateHolder
         )
         {
-            this.networkService = networkService;
+            this.ballInteractionMediator = ballInteractionMediator;
             this.connectionStateHolder = connectionStateHolder;
 
             holders = new Dictionary<uint, int>();
@@ -45,30 +47,36 @@ namespace Configuration.QuestTasks.Unique
 
         public override void Start()
         {
-            networkService.ObserveToReact<KickCommand>(OnKickExecuted).AddTo(disposable);
-            networkService.ObserveToReact<HoldCommand>(OnHoldExecuted).AddTo(disposable);
+            previousBallState = ballInteractionMediator.BallState.CurrentValue;
+            ballInteractionMediator.BallState.Subscribe(OnBallStateChanged).AddTo(disposable);
             connectionStateHolder.Subscribe(_ => UpdateState()).AddTo(disposable);
 
             UpdateState();
         }
 
-        private void OnHoldExecuted(HoldCommand holdCommand)
+        private void OnBallStateChanged(BallSharedState newState)
         {
-            holders.TryGetValue(holdCommand.InitiatorNetId, out int count);
-            count++;
-            count = Mathf.Clamp(count, 0, requiredCount);
-            holders[holdCommand.InitiatorNetId] = count;
+            if (newState.LastActionId == previousBallState.LastActionId)
+            {
+                return;
+            }
 
-            UpdateState();
-        }
+            if (newState.LastActionType == BallActionType.Hold && newState.HolderNetId != 0)
+            {
+                holders.TryGetValue(newState.HolderNetId, out int count);
+                count++;
+                count = Mathf.Clamp(count, 0, requiredCount);
+                holders[newState.HolderNetId] = count;
+            }
+            else if (newState.LastActionType == BallActionType.Kick && newState.LastKickInitiatorNetId != 0)
+            {
+                kickers.TryGetValue(newState.LastKickInitiatorNetId, out int count);
+                count++;
+                count = Mathf.Clamp(count, 0, requiredCount);
+                kickers[newState.LastKickInitiatorNetId] = count;
+            }
 
-        private void OnKickExecuted(KickCommand kickCommand)
-        {
-            kickers.TryGetValue(kickCommand.InitiatorNetId, out int count);
-            count++;
-            count = Mathf.Clamp(count, 0, requiredCount);
-            kickers[kickCommand.InitiatorNetId] = count;
-
+            previousBallState = newState;
             UpdateState();
         }
 
