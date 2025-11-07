@@ -149,11 +149,7 @@ namespace Gameplay.Interactable.BallInteraction.Components
 
         private void ApplyCapturePhysics(BallSharedState state)
         {
-            if (ballInteractionMediator.Initiators.TryGetValue(state.OwnerNetId, out IBallInteractionInitiator ownerInitiator))
-            {
-                localCaptureRelativePosition = ownerInitiator.BallSocket.InverseTransformPoint(transform.position);
-            }
-
+            localCaptureRelativePosition = state.LastKickDirection;
             localDistanceSinceLastKick = 0;
         }
 

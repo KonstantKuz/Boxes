@@ -270,7 +270,7 @@ namespace Configuration.Mediator
                     holderNetId: 0,
                     lastActionId: current.LastActionId + 1,
                     lastActionType: BallActionType.Capture,
-                    lastKickDirection: Vector3.zero,
+                    lastKickDirection: localInitiator.BallSocket.InverseTransformPoint(ball.transform.position),
                     lastKickInitiatorNetId: current.LastKickInitiatorNetId
                 ));
 
