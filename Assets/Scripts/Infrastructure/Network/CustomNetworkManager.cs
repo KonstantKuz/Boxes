@@ -50,6 +50,36 @@ namespace Infrastructure.Network
             stateSubscription = connectionStateHolder.Subscribe(state => stateReactive.Value = state);
         }
 
+        void INetworkManager.AssignAuthority(NetworkIdentity target, uint? authorityId)
+        {
+            if (!target.isServer)
+            {
+                this.Log(LogType.Error, "Cannot assign authority from client.");
+                return;
+            }
+
+            target.RemoveClientAuthority();
+
+            NetworkConnectionToClient connection = NetworkServer.connections.Values.FirstOrDefault(
+                item => item.identity.netId == authorityId
+            );
+
+            target.AssignClientAuthority(
+                connection?.identity?.netId != null ? connection : NetworkServer.localConnection
+            );
+        }
+
+        void INetworkManager.AssignAuthority(uint targetId, uint? authorityId)
+        {
+            if (!NetworkServer.spawned.TryGetValue(targetId, out NetworkIdentity target))
+            {
+                this.Log(LogType.Error, $"Cannot find network identity for target id: {targetId}.");
+                return;
+            }
+
+            ((INetworkManager) this).AssignAuthority(target, authorityId);
+        }
+
         void IDisposable.Dispose()
         {
             stateReactive?.Dispose();

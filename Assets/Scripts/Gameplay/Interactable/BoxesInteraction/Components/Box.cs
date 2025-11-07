@@ -18,7 +18,7 @@ namespace Gameplay.Interactable.BoxesInteraction.Components
         [SerializeField]
         private new Collider collider;
 
-        private INetworkService networkService;
+        private INetworkManager networkManager;
         private IBoxesInteractionMediator boxesInteractionMediator;
 
         private BoxSharedState? previousState;
@@ -30,9 +30,9 @@ namespace Gameplay.Interactable.BoxesInteraction.Components
         public Collider Collider => collider;
 
         [Inject]
-        private void Construct(INetworkService networkService, IBoxesInteractionMediator boxesInteractionMediator)
+        private void Construct(INetworkManager networkManager, IBoxesInteractionMediator boxesInteractionMediator)
         {
-            this.networkService = networkService;
+            this.networkManager = networkManager;
             this.boxesInteractionMediator = boxesInteractionMediator;
         }
 
@@ -52,7 +52,7 @@ namespace Gameplay.Interactable.BoxesInteraction.Components
 
             if (isServer)
             {
-                networkService.AssignAuthority(netIdentity);
+                networkManager.AssignAuthority(netIdentity);
             }
         }
 
@@ -74,7 +74,7 @@ namespace Gameplay.Interactable.BoxesInteraction.Components
 
             if (newState.OwnerNetId != previousState?.OwnerNetId && newState.OwnerNetId != 0)
             {
-                networkService.AssignAuthority(netIdentity, newState.OwnerNetId);
+                networkManager.AssignAuthority(netIdentity, newState.OwnerNetId);
             }
         }
 

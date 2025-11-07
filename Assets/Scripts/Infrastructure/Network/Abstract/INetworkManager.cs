@@ -9,5 +9,7 @@ namespace Infrastructure.Network.Abstract
         bool IsServer { get; }
         bool IsClientReady { get; }
         ReadOnlyReactiveProperty<ConnectionState> ConnectionState { get; }
+        void AssignAuthority(NetworkIdentity target, uint? authorityId = null);
+        void AssignAuthority(uint targetId, uint? authorityId = null);
     }
 }

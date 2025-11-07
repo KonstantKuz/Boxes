@@ -17,11 +17,6 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
-    - rid: 4157762697648930820
-      type: {class: NavigationTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}
-      data:
-        config: {fileID: 11400000, guid: 3a8be18a64b75b640a66224e8621730f, type: 2}
-        targetId: 895e16be-bcd5-4aaf-8012-d60bc22b3c42
     - rid: 4267941890726035462
       type: {class: TaskSequence, ns: Infrastructure.QuestService.Abstract, asm: Boxes}
       data:
@@ -44,7 +39,6 @@ MonoBehaviour:
         - rid: 4267942002011144203
         - rid: 4267942002011144205
         - rid: 4267942002011144206
-        - rid: 4157762697648930820
     - rid: 4267941890726035463
       type: {class: NavigationTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}
       data:

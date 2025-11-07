@@ -9,7 +9,6 @@ using Gameplay.Interactable.BallInteraction.State;
 using Infrastructure.Bootstrap;
 using Infrastructure.CameraService;
 using Infrastructure.InputService.Abstract;
-using Infrastructure.Network.Abstract;
 using R3;
 using Reflex.Attributes;
 using UnityEngine;
@@ -25,7 +24,6 @@ namespace Configuration.Mediator
 
         private IInputService inputService;
         private ICameraService cameraService;
-        private INetworkService networkService;
         private ReactiveProperty<BallSharedState> stateReactive;
         private Dictionary<uint, IBallInteractionInitiator> initiators;
 
@@ -45,11 +43,10 @@ namespace Configuration.Mediator
 
 
         [Inject]
-        private void Construct(IInputService inputService, ICameraService cameraService, INetworkService networkService)
+        private void Construct(IInputService inputService, ICameraService cameraService)
         {
             this.inputService = inputService;
             this.cameraService = cameraService;
-            this.networkService = networkService;
 
             stateReactive = new ReactiveProperty<BallSharedState>(BallSharedState.Default);
             initiators = new Dictionary<uint, IBallInteractionInitiator>();
@@ -266,8 +263,6 @@ namespace Configuration.Mediator
                     return;
                 }
 
-                networkService.AssignAuthority(ball.netId, localInitiator.NetId);
-
                 BallSharedState current = ball.StateHolder.GetState();
                 ball.StateHolder.WriteState(new BallSharedState(
                     kicksCount: current.KicksCount,
@@ -275,7 +270,7 @@ namespace Configuration.Mediator
                     holderNetId: 0,
                     lastActionId: current.LastActionId + 1,
                     lastActionType: BallActionType.Capture,
-                    lastKickDirection: localInitiator.BallSocket.InverseTransformPoint(ball.transform.position),
+                    lastKickDirection: Vector3.zero,
                     lastKickInitiatorNetId: current.LastKickInitiatorNetId
                 ));
 
