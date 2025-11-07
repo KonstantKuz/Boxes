@@ -47,7 +47,7 @@ namespace Infrastructure.Network
             return Disposable.Create(() => observers.Remove(action));
         }
 
-        public IDisposable ObserveToReact<T>(Action<T> observer) where T : INetworkCommand
+        IDisposable INetworkService.ObserveToReact<T>(Action<T> observer)
         {
             if (!reactionObservers.TryGetValue(typeof(T), out List<Action<byte[]>> observers))
             {
@@ -60,6 +60,55 @@ namespace Infrastructure.Network
             observers.Add(action);
 
             return Disposable.Create(() => observers.Remove(action));
+        }
+
+        void INetworkService.AssignAuthority(NetworkIdentity target, uint? authorityId)
+        {
+            if (NetworkServer.active)
+            {
+                AssignAuthority(target.netId, authorityId);
+            }
+            else
+            {
+                CmdAssignAuthority(target.netId, authorityId);
+            }
+        }
+
+        void INetworkService.AssignAuthority(uint targetId, uint? authorityId)
+        {
+            if (NetworkServer.active)
+            {
+                AssignAuthority(targetId, authorityId);
+            }
+            else
+            {
+                CmdAssignAuthority(targetId, authorityId);
+            }
+        }
+
+        [Command]
+        public void CmdAssignAuthority(uint targetId, uint? authorityId)
+        {
+            AssignAuthority(targetId, authorityId);
+        }
+
+        private void AssignAuthority(uint targetId, uint? authorityId)
+        {
+            if (!NetworkServer.spawned.TryGetValue(targetId, out NetworkIdentity target))
+            {
+                this.Log(LogType.Error, $"Cannot find network identity for target id: {targetId}.");
+                return;
+            }
+
+            target.RemoveClientAuthority();
+
+            NetworkConnectionToClient connection = NetworkServer.connections.Values.FirstOrDefault(
+                item => item.identity.netId == authorityId
+            );
+
+            target.AssignClientAuthority(
+                connection?.identity?.netId != null ? connection : NetworkServer.localConnection
+            );
         }
 
         [Command(requiresAuthority = false)]
