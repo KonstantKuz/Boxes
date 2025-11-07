@@ -400,16 +400,19 @@ namespace CMF
 
 			//Calculate target velocity based on input;
 			Vector3 targetVelocity = CalculateMovementVelocity();
+			float interpolation = 0;
 
 			//Apply control and friction;
 			if(!IsGrounded())
 			{
-				//In air: limited control via airControlRate, friction for deceleration;
-				_horizontalMomentum = Vector3.Lerp(_horizontalMomentum, targetVelocity, airControlRate * Time.fixedDeltaTime * 10);
+				interpolation = airControlRate * Time.fixedDeltaTime * 10;
+				targetVelocity = Vector3.ClampMagnitude(targetVelocity, savedVelocity.magnitude);
+				_horizontalMomentum = Vector3.Lerp(_horizontalMomentum, targetVelocity, interpolation);
 			}
 			else
 			{
-				_horizontalMomentum = Vector3.Lerp(_horizontalMomentum, targetVelocity, GroundFriction * Time.fixedDeltaTime * 10);
+				interpolation = GroundFriction * Time.fixedDeltaTime * 10;
+				_horizontalMomentum = Vector3.Lerp(_horizontalMomentum, targetVelocity, interpolation);
 			}
 
 			//Steer controller on slopes;

@@ -28,6 +28,9 @@ namespace Gameplay.Interactable.BallInteraction
         private float heightDampingStrength;
 
         [SerializeField]
+        private float outOfBoundsPullOffset;
+
+        [SerializeField]
         private float outOfBoundsPullForce;
 
         [SerializeField]
@@ -76,6 +79,7 @@ namespace Gameplay.Interactable.BallInteraction
         public float MaxHeight => maxHeight;
         public float HeightDampingStrength => heightDampingStrength;
         public float StatusDampingDistance => statusDampingDistance;
+        public float OutOfBoundsPullOffset => outOfBoundsPullOffset;
         public float OutOfBoundsPullForce => outOfBoundsPullForce;
         public int StatusKicksCount => statusKicksCount;
         public float AttractionRadius => attractionRadius;

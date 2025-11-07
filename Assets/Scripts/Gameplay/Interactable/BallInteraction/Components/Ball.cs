@@ -52,16 +52,6 @@ namespace Gameplay.Interactable.BallInteraction.Components
             ballInteractionMediator.RegisterBall(this);
         }
 
-        private void OnEnable()
-        {
-            rigidbody.isKinematic = collider.isTrigger = false;
-        }
-
-        private void OnDisable()
-        {
-            rigidbody.isKinematic = collider.isTrigger = true;
-        }
-
         public override void OnStartServer()
         {
             StateHolder.Subscribe(OnStateChangedServer);
@@ -106,7 +96,6 @@ namespace Gameplay.Interactable.BallInteraction.Components
                 bool isKinematic = newState.LastActionType is BallActionType.Hold or BallActionType.Capture;
 
                 rigidbody.isKinematic = collider.isTrigger = isKinematic;
-                // collider.enabled = !isKinematic;
 
                 IBallInteractionInitiator localInitiator = ballInteractionMediator.LocalInitiator;
                 bool isLocal = localInitiator != null && newState.OwnerNetId == localInitiator.NetId;
@@ -287,16 +276,22 @@ namespace Gameplay.Interactable.BallInteraction.Components
                     simplifiedNormal = outOfBoundsSide.normal.z > 0 ? Vector3.forward : Vector3.back;
                 }
 
-                if (Vector3.Dot(rigidbody.velocity, -simplifiedNormal) > 0)
+                float outDistance = outOfBoundsSide.GetDistanceToPoint(transform.position);
+
+                if (outDistance < 0)
                 {
-                    Vector3 reflectedVelocity = Vector3.Reflect(rigidbody.velocity, simplifiedNormal);
-                    rigidbody.velocity = reflectedVelocity;
-                }
-                else
-                {
-                    float distanceToPlane = outOfBoundsSide.GetDistanceToPoint(transform.position);
-                    Vector3 reboundForce = simplifiedNormal * Mathf.Abs(distanceToPlane) * Config.OutOfBoundsPullForce;
-                    rigidbody.AddForce(reboundForce, ForceMode.Force);
+                    Vector3 offset = simplifiedNormal * outDistance + simplifiedNormal * Config.OutOfBoundsPullOffset;
+                    Vector3 correctedPosition = transform.position - offset;
+                    rigidbody.MovePosition(correctedPosition);
+
+                    if (Vector3.Dot(rigidbody.velocity, -simplifiedNormal) > 0)
+                    {
+                        rigidbody.velocity = Vector3.Reflect(rigidbody.velocity, simplifiedNormal);
+                    }
+                    else
+                    {
+                        rigidbody.AddForce(simplifiedNormal * Config.OutOfBoundsPullForce, ForceMode.Impulse);
+                    }
                 }
             }
 

@@ -13,10 +13,13 @@ namespace Gameplay.Player
     public class RollerAbilityModifier : MonoBehaviour
     {
         [SerializeField]
-        private UnityEvent<float> OnSpeedModifierChanged;
+        private UnityEvent<bool> onIsActiveChanged;
 
         [SerializeField]
-        private UnityEvent<float> OnFrictionModifierChanged;
+        private UnityEvent<float> onSpeedModifierChanged;
+
+        [SerializeField]
+        private UnityEvent<float> onFrictionModifierChanged;
 
         [SerializeField]
         private RollerAbilityConfig config;
@@ -44,7 +47,7 @@ namespace Gameplay.Player
         private void OnDisable()
         {
             questSubscription?.Dispose();
-            OnSpeedModifierChanged.Invoke(config.SpeedModifier);
+            onSpeedModifierChanged.Invoke(config.SpeedModifier);
             inputService.DefaultContextActions.Boost.performed -= ToggleModifier;
         }
 
@@ -61,8 +64,9 @@ namespace Gameplay.Player
             }
 
             isModifierActive = !isModifierActive;
-            OnSpeedModifierChanged.Invoke(isModifierActive ? config.SpeedModifier : -config.SpeedModifier);
-            OnFrictionModifierChanged.Invoke(isModifierActive ? config.FrictionModifier : -config.FrictionModifier);
+            onIsActiveChanged.Invoke(isModifierActive);
+            onSpeedModifierChanged.Invoke(isModifierActive ? config.SpeedModifier : -config.SpeedModifier);
+            onFrictionModifierChanged.Invoke(isModifierActive ? config.FrictionModifier : -config.FrictionModifier);
         }
     }
 }

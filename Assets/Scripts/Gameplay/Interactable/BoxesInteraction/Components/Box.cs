@@ -41,16 +41,6 @@ namespace Gameplay.Interactable.BoxesInteraction.Components
             GetComponent<ConstantForce>().force = Vector3.up * boxesInteractionMediator.Config.ExtraGravity;
         }
 
-        private void OnEnable()
-        {
-            rigidbody.isKinematic = collider.isTrigger = false;
-        }
-
-        private void OnDisable()
-        {
-            rigidbody.isKinematic = collider.isTrigger = true;
-        }
-
         public override void OnStartServer()
         {
             StateHolder.Subscribe(OnStateChangedServer);
