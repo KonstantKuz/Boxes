@@ -30,19 +30,33 @@ namespace Gameplay.Interactable.BallInteraction.Components
             this.ballInteractionMediator = ballInteractionMediator;
         }
 
-        private void Awake()
+        public override void OnStartClient()
         {
-            cancellation = new CancellationTokenSource();
-
-            UniTask.Void(async () =>
-            {
-                await UniTask.WaitUntil(
-                    () => NetworkClient.ready && netIdentity != null, cancellationToken: cancellation.Token
-                );
-
-                ballInteractionMediator.RegisterInitiator(this, isLocalPlayer);
-            });
+            ballInteractionMediator.RegisterInitiator(this, isLocalPlayer);
         }
+
+        // private void Awake()
+        // {
+        //     cancellation = new CancellationTokenSource();
+        //
+        //     UniTask.Void(async () =>
+        //     {
+        //         float awaitingTime = 0;
+        //         while (!cancellation.IsCancellationRequested && NetworkClient.ready && netIdentity != null && netIdentity.netId == 0)
+        //         {
+        //             awaitingTime += Time.deltaTime;
+        //             await UniTask.Yield();
+        //
+        //             if (awaitingTime > 5)
+        //             {
+        //                 Debug.LogWarning("No valid netId.");
+        //                 awaitingTime = 0;
+        //             }
+        //         }
+        //
+        //         ballInteractionMediator.RegisterInitiator(this, isLocalPlayer);
+        //     });
+        // }
 
         private void OnDestroy()
         {
