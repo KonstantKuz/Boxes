@@ -1,5 +1,4 @@
-﻿using System.Threading;
-using Gameplay.Interactable.Abstract;
+﻿using Gameplay.Interactable.Abstract;
 using Gameplay.Interactable.BallInteraction.Abstract;
 using Reflex.Attributes;
 using UnityEngine;
@@ -15,7 +14,6 @@ namespace Gameplay.Interactable.BallInteraction.Components
         private Transform ballSocket;
 
         private IBallInteractionMediator ballInteractionMediator;
-        private CancellationTokenSource cancellation;
 
         uint IBallInteractionInitiator.NetId => netId;
         Transform IBallInteractionInitiator.BallSocket => ballSocket;
@@ -31,12 +29,6 @@ namespace Gameplay.Interactable.BallInteraction.Components
         public override void OnStartClient()
         {
             ballInteractionMediator.RegisterInitiator(this, isLocalPlayer);
-        }
-
-        private void OnDestroy()
-        {
-            cancellation.Cancel();
-            cancellation.Dispose();
         }
     }
 }

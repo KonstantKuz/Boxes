@@ -86,7 +86,7 @@ namespace Infrastructure.Network
             }
         }
 
-        [Command]
+        [Command(requiresAuthority = false)]
         public void CmdAssignAuthority(uint targetId, uint? authorityId)
         {
             AssignAuthority(targetId, authorityId);
