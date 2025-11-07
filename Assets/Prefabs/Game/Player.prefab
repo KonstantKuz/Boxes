@@ -149,6 +149,7 @@ GameObject:
   - component: {fileID: 114808892733143080}
   - component: {fileID: 114854587450894338}
   - component: {fileID: 6544972154663908213}
+  - component: {fileID: 9068432335133372425}
   - component: {fileID: 114842684940577594}
   - component: {fileID: 114611966454256686}
   - component: {fileID: 5005981399707072953}
@@ -207,6 +208,7 @@ MonoBehaviour:
   - {fileID: 4589138145979967656}
   - {fileID: 6358126846391220783}
   - {fileID: 4136974530054710152}
+  - {fileID: 9068432335133372425}
 --- !u!54 &54247263789400272
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -346,6 +348,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   turnController: {fileID: 114415904454639492}
+--- !u!114 &9068432335133372425
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1189618843407812}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a797f675f779bf44ca1c52c317633201, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  walkerController: {fileID: 114854587450894338}
+  collider: {fileID: 136179175772395822}
+  pushBackForce: 10
+  positionCorrectionOffset: 0.2
 --- !u!114 &114842684940577594
 MonoBehaviour:
   m_ObjectHideFlags: 0
