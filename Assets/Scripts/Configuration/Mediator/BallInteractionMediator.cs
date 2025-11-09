@@ -157,6 +157,8 @@ namespace Configuration.Mediator
                             ? (byte)0
                             : current.KicksCount;
 
+                        networkService.AssignAuthority(ball.netId, localInitiator.NetId);
+
                         ball.StateHolder.WriteState(new BallSharedState(
                             kicksCount: kicksCount,
                             ownerNetId: localInitiator.NetId,
@@ -214,6 +216,8 @@ namespace Configuration.Mediator
                         {
                             kicksCount = 1;
                         }
+
+                        networkService.AssignAuthority(ball.netId, localInitiator.NetId);
 
                         ball.StateHolder.WriteState(new BallSharedState(
                             kicksCount: kicksCount,
