@@ -285,8 +285,6 @@ namespace Configuration.Mediator
                     cancellationToken: token
                 );
 
-                captureTokenSource = null;
-
                 if (token.IsCancellationRequested)
                 {
                     return;
@@ -303,20 +301,25 @@ namespace Configuration.Mediator
                     kicksCount = 1;
                 }
 
+                uint actionId = ball.StateHolder.GetState().LastActionId + 1;
+
                 ball.StateHolder.WriteState(new BallSharedState(
                     kicksCount: kicksCount,
                     ownerNetId: localInitiator.NetId,
                     holderNetId: 0,
-                    lastActionId: current.LastActionId + 1,
+                    lastActionId: actionId,
                     lastActionType: BallActionType.Kick,
                     lastKickDirection: localInitiator.KickDirection,
                     lastKickInitiatorNetId: localInitiator.NetId
                 ));
 
-                lastKickTime = Time.time;
+                await UniTask.WaitUntil(
+                    () => ball.StateHolder.GetState().LastActionId == actionId, cancellationToken: token
+                );
 
-                kickTokenSource?.Cancel();
-                kickTokenSource = null;
+                captureTokenSource?.Cancel();
+                captureTokenSource = null;
+                lastKickTime = Time.time;
             }
         }
     }
