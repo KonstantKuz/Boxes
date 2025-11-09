@@ -132,10 +132,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1208961427}
   - component: {fileID: 1208961425}
+  - component: {fileID: 1208961433}
   - component: {fileID: 1208961428}
   - component: {fileID: 1208961429}
   - component: {fileID: 1208961431}
-  - component: {fileID: 1208961430}
   - component: {fileID: 1208961432}
   m_Layer: 0
   m_Name: CustomNetworkManager
@@ -171,7 +171,7 @@ MonoBehaviour:
   ReliableMaxMessageSize: 297433
   UnreliableMaxMessageSize: 1194
   debugLog: 0
-  statisticsGUI: 0
+  statisticsGUI: 1
   statisticsLog: 0
 --- !u!4 &1208961427
 Transform:
@@ -208,7 +208,7 @@ MonoBehaviour:
   offlineScene: Assets/Scenes/LocalTestScene.unity
   onlineScene: Assets/Scenes/CityScene 1.unity
   offlineSceneLoadDelay: 0
-  transport: {fileID: 1208961430}
+  transport: {fileID: 1208961433}
   networkAddress: 26.180.46.63
   maxConnections: 100
   disconnectInactiveConnections: 0
@@ -247,30 +247,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   offsetX: 0
   offsetY: 900
---- !u!114 &1208961430
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1208961423}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c7424c1070fad4ba2a7a96b02fbeb4bb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  port: 7777
-  NoDelay: 1
-  SendTimeout: 5000
-  ReceiveTimeout: 30000
-  serverMaxMessageSize: 16384
-  serverMaxReceivesPerTick: 10000
-  serverSendQueueLimitPerConnection: 10000
-  serverReceiveQueueLimitPerConnection: 10000
-  clientMaxMessageSize: 16384
-  clientMaxReceivesPerTick: 1000
-  clientSendQueueLimit: 10000
-  clientReceiveQueueLimit: 10000
 --- !u!114 &1208961431
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -299,6 +275,24 @@ MonoBehaviour:
   padding: 2
   width: 150
   height: 25
+--- !u!114 &1208961433
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1208961423}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96b149f511061407fb54895c057b7736, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wrap: {fileID: 1208961425}
+  latency: 300
+  jitter: 0.05
+  jitterSpeed: 1
+  unreliableLoss: 3
+  unreliableScramble: 3
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

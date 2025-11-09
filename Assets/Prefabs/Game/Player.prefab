@@ -559,7 +559,7 @@ MonoBehaviour:
   syncVelocity: 7
   syncAngularVelocity: 7
   isPositionCompressed: 0
-  isRotationCompressed: 1
+  isRotationCompressed: 0
   isScaleCompressed: 0
   isVelocityCompressed: 0
   isAngularVelocityCompressed: 0

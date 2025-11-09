@@ -16,7 +16,7 @@ MonoBehaviour:
   minSpeed: 20
   maxSpeed: 50
   maxHeight: 0.5
-  heightDampingStrength: 50
+  heightDampingStrength: 5
   outOfBoundsPullOffset: -0.1
   outOfBoundsPullForce: 5
   kickWindowTime: 0.5
