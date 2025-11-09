@@ -1640,10 +1640,10 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 6361323341069034211}
-        m_TargetAssemblyTypeName: Infrastructure.Network.Components.IsServerConditionHelper,
+      - m_Target: {fileID: 2216606424397951128}
+        m_TargetAssemblyTypeName: Infrastructure.Network.Components.NetworkStateHelper,
           Boxes
-        m_MethodName: SetCondition
+        m_MethodName: CmdSetActive
         m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1651,12 +1651,12 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 0
+          m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 1727415157945056709}
-        m_TargetAssemblyTypeName: Infrastructure.Network.Components.IsServerConditionHelper,
+      - m_Target: {fileID: 3602370633169987862}
+        m_TargetAssemblyTypeName: Infrastructure.Network.Components.NetworkStateHelper,
           Boxes
-        m_MethodName: SetCondition
+        m_MethodName: CmdSetActive
         m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1664,7 +1664,7 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 0
+          m_BoolArgument: 1
         m_CallState: 2
 --- !u!1 &6730846746212163958
 GameObject:
@@ -2428,7 +2428,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  additionalCondition: 1
+  additionalCondition: 0
 --- !u!114 &3602370633169987862
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2471,7 +2471,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  initialIsActive: 1
+  initialIsActive: 0
   initialPosition: {x: 247.6, y: 0, z: 264.7}
   initialRotation: {x: -0, y: -0, z: -0, w: 1}
 --- !u!1 &2431498942672205946 stripped
@@ -2793,7 +2793,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  additionalCondition: 1
+  additionalCondition: 0
 --- !u!114 &2216606424397951128
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2836,7 +2836,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  initialIsActive: 1
+  initialIsActive: 0
   initialPosition: {x: 203.2, y: 0, z: 162.6}
   initialRotation: {x: -0, y: -0, z: -0, w: 1}
 --- !u!1 &8785464287736942574 stripped
