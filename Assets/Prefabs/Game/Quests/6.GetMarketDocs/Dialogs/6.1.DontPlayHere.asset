@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40732021d3474b2ea4be049a6f484cc7, type: 3}
   m_Name: 6.1.DontPlayHere
   m_EditorClassIdentifier: 
-  guid: 2bf91848-c859-4e6d-9131-9f9db174b297
+  guid: c94fcec9-3c3d-49ba-89c1-4f46b7a414ad
   replicas:
   - title:
       m_TableReference:

@@ -43,7 +43,6 @@ namespace Configuration.Mediator
         IReadOnlyDictionary<uint, IBallInteractionInitiator> IBallInteractionMediator.Initiators => initiators;
         IBallInteractionInitiator IBallInteractionMediator.LocalInitiator => localInitiator;
 
-
         [Inject]
         private void Construct(IInputService inputService, ICameraService cameraService, INetworkService networkService)
         {

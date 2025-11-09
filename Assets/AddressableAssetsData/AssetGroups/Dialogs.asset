@@ -53,6 +53,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - Dialog
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 828d7b2df98606d429567d49ef5f246c
+    m_Address: Assets/Prefabs/Game/Quests/6.GetMarketDocs/Dialogs/6.1.DontPlayHere.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Dialog
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 82d038918d632a8429f323d51018ee01
     m_Address: Assets/Prefabs/System/DialogService/Dialogs/1.Beginning/2.GoHome.asset
     m_ReadOnly: 0
