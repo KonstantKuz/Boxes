@@ -131,12 +131,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1208961427}
+  - component: {fileID: 1208961431}
+  - component: {fileID: 1208961432}
+  - component: {fileID: 1208961429}
   - component: {fileID: 1208961425}
   - component: {fileID: 1208961433}
   - component: {fileID: 1208961428}
-  - component: {fileID: 1208961429}
-  - component: {fileID: 1208961431}
-  - component: {fileID: 1208961432}
   m_Layer: 0
   m_Name: CustomNetworkManager
   m_TagString: Untagged
@@ -171,7 +171,7 @@ MonoBehaviour:
   ReliableMaxMessageSize: 297433
   UnreliableMaxMessageSize: 1194
   debugLog: 0
-  statisticsGUI: 1
+  statisticsGUI: 0
   statisticsLog: 0
 --- !u!4 &1208961427
 Transform:
@@ -208,7 +208,7 @@ MonoBehaviour:
   offlineScene: Assets/Scenes/LocalTestScene.unity
   onlineScene: Assets/Scenes/CityScene 1.unity
   offlineSceneLoadDelay: 0
-  transport: {fileID: 1208961433}
+  transport: {fileID: 1208961425}
   networkAddress: 26.180.46.63
   maxConnections: 100
   disconnectInactiveConnections: 0
@@ -288,7 +288,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wrap: {fileID: 1208961425}
-  latency: 300
+  latency: 500
   jitter: 0.05
   jitterSpeed: 1
   unreliableLoss: 3
