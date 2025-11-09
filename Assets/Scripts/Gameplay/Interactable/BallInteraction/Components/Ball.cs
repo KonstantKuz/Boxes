@@ -28,7 +28,7 @@ namespace Gameplay.Interactable.BallInteraction.Components
         [SerializeField]
         private LayerMask penetrationTestMask;
 
-        private INetworkManager networkManager;
+        private INetworkService networkService;
         private IBallInteractionMediator ballInteractionMediator;
 
         private BallSharedState? previousState;
@@ -41,9 +41,9 @@ namespace Gameplay.Interactable.BallInteraction.Components
         public INetworkStateHolder<BallSharedState> StateHolder => ballStateHolder;
 
         [Inject]
-        private void Construct(INetworkManager networkManager, IBallInteractionMediator ballInteractionMediator)
+        private void Construct(INetworkService networkService, IBallInteractionMediator ballInteractionMediator)
         {
-            this.networkManager = networkManager;
+            this.networkService = networkService;
             this.ballInteractionMediator = ballInteractionMediator;
         }
 
@@ -52,18 +52,13 @@ namespace Gameplay.Interactable.BallInteraction.Components
             ballInteractionMediator.RegisterBall(this);
         }
 
-        public override void OnStartServer()
-        {
-            StateHolder.Subscribe(OnStateChangedServer);
-        }
-
         public override void OnStartClient()
         {
             StateHolder.Subscribe(OnStateChangedClient);
 
             if (isServer)
             {
-                networkManager.AssignAuthority(netIdentity);
+                networkService.AssignAuthority(netIdentity);
             }
         }
 
@@ -73,19 +68,6 @@ namespace Gameplay.Interactable.BallInteraction.Components
             {
                 HandleAction(pendingAction.Value);
                 pendingAction = null;
-            }
-        }
-
-        private void OnStateChangedServer(BallSharedState newState)
-        {
-            if (!isServer)
-            {
-                return;
-            }
-
-            if (newState.OwnerNetId != previousState?.OwnerNetId && newState.OwnerNetId != 0)
-            {
-                networkManager.AssignAuthority(netIdentity, newState.OwnerNetId);
             }
         }
 
