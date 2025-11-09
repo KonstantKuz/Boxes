@@ -234,13 +234,6 @@ namespace Gameplay.Interactable.BallInteraction.Components
                 return;
             }
 
-            if (transform.position.y > Config.MaxHeight)
-            {
-                float heightExcess = transform.position.y - Config.MaxHeight;
-                float verticalDampingForce = heightExcess * Config.HeightDampingStrength;
-                rigidbody.AddForce(Vector3.down * verticalDampingForce, ForceMode.Acceleration);
-            }
-
             if (ballInteractionMediator.IsBallOutOfBounds(out Plane outOfBoundsSide))
             {
                 Vector3 simplifiedNormal;
@@ -273,6 +266,9 @@ namespace Gameplay.Interactable.BallInteraction.Components
                 }
             }
 
+            float verticalDampingForce = Config.HeightDampingStrength * Time.fixedDeltaTime;
+            Vector3 horizontalVelocity = Vector3.ProjectOnPlane(rigidbody.velocity, Vector3.up);
+            rigidbody.velocity = Vector3.Lerp(rigidbody.velocity, horizontalVelocity, verticalDampingForce);
             rigidbody.velocity = Vector3.ClampMagnitude(rigidbody.velocity, Config.MaxSpeed);
 
             localDistanceSinceLastKick += rigidbody.velocity.magnitude * Time.fixedDeltaTime;
