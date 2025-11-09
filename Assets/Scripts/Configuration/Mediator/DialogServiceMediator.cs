@@ -119,13 +119,12 @@ namespace Configuration.Mediator
             IEnumerable<uint> connectedPlayers =
                 NetworkServer.connections.Values.Select(item => item.identity.netId);
 
-            DialogSequence sequence = dialogsMap[dialogState.DialogId];
-
             if (connectedPlayers.All(netId => readyPlayers.Contains(netId)))
             {
                 replicaIndex++;
                 readyPlayers.Clear();
-                if (replicaIndex >= sequence.Replicas.Length)
+                if (dialogsMap.TryGetValue(dialogState.DialogId, out DialogSequence sequence) &&
+                    replicaIndex >= sequence.Replicas.Length)
                 {
                     networkService.SendCommand(new StopDialogCommand());
                     return;
