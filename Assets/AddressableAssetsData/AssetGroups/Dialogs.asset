@@ -101,6 +101,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - Dialog
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d9243632576c4ca4e91bb070230f0d58
+    m_Address: Assets/Prefabs/Game/Quests/9.GetCarDocs/Dialogs/9.1.GetCarDocs.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Dialog
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: dad2c20eeec1e754a8d870b3793700ee
     m_Address: Assets/Prefabs/Game/Quests/4.AngarWork/Dialogs/4.3.ByeBye.asset
     m_ReadOnly: 0

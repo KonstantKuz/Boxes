@@ -10,9 +10,11 @@ namespace Configuration.QuestTasks.Shared
     [Serializable]
     public class SetActiveTask : TaskBase
     {
+        [WorldObjectId]
         [SerializeField]
         private string targetId;
 
+        [WorldObjectId]
         [SerializeField]
         private string positionId;
 

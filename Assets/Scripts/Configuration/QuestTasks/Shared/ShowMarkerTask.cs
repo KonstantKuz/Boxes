@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Infrastructure;
 using Infrastructure.NavigationService;
 using Infrastructure.QuestService.Abstract;
@@ -11,6 +11,7 @@ namespace Configuration.QuestTasks.Shared
     [Serializable]
     public class ShowMarkerTask : TaskBase, IDisposable
     {
+        [WorldObjectId]
         [SerializeField]
         private string targetId;
 

@@ -17,6 +17,7 @@ namespace Configuration.QuestTasks.Shared
         [SerializeField]
         private DialogSequence dialogSequence;
 
+        [WorldObjectId]
         [SerializeField]
         private string cameraTargetId;
 

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Gameplay.Interactable.BoxesInteraction.Components;
 using Infrastructure;
@@ -19,9 +19,11 @@ namespace Configuration.QuestTasks.Shared
         [SerializeField]
         private TaskConfig config;
 
+        [WorldObjectId]
         [SerializeField]
         private string sourceStorageId;
 
+        [WorldObjectId]
         [SerializeField]
         private string targetStorageId;
 

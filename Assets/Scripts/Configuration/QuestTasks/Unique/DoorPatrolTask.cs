@@ -17,6 +17,7 @@ namespace Configuration.QuestTasks.Unique
     [Serializable]
     public class DoorPatrolTask : TaskBase, IDisposable
     {
+        [WorldObjectId]
         [SerializeField]
         private List<string> doorIds;
 

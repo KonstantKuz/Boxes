@@ -12,6 +12,7 @@ namespace Configuration.QuestTasks.Unique
     [Serializable]
     public class NpcKickBallTask : TaskBase
     {
+        [WorldObjectId]
         [SerializeField]
         private string npcId;
 

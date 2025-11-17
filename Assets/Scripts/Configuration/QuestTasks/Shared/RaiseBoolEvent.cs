@@ -11,6 +11,7 @@ namespace Configuration.QuestTasks.Shared
     [Serializable]
     public class RaiseBoolEvent : TaskBase
     {
+        [WorldObjectId]
         [SerializeField]
         private string targetId;
 

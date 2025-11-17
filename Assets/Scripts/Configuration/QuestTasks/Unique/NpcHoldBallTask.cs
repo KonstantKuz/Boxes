@@ -14,6 +14,7 @@ namespace Configuration.QuestTasks.Unique
     [Serializable]
     public class NpcHoldBallTask : TaskBase
     {
+        [WorldObjectId]
         [SerializeField]
         private string npcId;
 

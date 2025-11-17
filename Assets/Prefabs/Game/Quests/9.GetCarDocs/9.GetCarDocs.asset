@@ -1,0 +1,58 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a3302517e334611b8ca3e20f19d998c, type: 3}
+  m_Name: 9.GetCarDocs
+  m_EditorClassIdentifier: 
+  taskSequence:
+    rid: 4157762924566544386
+  references:
+    version: 2
+    RefIds:
+    - rid: 4157762924566544386
+      type: {class: TaskSequence, ns: Infrastructure.QuestService.Abstract, asm: Boxes}
+      data:
+        tasks:
+        - rid: 4157762924566544387
+        - rid: 4157762924566544388
+        - rid: 4157762924566544389
+        - rid: 4157762924566544390
+    - rid: 4157762924566544387
+      type: {class: DialogTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}
+      data:
+        dialogSequence: {fileID: 11400000, guid: d9243632576c4ca4e91bb070230f0d58, type: 2}
+        cameraTargetId: 
+    - rid: 4157762924566544388
+      type: {class: NavigationTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}
+      data:
+        config: {fileID: 11400000, guid: 75a1e642d3e9d344580db05887e0a4bf, type: 2}
+        targetId: 9b610216-25d1-43d0-8204-b7427c29edc6
+    - rid: 4157762924566544389
+      type: {class: DamageablePoolTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}
+      data:
+        config: {fileID: 11400000, guid: d9e26e0e899b0104aacf262282f6e361, type: 2}
+        triggerIds:
+        - 6b02e32f-4184-43b9-80f1-d9b1f4591b06
+        - 8bb6158a-a7a9-4e74-8532-057c172c7a9f
+        - 2222395d-9160-4bb5-9a19-4c3d68d91090
+        - 4df4d9bc-3284-45ae-b928-8cd3ca9e9486
+        - 3d6af7a5-60b7-4f9a-b303-0591624d29bf
+        - 16cd0005-6cce-4fb6-b7f8-36167bbc46d1
+        - 237f951a-ed49-46db-a314-009e1f1462ed
+        - c1ab30d4-0f66-4431-a0c6-d01a78df8ca2
+        - 74c295a5-2fd6-4bd7-9067-dbe662c944fb
+        singleTriggerHitPoints: 1
+        requiredTotalDamage: 5
+    - rid: 4157762924566544390
+      type: {class: NavigationTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}
+      data:
+        config: {fileID: 0}
+        targetId: 367b6841-d58d-400f-8c68-1d92f44302a1

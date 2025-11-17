@@ -20,6 +20,7 @@ namespace Configuration.QuestTasks.Shared
         [SerializeField]
         private TaskConfig config;
 
+        [WorldObjectId]
         [SerializeField]
         private List<string> triggerIds;
 

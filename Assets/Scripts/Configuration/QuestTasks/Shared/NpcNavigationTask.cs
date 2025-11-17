@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Gameplay.Components;
 using Infrastructure;
 using Infrastructure.QuestService.Abstract;
@@ -13,9 +13,11 @@ namespace Configuration.QuestTasks.Shared
     [Serializable]
     public class NpcNavigationTask : TaskBase, IDisposable
     {
+        [WorldObjectId]
         [SerializeField]
         private string npcId;
 
+        [WorldObjectId]
         [SerializeField]
         private string targetId;
 
