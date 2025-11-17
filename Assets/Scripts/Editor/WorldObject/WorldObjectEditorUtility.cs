@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
@@ -8,32 +9,36 @@ using Object = UnityEngine.Object;
 
 namespace Editor.WorldObject
 {
+    using WorldObject = Infrastructure.World.WorldObject;
+
     public static class WorldObjectEditorUtility
     {
-        public static string GetWorldObjectId(Infrastructure.World.WorldObject worldObject)
+        public static string GetWorldObjectId(WorldObject worldObject)
         {
-            if (worldObject == null) return null;
+            if (worldObject == null)
+            {
+                return null;
+            }
 
-            var idField = typeof(Infrastructure.World.WorldObject).GetField(
-                "id", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance
-            );
+            FieldInfo idField =
+                typeof(WorldObject).GetField("id", BindingFlags.NonPublic | BindingFlags.Instance);
 
             return idField?.GetValue(worldObject) as string;
         }
 
-        public static Infrastructure.World.WorldObject TryGetWorldObjectFromDrag()
+        public static WorldObject TryGetWorldObjectFromDrag()
         {
             foreach (Object draggedObject in DragAndDrop.objectReferences)
             {
                 if (draggedObject is GameObject go)
                 {
-                    Infrastructure.World.WorldObject worldObject = go.GetComponent<Infrastructure.World.WorldObject>();
+                    WorldObject worldObject = go.GetComponent<WorldObject>();
                     if (worldObject != null)
                     {
                         return worldObject;
                     }
                 }
-                else if (draggedObject is Infrastructure.World.WorldObject wo)
+                else if (draggedObject is WorldObject wo)
                 {
                     return wo;
                 }
@@ -41,21 +46,21 @@ namespace Editor.WorldObject
             return null;
         }
 
-        public static List<Infrastructure.World.WorldObject> GetAllWorldObjectsFromDrag()
+        public static List<WorldObject> GetAllWorldObjectsFromDrag()
         {
-            List<Infrastructure.World.WorldObject> worldObjects = new List<Infrastructure.World.WorldObject>();
+            List<WorldObject> worldObjects = new List<WorldObject>();
 
             foreach (Object draggedObject in DragAndDrop.objectReferences)
             {
                 if (draggedObject is GameObject go)
                 {
-                    Infrastructure.World.WorldObject worldObject = go.GetComponent<Infrastructure.World.WorldObject>();
+                    WorldObject worldObject = go.GetComponent<WorldObject>();
                     if (worldObject != null)
                     {
                         worldObjects.Add(worldObject);
                     }
                 }
-                else if (draggedObject is Infrastructure.World.WorldObject wo)
+                else if (draggedObject is WorldObject wo)
                 {
                     worldObjects.Add(wo);
                 }
@@ -64,15 +69,17 @@ namespace Editor.WorldObject
             return worldObjects;
         }
 
-        public static bool HandleSingleElementDragAndDrop(Rect rect, System.Action<string> onIdReceived)
+        public static bool HandleSingleElementDragAndDrop(Rect rect, Action<string> onIdReceived)
         {
             Event evt = Event.current;
             if (!rect.Contains(evt.mousePosition))
+            {
                 return false;
+            }
 
             if (evt.type == EventType.DragUpdated || evt.type == EventType.DragPerform)
             {
-                Infrastructure.World.WorldObject worldObject = TryGetWorldObjectFromDrag();
+                WorldObject worldObject = TryGetWorldObjectFromDrag();
 
                 if (worldObject != null)
                 {
@@ -97,15 +104,17 @@ namespace Editor.WorldObject
             return false;
         }
 
-        public static bool HandleMultipleElementDragAndDrop(Rect rect, System.Action<List<string>> onIdsReceived)
+        public static bool HandleMultipleElementDragAndDrop(Rect rect, Action<List<string>> onIdsReceived)
         {
             Event evt = Event.current;
             if (!rect.Contains(evt.mousePosition))
+            {
                 return false;
+            }
 
             if (evt.type == EventType.DragUpdated || evt.type == EventType.DragPerform)
             {
-                List<Infrastructure.World.WorldObject> worldObjects = GetAllWorldObjectsFromDrag();
+                List<WorldObject> worldObjects = GetAllWorldObjectsFromDrag();
 
                 if (worldObjects.Count > 0)
                 {
@@ -134,58 +143,62 @@ namespace Editor.WorldObject
             return false;
         }
 
-        public static void DrawFindButton(string id, float width = 50)
+        public static void DrawWorldObjectField(string id, bool showWarning, float width = 150)
         {
-            GUI.enabled = !string.IsNullOrEmpty(id);
-            if (GUILayout.Button("Find", GUILayout.Width(width)))
+            WorldObject worldObject = FindWorldObjectById(id);
+
+            if (showWarning && string.IsNullOrEmpty(id))
             {
-                FindAndSelectWorldObject(id);
+                GUIContent warningContent = EditorGUIUtility.IconContent("console.warnicon.sml");
+                GUILayout.Label(warningContent, GUILayout.Width(20));
             }
+
+            GUI.enabled = false;
+            EditorGUILayout.ObjectField(worldObject?.gameObject, typeof(GameObject), true, GUILayout.Width(width));
             GUI.enabled = true;
         }
 
-        public static void FindAndSelectWorldObject(string idString)
+        public static WorldObject FindWorldObjectById(string idString)
         {
             if (string.IsNullOrEmpty(idString))
-                return;
+            {
+                return null;
+            }
 
             if (!Guid.TryParse(idString, out Guid targetId))
             {
-                Debug.LogWarning($"Invalid GUID format: {idString}");
-                return;
+                return null;
             }
 
-            // If in prefab mode, search there first
-            var prefabStage = PrefabStageUtility.GetCurrentPrefabStage();
+            PrefabStage prefabStage = PrefabStageUtility.GetCurrentPrefabStage();
             if (prefabStage != null)
             {
-                Infrastructure.World.WorldObject[] prefabWorldObjects = prefabStage.prefabContentsRoot.GetComponentsInChildren<Infrastructure.World.WorldObject>(true);
+                WorldObject[] prefabWorldObjects =
+                    prefabStage.prefabContentsRoot.GetComponentsInChildren<WorldObject>(true);
 
-                foreach (var worldObject in prefabWorldObjects)
+                foreach (WorldObject worldObject in prefabWorldObjects)
                 {
                     string id = GetWorldObjectId(worldObject);
                     if (id == idString)
                     {
-                        EditorGUIUtility.PingObject(worldObject.gameObject);
-                        return;
+                        return worldObject;
                     }
                 }
             }
 
-            // Search in all loaded scenes
-            Infrastructure.World.WorldObject[] allWorldObjects = Object.FindObjectsOfType<Infrastructure.World.WorldObject>(true);
+            WorldObject[] allWorldObjects =
+                Object.FindObjectsOfType<WorldObject>(true);
 
-            foreach (var worldObject in allWorldObjects)
+            foreach (WorldObject worldObject in allWorldObjects)
             {
                 string id = GetWorldObjectId(worldObject);
                 if (id == idString)
                 {
-                    EditorGUIUtility.PingObject(worldObject.gameObject);
-                    return;
+                    return worldObject;
                 }
             }
 
-            Debug.LogWarning($"WorldObject with ID {idString} not found in any loaded scene or prefab.");
+            return null;
         }
     }
 }

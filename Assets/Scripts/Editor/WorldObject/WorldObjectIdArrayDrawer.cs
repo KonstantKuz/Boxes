@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Infrastructure.World;
 using Sirenix.OdinInspector.Editor;
-using Sirenix.Utilities.Editor;
 using UnityEditor;
 using UnityEngine;
 
@@ -14,16 +13,15 @@ namespace Editor.WorldObject
         {
             Rect totalRect = EditorGUILayout.BeginVertical();
 
-            // Draw standard Odin array
             CallNextDrawer(label);
 
             EditorGUILayout.EndVertical();
 
-            // Handle drag and drop on entire array area
             WorldObjectEditorUtility.HandleMultipleElementDragAndDrop(totalRect, ids =>
             {
+                Property.RecordForUndo("Add WorldObject IDs");
                 List<string> currentList = ValueEntry.SmartValue?.ToList() ?? new List<string>();
-                foreach (var id in ids.Where(id => !currentList.Contains(id)))
+                foreach (string id in ids.Where(id => !currentList.Contains(id)))
                 {
                     currentList.Add(id);
                 }

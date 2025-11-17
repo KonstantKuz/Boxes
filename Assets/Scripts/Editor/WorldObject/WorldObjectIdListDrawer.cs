@@ -1,8 +1,7 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Linq;
 using Infrastructure.World;
 using Sirenix.OdinInspector.Editor;
-using Sirenix.Utilities.Editor;
 using UnityEditor;
 using UnityEngine;
 
@@ -14,14 +13,13 @@ namespace Editor.WorldObject
         {
             Rect totalRect = EditorGUILayout.BeginVertical();
 
-            // Draw standard Odin list
             CallNextDrawer(label);
 
             EditorGUILayout.EndVertical();
 
-            // Handle drag and drop on entire list area
             WorldObjectEditorUtility.HandleMultipleElementDragAndDrop(totalRect, ids =>
             {
+                Property.RecordForUndo("Add WorldObject IDs");
                 List<string> currentList = ValueEntry.SmartValue ?? new List<string>();
                 foreach (var id in ids.Where(id => !currentList.Contains(id)))
                 {
@@ -29,6 +27,28 @@ namespace Editor.WorldObject
                 }
                 ValueEntry.SmartValue = currentList;
             });
+        }
+    }
+
+    public class WorldObjectIdStringElementDrawer : OdinValueDrawer<string>
+    {
+        protected override void DrawPropertyLayout(GUIContent label)
+        {
+            WorldObjectIdAttribute parentAttribute = Property.Parent?.Parent?.GetAttribute<WorldObjectIdAttribute>();
+
+            if (parentAttribute == null)
+            {
+                CallNextDrawer(label);
+                return;
+            }
+
+            EditorGUILayout.BeginHorizontal();
+
+            CallNextDrawer(label);
+
+            WorldObjectEditorUtility.DrawWorldObjectField(ValueEntry.SmartValue, parentAttribute.ShowWarning, 120);
+
+            EditorGUILayout.EndHorizontal();
         }
     }
 }

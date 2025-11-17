@@ -9,34 +9,30 @@ namespace Editor.WorldObject
     {
         protected override void DrawPropertyLayout(GUIContent label)
         {
-            Rect rect = EditorGUILayout.GetControlRect();
+            EditorGUILayout.BeginHorizontal();
 
             if (label != null)
             {
-                rect = EditorGUI.PrefixLabel(rect, label);
+                EditorGUILayout.PrefixLabel(label);
             }
 
-            Rect fieldRect = new Rect(rect.x, rect.y, rect.width - 40, rect.height);
-            Rect findButtonRect = new Rect(rect.x + rect.width - 35, rect.y, 35, rect.height);
-
-            string newValue = EditorGUI.TextField(fieldRect, this.ValueEntry.SmartValue);
+            Rect stringFieldRect = EditorGUILayout.GetControlRect(GUILayout.ExpandWidth(true));
+            string newValue = EditorGUI.TextField(stringFieldRect, ValueEntry.SmartValue);
 
             if (newValue != ValueEntry.SmartValue)
             {
-                this.ValueEntry.SmartValue = newValue;
+                ValueEntry.SmartValue = newValue;
             }
 
-            GUI.enabled = !string.IsNullOrEmpty(this.ValueEntry.SmartValue);
-            if (GUI.Button(findButtonRect, "Find"))
+            WorldObjectEditorUtility.HandleSingleElementDragAndDrop(stringFieldRect, id =>
             {
-                WorldObjectEditorUtility.FindAndSelectWorldObject(this.ValueEntry.SmartValue);
-            }
-            GUI.enabled = true;
-
-            WorldObjectEditorUtility.HandleSingleElementDragAndDrop(rect, id =>
-            {
-                this.ValueEntry.SmartValue = id;
+                Property.RecordForUndo("Change WorldObject ID");
+                ValueEntry.SmartValue = id;
             });
+
+            WorldObjectEditorUtility.DrawWorldObjectField(ValueEntry.SmartValue, Attribute.ShowWarning);
+
+            EditorGUILayout.EndHorizontal();
         }
     }
 }

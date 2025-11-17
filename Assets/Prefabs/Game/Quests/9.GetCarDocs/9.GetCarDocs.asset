@@ -54,5 +54,5 @@ MonoBehaviour:
     - rid: 4157762924566544390
       type: {class: NavigationTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}
       data:
-        config: {fileID: 0}
+        config: {fileID: 11400000, guid: d9e26e0e899b0104aacf262282f6e361, type: 2}
         targetId: 367b6841-d58d-400f-8c68-1d92f44302a1
