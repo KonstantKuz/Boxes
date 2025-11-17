@@ -184,6 +184,11 @@ namespace Gameplay.Interactable.BallInteraction.Components
 
         private void FixedUpdate()
         {
+            if (!rigidbody.isKinematic)
+            {
+                rigidbody.angularVelocity = Vector3.zero;
+            }
+
             if (!isOwned)
             {
                 return;
