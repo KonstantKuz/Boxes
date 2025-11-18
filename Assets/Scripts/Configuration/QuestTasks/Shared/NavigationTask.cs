@@ -15,7 +15,7 @@ namespace Configuration.QuestTasks.Shared
     public class NavigationTask : TaskBase, IDisposable
     {
         [SerializeField]
-        private TaskConfig config;
+        private TaskDescription description;
 
         [WorldObjectId]
         [SerializeField]
@@ -35,7 +35,7 @@ namespace Configuration.QuestTasks.Shared
 
         public override void Start()
         {
-            DisplayData.Value = (config.Title.GetLocalizedString(), config.Description.GetLocalizedString());
+            DisplayData.Value = (description.Title.GetLocalizedString(), description.Description.GetLocalizedString());
             if (!worldService.TryGetById(targetId, out IWorldObject target))
             {
                 this.Log(LogType.Error, $"Target not found with id {targetId}");

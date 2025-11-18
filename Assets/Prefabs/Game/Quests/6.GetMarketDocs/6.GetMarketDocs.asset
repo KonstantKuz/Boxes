@@ -17,10 +17,45 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
+    - rid: 4157762947229417479
+      type: {class: NavigationTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}
+      data:
+        description: {fileID: 11400000, guid: 93f753760a42c3043975d011e36b7929, type: 2}
+        targetId: f30b3147-d059-4b34-bb9b-c0b9c0e4434e
+    - rid: 4157762947229417481
+      type: {class: NpcNavigationTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}
+      data:
+        npcId: c5883071-d1c6-4740-b880-02763cf4dec0
+        targetId: f30b3147-d059-4b34-bb9b-c0b9c0e4434e
+        isAwaitRequired: 0
+        teleport: 0
+    - rid: 4157762947229417482
+      type: {class: DialogTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}
+      data:
+        dialogSequence: {fileID: 11400000, guid: 4261ff06292adb945b508eb003ac86e4, type: 2}
+        cameraTargetId: 
+    - rid: 4157762947229417483
+      type: {class: NpcHoldBallTask, ns: Configuration.QuestTasks.Unique, asm: Boxes}
+      data:
+        npcId: c5883071-d1c6-4740-b880-02763cf4dec0
+    - rid: 4157762947229417484
+      type: {class: RaiseEvent, ns: Configuration.QuestTasks.Shared, asm: Boxes}
+      data:
+        targetId: 76258c7a-66f1-4046-8b75-fcf04608e418
+    - rid: 4157762947229417493
+      type: {class: NpcKickBallTask, ns: Configuration.QuestTasks.Unique, asm: Boxes}
+      data:
+        npcId: c5883071-d1c6-4740-b880-02763cf4dec0
     - rid: 4267941707039375362
       type: {class: TaskSequence, ns: Infrastructure.QuestService.Abstract, asm: Boxes}
       data:
         tasks:
+        - rid: 4157762947229417484
+        - rid: 4157762947229417483
+        - rid: 4157762947229417479
+        - rid: 4157762947229417481
+        - rid: 4157762947229417482
+        - rid: 4157762947229417493
         - rid: 4267941707039375363
         - rid: 4267941707039375364
         - rid: 4267941776931160068
@@ -31,7 +66,7 @@ MonoBehaviour:
     - rid: 4267941707039375363
       type: {class: NavigationTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}
       data:
-        config: {fileID: 11400000, guid: 93f753760a42c3043975d011e36b7929, type: 2}
+        description: {fileID: 11400000, guid: 93f753760a42c3043975d011e36b7929, type: 2}
         targetId: 3573f14b-9448-417d-8e2b-a6ec9cad4446
     - rid: 4267941707039375364
       type: {class: TaskBag, ns: Infrastructure.QuestService.Abstract, asm: Boxes}
@@ -50,7 +85,7 @@ MonoBehaviour:
     - rid: 4267941776931160066
       type: {class: DamageablePoolTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}
       data:
-        config: {fileID: 11400000, guid: d9e26e0e899b0104aacf262282f6e361, type: 2}
+        description: {fileID: 11400000, guid: d9e26e0e899b0104aacf262282f6e361, type: 2}
         triggerIds:
         - ce35f184-1aa6-4919-b3b5-e8444ad2ca81
         - f3898329-abd9-4aee-afed-6a7f47894f4d
@@ -62,7 +97,7 @@ MonoBehaviour:
     - rid: 4267941776931160067
       type: {class: NavigationTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}
       data:
-        config: {fileID: 11400000, guid: 2cc61aa5432ddb14b9f2bd42143d17d0, type: 2}
+        description: {fileID: 11400000, guid: 2cc61aa5432ddb14b9f2bd42143d17d0, type: 2}
         targetId: 68b942d4-ee61-4b4e-a177-2a2dd7b4649a
     - rid: 4267941776931160068
       type: {class: RaiseEvent, ns: Configuration.QuestTasks.Shared, asm: Boxes}

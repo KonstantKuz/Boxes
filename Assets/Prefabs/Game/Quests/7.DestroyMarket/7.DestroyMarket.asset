@@ -17,6 +17,10 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
+    - rid: 4157762947229417488
+      type: {class: NpcHoldBallTask, ns: Configuration.QuestTasks.Unique, asm: Boxes}
+      data:
+        npcId: 70aea8c0-f3be-4645-b9f0-8dfeae083049
     - rid: 4267941846596190208
       type: {class: TaskSequence, ns: Infrastructure.QuestService.Abstract, asm: Boxes}
       data:
@@ -32,6 +36,7 @@ MonoBehaviour:
         - rid: 4267941890726035456
         - rid: 4267941890726035459
         - rid: 4267941890726035458
+        - rid: 4157762947229417488
     - rid: 4267941846596190209
       type: {class: RaiseEvent, ns: Configuration.QuestTasks.Shared, asm: Boxes}
       data:
@@ -52,7 +57,7 @@ MonoBehaviour:
     - rid: 4267941846596190216
       type: {class: NavigationTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}
       data:
-        config: {fileID: 11400000, guid: e908add557fb62d4ea2e7811479c4a59, type: 2}
+        description: {fileID: 11400000, guid: e908add557fb62d4ea2e7811479c4a59, type: 2}
         targetId: 46689b01-ec0c-40bd-8f6e-33fbe332ccc6
     - rid: 4267941846596190217
       type: {class: RaiseEvent, ns: Configuration.QuestTasks.Shared, asm: Boxes}
@@ -65,7 +70,7 @@ MonoBehaviour:
     - rid: 4267941846596190219
       type: {class: DamageablePoolTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}
       data:
-        config: {fileID: 11400000, guid: e908add557fb62d4ea2e7811479c4a59, type: 2}
+        description: {fileID: 11400000, guid: e908add557fb62d4ea2e7811479c4a59, type: 2}
         triggerIds:
         - 0205337f-7b52-497c-8aa3-6cec3d8c1fa8
         - e3c98aaa-497a-4cd8-a2dd-9f266ce6dcc6
@@ -89,3 +94,4 @@ MonoBehaviour:
         npcId: 70aea8c0-f3be-4645-b9f0-8dfeae083049
         targetId: 9393712e-29f1-4191-88d4-95654f8d4093
         isAwaitRequired: 1
+        teleport: 0

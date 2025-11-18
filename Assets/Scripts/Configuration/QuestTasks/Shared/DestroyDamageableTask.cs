@@ -15,7 +15,7 @@ namespace Configuration.QuestTasks.Shared
     public class DestroyDamageableTask : TaskBase, IDisposable
     {
         [SerializeField]
-        private TaskConfig config;
+        private TaskDescription description;
 
         [WorldObjectId]
         [SerializeField]
@@ -47,7 +47,7 @@ namespace Configuration.QuestTasks.Shared
             IDamageable damageable = reactionInitiator;
             damageable.Initialize(requiredHitPoints);
             disposable = damageable.CurrentHitPoints.Subscribe(OnHitsDone);
-            DisplayData.Value = (config.Title.GetLocalizedString(), config.Description.GetLocalizedString());
+            DisplayData.Value = (description.Title.GetLocalizedString(), description.Description.GetLocalizedString());
         }
 
         private void OnHitsDone(int currentHitPoints)

@@ -103,6 +103,10 @@ MonoBehaviour:
     m_Key: 8.2.SeekTheTrader
     m_Metadata:
       m_Items: []
+  - m_Id: 32933472169476096
+    m_Key: 10.1.SeekTheBandit
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

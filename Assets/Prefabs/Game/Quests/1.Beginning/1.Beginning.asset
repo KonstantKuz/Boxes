@@ -38,7 +38,7 @@ MonoBehaviour:
     - rid: 6608448125118971910
       type: {class: NavigationTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}
       data:
-        config: {fileID: 11400000, guid: f383f888a2faf7f4ca04bd424a39abef, type: 2}
+        description: {fileID: 11400000, guid: f383f888a2faf7f4ca04bd424a39abef, type: 2}
         targetId: 84628986-6037-429c-8e9a-63956d74502f
     - rid: 6608448125118971911
       type: {class: NpcHoldBallTask, ns: Configuration.QuestTasks.Unique, asm: Boxes}
@@ -74,11 +74,11 @@ MonoBehaviour:
       type: {class: TutorialTask, ns: Configuration.QuestTasks.Unique, asm: Boxes}
       data:
         requiredCount: 1
-        config: {fileID: 11400000, guid: 862808ca6c1af954d92a933364f44cba, type: 2}
+        description: {fileID: 11400000, guid: 862808ca6c1af954d92a933364f44cba, type: 2}
     - rid: 6608448125118971918
       type: {class: DestroyDamageableTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}
       data:
-        config: {fileID: 11400000, guid: 9874710ffe0e30c4290008b2c48763cb, type: 2}
+        description: {fileID: 11400000, guid: 9874710ffe0e30c4290008b2c48763cb, type: 2}
         triggerId: f9b6d66c-a9a1-4247-8d6c-08d5fa4936d3
         requiredHitPoints: 3
     - rid: 6608448125118971919
@@ -90,5 +90,5 @@ MonoBehaviour:
     - rid: 6608448125118971920
       type: {class: NavigationTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}
       data:
-        config: {fileID: 11400000, guid: deabe43701ab55f4f882fe302e19826d, type: 2}
+        description: {fileID: 11400000, guid: deabe43701ab55f4f882fe302e19826d, type: 2}
         targetId: 68744049-5105-4e1c-b16a-fb640380ed1c

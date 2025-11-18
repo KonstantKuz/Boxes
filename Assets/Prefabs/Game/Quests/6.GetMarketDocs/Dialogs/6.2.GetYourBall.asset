@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 40732021d3474b2ea4be049a6f484cc7, type: 3}
-  m_Name: 6.2.GoodJob
+  m_Name: 6.2.GetYourBall
   m_EditorClassIdentifier: 
-  guid: 2bf91848-c859-4e6d-9131-9f9db174b297
+  guid: 7be92e65-fa46-4a5b-92a7-dee84a2e51f4
   replicas:
   - title:
       m_TableReference:
         m_TableCollectionName: GUID:caa61e2efc11df641a8846cbc72f28de
       m_TableEntryReference:
-        m_KeyId: 28972470625222656
+        m_KeyId: 22420520970600448
         m_Key: 
       m_FallbackState: 0
       m_WaitForCompletion: 0
@@ -27,7 +27,7 @@ MonoBehaviour:
       m_TableReference:
         m_TableCollectionName: GUID:c7283c37c72611143890a140b42ae0e0
       m_TableEntryReference:
-        m_KeyId: 32173533029318656
+        m_KeyId: 42325782397304832
         m_Key: 
       m_FallbackState: 0
       m_WaitForCompletion: 0

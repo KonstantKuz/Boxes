@@ -164,6 +164,8 @@ namespace Gameplay.Interactable.BallInteraction.Components
 
         private void ResetCounter()
         {
+            localDistanceSinceLastKick = 0;
+
             BallSharedState current = StateHolder.GetState();
             StateHolder.WriteState(new BallSharedState(
                 kicksCount: 0,
@@ -174,7 +176,6 @@ namespace Gameplay.Interactable.BallInteraction.Components
                 lastKickDirection: current.LastKickDirection,
                 lastKickInitiatorNetId: current.LastKickInitiatorNetId
             ));
-            localDistanceSinceLastKick = 0;
         }
 
         private void Update()
@@ -276,25 +277,23 @@ namespace Gameplay.Interactable.BallInteraction.Components
             rigidbody.velocity = Vector3.Lerp(rigidbody.velocity, horizontalVelocity, verticalDampingForce);
             rigidbody.velocity = Vector3.ClampMagnitude(rigidbody.velocity, Config.MaxSpeed);
 
-            localDistanceSinceLastKick += rigidbody.velocity.magnitude * Time.fixedDeltaTime;
-
-            int kicksCount = StateHolder.GetState().KicksCount;
-
-            if (kicksCount > 0)
+            if (state.KicksCount > 0)
             {
-                float resetSpeed = (1.0f + Config.KickSpeedModifier * (kicksCount - 1)) * Config.MinSpeed;
-                float initialSpeed = (1.0f + Config.KickSpeedModifier * kicksCount) * Config.MinSpeed;
+                float resetSpeed = (1.0f + Config.KickSpeedModifier * (state.KicksCount - 1)) * Config.MinSpeed;
+                float initialSpeed = (1.0f + Config.KickSpeedModifier * state.KicksCount) * Config.MinSpeed;
 
-                float currentSpeed =
-                    Mathf.Lerp(initialSpeed, resetSpeed, localDistanceSinceLastKick / Config.StatusDampingDistance);
+                float resetRatio = Mathf.Clamp01(localDistanceSinceLastKick / Config.StatusDampingDistance);
+                float currentSpeed = Mathf.Lerp(initialSpeed, resetSpeed, resetRatio);
 
                 rigidbody.velocity = rigidbody.velocity.normalized * currentSpeed;
 
-                if (rigidbody.velocity.magnitude < resetSpeed)
+                if (localDistanceSinceLastKick >= Config.StatusDampingDistance)
                 {
                     ResetCounter();
                 }
             }
+
+            localDistanceSinceLastKick += rigidbody.velocity.magnitude * Time.fixedDeltaTime;
         }
     }
 }

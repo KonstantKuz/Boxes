@@ -24,6 +24,9 @@ namespace Configuration.QuestTasks.Shared
         [SerializeField]
         private bool isAwaitRequired;
 
+        [SerializeField]
+        private bool teleport;
+
         private IDisposable disposable;
         private IWorldService worldService;
 
@@ -50,6 +53,11 @@ namespace Configuration.QuestTasks.Shared
             }
 
             npcAgent.SetDestination(targetTransform.position);
+
+            if (teleport)
+            {
+                npcAgent.transform.position = targetTransform.position;
+            }
 
             if (!isAwaitRequired)
             {

@@ -31,7 +31,7 @@ MonoBehaviour:
     - rid: 4267941461344649218
       type: {class: NavigationTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}
       data:
-        config: {fileID: 11400000, guid: c5a8022af6305c44f9c739c6bad50834, type: 2}
+        description: {fileID: 11400000, guid: c5a8022af6305c44f9c739c6bad50834, type: 2}
         targetId: 9b610216-25d1-43d0-8204-b7427c29edc6
     - rid: 4267941461344649219
       type: {class: NpcNavigationTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}
@@ -65,7 +65,7 @@ MonoBehaviour:
     - rid: 4267941461344649229
       type: {class: NavigationTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}
       data:
-        config: {fileID: 11400000, guid: 3a8be18a64b75b640a66224e8621730f, type: 2}
+        description: {fileID: 11400000, guid: 3a8be18a64b75b640a66224e8621730f, type: 2}
         targetId: d48282ec-e1ed-40c8-b326-1ac4cc22c7cf
     - rid: 4267941461344649230
       type: {class: WaitForSecondsTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}
@@ -109,7 +109,7 @@ MonoBehaviour:
     - rid: 6608448125118971936
       type: {class: NavigationTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}
       data:
-        config: {fileID: 11400000, guid: 1c55981d111b5c348b373d340d694fef, type: 2}
+        description: {fileID: 11400000, guid: 1c55981d111b5c348b373d340d694fef, type: 2}
         targetId: d48282ec-e1ed-40c8-b326-1ac4cc22c7cf
     - rid: 6608448125118971938
       type: {class: NpcNavigationTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}
@@ -120,7 +120,7 @@ MonoBehaviour:
     - rid: 6608448125118971939
       type: {class: LoadBoxesTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}
       data:
-        config: {fileID: 11400000, guid: 62775603fe671c14b971ac2c628b8787, type: 2}
+        description: {fileID: 11400000, guid: 62775603fe671c14b971ac2c628b8787, type: 2}
         sourceStorageId: 06816f38-cf0a-4a78-b6cd-78475d35aef7
         targetStorageId: 4b8cf0f6-fa0d-4206-a269-26e2c13d9a73
     - rid: 6608448125118971940

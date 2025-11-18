@@ -17,7 +17,7 @@ namespace Configuration.QuestTasks.Shared
     public class LoadBoxesTask : TaskBase, IDisposable
     {
         [SerializeField]
-        private TaskConfig config;
+        private TaskDescription description;
 
         [WorldObjectId]
         [SerializeField]
@@ -68,7 +68,7 @@ namespace Configuration.QuestTasks.Shared
                 new IntVariable { Value = requiredCount }
             };
 
-            DisplayData.Value = (config.Title.GetLocalizedString(), config.Description.GetLocalizedString(args));
+            DisplayData.Value = (description.Title.GetLocalizedString(), description.Description.GetLocalizedString(args));
             IsDone.Value = targetStorage.Boxes.Count >= requiredCount;
         }
 

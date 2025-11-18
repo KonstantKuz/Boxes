@@ -21,24 +21,18 @@ MonoBehaviour:
       type: {class: TaskSequence, ns: Infrastructure.QuestService.Abstract, asm: Boxes}
       data:
         tasks:
-        - rid: 4157762924566544387
         - rid: 4157762924566544388
         - rid: 4157762924566544389
         - rid: 4157762924566544390
-    - rid: 4157762924566544387
-      type: {class: DialogTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}
-      data:
-        dialogSequence: {fileID: 11400000, guid: d9243632576c4ca4e91bb070230f0d58, type: 2}
-        cameraTargetId: 
     - rid: 4157762924566544388
       type: {class: NavigationTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}
       data:
-        config: {fileID: 11400000, guid: 75a1e642d3e9d344580db05887e0a4bf, type: 2}
-        targetId: 9b610216-25d1-43d0-8204-b7427c29edc6
+        description: {fileID: 11400000, guid: 75a1e642d3e9d344580db05887e0a4bf, type: 2}
+        targetId: aaa00730-1a52-4647-8a3f-8334fcd389ee
     - rid: 4157762924566544389
       type: {class: DamageablePoolTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}
       data:
-        config: {fileID: 11400000, guid: d9e26e0e899b0104aacf262282f6e361, type: 2}
+        description: {fileID: 11400000, guid: d9e26e0e899b0104aacf262282f6e361, type: 2}
         triggerIds:
         - 6b02e32f-4184-43b9-80f1-d9b1f4591b06
         - 8bb6158a-a7a9-4e74-8532-057c172c7a9f
@@ -54,5 +48,5 @@ MonoBehaviour:
     - rid: 4157762924566544390
       type: {class: NavigationTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}
       data:
-        config: {fileID: 11400000, guid: d9e26e0e899b0104aacf262282f6e361, type: 2}
+        description: {fileID: 11400000, guid: 2cc61aa5432ddb14b9f2bd42143d17d0, type: 2}
         targetId: 367b6841-d58d-400f-8c68-1d92f44302a1

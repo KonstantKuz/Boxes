@@ -28,7 +28,7 @@ MonoBehaviour:
     - rid: 4267941531072856075
       type: {class: NavigationTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}
       data:
-        config: {fileID: 11400000, guid: 08df797b96d21f14b8412572202c0851, type: 2}
+        description: {fileID: 11400000, guid: 08df797b96d21f14b8412572202c0851, type: 2}
         targetId: 084c7bec-4e64-4f7b-bad0-e783ce77eb46
     - rid: 4267941578008166406
       type: {class: RaiseEvent, ns: Configuration.QuestTasks.Shared, asm: Boxes}

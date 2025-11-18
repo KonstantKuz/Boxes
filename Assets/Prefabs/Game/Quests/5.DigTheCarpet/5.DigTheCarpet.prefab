@@ -128,8 +128,6 @@ GameObject:
   - component: {fileID: 2585036526807186238}
   - component: {fileID: 2597788416417336}
   - component: {fileID: 4489407591901783756}
-  - component: {fileID: 333550980589940677}
-  - component: {fileID: 696059371799631524}
   m_Layer: 0
   m_Name: PipeController
   m_TagString: Untagged
@@ -176,7 +174,7 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 1
   m_Constraints: 80
   m_CollisionDetection: 2
@@ -320,18 +318,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 333550980589940677}
-        m_TargetAssemblyTypeName: Infrastructure.Components.BoolEvent, Boxes
-        m_MethodName: Raise
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 2597788416417336}
         m_TargetAssemblyTypeName: Gameplay.Interactable.PipeInteraction.Pipe, Boxes
         m_MethodName: ResetState
@@ -404,74 +390,6 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   Data: 
---- !u!114 &333550980589940677
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1320453665211049223}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8d3f1bc61e0e4ca9976e0ff6ad608fc0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  onTrue:
-    m_PersistentCalls:
-      m_Calls: []
-  onFalse:
-    m_PersistentCalls:
-      m_Calls: []
-  OnValueChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  OnInvertedValueChanged:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 696059371799631524}
-        m_TargetAssemblyTypeName: Infrastructure.Network.Components.IsServerConditionHelper,
-          Boxes
-        m_MethodName: SetCondition
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
---- !u!114 &696059371799631524
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1320453665211049223}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 592295f7266a421b9abd22ceafc9aa08, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncDirection: 0
-  syncMode: 0
-  syncInterval: 0
-  onConditionChanged:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 8853282363407985782}
-        m_TargetAssemblyTypeName: UnityEngine.Rigidbody, UnityEngine
-        m_MethodName: set_isKinematic
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  additionalCondition: 0
 --- !u!1 &1503281332614694133
 GameObject:
   m_ObjectHideFlags: 0

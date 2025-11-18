@@ -37,12 +37,12 @@ MonoBehaviour:
     - rid: 6608448125118971930
       type: {class: NavigationTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}
       data:
-        config: {fileID: 11400000, guid: 6153a11856c57ed40b6257b54eb45659, type: 2}
+        description: {fileID: 11400000, guid: 6153a11856c57ed40b6257b54eb45659, type: 2}
         targetId: 4adbb169-52bf-4ec0-8e11-31f7b24c6005
     - rid: 6608448125118971931
       type: {class: DestroyDamageableTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}
       data:
-        config: {fileID: 11400000, guid: 6153a11856c57ed40b6257b54eb45659, type: 2}
+        description: {fileID: 11400000, guid: 6153a11856c57ed40b6257b54eb45659, type: 2}
         triggerId: 5f0ef165-5917-4445-bcbe-f4defd243ffc
         requiredHitPoints: 1
     - rid: 6608448125118971934

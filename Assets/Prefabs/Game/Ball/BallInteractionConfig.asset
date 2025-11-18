@@ -18,7 +18,7 @@ MonoBehaviour:
   maxHeight: 0.5
   heightDampingStrength: 5
   outOfBoundsPullOffset: -0.1
-  outOfBoundsPullForce: 5
+  outOfBoundsPullForce: 10
   kickWindowTime: 0.5
   holdWindowTime: 0.5
   statusKicksCount: 3

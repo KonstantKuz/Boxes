@@ -18,7 +18,7 @@ namespace Configuration.QuestTasks.Shared
     public class DamageablePoolTask : TaskBase, IDisposable
     {
         [SerializeField]
-        private TaskConfig config;
+        private TaskDescription description;
 
         [WorldObjectId]
         [SerializeField]
@@ -65,7 +65,7 @@ namespace Configuration.QuestTasks.Shared
                 triggers.Select(item => item.CurrentHitPoints.Select(_ => item)).ToList();
 
             disposable = Observable.Merge(observables).Subscribe(OnAnyHitPointsChanged);
-            DisplayData.Value = (config.Title.GetLocalizedString(), config.Description.GetLocalizedString());
+            DisplayData.Value = (description.Title.GetLocalizedString(), description.Description.GetLocalizedString());
         }
 
         private void OnAnyHitPointsChanged(IDamageable lastHit)

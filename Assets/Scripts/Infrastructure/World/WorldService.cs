@@ -13,7 +13,7 @@ namespace Infrastructure.World
         {
             if (!objectsById.TryAdd(worldObject.Id, worldObject))
             {
-                Debug.LogError($"Object {((MonoBehaviour) worldObject).gameObject.name} is already registered with ID {worldObject.Id}.");
+                Debug.LogError($"Object {((MonoBehaviour) worldObject).gameObject.name} is already registered with ID {worldObject.Id}.", worldObject.Value);
             }
         }
 

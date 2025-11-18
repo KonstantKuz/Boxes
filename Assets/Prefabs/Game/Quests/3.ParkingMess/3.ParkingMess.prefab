@@ -803,6 +803,9 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 100000, guid: 234e7bec653fac142bf894a76905e1ac, type: 3}
       insertIndex: -1
+      addedObject: {fileID: 2697444772001819058}
+    - targetCorrespondingSourceObject: {fileID: 100000, guid: 234e7bec653fac142bf894a76905e1ac, type: 3}
+      insertIndex: -1
       addedObject: {fileID: 3240703349269144959}
     - targetCorrespondingSourceObject: {fileID: 100000, guid: 234e7bec653fac142bf894a76905e1ac, type: 3}
       insertIndex: -1
@@ -822,6 +825,28 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 100000, guid: 234e7bec653fac142bf894a76905e1ac, type: 3}
   m_PrefabInstance: {fileID: 6526698823771453624}
   m_PrefabAsset: {fileID: 0}
+--- !u!195 &2697444772001819058
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6526698823771422232}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!136 &3240703349269144959
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -918,7 +943,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   initialIsActive: 0
-  initialPosition: {x: 610.52, y: 0, z: -161.34}
+  initialPosition: {x: 247.34003, y: 0, z: 84.56001}
   initialRotation: {x: -0, y: 0.668961, z: -0, w: 0.7432976}
 --- !u!114 &5966554946376869566
 MonoBehaviour:

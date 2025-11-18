@@ -72,10 +72,10 @@ namespace Infrastructure.QuestService
             FieldInfo field = task.GetType().GetField("config", BindingFlags.NonPublic | BindingFlags.Instance);
             if (field != null)
             {
-                TaskConfig config = field.GetValue(task) as TaskConfig;
-                if (config != null && config.Title != null)
+                TaskDescription description = field.GetValue(task) as TaskDescription;
+                if (description != null && description.Title != null)
                 {
-                    return config.Title.GetLocalizedString();
+                    return description.Title.GetLocalizedString();
                 }
             }
 

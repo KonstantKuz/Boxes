@@ -130,6 +130,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2015509946}
     m_Modifications:
+    - target: {fileID: 212043263439920000, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
+      propertyPath: initialPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 212043263439920000, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
+      propertyPath: initialPosition.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1789992581675772993, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
       propertyPath: m_Name
       value: PatrolCar (23)
@@ -1701,6 +1709,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2015509946}
     m_Modifications:
+    - target: {fileID: 212043263439920000, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
+      propertyPath: initialPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 212043263439920000, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
+      propertyPath: initialPosition.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1789992581675772993, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
       propertyPath: m_Name
       value: PatrolCar (25)
@@ -1780,6 +1796,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2015509946}
     m_Modifications:
+    - target: {fileID: 212043263439920000, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
+      propertyPath: initialPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 212043263439920000, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
+      propertyPath: initialPosition.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1789992581675772993, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
       propertyPath: m_Name
       value: PatrolCar (27)
@@ -2895,6 +2919,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2015509946}
     m_Modifications:
+    - target: {fileID: 212043263439920000, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
+      propertyPath: initialPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 212043263439920000, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
+      propertyPath: initialPosition.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1789992581675772993, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
       propertyPath: m_Name
       value: PatrolCar (28)
@@ -3236,6 +3268,7 @@ Transform:
   - {fileID: 1921100741}
   - {fileID: 102079081}
   - {fileID: 2670950134411675330}
+  - {fileID: 888964502}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &195837074
@@ -5558,6 +5591,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3125201009238819931, guid: ae4a9ab02b9b7b747a8f19b97e151761, type: 3}
+      propertyPath: initialPosition.x
+      value: 350.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 3125201009238819931, guid: ae4a9ab02b9b7b747a8f19b97e151761, type: 3}
+      propertyPath: initialPosition.z
+      value: 67.95
+      objectReference: {fileID: 0}
     - target: {fileID: 4254516917606533014, guid: ae4a9ab02b9b7b747a8f19b97e151761, type: 3}
       propertyPath: sceneId
       value: 2534033061
@@ -5574,14 +5615,6 @@ PrefabInstance:
       propertyPath: OnMaxHit.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 1653717544}
-    - target: {fileID: 7977369050580420279, guid: ae4a9ab02b9b7b747a8f19b97e151761, type: 3}
-      propertyPath: OnMaxHit.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: CmdSetActive
-      objectReference: {fileID: 0}
-    - target: {fileID: 7977369050580420279, guid: ae4a9ab02b9b7b747a8f19b97e151761, type: 3}
-      propertyPath: OnMaxHit.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
-      value: Infrastructure.Network.Components.NetworkStateHelper, Boxes
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5732,6 +5765,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2015509946}
     m_Modifications:
+    - target: {fileID: 212043263439920000, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
+      propertyPath: initialPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 212043263439920000, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
+      propertyPath: initialPosition.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1789992581675772993, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
       propertyPath: m_Name
       value: PatrolCar (7)
@@ -6850,6 +6891,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2015509946}
     m_Modifications:
+    - target: {fileID: 212043263439920000, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
+      propertyPath: initialPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 212043263439920000, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
+      propertyPath: initialPosition.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1789992581675772993, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
       propertyPath: m_Name
       value: PatrolCar (14)
@@ -7029,6 +7078,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2015509946}
     m_Modifications:
+    - target: {fileID: 212043263439920000, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
+      propertyPath: initialPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 212043263439920000, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
+      propertyPath: initialPosition.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1789992581675772993, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
       propertyPath: m_Name
       value: PatrolCar (9)
@@ -7592,6 +7649,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2015509946}
     m_Modifications:
+    - target: {fileID: 212043263439920000, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
+      propertyPath: initialPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 212043263439920000, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
+      propertyPath: initialPosition.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1789992581675772993, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
       propertyPath: m_Name
       value: PatrolCar (19)
@@ -7969,6 +8034,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2015509946}
     m_Modifications:
+    - target: {fileID: 212043263439920000, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
+      propertyPath: initialPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 212043263439920000, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
+      propertyPath: initialPosition.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1789992581675772993, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
       propertyPath: m_Name
       value: PatrolCar (17)
@@ -8595,6 +8668,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2015509946}
     m_Modifications:
+    - target: {fileID: 212043263439920000, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
+      propertyPath: initialPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 212043263439920000, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
+      propertyPath: initialPosition.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1789992581675772993, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
       propertyPath: m_Name
       value: PatrolCar (24)
@@ -9096,6 +9177,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7663700023377892008, guid: 874d5b7f9c496114791d65d34c57b174, type: 3}
+      propertyPath: initialPosition.x
+      value: 247.34003
+      objectReference: {fileID: 0}
+    - target: {fileID: 7663700023377892008, guid: 874d5b7f9c496114791d65d34c57b174, type: 3}
+      propertyPath: initialPosition.z
+      value: 84.56001
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -9114,6 +9203,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2015509946}
     m_Modifications:
+    - target: {fileID: 212043263439920000, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
+      propertyPath: initialPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 212043263439920000, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
+      propertyPath: initialPosition.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1789992581675772993, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
       propertyPath: m_Name
       value: PatrolCar (29)
@@ -9508,6 +9605,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2015509946}
     m_Modifications:
+    - target: {fileID: 212043263439920000, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
+      propertyPath: initialPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 212043263439920000, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
+      propertyPath: initialPosition.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1789992581675772993, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
       propertyPath: m_Name
       value: PatrolCar (6)
@@ -9819,6 +9924,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2015509946}
     m_Modifications:
+    - target: {fileID: 212043263439920000, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
+      propertyPath: initialPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 212043263439920000, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
+      propertyPath: initialPosition.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1789992581675772993, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
       propertyPath: m_Name
       value: PatrolCar (3)
@@ -10209,6 +10322,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2015509946}
     m_Modifications:
+    - target: {fileID: 212043263439920000, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
+      propertyPath: initialPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 212043263439920000, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
+      propertyPath: initialPosition.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1789992581675772993, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
       propertyPath: m_Name
       value: PatrolCar (16)
@@ -10274,6 +10395,11 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 6330240148610472695, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
   m_PrefabInstance: {fileID: 877312583}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &888964502 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5210842780068302717, guid: 492b0e43129e63840af8227f5586d49d, type: 3}
+  m_PrefabInstance: {fileID: 2168162987801063657}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &893962820
 GameObject:
@@ -11674,6 +11800,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2015509946}
     m_Modifications:
+    - target: {fileID: 212043263439920000, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
+      propertyPath: initialPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 212043263439920000, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
+      propertyPath: initialPosition.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1789992581675772993, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
       propertyPath: m_Name
       value: PatrolCar (13)
@@ -12483,6 +12617,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2015509946}
     m_Modifications:
+    - target: {fileID: 212043263439920000, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
+      propertyPath: initialPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 212043263439920000, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
+      propertyPath: initialPosition.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1789992581675772993, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
       propertyPath: m_Name
       value: PatrolCar (5)
@@ -12806,6 +12948,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2015509946}
     m_Modifications:
+    - target: {fileID: 212043263439920000, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
+      propertyPath: initialPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 212043263439920000, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
+      propertyPath: initialPosition.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1789992581675772993, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
       propertyPath: m_Name
       value: PatrolCar (18)
@@ -13167,6 +13317,26 @@ PrefabInstance:
     - target: {fileID: 2166222186639974892, guid: 86cbd5bc86b58da4aaea10f229b2883d, type: 3}
       propertyPath: sceneId
       value: 2582025920
+      objectReference: {fileID: 0}
+    - target: {fileID: 3183974074422978536, guid: 86cbd5bc86b58da4aaea10f229b2883d, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 3183974074422978536, guid: 86cbd5bc86b58da4aaea10f229b2883d, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3183974074422978536, guid: 86cbd5bc86b58da4aaea10f229b2883d, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 3183974074422978536, guid: 86cbd5bc86b58da4aaea10f229b2883d, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3183974074422978536, guid: 86cbd5bc86b58da4aaea10f229b2883d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -90
       objectReference: {fileID: 0}
     - target: {fileID: 3968754361768546115, guid: 86cbd5bc86b58da4aaea10f229b2883d, type: 3}
       propertyPath: sceneId
@@ -13997,6 +14167,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2015509946}
     m_Modifications:
+    - target: {fileID: 212043263439920000, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
+      propertyPath: initialPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 212043263439920000, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
+      propertyPath: initialPosition.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1789992581675772993, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
       propertyPath: m_Name
       value: PatrolCar (8)
@@ -14485,6 +14663,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2015509946}
     m_Modifications:
+    - target: {fileID: 212043263439920000, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
+      propertyPath: initialPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 212043263439920000, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
+      propertyPath: initialPosition.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1789992581675772993, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
       propertyPath: m_Name
       value: PatrolCar (4)
@@ -15603,6 +15789,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2015509946}
     m_Modifications:
+    - target: {fileID: 212043263439920000, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
+      propertyPath: initialPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 212043263439920000, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
+      propertyPath: initialPosition.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1789992581675772993, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
       propertyPath: m_Name
       value: PatrolCar (11)
@@ -18433,6 +18627,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2015509946}
     m_Modifications:
+    - target: {fileID: 212043263439920000, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
+      propertyPath: initialPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 212043263439920000, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
+      propertyPath: initialPosition.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1789992581675772993, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
       propertyPath: m_Name
       value: PatrolCar (20)
@@ -18985,6 +19187,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2015509946}
     m_Modifications:
+    - target: {fileID: 212043263439920000, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
+      propertyPath: initialPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 212043263439920000, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
+      propertyPath: initialPosition.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1789992581675772993, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
       propertyPath: m_Name
       value: PatrolCar (12)
@@ -19865,6 +20075,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2015509946}
     m_Modifications:
+    - target: {fileID: 212043263439920000, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
+      propertyPath: initialPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 212043263439920000, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
+      propertyPath: initialPosition.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1789992581675772993, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
       propertyPath: m_Name
       value: PatrolCar (22)
@@ -19939,6 +20157,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2015509946}
     m_Modifications:
+    - target: {fileID: 212043263439920000, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
+      propertyPath: initialPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 212043263439920000, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
+      propertyPath: initialPosition.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1789992581675772993, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
       propertyPath: m_Name
       value: PatrolCar (10)
@@ -20627,6 +20853,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2015509946}
     m_Modifications:
+    - target: {fileID: 212043263439920000, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
+      propertyPath: initialPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 212043263439920000, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
+      propertyPath: initialPosition.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1789992581675772993, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
       propertyPath: m_Name
       value: PatrolCar (2)
@@ -20701,6 +20935,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2015509946}
     m_Modifications:
+    - target: {fileID: 212043263439920000, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
+      propertyPath: initialPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 212043263439920000, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
+      propertyPath: initialPosition.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1789992581675772993, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
       propertyPath: m_Name
       value: PatrolCar (30)
@@ -22486,6 +22728,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2015509946}
     m_Modifications:
+    - target: {fileID: 212043263439920000, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
+      propertyPath: initialPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 212043263439920000, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
+      propertyPath: initialPosition.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1789992581675772993, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
       propertyPath: m_Name
       value: PatrolCar (26)
@@ -23296,6 +23546,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2015509946}
     m_Modifications:
+    - target: {fileID: 212043263439920000, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
+      propertyPath: initialPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 212043263439920000, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
+      propertyPath: initialPosition.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1789992581675772993, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
       propertyPath: m_Name
       value: PatrolCar (21)
@@ -24059,6 +24317,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2015509946}
     m_Modifications:
+    - target: {fileID: 212043263439920000, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
+      propertyPath: initialPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 212043263439920000, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
+      propertyPath: initialPosition.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1789992581675772993, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
       propertyPath: m_Name
       value: PatrolCar (15)
@@ -28151,6 +28417,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2015509946}
     m_Modifications:
+    - target: {fileID: 212043263439920000, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
+      propertyPath: initialPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 212043263439920000, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
+      propertyPath: initialPosition.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1789992581675772993, guid: e7e44a74133e5424bbcd9583819fb0f5, type: 3}
       propertyPath: m_Name
       value: PatrolCar (1)
@@ -28260,14 +28534,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1685405162512992241, guid: 1dda4dc2e0435b442a5bba361495827c, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 223.35
-      objectReference: {fileID: 0}
-    - target: {fileID: 1685405162512992241, guid: 1dda4dc2e0435b442a5bba361495827c, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 290.6
-      objectReference: {fileID: 0}
+    - target: {fileID: 1135601452597593254, guid: 1dda4dc2e0435b442a5bba361495827c, type: 3}
+      propertyPath: roadSystem
+      value: 
+      objectReference: {fileID: 2015509947}
     - target: {fileID: 2426165015113772248, guid: 1dda4dc2e0435b442a5bba361495827c, type: 3}
       propertyPath: sceneId
       value: 2586208272
@@ -28276,10 +28546,18 @@ PrefabInstance:
       propertyPath: sceneId
       value: 3328549426
       objectReference: {fileID: 0}
+    - target: {fileID: 4675655830420930012, guid: 1dda4dc2e0435b442a5bba361495827c, type: 3}
+      propertyPath: sceneId
+      value: 2596851000
+      objectReference: {fileID: 0}
     - target: {fileID: 5878972054081764513, guid: 1dda4dc2e0435b442a5bba361495827c, type: 3}
       propertyPath: m_Name
       value: 8.SeekTheTrader
       objectReference: {fileID: 0}
+    - target: {fileID: 6430410825566927246, guid: 1dda4dc2e0435b442a5bba361495827c, type: 3}
+      propertyPath: OnRaised.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 2670950134411675331}
     - target: {fileID: 7104504177785677666, guid: 1dda4dc2e0435b442a5bba361495827c, type: 3}
       propertyPath: sceneId
       value: 1227115829
@@ -28289,6 +28567,82 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1dda4dc2e0435b442a5bba361495827c, type: 3}
+--- !u!114 &1066104397419657926 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1135601452597593254, guid: 1dda4dc2e0435b442a5bba361495827c, type: 3}
+  m_PrefabInstance: {fileID: 1066104397419657925}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7bdb97de3204479daa4f76f43b437a27, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1001 &2168162987801063657
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 188354720}
+    m_Modifications:
+    - target: {fileID: 2806451759034295136, guid: 492b0e43129e63840af8227f5586d49d, type: 3}
+      propertyPath: roadSystem
+      value: 
+      objectReference: {fileID: 2015509947}
+    - target: {fileID: 4778370786727082778, guid: 492b0e43129e63840af8227f5586d49d, type: 3}
+      propertyPath: sceneId
+      value: 1205760944
+      objectReference: {fileID: 0}
+    - target: {fileID: 5210842780068302717, guid: 492b0e43129e63840af8227f5586d49d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5210842780068302717, guid: 492b0e43129e63840af8227f5586d49d, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5210842780068302717, guid: 492b0e43129e63840af8227f5586d49d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5210842780068302717, guid: 492b0e43129e63840af8227f5586d49d, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5210842780068302717, guid: 492b0e43129e63840af8227f5586d49d, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5210842780068302717, guid: 492b0e43129e63840af8227f5586d49d, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5210842780068302717, guid: 492b0e43129e63840af8227f5586d49d, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5210842780068302717, guid: 492b0e43129e63840af8227f5586d49d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5210842780068302717, guid: 492b0e43129e63840af8227f5586d49d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5210842780068302717, guid: 492b0e43129e63840af8227f5586d49d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7595885625795639932, guid: 492b0e43129e63840af8227f5586d49d, type: 3}
+      propertyPath: m_Name
+      value: 10.SeekTheBandit
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 492b0e43129e63840af8227f5586d49d, type: 3}
 --- !u!1001 &2670950134411675329
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -28300,6 +28654,14 @@ PrefabInstance:
     - target: {fileID: 290171678503798589, guid: 83caa90585600f04c8d5371cb75c401b, type: 3}
       propertyPath: sceneId
       value: 1550384989
+      objectReference: {fileID: 0}
+    - target: {fileID: 1725298204168423283, guid: 83caa90585600f04c8d5371cb75c401b, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 110.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1725298204168423283, guid: 83caa90585600f04c8d5371cb75c401b, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 117.5
       objectReference: {fileID: 0}
     - target: {fileID: 2427650586829370850, guid: 83caa90585600f04c8d5371cb75c401b, type: 3}
       propertyPath: sceneId
@@ -28381,6 +28743,38 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8596902278934231830, guid: 83caa90585600f04c8d5371cb75c401b, type: 3}
+      propertyPath: OnRaised.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8596902278934231830, guid: 83caa90585600f04c8d5371cb75c401b, type: 3}
+      propertyPath: OnRaised.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8596902278934231830, guid: 83caa90585600f04c8d5371cb75c401b, type: 3}
+      propertyPath: OnRaised.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1066104397419657926}
+    - target: {fileID: 8596902278934231830, guid: 83caa90585600f04c8d5371cb75c401b, type: 3}
+      propertyPath: OnRaised.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8596902278934231830, guid: 83caa90585600f04c8d5371cb75c401b, type: 3}
+      propertyPath: OnRaised.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SetTarget
+      objectReference: {fileID: 0}
+    - target: {fileID: 8596902278934231830, guid: 83caa90585600f04c8d5371cb75c401b, type: 3}
+      propertyPath: OnRaised.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Gameplay.RoadSystem.CarAgent, Boxes
+      objectReference: {fileID: 0}
+    - target: {fileID: 8596902278934231830, guid: 83caa90585600f04c8d5371cb75c401b, type: 3}
+      propertyPath: OnRaised.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 2670950134411675331}
+    - target: {fileID: 8596902278934231830, guid: 83caa90585600f04c8d5371cb75c401b, type: 3}
+      propertyPath: OnRaised.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Transform, UnityEngine
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -28389,6 +28783,11 @@ PrefabInstance:
 --- !u!4 &2670950134411675330 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8140416136169981000, guid: 83caa90585600f04c8d5371cb75c401b, type: 3}
+  m_PrefabInstance: {fileID: 2670950134411675329}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &2670950134411675331 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 340964769270515764, guid: 83caa90585600f04c8d5371cb75c401b, type: 3}
   m_PrefabInstance: {fileID: 2670950134411675329}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3784391648986932827
@@ -28485,6 +28884,10 @@ PrefabInstance:
       propertyPath: sceneId
       value: 3898954100
       objectReference: {fileID: 0}
+    - target: {fileID: 4806548595804400900, guid: 2122c912d1aa4164fad3a19ecdc2d7dd, type: 3}
+      propertyPath: sceneId
+      value: 3295730744
+      objectReference: {fileID: 0}
     - target: {fileID: 5342181452690401804, guid: 2122c912d1aa4164fad3a19ecdc2d7dd, type: 3}
       propertyPath: sceneId
       value: 4138525692
@@ -28532,6 +28935,10 @@ PrefabInstance:
     - target: {fileID: 6824804321173167710, guid: 2122c912d1aa4164fad3a19ecdc2d7dd, type: 3}
       propertyPath: m_Name
       value: 6.GetMarketDocs
+      objectReference: {fileID: 0}
+    - target: {fileID: 6824804321173167710, guid: 2122c912d1aa4164fad3a19ecdc2d7dd, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6908120953155960582, guid: 2122c912d1aa4164fad3a19ecdc2d7dd, type: 3}
       propertyPath: sceneId
@@ -28584,6 +28991,10 @@ PrefabInstance:
     - target: {fileID: 1486346457879130510, guid: f3227f2041377d445bf03bd0dbd35647, type: 3}
       propertyPath: sceneId
       value: 3124179498
+      objectReference: {fileID: 0}
+    - target: {fileID: 1865043673909028397, guid: f3227f2041377d445bf03bd0dbd35647, type: 3}
+      propertyPath: sceneId
+      value: 3384005544
       objectReference: {fileID: 0}
     - target: {fileID: 4036701585884757016, guid: f3227f2041377d445bf03bd0dbd35647, type: 3}
       propertyPath: sceneId

@@ -21,7 +21,7 @@ namespace Configuration.QuestTasks.Unique
         private int requiredCount;
 
         [SerializeField]
-        private TaskConfig config;
+        private TaskDescription description;
 
         private IBallInteractionMediator ballInteractionMediator;
         private INetworkStateHolder<ConnectionState> connectionStateHolder;
@@ -95,7 +95,7 @@ namespace Configuration.QuestTasks.Unique
                 new IntVariable { Value = kickers.Sum(item => item.Value) },
                 new IntVariable { Value = requiredCount * players.Count }
             };
-            DisplayData.Value = (config.Title.GetLocalizedString(), config.Description.GetLocalizedString(args));
+            DisplayData.Value = (description.Title.GetLocalizedString(), description.Description.GetLocalizedString(args));
 
             IsDone.Value = players.All(playerId =>
                 holders.TryGetValue(playerId, out int holdCount) && holdCount >= requiredCount &&

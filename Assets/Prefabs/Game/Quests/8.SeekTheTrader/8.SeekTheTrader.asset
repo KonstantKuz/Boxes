@@ -20,14 +20,23 @@ MonoBehaviour:
     - rid: 4157762697648930820
       type: {class: NavigationTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}
       data:
-        config: {fileID: 11400000, guid: 3a8be18a64b75b640a66224e8621730f, type: 2}
+        description: {fileID: 11400000, guid: a5248147be22a2b4483baeaf31c86fbb, type: 2}
         targetId: 895e16be-bcd5-4aaf-8012-d60bc22b3c42
+    - rid: 4157762947229417486
+      type: {class: DialogTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}
+      data:
+        dialogSequence: {fileID: 11400000, guid: d9243632576c4ca4e91bb070230f0d58, type: 2}
+        cameraTargetId: 
+    - rid: 4157762947229417490
+      type: {class: RaiseEvent, ns: Configuration.QuestTasks.Shared, asm: Boxes}
+      data:
+        targetId: 0d4d25fb-394f-4ba0-b04d-6c5814ba3754
     - rid: 4267941890726035462
       type: {class: TaskSequence, ns: Infrastructure.QuestService.Abstract, asm: Boxes}
       data:
         tasks:
-        - rid: 4267941890726035463
         - rid: 4267941936071966726
+        - rid: 4267941890726035463
         - rid: 4267941936071966724
         - rid: 4267941936071966725
         - rid: 4267941940353564678
@@ -45,10 +54,12 @@ MonoBehaviour:
         - rid: 4267942002011144205
         - rid: 4267942002011144206
         - rid: 4157762697648930820
+        - rid: 4157762947229417486
+        - rid: 4157762947229417490
     - rid: 4267941890726035463
       type: {class: NavigationTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}
       data:
-        config: {fileID: 11400000, guid: fa37bd730b151b447874de416e4b44ae, type: 2}
+        description: {fileID: 11400000, guid: fa37bd730b151b447874de416e4b44ae, type: 2}
         targetId: 817ef086-2726-453d-a0a0-7bdf0eacdf6e
     - rid: 4267941936071966723
       type: {class: DialogTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}
@@ -61,12 +72,14 @@ MonoBehaviour:
         npcId: 00f3c9ba-645a-4403-afc7-cecadf89e352
         targetId: c34a0815-2822-4f5e-858c-21e172b7aa4f
         isAwaitRequired: 0
+        teleport: 0
     - rid: 4267941936071966725
       type: {class: NpcNavigationTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}
       data:
         npcId: f1dd5094-1a13-4c24-8aeb-8dda2b181e57
         targetId: dea8a82f-9b5a-4849-a826-cd4dc151c2cc
         isAwaitRequired: 0
+        teleport: 0
     - rid: 4267941936071966726
       type: {class: RaiseEvent, ns: Configuration.QuestTasks.Shared, asm: Boxes}
       data:
@@ -92,10 +105,11 @@ MonoBehaviour:
         npcId: 2fd39596-0842-4c86-a94d-e4f1bfd5bca9
         targetId: 04814fbe-6946-4d28-a2c0-0a007ce7a406
         isAwaitRequired: 1
+        teleport: 0
     - rid: 4267942002011144192
       type: {class: NavigationTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}
       data:
-        config: {fileID: 11400000, guid: a5248147be22a2b4483baeaf31c86fbb, type: 2}
+        description: {fileID: 11400000, guid: a5248147be22a2b4483baeaf31c86fbb, type: 2}
         targetId: 40e4c1bf-1c5d-42c5-95ab-4d6cc02fbea2
     - rid: 4267942002011144193
       type: {class: NpcNavigationTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}
@@ -103,15 +117,16 @@ MonoBehaviour:
         npcId: 2fd39596-0842-4c86-a94d-e4f1bfd5bca9
         targetId: 0031d361-2f18-47ba-b5a0-1870b2a22799
         isAwaitRequired: 0
+        teleport: 0
     - rid: 4267942002011144194
       type: {class: NavigationTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}
       data:
-        config: {fileID: 11400000, guid: a5248147be22a2b4483baeaf31c86fbb, type: 2}
+        description: {fileID: 11400000, guid: a5248147be22a2b4483baeaf31c86fbb, type: 2}
         targetId: eb047a90-4389-49d8-8b82-743dcdade171
     - rid: 4267942002011144195
       type: {class: NavigationTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}
       data:
-        config: {fileID: 11400000, guid: a5248147be22a2b4483baeaf31c86fbb, type: 2}
+        description: {fileID: 11400000, guid: a5248147be22a2b4483baeaf31c86fbb, type: 2}
         targetId: c782127e-ac6e-4da2-a423-f61118bdf9a7
     - rid: 4267942002011144196
       type: {class: NpcNavigationTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}
@@ -119,10 +134,11 @@ MonoBehaviour:
         npcId: 2fd39596-0842-4c86-a94d-e4f1bfd5bca9
         targetId: 36e92270-705d-4b03-825e-946b1b731433
         isAwaitRequired: 0
+        teleport: 0
     - rid: 4267942002011144197
       type: {class: NavigationTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}
       data:
-        config: {fileID: 11400000, guid: a5248147be22a2b4483baeaf31c86fbb, type: 2}
+        description: {fileID: 11400000, guid: a5248147be22a2b4483baeaf31c86fbb, type: 2}
         targetId: 0b911634-8cd1-4b5e-8464-72a5abcdb5f1
     - rid: 4267942002011144198
       type: {class: NpcNavigationTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}
@@ -130,10 +146,11 @@ MonoBehaviour:
         npcId: 2fd39596-0842-4c86-a94d-e4f1bfd5bca9
         targetId: 29c5270b-43d6-4b23-a423-30c521b29ca4
         isAwaitRequired: 0
+        teleport: 0
     - rid: 4267942002011144199
       type: {class: NavigationTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}
       data:
-        config: {fileID: 11400000, guid: a5248147be22a2b4483baeaf31c86fbb, type: 2}
+        description: {fileID: 11400000, guid: a5248147be22a2b4483baeaf31c86fbb, type: 2}
         targetId: 7218a887-24b6-420d-81af-3d6a84f1c335
     - rid: 4267942002011144202
       type: {class: NpcNavigationTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}
@@ -141,10 +158,11 @@ MonoBehaviour:
         npcId: 2fd39596-0842-4c86-a94d-e4f1bfd5bca9
         targetId: 1a4f3969-0c7e-44d1-b901-9d63c9c6637c
         isAwaitRequired: 0
+        teleport: 0
     - rid: 4267942002011144203
       type: {class: NavigationTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}
       data:
-        config: {fileID: 11400000, guid: a5248147be22a2b4483baeaf31c86fbb, type: 2}
+        description: {fileID: 11400000, guid: a5248147be22a2b4483baeaf31c86fbb, type: 2}
         targetId: 20b8d772-68da-4cd5-aed5-4c4169839e2a
     - rid: 4267942002011144205
       type: {class: NpcNavigationTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}
@@ -152,8 +170,9 @@ MonoBehaviour:
         npcId: 2fd39596-0842-4c86-a94d-e4f1bfd5bca9
         targetId: 4aa17298-2c28-4c2b-9cd8-ba874091592f
         isAwaitRequired: 0
+        teleport: 0
     - rid: 4267942002011144206
       type: {class: NavigationTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}
       data:
-        config: {fileID: 11400000, guid: a5248147be22a2b4483baeaf31c86fbb, type: 2}
+        description: {fileID: 11400000, guid: a5248147be22a2b4483baeaf31c86fbb, type: 2}
         targetId: b09388f2-3cca-4c93-a945-3dac0ec41265

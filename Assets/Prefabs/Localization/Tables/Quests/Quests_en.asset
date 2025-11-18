@@ -109,6 +109,10 @@ MonoBehaviour:
     m_Localized: Seek trader
     m_Metadata:
       m_Items: []
+  - m_Id: 32933472169476096
+    m_Localized: Attach tracking device
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

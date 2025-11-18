@@ -1,4 +1,5 @@
-﻿using System;
+using System;
+using System.Linq;
 using Reflex.Attributes;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -24,5 +25,23 @@ namespace Infrastructure.World
         {
             id = Guid.NewGuid().ToString();
         }
+
+#if UNITY_EDITOR
+        private void OnValidate()
+        {
+            if (string.IsNullOrEmpty(id))
+            {
+                return;
+            }
+
+            WorldObject[] allWorldObjects = FindObjectsOfType<WorldObject>(true);
+            WorldObject duplicate = allWorldObjects.FirstOrDefault(obj => obj != this && obj.id == id);
+
+            if (duplicate != null)
+            {
+                Debug.LogError($"Duplicate WorldObject ID detected! Object '{gameObject.name}' has the same ID as '{duplicate.gameObject.name}'. Please generate a new ID.", this);
+            }
+        }
+#endif
     }
 }

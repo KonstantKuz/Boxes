@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a3302517e334611b8ca3e20f19d998c, type: 3}
+  m_Name: 10.SeekTheBandit
+  m_EditorClassIdentifier: 
+  taskSequence:
+    rid: 4157762924566544391
+  references:
+    version: 2
+    RefIds:
+    - rid: 4157762924566544391
+      type: {class: TaskSequence, ns: Infrastructure.QuestService.Abstract, asm: Boxes}
+      data:
+        tasks:
+        - rid: 4157762947229417472
+    - rid: 4157762947229417472
+      type: {class: TaskBag, ns: Infrastructure.QuestService.Abstract, asm: Boxes}
+      data:
+        tasks:
+        - rid: 4157762947229417473
+        - rid: 4157762947229417474
+        - rid: 4157762947229417477
+    - rid: 4157762947229417473
+      type: {class: ShowMarkerTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}
+      data:
+        targetId: 87dec1cb-e6be-4913-9e87-a1599d04434e
+    - rid: 4157762947229417474
+      type: {class: DestroyDamageableTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}
+      data:
+        description: {fileID: 11400000, guid: 7f7c1dc6ff5d76549a1001dd3d2544b8, type: 2}
+        triggerId: 87dec1cb-e6be-4913-9e87-a1599d04434e
+        requiredHitPoints: 5
+    - rid: 4157762947229417477
+      type: {class: RaiseEvent, ns: Configuration.QuestTasks.Shared, asm: Boxes}
+      data:
+        targetId: bb28255e-b0da-4eba-ab96-8656d39d1982

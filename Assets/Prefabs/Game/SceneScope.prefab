@@ -616,6 +616,8 @@ MonoBehaviour:
         - {fileID: 11400000, guid: 6331347eea86d594f8fe4e69f0717fe1, type: 2}
         - {fileID: 11400000, guid: 0c64c6508b518d548ae5b16313feff7f, type: 2}
         - {fileID: 11400000, guid: 42c68652f0f2fbb4a98057bd1627798f, type: 2}
+        - {fileID: 11400000, guid: 60bea5091c2027c4bba6d68b308fda34, type: 2}
+        - {fileID: 11400000, guid: 2d327587dd18f5f468916250ab4f9cbf, type: 2}
 --- !u!114 &7663389876828686202
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -703,7 +705,6 @@ MonoBehaviour:
     - rid: 2942314084841029634
       type: {class: CameraService, ns: Infrastructure.CameraService, asm: Boxes}
       data:
-        smoothStep: 0
         cameraTarget: {fileID: 7587537103340924033}
     - rid: 2942314084841029635
       type: {class: CameraServiceMediator, ns: Configuration.Mediator, asm: Boxes}

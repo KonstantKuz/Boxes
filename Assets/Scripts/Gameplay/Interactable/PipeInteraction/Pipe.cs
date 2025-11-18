@@ -255,6 +255,8 @@ namespace Gameplay.Interactable.PipeInteraction
 
         private void FixedUpdate()
         {
+            rigidbody.isKinematic = State.PlayerCount == 0;
+
             if (!isServer || State.PlayerCount == 0)
             {
                 return;

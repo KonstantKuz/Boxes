@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Splines;
+using Random = UnityEngine.Random;
 
 namespace Gameplay.RoadSystem
 {
@@ -25,7 +26,6 @@ namespace Gameplay.RoadSystem
 
         [Header("Target Settings")]
         public float targetReachedDistance = 1f;
-        public float targetMovementThreshold = 2f;
 
         private RoadSystem.Node currentNode;
         private RoadSystem.Edge currentEdge;
@@ -38,10 +38,9 @@ namespace Gameplay.RoadSystem
         private float splineLength;
         private bool isInitialized;
         private bool hasReachedTarget;
-        private Vector3 lastTargetPosition;
-        private RoadSystem.Node cachedTargetNode;
+        private bool isFirstEdge;
         private List<RoadSystem.Node> assignedRoute;
-        private int currentRouteIndex;
+        private RoadSystem.Edge targetEdge;
 
         [ContextMenu("Start Driving")]
         public void SetDriving(bool value)
@@ -63,6 +62,23 @@ namespace Gameplay.RoadSystem
             isInitialized = false;
         }
 
+        public void SetTarget(Transform target)
+        {
+            targetTransform = target;
+            hasReachedTarget = false;
+            isFirstEdge = true;
+            targetEdge = null;
+        }
+
+        private void OnEnable()
+        {
+            if (isInitialized && currentEdge != null && roadSystem != null)
+            {
+                Spline spline = roadSystem.Container.Splines[currentEdge.SplineIndex];
+                currentT = FindClosestTOnSpline(spline, transform.position, startT, endT);
+            }
+        }
+
         private void Update()
         {
             if (!isDriving)
@@ -81,49 +97,17 @@ namespace Gameplay.RoadSystem
                 return;
             }
 
-            if (!useRandomRoute && targetTransform != null)
-            {
-                CheckTargetMovement();
-            }
-
             UpdateDriving();
-        }
-
-        private void CheckTargetMovement()
-        {
-            float movedDistance = Vector3.Distance(targetTransform.position, lastTargetPosition);
-
-            if (hasReachedTarget)
-            {
-                if (movedDistance > targetReachedDistance * 0.5f)
-                {
-                    hasReachedTarget = false;
-                    cachedTargetNode = null;
-                }
-            }
-            else if (movedDistance > targetMovementThreshold)
-            {
-                RoadSystem.Node newTargetNode = GetClosestNode(targetTransform.position);
-                if (newTargetNode != cachedTargetNode)
-                {
-                    cachedTargetNode = newTargetNode;
-                }
-            }
-
-            lastTargetPosition = targetTransform.position;
         }
 
         private void InitializeDriving()
         {
-            // Если есть назначенный маршрут, начинаем с первой ноды маршрута
             if (useAssignedRoute && assignedRoute != null && assignedRoute.Count > 0)
             {
                 currentNode = assignedRoute[0];
-                currentRouteIndex = 0;
             }
             else
             {
-                // Иначе ищем ближайший край
                 RoadSystem.Edge closestEdge = FindClosestEdge(transform.position);
                 if (closestEdge == null)
                 {
@@ -138,16 +122,10 @@ namespace Gameplay.RoadSystem
             previousNode = null;
             previousEdge = null;
             hasReachedTarget = false;
-            cachedTargetNode = null;
+            isFirstEdge = true;
+            targetEdge = null;
 
-            if (targetTransform != null)
-            {
-                lastTargetPosition = targetTransform.position;
-                cachedTargetNode = GetClosestNode(targetTransform.position);
-            }
-
-            List<RoadSystem.Edge> validEdges = GetValidEdgesFromNode(currentNode);
-            if (validEdges.Count == 0)
+            if (currentNode.Edges.Count == 0)
             {
                 Debug.LogError("CarAgent: No valid edges from start node");
                 isDriving = false;
@@ -158,40 +136,8 @@ namespace Gameplay.RoadSystem
             isInitialized = true;
         }
 
-        private RoadSystem.Node FindNodeWithEdges()
-        {
-            RoadSystem.Node bestNode = null;
-            float minDistance = float.MaxValue;
-
-            foreach (RoadSystem.Node node in roadSystem.Nodes)
-            {
-                if (node.Edges.Count > 0)
-                {
-                    float distance = Vector3.Distance(transform.position, node.Position);
-                    if (distance < minDistance)
-                    {
-                        minDistance = distance;
-                        bestNode = node;
-                    }
-                }
-            }
-
-            return bestNode;
-        }
-
         private void UpdateDriving()
         {
-            if (!useRandomRoute && targetTransform != null && IsCloseToTarget())
-            {
-                if (!hasReachedTarget)
-                {
-                    hasReachedTarget = true;
-                    currentEdge = null;
-                    previousEdge = null;
-                }
-                return;
-            }
-
             if (currentEdge == null)
             {
                 StartNewEdge();
@@ -200,6 +146,22 @@ namespace Gameplay.RoadSystem
 
             Spline spline = roadSystem.Container.Splines[currentEdge.SplineIndex];
             float direction = movingForward ? 1f : -1f;
+
+            if (!useRandomRoute && targetTransform != null && ShouldStopOnEdge(spline))
+            {
+                hasReachedTarget = true;
+                return;
+            }
+
+            if (!isFirstEdge)
+            {
+                float tStep = (speed * Time.deltaTime) / splineLength * Mathf.Abs(endT - startT);
+                currentT += tStep * direction;
+            }
+            else
+            {
+                isFirstEdge = false;
+            }
 
             Vector3 centerPosition = roadSystem.transform.TransformPoint(spline.EvaluatePosition(currentT));
             Vector3 tangent = GetTangentAtT(spline, currentT, direction);
@@ -214,14 +176,6 @@ namespace Gameplay.RoadSystem
                 transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
             }
 
-            if (!useRandomRoute && targetTransform != null && ShouldStopOnEdge(spline))
-            {
-                hasReachedTarget = true;
-                currentEdge = null;
-                previousEdge = null;
-                return;
-            }
-
             RoadSystem.Node targetNode = currentEdge.GetOther(currentNode);
             float distanceToTarget = Vector3.Distance(transform.position, targetNode.Position);
 
@@ -234,9 +188,6 @@ namespace Gameplay.RoadSystem
                 return;
             }
 
-            float tStep = (speed * Time.deltaTime) / splineLength * Mathf.Abs(endT - startT);
-            currentT += tStep * direction;
-
             if ((direction > 0 && currentT >= endT) || (direction < 0 && currentT <= endT))
             {
                 previousNode = currentNode;
@@ -246,43 +197,59 @@ namespace Gameplay.RoadSystem
             }
         }
 
-        private bool IsCloseToTarget()
-        {
-            float distanceToTarget = Vector3.Distance(transform.position, targetTransform.position);
-            return distanceToTarget <= targetReachedDistance;
-        }
-
         private bool ShouldStopOnEdge(Spline spline)
         {
-            Vector3 closestPointOnSpline = FindClosestPointOnCurrentEdge(spline);
-            float distanceFromClosestToTarget = Vector3.Distance(closestPointOnSpline, targetTransform.position);
-            float distanceFromCarToClosest = Vector3.Distance(transform.position, closestPointOnSpline);
+            if (hasReachedTarget)
+            {
+                return true;
+            }
 
-            return distanceFromCarToClosest <= nodeReachDistance && distanceFromClosestToTarget <= targetReachedDistance;
+            if (targetEdge == null)
+            {
+                targetEdge = FindClosestEdgeToTarget();
+            }
+
+            if (targetEdge != currentEdge)
+            {
+                return false;
+            }
+
+            float closestT = FindClosestTOnSpline(spline, targetTransform.position, startT, endT);
+            float distanceFromCarToClosest = Mathf.Abs(currentT - closestT) * splineLength / Mathf.Abs(endT - startT);
+
+            if (distanceFromCarToClosest <= nodeReachDistance)
+            {
+                currentT = closestT;
+                Vector3 centerPosition = roadSystem.transform.TransformPoint(spline.EvaluatePosition(currentT));
+                Vector3 right = Vector3.Cross(Vector3.up, GetTangentAtT(spline, currentT, movingForward ? 1f : -1f)).normalized;
+                centerPosition += right * laneOffset;
+                transform.position = centerPosition;
+                return true;
+            }
+
+            return false;
         }
 
-        private Vector3 FindClosestPointOnCurrentEdge(Spline spline)
+        private RoadSystem.Edge FindClosestEdgeToTarget()
         {
-            Vector3 localTargetPosition = roadSystem.transform.InverseTransformPoint(targetTransform.position);
-            float closestT = currentT;
+            RoadSystem.Edge closestEdge = null;
             float minDistance = float.MaxValue;
 
-            float minT = Mathf.Min(startT, endT);
-            float maxT = Mathf.Max(startT, endT);
-
-            for (float param = minT; param <= maxT; param += 0.01f)
+            foreach (RoadSystem.Edge edge in roadSystem.Edges)
             {
-                Vector3 pointOnSpline = spline.EvaluatePosition(param);
-                float distance = Vector3.Distance(pointOnSpline, localTargetPosition);
+                Spline spline = roadSystem.Container.Splines[edge.SplineIndex];
+                float closestT = FindClosestTOnSpline(spline, targetTransform.position, edge.StartT, edge.EndT);
+                Vector3 closestPoint = roadSystem.transform.TransformPoint(spline.EvaluatePosition(closestT));
+                float distance = Vector3.Distance(closestPoint, targetTransform.position);
 
                 if (distance < minDistance)
                 {
                     minDistance = distance;
-                    closestT = param;
+                    closestEdge = edge;
                 }
             }
 
-            return roadSystem.transform.TransformPoint(spline.EvaluatePosition(closestT));
+            return closestEdge;
         }
 
         private void StartNewEdge()
@@ -303,7 +270,16 @@ namespace Gameplay.RoadSystem
 
             startT = movingForward ? currentEdge.StartT : currentEdge.EndT;
             endT = movingForward ? currentEdge.EndT : currentEdge.StartT;
-            currentT = startT;
+
+            if (isFirstEdge)
+            {
+                currentT = FindClosestTOnSpline(spline, transform.position, startT, endT);
+                isFirstEdge = false;
+            }
+            else
+            {
+                currentT = startT;
+            }
 
             splineLength = CalculateSplineLength(spline, startT, endT);
         }
@@ -365,7 +341,6 @@ namespace Gameplay.RoadSystem
         public void SetAssignedRoute(List<RoadSystem.Node> route)
         {
             assignedRoute = route;
-            currentRouteIndex = 0;
             useAssignedRoute = true;
         }
 
@@ -383,7 +358,7 @@ namespace Gameplay.RoadSystem
 
             if (useRandomRoute || targetTransform == null)
             {
-                return ChooseRandomValidEdge();
+                return ChooseRandomEdge();
             }
 
             return ChooseEdgeTowardsTarget();
@@ -410,7 +385,7 @@ namespace Gameplay.RoadSystem
                 }
 
                 useAssignedRoute = false;
-                return ChooseRandomValidEdge();
+                return ChooseRandomEdge();
             }
 
             int nextRouteIndex = (currentNodeIndexInRoute + 1) % assignedRoute.Count;
@@ -420,7 +395,6 @@ namespace Gameplay.RoadSystem
             {
                 if (edge.GetOther(currentNode) == targetRouteNode)
                 {
-                    currentRouteIndex = nextRouteIndex;
                     return edge;
                 }
             }
@@ -436,7 +410,7 @@ namespace Gameplay.RoadSystem
             }
 
             useAssignedRoute = false;
-            return ChooseRandomValidEdge();
+            return ChooseRandomEdge();
         }
 
         private RoadSystem.Node FindClosestNodeInRoute()
@@ -462,9 +436,10 @@ namespace Gameplay.RoadSystem
             return closest;
         }
 
-        private RoadSystem.Edge ChooseRandomValidEdge()
+        private RoadSystem.Edge ChooseRandomEdge()
         {
             List<RoadSystem.Edge> forwardEdges = new List<RoadSystem.Edge>();
+            List<RoadSystem.Edge> sidewaysEdges = new List<RoadSystem.Edge>();
 
             foreach (RoadSystem.Edge edge in currentNode.Edges)
             {
@@ -478,36 +453,22 @@ namespace Gameplay.RoadSystem
                 {
                     forwardEdges.Add(edge);
                 }
-            }
-
-            if (forwardEdges.Count > 0)
-            {
-                int randomIndex = Random.Range(0, forwardEdges.Count);
-                return forwardEdges[randomIndex];
-            }
-
-            List<RoadSystem.Edge> edgesWithoutPrevious = new List<RoadSystem.Edge>();
-            foreach (RoadSystem.Edge edge in currentNode.Edges)
-            {
-                if (!IsSameEdge(edge, previousEdge))
+                else
                 {
-                    edgesWithoutPrevious.Add(edge);
+                    sidewaysEdges.Add(edge);
                 }
             }
 
-            if (edgesWithoutPrevious.Count > 0)
+            List<RoadSystem.Edge> validEdges = forwardEdges.Count > 0 ? forwardEdges :
+                                                sidewaysEdges.Count > 0 ? sidewaysEdges :
+                                                currentNode.Edges;
+
+            if (validEdges.Count == 0)
             {
-                int randomIndex = Random.Range(0, edgesWithoutPrevious.Count);
-                return edgesWithoutPrevious[randomIndex];
+                return null;
             }
 
-            if (currentNode.Edges.Count > 0)
-            {
-                int randomIndex = Random.Range(0, currentNode.Edges.Count);
-                return currentNode.Edges[randomIndex];
-            }
-
-            return null;
+            return validEdges[Random.Range(0, validEdges.Count)];
         }
 
         private bool IsSameEdge(RoadSystem.Edge edge1, RoadSystem.Edge edge2)
@@ -523,36 +484,59 @@ namespace Gameplay.RoadSystem
 
         private RoadSystem.Edge ChooseEdgeTowardsTarget()
         {
-            if (cachedTargetNode == null)
+            if (targetEdge == null)
             {
-                cachedTargetNode = GetClosestNode(targetTransform.position);
+                targetEdge = FindClosestEdgeToTarget();
             }
 
-            if (cachedTargetNode == null)
+            if (targetEdge == null)
             {
-                return ChooseRandomValidEdge();
+                return ChooseRandomEdge();
             }
 
-            List<RoadSystem.Node> path = roadSystem.FindPath(currentNode, cachedTargetNode);
-
-            if (path == null || path.Count < 2)
+            foreach (RoadSystem.Edge edge in currentNode.Edges)
             {
-                return ChooseRandomValidEdge();
+                if (edge == targetEdge)
+                {
+                    return edge;
+                }
             }
 
-            List<RoadSystem.Edge> pathEdges = roadSystem.ConvertNodePathToEdges(path);
+            RoadSystem.Node targetNode1 = targetEdge.StartNode;
+            RoadSystem.Node targetNode2 = targetEdge.EndNode;
 
-            if (pathEdges == null || pathEdges.Count == 0)
+            List<RoadSystem.Node> path1 = roadSystem.FindPath(currentNode, targetNode1);
+            List<RoadSystem.Node> path2 = roadSystem.FindPath(currentNode, targetNode2);
+
+            List<RoadSystem.Node> chosenPath = null;
+
+            if (path1 != null && path2 != null)
             {
-                return ChooseRandomValidEdge();
+                chosenPath = path1.Count <= path2.Count ? path1 : path2;
+            }
+            else if (path1 != null)
+            {
+                chosenPath = path1;
+            }
+            else if (path2 != null)
+            {
+                chosenPath = path2;
             }
 
-            return pathEdges[0];
-        }
+            if (chosenPath != null && chosenPath.Count >= 2)
+            {
+                RoadSystem.Node nextNode = chosenPath[1];
 
-        private List<RoadSystem.Edge> GetValidEdgesFromNode(RoadSystem.Node node)
-        {
-            return node.Edges;
+                foreach (RoadSystem.Edge edge in currentNode.Edges)
+                {
+                    if (edge.GetOther(currentNode) == nextNode)
+                    {
+                        return edge;
+                    }
+                }
+            }
+
+            return ChooseRandomEdge();
         }
 
         private float CalculateSplineLength(Spline spline, float startParam, float endParam)
@@ -585,6 +569,30 @@ namespace Gameplay.RoadSystem
             Vector3 lookAheadPos = roadSystem.transform.TransformPoint(spline.EvaluatePosition(lookAheadParam));
 
             return (lookAheadPos - currentPos).normalized;
+        }
+
+        private float FindClosestTOnSpline(Spline spline, Vector3 worldPosition, float minT, float maxT)
+        {
+            Vector3 localPosition = roadSystem.transform.InverseTransformPoint(worldPosition);
+            float closestT = minT;
+            float minDistance = float.MaxValue;
+
+            float start = Mathf.Min(minT, maxT);
+            float end = Mathf.Max(minT, maxT);
+
+            for (float t = start; t <= end; t += 0.01f)
+            {
+                Vector3 pointOnSpline = spline.EvaluatePosition(t);
+                float distance = Vector3.Distance(pointOnSpline, localPosition);
+
+                if (distance < minDistance)
+                {
+                    minDistance = distance;
+                    closestT = t;
+                }
+            }
+
+            return closestT;
         }
     }
 }
