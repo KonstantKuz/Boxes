@@ -23,7 +23,7 @@ MonoBehaviour:
   holdWindowTime: 0.5
   statusKicksCount: 3
   kickSpeedModifier: 0.25
-  statusDampingDistance: 50
+  statusDampingDistance: 100
   autoCaptureTime: 0.3
   autoCaptureRechargeTime: 0.5
   attractionRadius: 0

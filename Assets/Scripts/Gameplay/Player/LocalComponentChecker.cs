@@ -15,6 +15,9 @@ namespace Gameplay.Player
         private SkinnedMeshRenderer renderer;
 
         [SerializeField]
+        private List<GameObject> skins;
+
+        [SerializeField]
         private List<Color> colors;
 
         [SerializeField]
@@ -43,9 +46,17 @@ namespace Gameplay.Player
                 .Select((id, index) => (id, index))
                 .ToDictionary(tuple => tuple.id, tuple => tuple.index);
 
-            if (indexById.TryGetValue(netId, out int i) && colors.Count >= i)
+            if (indexById.TryGetValue(netId, out int colorId) && colors.Count >= colorId)
             {
-                renderer.materials[0].color = colors[i];
+                renderer.materials[0].color = colors[colorId];
+            }
+
+            if (indexById.TryGetValue(netId, out int skinId) && skins.Count >= skinId)
+            {
+                for (var i = 0; i < skins.Count; i++)
+                {
+                    skins[i].SetActive(i == skinId);
+                }
             }
         }
 

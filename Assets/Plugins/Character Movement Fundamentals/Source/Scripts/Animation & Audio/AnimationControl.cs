@@ -6,7 +6,7 @@ namespace CMF
 	//This script controls the character's animation by passing velocity values and other information ('isGrounded') to an animator component;
 	public class AnimationControl : MonoBehaviour {
 
-		Controller controller;
+		public Controller controller;
 		public Animator animator;
 		public NetworkAnimator nAnimator;
 		Transform animatorTransform;
@@ -24,7 +24,6 @@ namespace CMF
 
 		//Setup;
 		void Awake () {
-			controller = GetComponent<Controller>();
 			animatorTransform = animator.transform;
 			tr = transform;
 		}
