@@ -1161,7 +1161,7 @@ GameObject:
   - component: {fileID: 79596979}
   - component: {fileID: 79596978}
   - component: {fileID: 79596980}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Plane (5)
   m_TagString: Asphalt
   m_Icon: {fileID: 0}
@@ -7338,7 +7338,7 @@ GameObject:
   - component: {fileID: 569264960}
   - component: {fileID: 569264959}
   - component: {fileID: 569264961}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Plane (4)
   m_TagString: Asphalt
   m_Icon: {fileID: 0}
@@ -9328,7 +9328,7 @@ GameObject:
   - component: {fileID: 730292009}
   - component: {fileID: 730292008}
   - component: {fileID: 730292010}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Plane (9)
   m_TagString: Asphalt
   m_Icon: {fileID: 0}
@@ -9433,7 +9433,7 @@ GameObject:
   - component: {fileID: 770301980}
   - component: {fileID: 770301979}
   - component: {fileID: 770301981}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Plane (12)
   m_TagString: Asphalt
   m_Icon: {fileID: 0}
@@ -12096,7 +12096,7 @@ GameObject:
   - component: {fileID: 1016031098}
   - component: {fileID: 1016031097}
   - component: {fileID: 1016031100}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Plane (2)
   m_TagString: Asphalt
   m_Icon: {fileID: 0}
@@ -13416,7 +13416,7 @@ GameObject:
   - component: {fileID: 1181711367}
   - component: {fileID: 1181711366}
   - component: {fileID: 1181711368}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Plane (7)
   m_TagString: Asphalt
   m_Icon: {fileID: 0}
@@ -16344,7 +16344,7 @@ GameObject:
   - component: {fileID: 1363156911}
   - component: {fileID: 1363156910}
   - component: {fileID: 1363156913}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Plane (1)
   m_TagString: Asphalt
   m_Icon: {fileID: 0}
@@ -17223,7 +17223,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1390764459}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Roads Visualizing
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -17483,7 +17483,7 @@ GameObject:
   - component: {fileID: 1417472609}
   - component: {fileID: 1417472608}
   - component: {fileID: 1417472610}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Plane (8)
   m_TagString: Asphalt
   m_Icon: {fileID: 0}
@@ -17850,7 +17850,7 @@ GameObject:
   - component: {fileID: 1447631492}
   - component: {fileID: 1447631491}
   - component: {fileID: 1447631494}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Plane
   m_TagString: Asphalt
   m_Icon: {fileID: 0}
@@ -18713,7 +18713,7 @@ GameObject:
   - component: {fileID: 1493141948}
   - component: {fileID: 1493141947}
   - component: {fileID: 1493141949}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Plane (6)
   m_TagString: Asphalt
   m_Icon: {fileID: 0}
@@ -20361,7 +20361,7 @@ GameObject:
   - component: {fileID: 1635695999}
   - component: {fileID: 1635695998}
   - component: {fileID: 1635696001}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Plane (3)
   m_TagString: Asphalt
   m_Icon: {fileID: 0}
@@ -21792,7 +21792,7 @@ GameObject:
   - component: {fileID: 1741981123}
   - component: {fileID: 1741981122}
   - component: {fileID: 1741981124}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Plane (13)
   m_TagString: Asphalt
   m_Icon: {fileID: 0}
@@ -27105,6 +27105,9 @@ MonoBehaviour:
   splineContainer: {fileID: 2015509945}
   nodeSnapDistance: 0.5
   roadGraph: {fileID: 11400000, guid: 439a9f00fd277ed4486a868fc1cb0928, type: 2}
+  selectedNodeIndices: 
+  selectedNodeColor: {r: 0, g: 1, b: 1, a: 1}
+  selectedNodeGizmoSize: 0.2
   drawGizmos: 1
   nodeColor: {r: 1, g: 0, b: 0, a: 1}
   edgeColor: {r: 0, g: 1, b: 0, a: 1}
@@ -27739,7 +27742,7 @@ GameObject:
   - component: {fileID: 2073482561}
   - component: {fileID: 2073482560}
   - component: {fileID: 2073482562}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Plane (11)
   m_TagString: Asphalt
   m_Icon: {fileID: 0}
@@ -28264,7 +28267,7 @@ GameObject:
   - component: {fileID: 2124747141}
   - component: {fileID: 2124747140}
   - component: {fileID: 2124747142}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Plane (10)
   m_TagString: Asphalt
   m_Icon: {fileID: 0}
@@ -28594,6 +28597,10 @@ PrefabInstance:
       propertyPath: sceneId
       value: 1205760944
       objectReference: {fileID: 0}
+    - target: {fileID: 5039277036387494302, guid: 492b0e43129e63840af8227f5586d49d, type: 3}
+      propertyPath: sceneId
+      value: 1025567019
+      objectReference: {fileID: 0}
     - target: {fileID: 5210842780068302717, guid: 492b0e43129e63840af8227f5586d49d, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -28637,6 +28644,14 @@ PrefabInstance:
     - target: {fileID: 7595885625795639932, guid: 492b0e43129e63840af8227f5586d49d, type: 3}
       propertyPath: m_Name
       value: 10.SeekTheBandit
+      objectReference: {fileID: 0}
+    - target: {fileID: 7957339405243718779, guid: 492b0e43129e63840af8227f5586d49d, type: 3}
+      propertyPath: initialPosition.x
+      value: 62.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 7957339405243718779, guid: 492b0e43129e63840af8227f5586d49d, type: 3}
+      propertyPath: initialPosition.z
+      value: 126.4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

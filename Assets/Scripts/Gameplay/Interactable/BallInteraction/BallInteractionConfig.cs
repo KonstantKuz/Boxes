@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Infrastructure;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -70,6 +70,10 @@ namespace Gameplay.Interactable.BallInteraction
         [SerializeField]
         private ResetCondition resetConditions;
 
+        [TitleGroup("Ricochet redirect")]
+        [SerializeField]
+        private int richochetsBeforeRedirect;
+
         public float InteractionDistance => interactionDistance;
         public float KickSpeedModifier => kickSpeedModifier;
         public float KickWindowTime => kickWindowTime;
@@ -88,6 +92,7 @@ namespace Gameplay.Interactable.BallInteraction
         public float AutoCaptureTime => autoCaptureTime;
         public float AutoCaptureRechargeTime => autoCaptureRechargeTime;
         public ResetCondition ResetConditions => resetConditions;
+        public int RichochetsBeforeRedirect => richochetsBeforeRedirect;
     }
 
     [Flags]

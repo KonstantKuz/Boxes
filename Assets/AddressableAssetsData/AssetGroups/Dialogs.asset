@@ -131,6 +131,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - Dialog
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e97f508b61475e546a9414782f63b4f1
+    m_Address: Assets/Prefabs/Game/Quests/10.SeekTheBandit/Dialogs/10.1.PushTheCar.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Dialog
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 4ea6727d09b5691458c0bb0f4427d8dc, type: 2}
   m_SchemaSet:

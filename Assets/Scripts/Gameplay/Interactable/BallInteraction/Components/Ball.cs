@@ -35,6 +35,7 @@ namespace Gameplay.Interactable.BallInteraction.Components
         private BallSharedState? pendingAction;
         private float localDistanceSinceLastKick;
         private Vector3 localCaptureRelativePosition;
+        private int currentRicochetCount;
 
         public Bounds Bounds => collider.bounds;
         private BallInteractionConfig Config => ballInteractionMediator.Config;
@@ -121,18 +122,21 @@ namespace Gameplay.Interactable.BallInteraction.Components
 
             localDistanceSinceLastKick = 0;
             localCaptureRelativePosition = Vector3.zero;
+            currentRicochetCount = 0;
         }
 
         private void ApplyHoldPhysics(BallSharedState state)
         {
             localDistanceSinceLastKick = 0;
             localCaptureRelativePosition = Vector3.zero;
+            currentRicochetCount = 0;
         }
 
         private void ApplyCapturePhysics(BallSharedState state)
         {
             localCaptureRelativePosition = state.LastKickDirection;
             localDistanceSinceLastKick = 0;
+            currentRicochetCount = 0;
         }
 
         private void OnCollisionEnter(Collision other)
@@ -141,6 +145,8 @@ namespace Gameplay.Interactable.BallInteraction.Components
             {
                 return;
             }
+
+            TryRicochetToClosestPlayer();
 
             bool isResetRequired = Config.ResetConditions.HasFlag(ResetCondition.Collision);
 
@@ -160,6 +166,53 @@ namespace Gameplay.Interactable.BallInteraction.Components
             {
                 ResetCounter();
             }
+        }
+
+        private void TryRicochetToClosestPlayer()
+        {
+            currentRicochetCount++;
+
+            if (Config.RichochetsBeforeRedirect <= 0 || currentRicochetCount < Config.RichochetsBeforeRedirect)
+            {
+                return;
+            }
+
+            IBallInteractionInitiator closestPlayer = GetClosestPlayer();
+            if (closestPlayer != null && closestPlayer.Rigidbody != null)
+            {
+                float velocityMagnitude = rigidbody.velocity.magnitude;
+                if (velocityMagnitude < Mathf.Epsilon) return;
+
+                float distance = (closestPlayer.Rigidbody.position - transform.position).magnitude;
+                float estimatedTime = distance / velocityMagnitude;
+
+                Vector3 predictionPosition = closestPlayer.Rigidbody.position + closestPlayer.Rigidbody.velocity * estimatedTime;
+                predictionPosition.y = closestPlayer.Rigidbody.position.y;
+
+                Vector3 directionToIntercept = predictionPosition - transform.position;
+                if (directionToIntercept.sqrMagnitude < Mathf.Epsilon) return;
+
+                rigidbody.velocity = directionToIntercept.normalized * velocityMagnitude;
+                currentRicochetCount = 0;
+            }
+        }
+
+        private IBallInteractionInitiator GetClosestPlayer()
+        {
+            IBallInteractionInitiator closestPlayer = null;
+            float closestDistance = float.MaxValue;
+
+            foreach (var initiator in ballInteractionMediator.Initiators.Values)
+            {
+                float distance = Vector3.Distance(transform.position, initiator.Position);
+                if (distance < closestDistance)
+                {
+                    closestDistance = distance;
+                    closestPlayer = initiator;
+                }
+            }
+
+            return closestPlayer;
         }
 
         private void ResetCounter()
@@ -269,6 +322,8 @@ namespace Gameplay.Interactable.BallInteraction.Components
                     {
                         rigidbody.AddForce(simplifiedNormal * Config.OutOfBoundsPullForce, ForceMode.Impulse);
                     }
+
+                    TryRicochetToClosestPlayer();
                 }
             }
 

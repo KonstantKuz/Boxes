@@ -23,6 +23,9 @@ namespace Gameplay.Interactable.BallInteraction.Components
         [SerializeField]
         private Transform ballSocket;
 
+        [SerializeField]
+        private new Rigidbody rigidbody;
+
         private IBallInteractionMediator ballInteractionMediator;
         private IDisposable stateSubscription;
         private uint lastProcessedActionId;
@@ -31,6 +34,7 @@ namespace Gameplay.Interactable.BallInteraction.Components
         Transform IBallInteractionInitiator.BallSocket => ballSocket;
         Vector3 IBallInteractionInitiator.Position => transform.position;
         Vector3 IBallInteractionInitiator.KickDirection => kickDirectionRoot.forward;
+        Rigidbody IBallInteractionInitiator.Rigidbody => rigidbody;
 
         [Inject]
         private void Construct(IBallInteractionMediator ballInteractionMediator)

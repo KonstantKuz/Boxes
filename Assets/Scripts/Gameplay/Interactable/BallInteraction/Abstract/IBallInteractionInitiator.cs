@@ -8,5 +8,6 @@ namespace Gameplay.Interactable.BallInteraction.Abstract
         Transform BallSocket { get; }
         Vector3 Position { get; }
         Vector3 KickDirection { get; }
+        Rigidbody Rigidbody { get; }
     }
 }

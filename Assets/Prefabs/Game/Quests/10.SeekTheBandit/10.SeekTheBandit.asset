@@ -22,6 +22,11 @@ MonoBehaviour:
       data:
         tasks:
         - rid: 4157762947229417472
+        - rid: 8581598346659495937
+        - rid: 8581598346659495943
+        - rid: 8581598346659495936
+        - rid: 8581598346659495939
+        - rid: 8581598483747176451
     - rid: 4157762947229417472
       type: {class: TaskBag, ns: Infrastructure.QuestService.Abstract, asm: Boxes}
       data:
@@ -38,8 +43,46 @@ MonoBehaviour:
       data:
         description: {fileID: 11400000, guid: 7f7c1dc6ff5d76549a1001dd3d2544b8, type: 2}
         triggerId: 87dec1cb-e6be-4913-9e87-a1599d04434e
-        requiredHitPoints: 5
+        requiredHitPoints: 1
     - rid: 4157762947229417477
       type: {class: RaiseEvent, ns: Configuration.QuestTasks.Shared, asm: Boxes}
       data:
         targetId: bb28255e-b0da-4eba-ab96-8656d39d1982
+    - rid: 8581598346659495936
+      type: {class: DialogTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}
+      data:
+        dialogSequence: {fileID: 11400000, guid: e97f508b61475e546a9414782f63b4f1, type: 2}
+        cameraTargetId: 
+    - rid: 8581598346659495937
+      type: {class: RaiseEvent, ns: Configuration.QuestTasks.Shared, asm: Boxes}
+      data:
+        targetId: a1f2d5ef-9a42-42d6-bd1a-777db1c08f06
+    - rid: 8581598346659495939
+      type: {class: NpcNavigationTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}
+      data:
+        npcId: 9ff231bd-d5ec-47ee-85eb-6aec687fa792
+        targetId: 2ae80fb7-f49a-4b70-8a9d-ea56a27416fa
+        isAwaitRequired: 0
+        teleport: 0
+    - rid: 8581598346659495943
+      type: {class: NpcNavigationTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}
+      data:
+        npcId: 9ff231bd-d5ec-47ee-85eb-6aec687fa792
+        targetId: 58bc2abb-5e51-4fec-9936-7da7273195b2
+        isAwaitRequired: 0
+        teleport: 1
+    - rid: 8581598483747176451
+      type: {class: TaskBag, ns: Infrastructure.QuestService.Abstract, asm: Boxes}
+      data:
+        tasks:
+        - rid: 8581598483747176452
+        - rid: 8581598483747176454
+    - rid: 8581598483747176452
+      type: {class: ShowMarkerTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}
+      data:
+        targetId: 2ae80fb7-f49a-4b70-8a9d-ea56a27416fa
+    - rid: 8581598483747176454
+      type: {class: WaitForTriggerEnter, ns: Configuration.QuestTasks.Shared, asm: Boxes}
+      data:
+        triggerId: 2ae80fb7-f49a-4b70-8a9d-ea56a27416fa
+        targetId: 87dec1cb-e6be-4913-9e87-a1599d04434e

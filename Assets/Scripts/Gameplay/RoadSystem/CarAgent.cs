@@ -23,9 +23,13 @@ namespace Gameplay.RoadSystem
         public bool useRandomRoute = false;
         public bool useAssignedRoute = false;
         public bool isDriving = false;
+        public bool useAllowedNodesOnly = false;
 
         [Header("Target Settings")]
         public float targetReachedDistance = 1f;
+
+        [Header("Allowed Nodes")]
+        [SerializeField] private List<int> allowedNodeIndices = new List<int>();
 
         private RoadSystem.Node currentNode;
         private RoadSystem.Edge currentEdge;
@@ -117,6 +121,36 @@ namespace Gameplay.RoadSystem
                 }
 
                 currentNode = GetCloserNodeOnEdge(closestEdge, transform.position);
+            }
+
+            if (useAllowedNodesOnly && allowedNodeIndices.Count > 0)
+            {
+                bool hasValidNeighbor = false;
+                foreach (RoadSystem.Edge edge in currentNode.Edges)
+                {
+                    RoadSystem.Node neighbor = edge.GetOther(currentNode);
+                    if (IsNodeAllowed(neighbor))
+                    {
+                        hasValidNeighbor = true;
+                        break;
+                    }
+                }
+
+                if (!hasValidNeighbor)
+                {
+                    RoadSystem.Node closestAllowedNode = FindClosestAllowedNode();
+                    if (closestAllowedNode != null)
+                    {
+                        currentNode = closestAllowedNode;
+                        Debug.Log($"CarAgent: Using closest allowed node at {currentNode.Position}");
+                    }
+                    else
+                    {
+                        Debug.LogError("CarAgent: No allowed nodes found!");
+                        isDriving = false;
+                        return;
+                    }
+                }
             }
 
             previousNode = null;
@@ -344,6 +378,77 @@ namespace Gameplay.RoadSystem
             useAssignedRoute = true;
         }
 
+        [ContextMenu("Paste Allowed Nodes")]
+        public void PasteAllowedNodes()
+        {
+            if (roadSystem == null)
+            {
+                Debug.LogWarning("CarAgent: RoadSystem not assigned.");
+                return;
+            }
+
+            List<int> copiedIndices = RoadSystem.GetCopiedNodeIndices();
+
+            if (copiedIndices.Count == 0)
+            {
+                Debug.LogWarning("CarAgent: No nodes copied in RoadSystem clipboard.");
+                return;
+            }
+
+            allowedNodeIndices.Clear();
+            allowedNodeIndices.AddRange(copiedIndices);
+
+            Debug.Log($"CarAgent: Pasted {allowedNodeIndices.Count} allowed nodes");
+        }
+
+        [ContextMenu("Clear Allowed Nodes")]
+        public void ClearAllowedNodes()
+        {
+            allowedNodeIndices.Clear();
+            Debug.Log("CarAgent: Allowed nodes cleared");
+        }
+
+        private bool IsNodeAllowed(RoadSystem.Node node)
+        {
+            if (!useAllowedNodesOnly || allowedNodeIndices.Count == 0)
+            {
+                return true;
+            }
+
+            int nodeIndex = roadSystem.Nodes.IndexOf(node);
+            return allowedNodeIndices.Contains(nodeIndex);
+        }
+
+        private RoadSystem.Node FindClosestAllowedNode()
+        {
+            if (allowedNodeIndices.Count == 0)
+            {
+                return null;
+            }
+
+            RoadSystem.Node closest = null;
+            float minDistance = float.MaxValue;
+
+            foreach (int index in allowedNodeIndices)
+            {
+                if (index < 0 || index >= roadSystem.Nodes.Count)
+                {
+                    continue;
+                }
+
+                RoadSystem.Node node = roadSystem.Nodes[index];
+                float distance = Vector3.Distance(transform.position, node.Position);
+
+                if (distance < minDistance)
+                {
+                    minDistance = distance;
+                    closest = node;
+                }
+            }
+
+            return closest;
+        }
+
         private RoadSystem.Edge ChooseNextEdge()
         {
             if (currentNode.Edges.Count == 0)
@@ -449,6 +554,12 @@ namespace Gameplay.RoadSystem
                 }
 
                 RoadSystem.Node neighbor = edge.GetOther(currentNode);
+
+                if (!IsNodeAllowed(neighbor))
+                {
+                    continue;
+                }
+
                 if (neighbor != previousNode)
                 {
                     forwardEdges.Add(edge);
@@ -459,9 +570,7 @@ namespace Gameplay.RoadSystem
                 }
             }
 
-            List<RoadSystem.Edge> validEdges = forwardEdges.Count > 0 ? forwardEdges :
-                                                sidewaysEdges.Count > 0 ? sidewaysEdges :
-                                                currentNode.Edges;
+            List<RoadSystem.Edge> validEdges = forwardEdges.Count > 0 ? forwardEdges : sidewaysEdges;
 
             if (validEdges.Count == 0)
             {

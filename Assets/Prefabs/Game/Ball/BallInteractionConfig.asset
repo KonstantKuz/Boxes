@@ -30,3 +30,4 @@ MonoBehaviour:
   attractionForce: 20
   attractionMinRequiredSpeed: 10
   resetConditions: 10
+  richochetsBeforeRedirect: 3

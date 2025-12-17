@@ -45,6 +45,11 @@ namespace Gameplay.RoadSystem
         [Header("Graph Storage")]
         [SerializeField] private RoadGraph roadGraph;
 
+        [Header("Node Selection")]
+        [SerializeField] private List<int> selectedNodeIndices = new List<int>();
+        [SerializeField] private Color selectedNodeColor = Color.cyan;
+        [SerializeField] private float selectedNodeGizmoSize = 0.2f;
+
         [Header("Debug")]
         [SerializeField] private bool drawGizmos = true;
         [SerializeField] private Color nodeColor = Color.red;
@@ -58,6 +63,7 @@ namespace Gameplay.RoadSystem
 
         private List<Node> nodes = new List<Node>();
         private List<Edge> edges = new List<Edge>();
+        private static List<int> copiedNodeIndices = new List<int>();
 
         public SplineContainer Container => splineContainer;
         public List<Node> Nodes => nodes;
@@ -520,6 +526,68 @@ namespace Gameplay.RoadSystem
         }
 
 #if UNITY_EDITOR
+        [ContextMenu("Clear Node Selection")]
+        public void ClearNodeSelection()
+        {
+            selectedNodeIndices.Clear();
+            Debug.Log("RoadSystem: Node selection cleared");
+        }
+
+        [ContextMenu("Copy Selected Nodes")]
+        public void CopySelectedNodes()
+        {
+            if (selectedNodeIndices.Count == 0)
+            {
+                Debug.LogWarning("RoadSystem: No nodes selected to copy");
+                return;
+            }
+
+            copiedNodeIndices.Clear();
+            copiedNodeIndices.AddRange(selectedNodeIndices);
+            Debug.Log($"RoadSystem: Copied {copiedNodeIndices.Count} nodes to clipboard");
+        }
+
+        public void ToggleNodeSelection(int nodeIndex)
+        {
+            if (nodeIndex < 0 || nodeIndex >= nodes.Count)
+            {
+                return;
+            }
+
+            if (selectedNodeIndices.Contains(nodeIndex))
+            {
+                selectedNodeIndices.Remove(nodeIndex);
+            }
+            else
+            {
+                selectedNodeIndices.Add(nodeIndex);
+            }
+
+            UnityEditor.EditorUtility.SetDirty(this);
+        }
+
+        public bool IsNodeSelected(int nodeIndex)
+        {
+            return selectedNodeIndices.Contains(nodeIndex);
+        }
+
+        public static List<int> GetCopiedNodeIndices()
+        {
+            return new List<int>(copiedNodeIndices);
+        }
+
+        public List<Node> GetSelectedNodes()
+        {
+            List<Node> result = new List<Node>();
+            foreach (int index in selectedNodeIndices)
+            {
+                if (index >= 0 && index < nodes.Count)
+                {
+                    result.Add(nodes[index]);
+                }
+            }
+            return result;
+        }
         private void OnDrawGizmos()
         {
             if (!drawGizmos || splineContainer == null)
@@ -557,11 +625,15 @@ namespace Gameplay.RoadSystem
 
         private void DrawNodes()
         {
-            Gizmos.color = nodeColor;
-
-            foreach (Node node in nodes)
+            for (int i = 0; i < nodes.Count; i++)
             {
-                Gizmos.DrawSphere(node.Position, nodeGizmoSize);
+                Node node = nodes[i];
+                bool isSelected = selectedNodeIndices.Contains(i);
+
+                Gizmos.color = isSelected ? selectedNodeColor : nodeColor;
+                float size = isSelected ? selectedNodeGizmoSize : nodeGizmoSize;
+
+                Gizmos.DrawSphere(node.Position, size);
             }
         }
 

@@ -149,18 +149,19 @@ GameObject:
   - component: {fileID: 114808892733143080}
   - component: {fileID: 114854587450894338}
   - component: {fileID: 6544972154663908213}
+  - component: {fileID: 6358126846391220783}
   - component: {fileID: 9068432335133372425}
   - component: {fileID: 114611966454256686}
   - component: {fileID: 5005981399707072953}
   - component: {fileID: 1926354744543443417}
   - component: {fileID: 3151455389868795147}
   - component: {fileID: 6216634067358199859}
+  - component: {fileID: 2530539809940299626}
   - component: {fileID: 399605138208539146}
   - component: {fileID: 8055033012567592229}
-  - component: {fileID: 2530539809940299626}
   - component: {fileID: 769201147506110654}
   - component: {fileID: 4589138145979967656}
-  - component: {fileID: 6358126846391220783}
+  - component: {fileID: 6494710581820327407}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -199,15 +200,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   injectables:
+  - {fileID: 4136974530054710152}
   - {fileID: 6544972154663908213}
-  - {fileID: 399605138208539146}
-  - {fileID: 2530539809940299626}
+  - {fileID: 6358126846391220783}
+  - {fileID: 9068432335133372425}
   - {fileID: 5005981399707072953}
+  - {fileID: 2530539809940299626}
+  - {fileID: 399605138208539146}
   - {fileID: 769201147506110654}
   - {fileID: 4589138145979967656}
-  - {fileID: 6358126846391220783}
-  - {fileID: 4136974530054710152}
-  - {fileID: 9068432335133372425}
+  - {fileID: 6494710581820327407}
 --- !u!54 &54247263789400272
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -352,6 +354,64 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   turnController: {fileID: 114415904454639492}
+--- !u!114 &6358126846391220783
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1189618843407812}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ebecaf70d3e447fb9b9738aa5cd244e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onIsActiveChanged:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7947590000510606185}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onSpeedModifierChanged:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 114854587450894338}
+        m_TargetAssemblyTypeName: CMF.AdvancedWalkerController, CMF
+        m_MethodName: AddSpeedModifier
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onFrictionModifierChanged:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 114854587450894338}
+        m_TargetAssemblyTypeName: CMF.AdvancedWalkerController, CMF
+        m_MethodName: AddGroundFrictionModifier
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  config: {fileID: 11400000, guid: 9b334677e90752545a468f3293d39f76, type: 2}
 --- !u!114 &9068432335133372425
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -563,6 +623,22 @@ MonoBehaviour:
   useLocalTransformOnly: 0
   ownerChangeIndicator: 1
   receivedStatesCounter: 0
+--- !u!114 &2530539809940299626
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1189618843407812}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ea5e90696d540b6ada71a484df5c8e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  interactionDistance: 2
 --- !u!114 &399605138208539146
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -661,6 +737,7 @@ MonoBehaviour:
         m_CallState: 2
   kickDirectionRoot: {fileID: 4037651715078038}
   ballSocket: {fileID: 6031273226373417185}
+  rigidbody: {fileID: 54247263789400272}
 --- !u!114 &8055033012567592229
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -675,22 +752,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interactionDistanceColor: {r: 0, g: 1, b: 0, a: 1}
   config: {fileID: 11400000, guid: 2c8a617761150bd4d957bc207bb0cde3, type: 2}
---- !u!114 &2530539809940299626
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1189618843407812}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3ea5e90696d540b6ada71a484df5c8e8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncDirection: 0
-  syncMode: 0
-  syncInterval: 0
-  interactionDistance: 2
 --- !u!114 &769201147506110654
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -752,7 +813,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &6358126846391220783
+--- !u!114 &6494710581820327407
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -761,55 +822,54 @@ MonoBehaviour:
   m_GameObject: {fileID: 1189618843407812}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5ebecaf70d3e447fb9b9738aa5cd244e, type: 3}
+  m_Script: {fileID: 11500000, guid: 3f5a4005a8c91f34f88cd9c89da7781d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onIsActiveChanged:
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  onObjectKicked:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7947590000510606185}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 0
+      - m_Target: {fileID: 8982736963999813536}
+        m_TargetAssemblyTypeName: Mirror.NetworkAnimator, Mirror.Components
+        m_MethodName: SetTrigger
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: Kick
           m_BoolArgument: 0
         m_CallState: 2
-  onSpeedModifierChanged:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 114854587450894338}
-        m_TargetAssemblyTypeName: CMF.AdvancedWalkerController, CMF
-        m_MethodName: AddSpeedModifier
-        m_Mode: 0
+      - m_Target: {fileID: 4133331911807652925}
+        m_TargetAssemblyTypeName: Mirror.NetworkAnimator, Mirror.Components
+        m_MethodName: SetTrigger
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: Kick
           m_BoolArgument: 0
         m_CallState: 2
-  onFrictionModifierChanged:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 114854587450894338}
-        m_TargetAssemblyTypeName: CMF.AdvancedWalkerController, CMF
-        m_MethodName: AddGroundFrictionModifier
-        m_Mode: 0
+      - m_Target: {fileID: 5175759404694666298}
+        m_TargetAssemblyTypeName: Mirror.NetworkAnimator, Mirror.Components
+        m_MethodName: SetTrigger
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: Kick
           m_BoolArgument: 0
         m_CallState: 2
-  config: {fileID: 11400000, guid: 9b334677e90752545a468f3293d39f76, type: 2}
+  socket: {fileID: 6031273226373417185}
+  interactionDistance: 1.5
+  kickForce: 1000
 --- !u!1 &1234082977098520
 GameObject:
   m_ObjectHideFlags: 0
@@ -1541,7 +1601,7 @@ GameObject:
   - component: {fileID: 85351420239551732}
   - component: {fileID: 5837288679605751047}
   m_Layer: 0
-  m_Name: PipeInteractionEvent
+  m_Name: ToggleControllerEvent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
