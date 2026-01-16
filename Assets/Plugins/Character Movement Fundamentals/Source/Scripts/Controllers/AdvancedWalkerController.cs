@@ -391,6 +391,20 @@ namespace CMF
 				_horizontalMomentum = momentum - _verticalMomentum;
 			}
 
+			//Detect wall collision in air by comparing momentum to actual velocity
+			if(!IsGrounded() && _horizontalMomentum.sqrMagnitude > 0.1f)
+			{
+				Vector3 actualVelocity = mover.GetVelocity();
+				Vector3 actualHorizontal = actualVelocity - VectorMath.ExtractDotVector(actualVelocity, tr.up);
+
+				//If momentum is pushing hard but actual velocity is blocked (wall collision)
+				if(actualHorizontal.sqrMagnitude < _horizontalMomentum.sqrMagnitude * 0.25f)
+				{
+					//Quickly correct momentum to prevent wall sticking
+					_horizontalMomentum = Vector3.Lerp(_horizontalMomentum, actualHorizontal, 0.8f);
+				}
+			}
+
 			//Add gravity to vertical momentum;
 			_verticalMomentum -= tr.up * gravity * Time.fixedDeltaTime;
 

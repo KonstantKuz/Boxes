@@ -3,7 +3,7 @@
     "SubFolders": true,
     "OverwriteConfig": false,
     "LoadAllShaders": false,
-    "CustomOutputPath": "Assets/Content/Toony Colors Pro/Shaders Generated",
+    "CustomOutputPath": "Content/Toony Colors Pro/Shaders Generated/",
     "LastImplementationExportImportPath": "C:/Files/UnityProjects/Boxes/Assets/Content",
     "OpenedFoldouts": [
         "THIRD PARTY PLUGINS"

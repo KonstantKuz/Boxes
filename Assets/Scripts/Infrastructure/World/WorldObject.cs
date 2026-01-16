@@ -29,6 +29,11 @@ namespace Infrastructure.World
 #if UNITY_EDITOR
         private void OnValidate()
         {
+            if (UnityEditor.SceneManagement.PrefabStageUtility.GetCurrentPrefabStage() != null)
+            {
+                return;
+            }
+
             if (string.IsNullOrEmpty(id))
             {
                 return;

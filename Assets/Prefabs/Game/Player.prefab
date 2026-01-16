@@ -244,7 +244,7 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1189618843407812}
-  m_Material: {fileID: 13400000, guid: e22c35a45fac28e4eb8a295407e775b7, type: 2}
+  m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -782,7 +782,48 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  onBoxThrown:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8982736963999813536}
+        m_TargetAssemblyTypeName: Mirror.NetworkAnimator, Mirror.Components
+        m_MethodName: SetTrigger
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Kick
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 4133331911807652925}
+        m_TargetAssemblyTypeName: Mirror.NetworkAnimator, Mirror.Components
+        m_MethodName: SetTrigger
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Kick
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 5175759404694666298}
+        m_TargetAssemblyTypeName: Mirror.NetworkAnimator, Mirror.Components
+        m_MethodName: SetTrigger
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Kick
+          m_BoolArgument: 0
+        m_CallState: 2
   socket: {fileID: 6593830295200270571}
+  rigidbody: {fileID: 54247263789400272}
+  walkerController: {fileID: 114854587450894338}
 --- !u!114 &4589138145979967656
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1226,8 +1267,8 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: bbfba1bed9130b346ace2f34da8e6765, type: 2}
-  - {fileID: 2100000, guid: 8675ae4aa2da1114d8b2d358969ce630, type: 2}
+  - {fileID: 2100000, guid: 95e8bea57a625604ebbb456babf7a740, type: 2}
+  - {fileID: 2100000, guid: 95e8bea57a625604ebbb456babf7a740, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

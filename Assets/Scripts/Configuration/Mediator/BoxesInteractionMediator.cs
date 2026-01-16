@@ -40,6 +40,15 @@ namespace Configuration.Mediator
             initiators.Add(initiator.NetId, initiator);
         }
 
+        Vector3 IBoxesInteractionMediator.GetThrowVelocity(IBoxInteractionInitiator initiator)
+        {
+            float y = config.ThrowForce.y;
+            float x = config.ThrowForce.x;
+            Vector3 targetVelocity = (initiator.Socket.forward + Vector3.up * y) * x;
+            targetVelocity += initiator.Controller.GetVelocity() * Mathf.Abs(config.HolderSpeedModifier);
+            return targetVelocity;
+        }
+
         bool IBoxesInteractionMediator.IsPredictionVisible(out Vector3 targetPosition)
         {
             targetPosition = Vector3.zero;
@@ -49,9 +58,7 @@ namespace Configuration.Mediator
                 return false;
             }
 
-            float y = config.ThrowForce.y;
-            float x = config.ThrowForce.x;
-            Vector3 initialVelocity = (localInitiator.Socket.forward + Vector3.up * y) * x;
+            Vector3 initialVelocity = ((IBoxesInteractionMediator)this).GetThrowVelocity(localInitiator);
             targetPosition = ((IBoxesInteractionMediator)this).CalculateLandingPoint(
                 localInitiator.Socket.position, initialVelocity
             );
@@ -61,7 +68,7 @@ namespace Configuration.Mediator
 
         Vector3 IBoxesInteractionMediator.CalculateLandingPoint(Vector3 startPosition, Vector3 initialVelocity)
         {
-            float gravity = Physics.gravity.y + config.ExtraGravity;
+            float gravity = Physics.gravity.y + config.ExtraGravity / 10;
 
             float timeToLand = 0;
             if (Mathf.Abs(gravity) > Mathf.Epsilon)

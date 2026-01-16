@@ -158,7 +158,7 @@ namespace Infrastructure.QuestService
 
             ((ITask) currentQuest).IsDone.Subscribe(OnCurrentQuestDone);
 
-            this.Log(LogType.Log, $"Start quest {quests[currentQuestIndex].name}");
+            this.Log(LogType.Log, $"Start quest {activeQuest.Value.name}");
             currentQuest.ActiveTask.Subscribe(
                 task => this.Log(LogType.Log, $"Start task {task.GetType()}")
             );

@@ -24,6 +24,7 @@ MonoBehaviour:
         - rid: 4157762924566544388
         - rid: 4157762924566544389
         - rid: 4157762924566544390
+        - rid: 8581598594741305346
     - rid: 4157762924566544388
       type: {class: NavigationTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}
       data:
@@ -50,3 +51,8 @@ MonoBehaviour:
       data:
         description: {fileID: 11400000, guid: 2cc61aa5432ddb14b9f2bd42143d17d0, type: 2}
         targetId: 367b6841-d58d-400f-8c68-1d92f44302a1
+    - rid: 8581598594741305346
+      type: {class: DialogTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}
+      data:
+        dialogSequence: {fileID: 11400000, guid: c44f5be395a95944da33971ac2c8f42f, type: 2}
+        cameraTargetId: 

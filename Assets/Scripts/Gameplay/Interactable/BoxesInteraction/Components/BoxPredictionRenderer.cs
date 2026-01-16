@@ -7,6 +7,8 @@ namespace Gameplay.Interactable.BoxesInteraction.Components
     [RequireComponent(typeof(Box))]
     public class BoxPredictionRenderer : MonoBehaviour
     {
+        private const float Interpolation = 10;
+
         [SerializeField]
         private Rigidbody rigidbody;
 
@@ -34,13 +36,16 @@ namespace Gameplay.Interactable.BoxesInteraction.Components
             {
                 bool isVisible = boxInteractionMediator.IsPredictionVisible(out Vector3 targetPosition);
                 directionRenderer.gameObject.SetActive(isVisible);
-                directionRenderer.position = targetPosition;
+                directionRenderer.position =
+                    Vector3.Lerp(directionRenderer.position, targetPosition, Interpolation * Time.deltaTime);
             }
             else
             {
-                directionRenderer.gameObject.SetActive(box.Rigidbody.velocity.magnitude > 0);
-                directionRenderer.position =
+                directionRenderer.gameObject.SetActive(box.Rigidbody.velocity.magnitude > 5);
+                Vector3 targetPosition =
                     boxInteractionMediator.CalculateLandingPoint(box.Rigidbody.position, box.Rigidbody.velocity);
+                directionRenderer.position =
+                    Vector3.Lerp(directionRenderer.position, targetPosition, Interpolation * Time.deltaTime);
             }
         }
     }

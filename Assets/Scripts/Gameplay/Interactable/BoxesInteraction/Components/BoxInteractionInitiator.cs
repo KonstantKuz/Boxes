@@ -1,4 +1,6 @@
+using System;
 using System.Linq;
+using CMF;
 using Gameplay.Interactable.Abstract;
 using Gameplay.Interactable.BoxesInteraction.Abstract;
 using Gameplay.Interactable.BoxesInteraction.State;
@@ -16,15 +18,27 @@ namespace Gameplay.Interactable.BoxesInteraction.Components
         private UnityEvent<float> OnSpeedModifierChanged;
 
         [SerializeField]
+        private UnityEvent onBoxThrown;
+
+        [SerializeField]
         private Transform socket;
+
+        [SerializeField]
+        private Rigidbody rigidbody;
+
+        [SerializeField]
+        private AdvancedWalkerController walkerController;
 
         private IInputService inputService;
         private IBoxesInteractionMediator boxesInteractionMediator;
         private Box currentBox;
+        private IDisposable stateSubscription;
 
         uint IBoxInteractionInitiator.NetId => netId;
         Transform IBoxInteractionInitiator.Socket => socket;
         Box IBoxInteractionInitiator.CurrentBox => currentBox;
+        public Vector3 SafePosition => transform.position;
+        public AdvancedWalkerController Controller => walkerController;
 
         [Inject]
         private void Construct(IInputService inputService, IBoxesInteractionMediator boxesInteractionMediator)
@@ -77,7 +91,7 @@ namespace Gameplay.Interactable.BoxesInteraction.Components
             Box box = GetInteractablesAround(boxesInteractionMediator.Config.InteractionDistance)
                 .Select(hit => hit.GetComponent<Box>())
                 .Where(hit => hit != null)
-                .OrderByDescending(hit => Vector3.Distance(hit.transform.position, transform.position))
+                .OrderBy(hit => Vector3.Distance(hit.transform.position, transform.position))
                 .FirstOrDefault(hit => hit);
 
             if (box != null && !box.State.HasHolder)
@@ -93,6 +107,7 @@ namespace Gameplay.Interactable.BoxesInteraction.Components
 
                 currentBox = box;
                 SetSpeedModifierActive(true);
+                stateSubscription = box.StateHolder.Subscribe(OnBoxStateChanged);
             }
         }
 
@@ -101,10 +116,7 @@ namespace Gameplay.Interactable.BoxesInteraction.Components
             if (currentBox != null)
             {
                 BoxSharedState current = currentBox.StateHolder.GetState();
-
-                float y = boxesInteractionMediator.Config.ThrowForce.y;
-                float x = boxesInteractionMediator.Config.ThrowForce.x;
-                Vector3 throwVelocity = (socket.forward + Vector3.up * y) * x;
+                Vector3 throwVelocity = boxesInteractionMediator.GetThrowVelocity(this);
 
                 currentBox.StateHolder.WriteState(new BoxSharedState(
                     ownerNetId: netId,
@@ -116,6 +128,19 @@ namespace Gameplay.Interactable.BoxesInteraction.Components
 
                 currentBox = null;
                 SetSpeedModifierActive(false);
+            }
+        }
+
+        private void OnBoxStateChanged(BoxSharedState state)
+        {
+            if (state.LastActionType == BoxActionType.Throw && state.OwnerNetId == netId)
+            {
+                onBoxThrown.Invoke();
+            }
+
+            if (state.OwnerNetId == netId && state.LastActionType != BoxActionType.Hold)
+            {
+                stateSubscription?.Dispose();
             }
         }
 

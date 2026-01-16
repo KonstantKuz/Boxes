@@ -62,7 +62,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: e612641480c70ec4c8adceac5ab9ab49, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -248,7 +248,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 95e8bea57a625604ebbb456babf7a740, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -780,7 +780,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 95e8bea57a625604ebbb456babf7a740, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1265,7 +1265,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 95e8bea57a625604ebbb456babf7a740, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1505,7 +1505,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 95e8bea57a625604ebbb456babf7a740, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2450,7 +2450,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 95e8bea57a625604ebbb456babf7a740, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2889,7 +2889,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: e612641480c70ec4c8adceac5ab9ab49, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3454,6 +3454,14 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 8832ace4a2184af49b102808ce05663f, type: 2}
+    - target: {fileID: 13700000, guid: 234e7bec653fac142bf894a76905e1ac, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 95e8bea57a625604ebbb456babf7a740, type: 2}
+    - target: {fileID: 13700000, guid: 234e7bec653fac142bf894a76905e1ac, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 95e8bea57a625604ebbb456babf7a740, type: 2}
     m_RemovedComponents:
     - {fileID: 9500000, guid: 234e7bec653fac142bf894a76905e1ac, type: 3}
     m_RemovedGameObjects: []
@@ -3626,8 +3634,15 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
+  onKickSideChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  onBallKicked:
+    m_PersistentCalls:
+      m_Calls: []
   kickDirectionRoot: {fileID: 5649309328266919181}
   ballSocket: {fileID: 5649309328266919181}
+  rigidbody: {fileID: 0}
 --- !u!4 &7290255426679919891 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 234e7bec653fac142bf894a76905e1ac, type: 3}
@@ -4038,6 +4053,14 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 8832ace4a2184af49b102808ce05663f, type: 2}
+    - target: {fileID: 13700000, guid: 234e7bec653fac142bf894a76905e1ac, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 95e8bea57a625604ebbb456babf7a740, type: 2}
+    - target: {fileID: 13700000, guid: 234e7bec653fac142bf894a76905e1ac, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 95e8bea57a625604ebbb456babf7a740, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -4269,8 +4292,15 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
+  onKickSideChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  onBallKicked:
+    m_PersistentCalls:
+      m_Calls: []
   kickDirectionRoot: {fileID: 2563437909250343001}
   ballSocket: {fileID: 2563437909250343001}
+  rigidbody: {fileID: 0}
 --- !u!114 &5363516387387991696
 MonoBehaviour:
   m_ObjectHideFlags: 0

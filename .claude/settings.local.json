@@ -3,7 +3,9 @@
     "allow": [
       "Bash(mkdir:*)",
       "Bash(uuidgen)",
-      "Bash(tree:*)"
+      "Bash(tree:*)",
+      "WebFetch(domain:docs.unity3d.com)",
+      "WebSearch"
     ],
     "deny": [],
     "ask": []

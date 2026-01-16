@@ -1,5 +1,6 @@
-﻿using Gameplay.Interactable.BoxesInteraction.Abstract;
+using Gameplay.Interactable.BoxesInteraction.Abstract;
 using Gameplay.Interactable.BoxesInteraction.State;
+using Infrastructure.Extensions;
 using Infrastructure.Network.Abstract;
 using Mirror;
 using Reflex.Attributes;
@@ -17,6 +18,12 @@ namespace Gameplay.Interactable.BoxesInteraction.Components
 
         [SerializeField]
         private new Collider collider;
+
+        [SerializeField]
+        private LayerMask penetrationTestMask;
+
+        [SerializeField]
+        private AttachableObject attachableObject;
 
         private INetworkService networkService;
         private IBoxesInteractionMediator boxesInteractionMediator;
@@ -65,6 +72,11 @@ namespace Gameplay.Interactable.BoxesInteraction.Components
             }
         }
 
+        public void Attach(Rigidbody target, Vector3? anchorPoint = null)
+        {
+            attachableObject.Attach(target, anchorPoint);
+        }
+
         private void OnStateChangedServer(BoxSharedState newState)
         {
             if (!isServer)
@@ -105,14 +117,23 @@ namespace Gameplay.Interactable.BoxesInteraction.Components
         {
             switch (state.LastActionType)
             {
+                case BoxActionType.Hold:
+                    ApplyHoldPhysics(state);
+                    break;
                 case BoxActionType.Throw:
                     ApplyThrowPhysics(state);
                     break;
             }
         }
 
+        private void ApplyHoldPhysics(BoxSharedState state)
+        {
+            Attach(null);
+        }
+
         private void ApplyThrowPhysics(BoxSharedState state)
         {
+            Attach(null);
             rigidbody.velocity = state.ThrowVelocity;
         }
 
@@ -129,7 +150,19 @@ namespace Gameplay.Interactable.BoxesInteraction.Components
 
             if (hasValidHolder)
             {
-                rigidbody.MovePosition(holdInitiator.Socket.position);
+                Vector3 safePosition = holdInitiator.Controller.transform.position;
+                safePosition.y = holdInitiator.Socket.position.y;
+
+                Vector3 targetPosition = holdInitiator.Socket.position;
+
+                Vector3 resultPosition = CollisionExtension.ResolvePenetration(
+                    safePosition,
+                    targetPosition,
+                    collider.bounds.extents.magnitude,
+                    penetrationTestMask
+                );
+
+                rigidbody.MovePosition(resultPosition);
             }
         }
     }

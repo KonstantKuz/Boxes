@@ -12,6 +12,7 @@ namespace Gameplay.RoadSystem
         [Header("References")]
         public RoadSystem roadSystem;
         public Transform targetTransform;
+        [SerializeField] private Rigidbody carRigidbody;
 
         [Header("Movement")]
         public float speed = 5f;
@@ -52,7 +53,6 @@ namespace Gameplay.RoadSystem
             if (!value)
             {
                 isDriving = false;
-                isInitialized = false;
                 return;
             }
 
@@ -62,8 +62,20 @@ namespace Gameplay.RoadSystem
                 return;
             }
 
+            bool wasAlreadyDriving = isDriving;
             isDriving = true;
-            isInitialized = false;
+
+            if (targetTransform != null && hasReachedTarget)
+            {
+                hasReachedTarget = false;
+            }
+
+            if (!wasAlreadyDriving && isInitialized && currentEdge != null)
+            {
+                Spline spline = roadSystem.Container.Splines[currentEdge.SplineIndex];
+                float newT = FindClosestTOnSpline(spline, transform.position, startT, endT);
+                currentT = Mathf.Clamp(newT, Mathf.Min(startT, endT), Mathf.Max(startT, endT));
+            }
         }
 
         public void SetTarget(Transform target)
@@ -74,13 +86,9 @@ namespace Gameplay.RoadSystem
             targetEdge = null;
         }
 
-        private void OnEnable()
+        public void RemoveTarget()
         {
-            if (isInitialized && currentEdge != null && roadSystem != null)
-            {
-                Spline spline = roadSystem.Container.Splines[currentEdge.SplineIndex];
-                currentT = FindClosestTOnSpline(spline, transform.position, startT, endT);
-            }
+            targetTransform = null;
         }
 
         private void Update()
@@ -101,7 +109,20 @@ namespace Gameplay.RoadSystem
                 return;
             }
 
-            UpdateDriving();
+            if (carRigidbody == null)
+            {
+                UpdateDriving(Time.deltaTime);
+            }
+        }
+
+        private void FixedUpdate()
+        {
+            if (!isDriving || !isInitialized || carRigidbody == null)
+            {
+                return;
+            }
+
+            UpdateDriving(Time.fixedDeltaTime);
         }
 
         private void InitializeDriving()
@@ -170,7 +191,7 @@ namespace Gameplay.RoadSystem
             isInitialized = true;
         }
 
-        private void UpdateDriving()
+        private void UpdateDriving(float deltaTime)
         {
             if (currentEdge == null)
             {
@@ -187,27 +208,37 @@ namespace Gameplay.RoadSystem
                 return;
             }
 
-            if (!isFirstEdge)
-            {
-                float tStep = (speed * Time.deltaTime) / splineLength * Mathf.Abs(endT - startT);
-                currentT += tStep * direction;
-            }
-            else
-            {
-                isFirstEdge = false;
-            }
+            float tStep = (speed * deltaTime) / splineLength * Mathf.Abs(endT - startT);
+            currentT += tStep * direction;
 
             Vector3 centerPosition = roadSystem.transform.TransformPoint(spline.EvaluatePosition(currentT));
             Vector3 tangent = GetTangentAtT(spline, currentT, direction);
 
             Vector3 right = Vector3.Cross(Vector3.up, tangent).normalized;
             centerPosition += right * laneOffset;
-            transform.position = centerPosition;
+
+            if (carRigidbody != null)
+            {
+                carRigidbody.MovePosition(centerPosition);
+            }
+            else
+            {
+                transform.position = centerPosition;
+            }
 
             if (tangent.sqrMagnitude > 0.001f)
             {
                 Quaternion targetRotation = Quaternion.LookRotation(tangent);
-                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+                Quaternion newRotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * deltaTime);
+
+                if (carRigidbody != null)
+                {
+                    carRigidbody.MoveRotation(newRotation);
+                }
+                else
+                {
+                    transform.rotation = newRotation;
+                }
             }
 
             RoadSystem.Node targetNode = currentEdge.GetOther(currentNode);
@@ -257,7 +288,16 @@ namespace Gameplay.RoadSystem
                 Vector3 centerPosition = roadSystem.transform.TransformPoint(spline.EvaluatePosition(currentT));
                 Vector3 right = Vector3.Cross(Vector3.up, GetTangentAtT(spline, currentT, movingForward ? 1f : -1f)).normalized;
                 centerPosition += right * laneOffset;
-                transform.position = centerPosition;
+
+                if (carRigidbody != null)
+                {
+                    carRigidbody.MovePosition(centerPosition);
+                }
+                else
+                {
+                    transform.position = centerPosition;
+                }
+
                 return true;
             }
 

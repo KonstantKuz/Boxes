@@ -619,6 +619,7 @@ MonoBehaviour:
         - {fileID: 11400000, guid: 42c68652f0f2fbb4a98057bd1627798f, type: 2}
         - {fileID: 11400000, guid: 60bea5091c2027c4bba6d68b308fda34, type: 2}
         - {fileID: 11400000, guid: 2d327587dd18f5f468916250ab4f9cbf, type: 2}
+        - {fileID: 11400000, guid: 0c9e5ddb53248364498d9f4252d15602, type: 2}
 --- !u!114 &7663389876828686202
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1004,8 +1005,7 @@ MonoBehaviour:
     RefIds:
     - rid: 8581598346659495945
       type: {class: PushableObjectInteractionMediator, ns: Configuration.Mediator, asm: Boxes}
-      data:
-        interactionDistance: 3
+      data: 
 --- !u!1 &7830207652544701322
 GameObject:
   m_ObjectHideFlags: 0

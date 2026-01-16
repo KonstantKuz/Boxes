@@ -1,4 +1,5 @@
-﻿using Gameplay.Interactable.BoxesInteraction.Components;
+﻿using CMF;
+using Gameplay.Interactable.BoxesInteraction.Components;
 using UnityEngine;
 
 namespace Gameplay.Interactable.BoxesInteraction.Abstract
@@ -8,5 +9,6 @@ namespace Gameplay.Interactable.BoxesInteraction.Abstract
         uint NetId { get; }
         Transform Socket { get; }
         Box CurrentBox { get; }
+        AdvancedWalkerController Controller { get; }
     }
 }

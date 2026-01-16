@@ -41,6 +41,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - Dialog
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 28736839af968b54aa53ea583dd223b6
+    m_Address: Assets/Prefabs/Game/Quests/9.GetCarDocs/Dialogs/9.1.GoodJob.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Dialog
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 3f42cefe4f3344b499935b820f10ee42
     m_Address: Assets/Prefabs/Game/Quests/8.SeekTheTrader/Dialogs/8.2.Stop.asset
     m_ReadOnly: 0

@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a3302517e334611b8ca3e20f19d998c, type: 3}
+  m_Name: 11.FollowTheVan
+  m_EditorClassIdentifier: 
+  taskSequence:
+    rid: 8581598594741305347
+  references:
+    version: 2
+    RefIds:
+    - rid: 8581598594741305347
+      type: {class: TaskSequence, ns: Infrastructure.QuestService.Abstract, asm: Boxes}
+      data:
+        tasks:
+        - rid: 8581598594741305349
+        - rid: 8581598594741305351
+        - rid: 8581598594741305352
+        - rid: 8581598594741305353
+    - rid: 8581598594741305349
+      type: {class: RaiseEvent, ns: Configuration.QuestTasks.Shared, asm: Boxes}
+      data:
+        targetId: 979a05d5-dbf1-48be-bc68-9361dcd86015
+    - rid: 8581598594741305351
+      type: {class: LoadBoxesTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}
+      data:
+        description: {fileID: 11400000, guid: 62775603fe671c14b971ac2c628b8787, type: 2}
+        sourceStorageId: 20f8d407-07c1-4d79-a4d5-31dc1ebe3706
+        targetStorageId: 4b19918f-02bb-4534-9a84-f33521d9993a
+    - rid: 8581598594741305352
+      type: {class: RaiseEvent, ns: Configuration.QuestTasks.Shared, asm: Boxes}
+      data:
+        targetId: 9dab0802-351a-4a51-9481-d4de4549205f
+    - rid: 8581598594741305353
+      type: {class: ShowMarkerTask, ns: Configuration.QuestTasks.Shared, asm: Boxes}
+      data:
+        targetId: 608c6799-728c-42cd-b304-ec8b07f80e80
