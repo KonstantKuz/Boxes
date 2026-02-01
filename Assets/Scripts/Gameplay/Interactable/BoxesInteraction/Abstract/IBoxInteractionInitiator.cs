@@ -10,5 +10,6 @@ namespace Gameplay.Interactable.BoxesInteraction.Abstract
         Transform Socket { get; }
         Box CurrentBox { get; }
         AdvancedWalkerController Controller { get; }
+        bool IsAimPressed { get; }
     }
 }

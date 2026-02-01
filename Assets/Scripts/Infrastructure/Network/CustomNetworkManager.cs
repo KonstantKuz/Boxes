@@ -1,8 +1,10 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Infrastructure.Bootstrap;
 using Infrastructure.Components;
+using Infrastructure.InputService.Abstract;
 using Infrastructure.Network.Abstract;
 using Infrastructure.Network.State;
 using Mirror;
@@ -15,9 +17,10 @@ using UnityEngine.SceneManagement;
 
 namespace Infrastructure.Network
 {
-    public class CustomNetworkManager : NetworkManager, IPostBuildInjectable, INetworkFactory, INetworkManager, IInitializable, IDisposable
+    public partial class CustomNetworkManager : NetworkManager, IPostBuildInjectable, INetworkFactory, INetworkManager, IInitializable, IDisposable
     {
         private INetworkStateHolder<ConnectionState> connectionStateHolder;
+        private IInputService inputService;
         private ReactiveProperty<ConnectionState> stateReactive;
         private IDisposable stateSubscription;
 
@@ -36,9 +39,10 @@ namespace Infrastructure.Network
         ReadOnlyReactiveProperty<ConnectionState> INetworkManager.ConnectionState => stateReactive;
 
         [Inject]
-        private void Construct(INetworkStateHolder<ConnectionState> connectionStateHolder)
+        private void Construct(INetworkStateHolder<ConnectionState> connectionStateHolder, IInputService inputService)
         {
             this.connectionStateHolder = connectionStateHolder;
+            this.inputService = inputService;
 
             localSpawnStream = new ReactiveCommand<Unit>();
             stateReactive = new ReactiveProperty<ConnectionState>(ConnectionState.Default);
@@ -66,11 +70,13 @@ namespace Infrastructure.Network
             player.name = $"{playerPrefab.name} [connId={conn.connectionId}]";
             NetworkServer.AddPlayerForConnection(conn, player);
 
-            uint netId = player.GetComponent<NetworkIdentity>().netId;
+            players.TryAdd(conn.identity.netId, conn.identity);
 
             ConnectionState connectionState = connectionStateHolder.GetState();
-            connectionState.Players?.Add(netId);
+            connectionState.Players?.Add(conn.identity.netId);
             connectionStateHolder.WriteState(connectionState);
+
+            Debug.Log($"OnServerAddPlayer: Registered player netId={conn.identity.netId}, Players={string.Join(",", connectionState.Players ?? new HashSet<uint>())}");
         }
 
         protected override void RegisterClientMessages()
@@ -119,11 +125,6 @@ namespace Infrastructure.Network
 
             spawned.gameObject.SetActive(wasPrefabActive);
 
-            if (prefab == playerPrefab && spawned.TryGetComponent(out NetworkIdentity networkIdentity))
-            {
-                players.TryAdd(networkIdentity.netId, networkIdentity);
-            }
-
             return spawned;
         }
 
@@ -138,6 +139,35 @@ namespace Infrastructure.Network
                 localSpawnStream.Execute(Unit.Default);
                 previousSpawnedObjectsCount = spawnedObjectsCount;
             }
+        }
+
+        public void SpawnLocalPlayer()
+        {
+            if (!NetworkServer.active)
+            {
+                Debug.LogError("SpawnLocalPlayer: NetworkServer is not active");
+                return;
+            }
+
+            Transform startPoint = GetStartPosition();
+            Vector3 startPosition = startPoint?.position ?? Vector3.zero;
+            Quaternion startRotation = startPoint?.rotation ?? Quaternion.identity;
+
+            GameObject player = Spawn(playerPrefab, startPosition, startRotation);
+            NetworkIdentity identity = player.GetComponent<NetworkIdentity>();
+
+            NetworkServer.Spawn(player, NetworkServer.localConnection);
+
+            uint netId = identity.netId;
+            player.name = $"{playerPrefab.name} [Local Player {netId}]";
+
+            players.TryAdd(netId, identity);
+
+            ConnectionState connectionState = connectionStateHolder.GetState();
+            connectionState.Players?.Add(netId);
+            connectionStateHolder.WriteState(connectionState);
+
+            Debug.Log($"SpawnLocalPlayer: Registered player netId={netId}, Players={string.Join(",", connectionState.Players ?? new HashSet<uint>())}");
         }
 
         // public override void OnClientSceneChanged()

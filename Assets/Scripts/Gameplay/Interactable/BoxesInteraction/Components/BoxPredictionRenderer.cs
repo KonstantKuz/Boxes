@@ -34,10 +34,14 @@ namespace Gameplay.Interactable.BoxesInteraction.Components
         {
             if (box && directionRenderer && box.State.HasHolder)
             {
-                bool isVisible = boxInteractionMediator.IsPredictionVisible(out Vector3 targetPosition);
-                directionRenderer.gameObject.SetActive(isVisible);
-                directionRenderer.position =
-                    Vector3.Lerp(directionRenderer.position, targetPosition, Interpolation * Time.deltaTime);
+                uint holderNetId = box.State.HolderNetId;
+                if (boxInteractionMediator.Initiators.TryGetValue(holderNetId, out IBoxInteractionInitiator holder))
+                {
+                    bool isVisible = boxInteractionMediator.IsPredictionVisible(holder, out Vector3 targetPosition);
+                    directionRenderer.gameObject.SetActive(isVisible);
+                    directionRenderer.position =
+                        Vector3.Lerp(directionRenderer.position, targetPosition, Interpolation * Time.deltaTime);
+                }
             }
             else
             {

@@ -7,6 +7,7 @@ using Infrastructure.Network.Abstract;
 using Infrastructure.Network.State;
 using Infrastructure.QuestService.Abstract;
 using Infrastructure.QuestService.State;
+using Mirror;
 using R3;
 using Reflex.Attributes;
 using Reflex.Core;
@@ -138,12 +139,15 @@ namespace Infrastructure.QuestService
 
                 if (questStateHolder.GetState().RestartRequired)
                 {
-                    if (networkFactory.LocalPlayer.TryGetComponent(out Rigidbody rigidbody))
+                    foreach (NetworkIdentity playerEntry in networkFactory.Players.Values)
                     {
-                        rigidbody.velocity = Vector3.zero;
-                        rigidbody.angularVelocity = Vector3.zero;
-                        rigidbody.MovePosition(root.Spawn.position);
-                        rigidbody.MoveRotation(root.Spawn.rotation);
+                        if (playerEntry.isOwned && playerEntry.TryGetComponent(out Rigidbody rigidbody))
+                        {
+                            rigidbody.velocity = Vector3.zero;
+                            rigidbody.angularVelocity = Vector3.zero;
+                            rigidbody.MovePosition(root.Spawn.position);
+                            rigidbody.MoveRotation(root.Spawn.rotation);
+                        }
                     }
                 }
             }

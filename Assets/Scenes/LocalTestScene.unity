@@ -206,10 +206,10 @@ MonoBehaviour:
   editorAutoStart: 0
   sendRate: 60
   offlineScene: Assets/Scenes/LocalTestScene.unity
-  onlineScene: Assets/Scenes/CityScene 1.unity
+  onlineScene: Assets/Scenes/CityScene 2.unity
   offlineSceneLoadDelay: 0
   transport: {fileID: 1208961425}
-  networkAddress: 26.180.46.63
+  networkAddress: localhost
   maxConnections: 100
   disconnectInactiveConnections: 0
   disconnectInactiveTimeout: 60

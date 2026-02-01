@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Infrastructure.Network.Abstract;
@@ -34,9 +35,35 @@ namespace Gameplay.Player
             this.networkManager = networkManager;
         }
 
-        private void Awake()
+        private IDisposable connectionStateSubscription;
+
+        private void Start()
         {
-            networkManager.ConnectionState.Subscribe(UpdateColor);
+            InitializeSkinsNetworkAnimators();
+
+            connectionStateSubscription = networkManager.ConnectionState.Subscribe(UpdateColor);
+
+            if (netId != 0)
+            {
+                UpdateColor(networkManager.ConnectionState.CurrentValue);
+            }
+        }
+
+        private void OnDestroy()
+        {
+            connectionStateSubscription?.Dispose();
+        }
+
+        private void InitializeSkinsNetworkAnimators()
+        {
+            for (int i = 0; i < skins.Count; i++)
+            {
+                NetworkAnimator networkAnimator = skins[i].GetComponent<NetworkAnimator>();
+                if (networkAnimator != null)
+                {
+                    networkAnimator.enabled = skins[i].activeSelf;
+                }
+            }
         }
 
         private void UpdateColor(ConnectionState state)
@@ -53,16 +80,24 @@ namespace Gameplay.Player
 
             if (indexById.TryGetValue(netId, out int skinId) && skins.Count >= skinId)
             {
-                for (var i = 0; i < skins.Count; i++)
+                for (int i = 0; i < skins.Count; i++)
                 {
-                    skins[i].SetActive(i == skinId);
+                    bool isActiveSkin = i == skinId;
+
+                    NetworkAnimator networkAnimator = skins[i].GetComponent<NetworkAnimator>();
+                    if (networkAnimator != null)
+                    {
+                        networkAnimator.enabled = isActiveSkin;
+                    }
+
+                    skins[i].SetActive(isActiveSkin);
                 }
             }
         }
 
         public override void OnStartClient()
         {
-            if (!isLocalPlayer)
+            if (!isOwned)
             {
                 foreach (Component localComponent in destroyComponents)
                 {

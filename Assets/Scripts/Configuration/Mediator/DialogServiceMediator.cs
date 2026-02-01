@@ -10,13 +10,13 @@ using Infrastructure.DialogService.Command;
 using Infrastructure.DialogService.State;
 using Infrastructure.InputService.Abstract;
 using Infrastructure.Network.Abstract;
+using Infrastructure.Network.State;
 using Infrastructure.WindowService.Abstract;
 using Mirror;
 using R3;
 using Reflex.Attributes;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
-using UnityEngine.InputSystem;
 
 namespace Configuration.Mediator
 {
@@ -27,29 +27,40 @@ namespace Configuration.Mediator
         private WindowType dialogWindowType;
 
         private INetworkService networkService;
+        private INetworkManager networkManager;
+        private INetworkFactory networkFactory;
         private IWindowService windowService;
         private IInputService inputService;
         private INetworkStateHolder<DialogState> dialogStateHolder;
 
         private Dictionary<Guid, DialogSequence> dialogsMap;
+        private Dictionary<uint, DialogLocalPlayer> localPlayers;
 
         [Inject]
         private void Construct(
             INetworkService networkService,
+            INetworkManager networkManager,
+            INetworkFactory networkFactory,
             IWindowService windowService,
             IInputService inputService,
             INetworkStateHolder<DialogState> dialogStateHolder
         )
         {
             this.networkService = networkService;
+            this.networkManager = networkManager;
+            this.networkFactory = networkFactory;
             this.windowService = windowService;
             this.inputService = inputService;
             this.dialogStateHolder = dialogStateHolder;
+
+            localPlayers = new Dictionary<uint, DialogLocalPlayer>();
         }
 
         void IInitializable.Initialize()
         {
             LoadDialogsAsync().Forget();
+
+            networkManager.ConnectionState.Subscribe(OnConnectionStateChanged);
 
             networkService.ObserveToReact<StartDialogCommand>(StartLocalDialog);
             networkService.ObserveToReact<StopDialogCommand>(StopLocalDialog);
@@ -57,6 +68,27 @@ namespace Configuration.Mediator
             networkService.ObserveToExecute<StartDialogCommand>(CreateDialogState);
             networkService.ObserveToExecute<ReadyDialogCommand>(UpdateDialogState);
             networkService.ObserveToExecute<StopDialogCommand>(CleanDialogState);
+        }
+
+        private void OnConnectionStateChanged(ConnectionState state)
+        {
+            foreach (uint netId in state.Players.Where(id => !localPlayers.ContainsKey(id)))
+            {
+                if (networkFactory.Players.TryGetValue(netId, out NetworkIdentity identity) && identity.isOwned)
+                {
+                    GameInputActions actions = inputService.GetInput(netId);
+                    if (actions != null)
+                    {
+                        localPlayers[netId] = new DialogLocalPlayer(netId, actions, networkService);
+                    }
+                }
+            }
+
+            foreach (uint netId in localPlayers.Keys.Where(id => !state.Players.Contains(id)).ToList())
+            {
+                localPlayers[netId].Dispose();
+                localPlayers.Remove(netId);
+            }
         }
 
         private async UniTask LoadDialogsAsync()
@@ -89,19 +121,22 @@ namespace Configuration.Mediator
         {
             windowService.ShowWindow(dialogWindowType.Id);
             inputService.SwitchToDialogContext();
-            inputService.DialogContextActions.Next.performed += OnLocalPlayerReady;
-        }
 
-        private void OnLocalPlayerReady(InputAction.CallbackContext context)
-        {
-            networkService.SendCommand(new ReadyDialogCommand {InitiatorId = NetworkClient.localPlayer.netId});
+            foreach (DialogLocalPlayer player in localPlayers.Values)
+            {
+                player.StartDialog();
+            }
         }
 
         private void StopLocalDialog(StopDialogCommand command)
         {
             windowService.HideWindow(dialogWindowType.Id);
             inputService.SwitchToDefaultContext();
-            inputService.DialogContextActions.Next.performed -= OnLocalPlayerReady;
+
+            foreach (DialogLocalPlayer player in localPlayers.Values)
+            {
+                player.StopDialog();
+            }
         }
 
         private void UpdateDialogState(ReadyDialogCommand command)
@@ -138,6 +173,49 @@ namespace Configuration.Mediator
         private void CleanDialogState(StopDialogCommand command)
         {
             dialogStateHolder.WriteState(DialogState.Default);
+        }
+
+        private class DialogLocalPlayer : IDisposable
+        {
+            private readonly uint netId;
+            private readonly GameInputActions actions;
+            private readonly INetworkService networkService;
+            private bool isDialogActive;
+
+            public DialogLocalPlayer(uint netId, GameInputActions actions, INetworkService networkService)
+            {
+                this.netId = netId;
+                this.actions = actions;
+                this.networkService = networkService;
+            }
+
+            public void StartDialog()
+            {
+                if (!isDialogActive)
+                {
+                    isDialogActive = true;
+                    actions.DialogContext.Next.performed += OnNextPressed;
+                }
+            }
+
+            public void StopDialog()
+            {
+                if (isDialogActive)
+                {
+                    isDialogActive = false;
+                    actions.DialogContext.Next.performed -= OnNextPressed;
+                }
+            }
+
+            private void OnNextPressed(UnityEngine.InputSystem.InputAction.CallbackContext context)
+            {
+                networkService.SendCommand(new ReadyDialogCommand { InitiatorId = netId });
+            }
+
+            public void Dispose()
+            {
+                StopDialog();
+            }
         }
     }
 }

@@ -11,7 +11,8 @@ namespace Gameplay.Interactable.BoxesInteraction.Abstract
         IReadOnlyDictionary<uint, IBoxInteractionInitiator> Initiators { get; }
         void RegisterInitiator(IBoxInteractionInitiator initiator, bool isLocal);
         Vector3 GetThrowVelocity(IBoxInteractionInitiator initiator);
-        bool IsPredictionVisible(out Vector3 targetPosition);
+        bool IsPredictionVisible(IBoxInteractionInitiator initiator, out Vector3 targetPosition);
         Vector3 CalculateLandingPoint(Vector3 startPosition, Vector3 initialVelocity);
+        bool IsLocalInitiator(uint netId);
     }
 }

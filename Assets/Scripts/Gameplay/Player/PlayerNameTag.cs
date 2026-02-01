@@ -14,10 +14,7 @@ namespace Gameplay.Player
 
         public override void OnStartLocalPlayer()
         {
-            if (isLocalPlayer)
-            {
-                CmdSetPlayerName(SteamClient.Name);
-            }
+            CmdSetPlayerName(SteamClient.Name);
         }
 
         [Command]

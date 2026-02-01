@@ -48,13 +48,11 @@ namespace Infrastructure.Cheats
 
             if (isActive)
             {
-                inputService.DefaultContextActions.Disable();
-                inputService.DialogContextActions.Disable();
+                inputService.DisableAllInputs();
             }
             else
             {
-                inputService.DefaultContextActions.Enable();
-                inputService.DialogContextActions.Enable();
+                inputService.EnableAllInputs();
             }
         }
 

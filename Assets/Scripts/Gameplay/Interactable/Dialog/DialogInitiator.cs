@@ -1,4 +1,4 @@
-﻿using System.Linq;
+using System.Linq;
 using Gameplay.Interactable.Abstract;
 using Infrastructure.InputService.Abstract;
 using Reflex.Attributes;
@@ -7,36 +7,22 @@ using UnityEngine.InputSystem;
 
 namespace Gameplay.Interactable.Dialog
 {
-    public class DialogInitiator : InteractionInitiatorBase
+    public class DialogInitiator : InputAwareInteractionInitiator
     {
         [SerializeField]
         private float interactionDistance;
 
-        private IInputService inputService;
-
-        [Inject]
-        private void Construct(IInputService inputService)
+        protected override void SubscribeSelfInput(GameInputActions actions)
         {
-            this.inputService = inputService;
+            actions.DefaultContext.Interact.performed += TryInteract;
         }
 
-        public override void OnStartLocalPlayer()
+        protected override void OnUnsubscribeSelfInput(GameInputActions actions)
         {
-            if (isLocalPlayer)
-            {
-                inputService.DefaultContextActions.Interact.performed += TryInteract;
-            }
+            actions.DefaultContext.Interact.performed -= TryInteract;
         }
 
-        public override void OnStopLocalPlayer()
-        {
-            if (isLocalPlayer)
-            {
-                inputService.DefaultContextActions.Interact.performed -= TryInteract;
-            }
-        }
-
-        private void TryInteract(InputAction.CallbackContext ctx)
+        private void TryInteract(InputAction.CallbackContext context)
         {
             DialogOwner dialogOwner = GetInteractablesAround(interactionDistance)
                 .Select(hit => hit.GetComponent<DialogOwner>())

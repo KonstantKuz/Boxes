@@ -1,5 +1,6 @@
 #if DEBUG
 using Gameplay.Interactable.BallInteraction;
+using Gameplay.Interactable.BallInteraction.Abstract;
 using Gameplay.Interactable.BallInteraction.State;
 using Infrastructure.Cheats;
 using Infrastructure.Network.Components;
@@ -25,14 +26,21 @@ namespace Configuration.Mediator
         {
             if (GUILayout.Button("Get ball"))
             {
+                if (localInitiators.Count == 0)
+                {
+                    Debug.LogWarning("No local initiators available");
+                    return;
+                }
+
+                IBallInteractionInitiator firstLocalInitiator = localInitiators[0];
                 ball.GetComponent<NetworkStateHelper>().CmdSetActive(true);
 
                 BallSharedState current = ball.StateHolder.GetState();
 
                 ball.StateHolder.WriteState(new BallSharedState(
                     kicksCount: 0,
-                    ownerNetId: localInitiator.NetId,
-                    holderNetId: localInitiator.NetId,
+                    ownerNetId: firstLocalInitiator.NetId,
+                    holderNetId: firstLocalInitiator.NetId,
                     lastActionId: current.LastActionId + 1,
                     lastActionType: BallActionType.Hold,
                     lastKickDirection: current.LastKickDirection,

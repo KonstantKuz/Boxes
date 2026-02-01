@@ -80,8 +80,7 @@ namespace Gameplay.Interactable.BallInteraction.Components
 
                 rigidbody.isKinematic = collider.isTrigger = isKinematic;
 
-                IBallInteractionInitiator localInitiator = ballInteractionMediator.LocalInitiator;
-                bool isLocal = localInitiator != null && newState.OwnerNetId == localInitiator.NetId;
+                bool isLocal = ballInteractionMediator.IsLocalInitiator(newState.OwnerNetId);
 
                 if (isOwned && isLocal)
                 {

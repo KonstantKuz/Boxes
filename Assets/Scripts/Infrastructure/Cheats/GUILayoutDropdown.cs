@@ -20,7 +20,7 @@ namespace Infrastructure.Cheats
                 throw new ArgumentException("Dropdown items cannot be null or empty");
 
             this.items = items;
-            this.labels = new string[items.Length];
+            labels = new string[items.Length];
 
             for (int i = 0; i < items.Length; i++)
             {

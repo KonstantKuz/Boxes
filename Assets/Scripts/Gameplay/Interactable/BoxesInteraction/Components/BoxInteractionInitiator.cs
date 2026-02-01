@@ -5,6 +5,7 @@ using Gameplay.Interactable.Abstract;
 using Gameplay.Interactable.BoxesInteraction.Abstract;
 using Gameplay.Interactable.BoxesInteraction.State;
 using Infrastructure.InputService.Abstract;
+using R3;
 using Reflex.Attributes;
 using UnityEngine;
 using UnityEngine.Events;
@@ -12,7 +13,7 @@ using UnityEngine.InputSystem;
 
 namespace Gameplay.Interactable.BoxesInteraction.Components
 {
-    public class BoxInteractionInitiator : InteractionInitiatorBase, IBoxInteractionInitiator
+    public class BoxInteractionInitiator : InputAwareInteractionInitiator, IBoxInteractionInitiator
     {
         [SerializeField]
         private UnityEvent<float> OnSpeedModifierChanged;
@@ -29,7 +30,6 @@ namespace Gameplay.Interactable.BoxesInteraction.Components
         [SerializeField]
         private AdvancedWalkerController walkerController;
 
-        private IInputService inputService;
         private IBoxesInteractionMediator boxesInteractionMediator;
         private Box currentBox;
         private IDisposable stateSubscription;
@@ -39,38 +39,32 @@ namespace Gameplay.Interactable.BoxesInteraction.Components
         Box IBoxInteractionInitiator.CurrentBox => currentBox;
         public Vector3 SafePosition => transform.position;
         public AdvancedWalkerController Controller => walkerController;
+        bool IBoxInteractionInitiator.IsAimPressed => selfInput?.DefaultContext.Aim.IsPressed() ?? false;
 
         [Inject]
-        private void Construct(IInputService inputService, IBoxesInteractionMediator boxesInteractionMediator)
+        private void ConstructBox(IBoxesInteractionMediator boxesInteractionMediator)
         {
-            this.inputService = inputService;
             this.boxesInteractionMediator = boxesInteractionMediator;
         }
 
-        public override void OnStartClient()
+        protected override void OnStartClientInitiator()
         {
-            boxesInteractionMediator.RegisterInitiator(this, isLocalPlayer);
+            boxesInteractionMediator.RegisterInitiator(this, isOwned);
         }
 
-        public override void OnStartLocalPlayer()
+        protected override void SubscribeSelfInput(GameInputActions actions)
         {
-            if (isLocalPlayer)
-            {
-                inputService.DefaultContextActions.Take.performed += TryHoldOrRelease;
-                inputService.DefaultContextActions.Action.performed += TryThrow;
-            }
+            actions.DefaultContext.Take.performed += TryHoldOrRelease;
+            actions.DefaultContext.Action.performed += TryThrow;
         }
 
-        public override void OnStopLocalPlayer()
+        protected override void OnUnsubscribeSelfInput(GameInputActions actions)
         {
-            if (isLocalPlayer)
-            {
-                inputService.DefaultContextActions.Take.performed -= TryHoldOrRelease;
-                inputService.DefaultContextActions.Action.performed -= TryThrow;
-            }
+            actions.DefaultContext.Take.performed -= TryHoldOrRelease;
+            actions.DefaultContext.Action.performed -= TryThrow;
         }
 
-        private void TryHoldOrRelease(InputAction.CallbackContext ctx)
+        private void TryHoldOrRelease(InputAction.CallbackContext context)
         {
             if (currentBox != null)
             {
@@ -111,7 +105,7 @@ namespace Gameplay.Interactable.BoxesInteraction.Components
             }
         }
 
-        private void TryThrow(InputAction.CallbackContext ctx)
+        private void TryThrow(InputAction.CallbackContext context)
         {
             if (currentBox != null)
             {

@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using Gameplay.Interactable.Abstract;
 using Gameplay.Interactable.BoxesInteraction;
 using Gameplay.Interactable.BoxesInteraction.Abstract;
-using Infrastructure.InputService.Abstract;
 using Reflex.Attributes;
 using UnityEngine;
 using UnityEngine.AI;
@@ -10,34 +10,23 @@ using UnityEngine.AI;
 namespace Configuration.Mediator
 {
     [Serializable]
-    public class BoxesInteractionMediator : IBoxesInteractionMediator
+    public class BoxesInteractionMediator : InteractionMediatorBase<IBoxInteractionInitiator>, IBoxesInteractionMediator
     {
         [SerializeField]
         private BoxesInteractionConfig config;
-
-        private IInputService inputService;
-
-        private IBoxInteractionInitiator localInitiator;
-        private Dictionary<uint, IBoxInteractionInitiator> initiators = new();
 
         BoxesInteractionConfig IBoxesInteractionMediator.Config => config;
         IBoxInteractionInitiator IBoxesInteractionMediator.LocalInitiator => localInitiator;
         IReadOnlyDictionary<uint, IBoxInteractionInitiator> IBoxesInteractionMediator.Initiators => initiators;
 
         [Inject]
-        private void Construct(IInputService inputService)
+        private void Construct()
         {
-            this.inputService = inputService;
         }
 
         void IBoxesInteractionMediator.RegisterInitiator(IBoxInteractionInitiator initiator, bool isLocal)
         {
-            if (isLocal)
-            {
-                localInitiator = initiator;
-            }
-
-            initiators.Add(initiator.NetId, initiator);
+            RegisterInitiatorInternal(initiator, initiator.NetId, isLocal);
         }
 
         Vector3 IBoxesInteractionMediator.GetThrowVelocity(IBoxInteractionInitiator initiator)
@@ -49,21 +38,21 @@ namespace Configuration.Mediator
             return targetVelocity;
         }
 
-        bool IBoxesInteractionMediator.IsPredictionVisible(out Vector3 targetPosition)
+        bool IBoxesInteractionMediator.IsPredictionVisible(IBoxInteractionInitiator initiator, out Vector3 targetPosition)
         {
             targetPosition = Vector3.zero;
 
-            if (localInitiator == null || localInitiator.CurrentBox == null)
+            if (initiator == null || initiator.CurrentBox == null)
             {
                 return false;
             }
 
-            Vector3 initialVelocity = ((IBoxesInteractionMediator)this).GetThrowVelocity(localInitiator);
+            Vector3 initialVelocity = ((IBoxesInteractionMediator)this).GetThrowVelocity(initiator);
             targetPosition = ((IBoxesInteractionMediator)this).CalculateLandingPoint(
-                localInitiator.Socket.position, initialVelocity
+                initiator.Socket.position, initialVelocity
             );
 
-            return localInitiator.CurrentBox != null && inputService.DefaultContextActions.Aim.IsPressed();
+            return initiator.CurrentBox != null && initiator.IsAimPressed;
         }
 
         Vector3 IBoxesInteractionMediator.CalculateLandingPoint(Vector3 startPosition, Vector3 initialVelocity)
@@ -97,6 +86,11 @@ namespace Configuration.Mediator
                 return hit.position;
             }
             return expectedPosition;
+        }
+
+        bool IBoxesInteractionMediator.IsLocalInitiator(uint netId)
+        {
+            return IsLocalInitiator(netId);
         }
     }
 }

@@ -17,6 +17,10 @@ namespace Gameplay.Interactable.BallInteraction.Abstract
         void RegisterBall(Ball ball);
         void RegisterInitiator(IBallInteractionInitiator initiator, bool isLocalPlayer);
         bool IsBallOutOfBounds(out Plane outOfBoundsSide);
-        bool IsPredictionVisible(out Vector3 direction);
+        bool IsPredictionVisible(IBallInteractionInitiator initiator, out Vector3 direction);
+        bool IsLocalInitiator(uint netId);
+        void TryHoldOrReleaseBall(IBallInteractionInitiator initiator);
+        void TryKickBall(IBallInteractionInitiator initiator);
+        void TryCaptureBall(IBallInteractionInitiator initiator);
     }
 }

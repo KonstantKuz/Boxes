@@ -1,50 +1,44 @@
 using System;
 using System.Collections.Generic;
+using Gameplay.Interactable.Abstract;
 using Gameplay.Interactable.PipeInteraction;
 using Gameplay.Interactable.PipeInteraction.Abstract;
 using Gameplay.Interactable.PipeInteraction.Command;
 using Gameplay.Interactable.PipeInteraction.State;
 using Infrastructure.Bootstrap;
-using Infrastructure.InputService.Abstract;
 using Infrastructure.Network.Abstract;
 using R3;
 using Reflex.Attributes;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 namespace Configuration.Mediator
 {
     [Serializable]
-    public class PipeInteractionMediator : IPipeInteractionMediator, IInitializable, IUpdatable
+    public class PipeInteractionMediator : InteractionMediatorBase<IPipeInteractionInitiator>, IPipeInteractionMediator, IInitializable
     {
         [SerializeField]
         private float interactionDistance = 2f;
 
-        private IInputService inputService;
         private INetworkService networkService;
         private ReactiveProperty<PipeSharedState> stateReactive;
-        private Dictionary<uint, IPipeInteractionInitiator> initiators;
 
         private Pipe pipe;
-        private IPipeInteractionInitiator localInitiator;
 
         Pipe IPipeInteractionMediator.Pipe => pipe;
         ReadOnlyReactiveProperty<PipeSharedState> IPipeInteractionMediator.PipeState => stateReactive;
+        IPipeInteractionInitiator IPipeInteractionMediator.LocalInitiator => localInitiator;
         IReadOnlyDictionary<uint, IPipeInteractionInitiator> IPipeInteractionMediator.Initiators => initiators;
 
         [Inject]
-        private void Construct(IInputService inputService, INetworkService networkService)
+        private void Construct(INetworkService networkService)
         {
-            this.inputService = inputService;
             this.networkService = networkService;
 
             stateReactive = new ReactiveProperty<PipeSharedState>(PipeSharedState.Default);
-            initiators = new Dictionary<uint, IPipeInteractionInitiator>();
         }
 
         void IInitializable.Initialize()
         {
-            inputService.DefaultContextActions.Interact.performed += TryInteractWithPipe;
         }
 
         void IPipeInteractionMediator.RegisterPipe(Pipe pipe)
@@ -55,58 +49,57 @@ namespace Configuration.Mediator
 
         void IPipeInteractionMediator.RegisterInitiator(IPipeInteractionInitiator initiator, bool isLocalPlayer)
         {
-            if (isLocalPlayer)
-            {
-                localInitiator = initiator;
-            }
-
-            initiators.Add(initiator.NetId, initiator);
+            RegisterInitiatorInternal(initiator, initiator.NetId, isLocalPlayer);
         }
 
-        void IUpdatable.Update()
+        void IPipeInteractionMediator.UpdatePipeInput(IPipeInteractionInitiator initiator, Vector2 moveInput)
         {
-            if (pipe == null || localInitiator == null)
+            if (pipe == null || initiator == null)
             {
                 return;
             }
 
             PipeSharedState state = pipe.State;
 
-            if (!state.HasPlayer(localInitiator.NetId))
+            if (!state.HasPlayer(initiator.NetId))
             {
                 return;
             }
 
-            Vector2 moveInput = inputService.DefaultContextActions.Move.ReadValue<Vector2>();
-            Vector2 networkInput = state.PlayerInputs[localInitiator.NetId];
+            Vector2 networkInput = state.PlayerInputs[initiator.NetId];
 
             if (!Mathf.Approximately(moveInput.x, networkInput.x) || !Mathf.Approximately(moveInput.y, networkInput.y))
             {
-                networkService.SendCommand(new UpdatePipeInputCommand(localInitiator.NetId, pipe.netId, moveInput));
+                networkService.SendCommand(new UpdatePipeInputCommand(initiator.NetId, pipe.netId, moveInput));
             }
         }
 
-        private void TryInteractWithPipe(InputAction.CallbackContext context)
+        void IPipeInteractionMediator.TryInteractWithPipe(IPipeInteractionInitiator initiator)
         {
-            if (pipe == null || localInitiator == null)
+            if (pipe == null || initiator == null)
             {
                 return;
             }
 
             PipeSharedState state = pipe.State;
 
-            if (state.HasPlayer(localInitiator.NetId))
+            if (state.HasPlayer(initiator.NetId))
             {
-                pipe.TryLeave(localInitiator.NetId);
+                pipe.TryLeave(initiator.NetId);
             }
             else
             {
-                float distance = Vector3.Distance(localInitiator.Rigidbody.position, pipe.transform.position);
+                float distance = Vector3.Distance(initiator.Rigidbody.position, pipe.transform.position);
                 if (distance <= interactionDistance)
                 {
-                    pipe.TryJoin(localInitiator.NetId);
+                    pipe.TryJoin(initiator.NetId);
                 }
             }
+        }
+
+        bool IPipeInteractionMediator.IsLocalInitiator(uint netId)
+        {
+            return IsLocalInitiator(netId);
         }
     }
 }

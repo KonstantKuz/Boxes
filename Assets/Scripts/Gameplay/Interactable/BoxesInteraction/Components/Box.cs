@@ -96,8 +96,7 @@ namespace Gameplay.Interactable.BoxesInteraction.Components
             {
                 rigidbody.isKinematic = collider.isTrigger = State.HasHolder;
 
-                IBoxInteractionInitiator localInitiator = boxesInteractionMediator.LocalInitiator;
-                bool isLocal = localInitiator != null && newState.OwnerNetId == localInitiator.NetId;
+                bool isLocal = boxesInteractionMediator.IsLocalInitiator(newState.OwnerNetId);
 
                 if (isOwned && isLocal)
                 {

@@ -1,15 +1,17 @@
 using System;
+using Gameplay.Interactable.Abstract;
 using Gameplay.Interactable.PipeInteraction.Abstract;
 using Gameplay.Interactable.PipeInteraction.State;
-using Mirror;
+using Infrastructure.InputService.Abstract;
 using R3;
 using Reflex.Attributes;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.InputSystem;
 
 namespace Gameplay.Interactable.PipeInteraction
 {
-    public class PipeInteractionInitiator : NetworkBehaviour, IPipeInteractionInitiator
+    public class PipeInteractionInitiator : InputAwareInteractionInitiator, IPipeInteractionInitiator
     {
         [SerializeField]
         private UnityEvent<bool> isOnPipeChanged;
@@ -23,21 +25,44 @@ namespace Gameplay.Interactable.PipeInteraction
         public Rigidbody Rigidbody => rigidbody ??= GetComponent<Rigidbody>();
 
         [Inject]
-        private void Construct(IPipeInteractionMediator mediator)
+        private void ConstructPipe(IPipeInteractionMediator mediator)
         {
             this.mediator = mediator;
         }
 
-        public override void OnStartClient()
+        protected override void OnStartClientInitiator()
         {
-            mediator.RegisterInitiator(this, isLocalPlayer);
-
+            mediator.RegisterInitiator(this, isOwned);
             stateSubscription = mediator.PipeState.Subscribe(OnPipeStateChanged);
         }
 
-        public override void OnStopClient()
+        protected override void OnStopClientInitiator()
         {
             stateSubscription?.Dispose();
+        }
+
+        protected override void SubscribeSelfInput(GameInputActions actions)
+        {
+            actions.DefaultContext.Interact.performed += OnInteractPressed;
+        }
+
+        protected override void OnUnsubscribeSelfInput(GameInputActions actions)
+        {
+            actions.DefaultContext.Interact.performed -= OnInteractPressed;
+        }
+
+        private void OnInteractPressed(InputAction.CallbackContext context)
+        {
+            mediator.TryInteractWithPipe(this);
+        }
+
+        private void Update()
+        {
+            if (selfInput != null && mediator.Pipe != null && mediator.PipeState.CurrentValue.HasPlayer(netId))
+            {
+                Vector2 moveInput = selfInput.DefaultContext.Move.ReadValue<Vector2>();
+                mediator.UpdatePipeInput(this, moveInput);
+            }
         }
 
         private void OnPipeStateChanged(PipeSharedState state)

@@ -366,6 +366,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ebecaf70d3e447fb9b9738aa5cd244e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
   onIsActiveChanged:
     m_PersistentCalls:
       m_Calls:

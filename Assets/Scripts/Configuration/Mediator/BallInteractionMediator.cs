@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using Cysharp.Threading.Tasks;
+using Gameplay.Interactable.Abstract;
 using Gameplay.Interactable.BallInteraction;
 using Gameplay.Interactable.BallInteraction.Abstract;
 using Gameplay.Interactable.BallInteraction.Components;
@@ -18,7 +20,7 @@ using UnityEngine.InputSystem;
 namespace Configuration.Mediator
 {
     [Serializable]
-    public partial class BallInteractionMediator : IBallInteractionMediator, IInitializable, IUpdatable
+    public partial class BallInteractionMediator : InteractionMediatorBase<IBallInteractionInitiator>, IBallInteractionMediator, IInitializable, IUpdatable
     {
         [SerializeField]
         private BallInteractionConfig ballInteractionConfig;
@@ -27,14 +29,12 @@ namespace Configuration.Mediator
         private ICameraService cameraService;
         private INetworkService networkService;
         private ReactiveProperty<BallSharedState> stateReactive;
-        private Dictionary<uint, IBallInteractionInitiator> initiators;
 
         private Ball ball;
-        private IBallInteractionInitiator localInitiator;
-        private CancellationTokenSource kickTokenSource;
-        private CancellationTokenSource captureTokenSource;
-        private CancellationTokenSource holdTokenSource;
-        private float lastKickTime;
+        private Dictionary<uint, CancellationTokenSource> kickTokenSources;
+        private Dictionary<uint, CancellationTokenSource> captureTokenSources;
+        private Dictionary<uint, CancellationTokenSource> holdTokenSources;
+        private Dictionary<uint, float> lastKickTimes;
 
         Ball IBallInteractionMediator.Ball => ball;
         BallInteractionConfig IBallInteractionMediator.Config => ballInteractionConfig;
@@ -51,13 +51,14 @@ namespace Configuration.Mediator
             this.networkService = networkService;
 
             stateReactive = new ReactiveProperty<BallSharedState>(BallSharedState.Default);
-            initiators = new Dictionary<uint, IBallInteractionInitiator>();
+            kickTokenSources = new Dictionary<uint, CancellationTokenSource>();
+            captureTokenSources = new Dictionary<uint, CancellationTokenSource>();
+            holdTokenSources = new Dictionary<uint, CancellationTokenSource>();
+            lastKickTimes = new Dictionary<uint, float>();
         }
 
         void IInitializable.Initialize()
         {
-            inputService.DefaultContextActions.Take.performed += TryHoldOrReleaseBall;
-            inputService.DefaultContextActions.Action.performed += TryKickBall;
         }
 
         void IBallInteractionMediator.RegisterBall(Ball ball)
@@ -68,12 +69,7 @@ namespace Configuration.Mediator
 
         void IBallInteractionMediator.RegisterInitiator(IBallInteractionInitiator initiator, bool isLocalPlayer)
         {
-            if (isLocalPlayer)
-            {
-                localInitiator = initiator;
-            }
-
-            initiators.Add(initiator.NetId, initiator);
+            RegisterInitiatorInternal(initiator, initiator.NetId, isLocalPlayer);
         }
 
         bool IBallInteractionMediator.IsBallOutOfBounds(out Plane outOfBoundsSide)
@@ -84,42 +80,55 @@ namespace Configuration.Mediator
 
         void IUpdatable.Update()
         {
-            if (inputService.DefaultContextActions.Aim.IsPressed())
+            foreach (var initiator in localInitiators)
             {
-                TryCaptureBall();
+                if (initiator.IsAimPressed)
+                {
+                    ((IBallInteractionMediator)this).TryCaptureBall(initiator);
+                }
             }
         }
 
-        bool IBallInteractionMediator.IsPredictionVisible(out Vector3 direction)
+        bool IBallInteractionMediator.IsPredictionVisible(IBallInteractionInitiator initiator, out Vector3 direction)
         {
             direction = Vector3.zero;
 
-            if (localInitiator == null)
+            if (initiator == null)
             {
                 return false;
             }
 
-            direction = localInitiator.KickDirection;
+            direction = initiator.KickDirection;
 
-            float distance = Vector3.Distance(localInitiator.Position, ball.transform.position);
+            float distance = Vector3.Distance(initiator.Position, ball.transform.position);
             bool isInRange = distance <= ballInteractionConfig.InteractionDistance;
 
-            return isInRange && inputService.DefaultContextActions.Aim.IsPressed();
+            return isInRange && initiator.IsAimPressed;
         }
 
-        private void TryHoldOrReleaseBall(InputAction.CallbackContext context)
+        bool IBallInteractionMediator.IsLocalInitiator(uint netId)
         {
-            if (ball == null || localInitiator == null || holdTokenSource != null)
+            return IsLocalInitiator(netId);
+        }
+
+        void IBallInteractionMediator.TryHoldOrReleaseBall(IBallInteractionInitiator initiator)
+        {
+            if (ball == null || initiator == null)
+            {
+                return;
+            }
+
+            if (holdTokenSources.ContainsKey(initiator.NetId))
             {
                 return;
             }
 
             BallSharedState currentState = ball.StateHolder.GetState();
-            if (currentState.HasHolder && currentState.HolderNetId == localInitiator.NetId)
+            if (currentState.HasHolder && currentState.HolderNetId == initiator.NetId)
             {
                 ball.StateHolder.WriteState(new BallSharedState(
                     kicksCount: currentState.KicksCount,
-                    ownerNetId: localInitiator.NetId,
+                    ownerNetId: initiator.NetId,
                     holderNetId: 0,
                     lastActionId: currentState.LastActionId + 1,
                     lastActionType: BallActionType.Release,
@@ -129,11 +138,11 @@ namespace Configuration.Mediator
                 return;
             }
 
-            holdTokenSource = new CancellationTokenSource();
+            holdTokenSources[initiator.NetId] = new CancellationTokenSource();
 
-            TryHoldBallAsync(holdTokenSource.Token).Forget();
+            TryHoldBallAsync(initiator, holdTokenSources[initiator.NetId].Token).Forget();
 
-            async UniTask TryHoldBallAsync(CancellationToken token)
+            async UniTask TryHoldBallAsync(IBallInteractionInitiator initiator, CancellationToken token)
             {
                 float time = 0;
 
@@ -141,27 +150,35 @@ namespace Configuration.Mediator
                 {
                     time += Time.fixedDeltaTime;
 
-                    float distance = (localInitiator.Position - ball.transform.position).magnitude;
+                    float distance = (initiator.Position - ball.transform.position).magnitude;
 
                     if (distance <= ballInteractionConfig.InteractionDistance)
                     {
-                        holdTokenSource = null;
-                        captureTokenSource?.Cancel();
-                        captureTokenSource = null;
-                        kickTokenSource?.Cancel();
-                        kickTokenSource = null;
+                        holdTokenSources.Remove(initiator.NetId);
+
+                        if (captureTokenSources.TryGetValue(initiator.NetId, out var captureToken))
+                        {
+                            captureToken?.Cancel();
+                            captureTokenSources.Remove(initiator.NetId);
+                        }
+
+                        if (kickTokenSources.TryGetValue(initiator.NetId, out var kickToken))
+                        {
+                            kickToken?.Cancel();
+                            kickTokenSources.Remove(initiator.NetId);
+                        }
 
                         BallSharedState current = ball.StateHolder.GetState();
                         byte kicksCount = ballInteractionConfig.ResetConditions.HasFlag(ResetCondition.Hold)
                             ? (byte)0
                             : current.KicksCount;
 
-                        networkService.AssignAuthority(ball.netId, localInitiator.NetId);
+                        networkService.AssignAuthority(ball.netId, initiator.NetId);
 
                         ball.StateHolder.WriteState(new BallSharedState(
                             kicksCount: kicksCount,
-                            ownerNetId: localInitiator.NetId,
-                            holderNetId: localInitiator.NetId,
+                            ownerNetId: initiator.NetId,
+                            holderNetId: initiator.NetId,
                             lastActionId: current.LastActionId + 1,
                             lastActionType: BallActionType.Hold,
                             lastKickDirection: Vector3.zero,
@@ -173,22 +190,27 @@ namespace Configuration.Mediator
                     await UniTask.WaitForFixedUpdate();
                 }
 
-                holdTokenSource = null;
+                holdTokenSources.Remove(initiator.NetId);
             }
         }
 
-        private void TryKickBall(InputAction.CallbackContext context)
+        void IBallInteractionMediator.TryKickBall(IBallInteractionInitiator initiator)
         {
-            if (ball == null || localInitiator == null || kickTokenSource != null)
+            if (ball == null || initiator == null)
             {
                 return;
             }
 
-            kickTokenSource = new CancellationTokenSource();
+            if (kickTokenSources.ContainsKey(initiator.NetId))
+            {
+                return;
+            }
 
-            TryKickBallAsync(kickTokenSource.Token).Forget();
+            kickTokenSources[initiator.NetId] = new CancellationTokenSource();
 
-            async UniTask TryKickBallAsync(CancellationToken token)
+            TryKickBallAsync(initiator, kickTokenSources[initiator.NetId].Token).Forget();
+
+            async UniTask TryKickBallAsync(IBallInteractionInitiator initiator, CancellationToken token)
             {
                 float time = 0;
 
@@ -196,14 +218,19 @@ namespace Configuration.Mediator
                 {
                     time += Time.fixedDeltaTime;
 
-                    float distance = (localInitiator.Position - ball.transform.position).magnitude;
+                    float distance = (initiator.Position - ball.transform.position).magnitude;
 
                     if (distance <= ballInteractionConfig.InteractionDistance)
                     {
-                        kickTokenSource = null;
-                        captureTokenSource?.Cancel();
-                        captureTokenSource = null;
-                        lastKickTime = Time.time;
+                        kickTokenSources.Remove(initiator.NetId);
+
+                        if (captureTokenSources.TryGetValue(initiator.NetId, out var captureToken))
+                        {
+                            captureToken?.Cancel();
+                            captureTokenSources.Remove(initiator.NetId);
+                        }
+
+                        lastKickTimes[initiator.NetId] = Time.time;
 
                         BallSharedState current = ball.StateHolder.GetState();
 
@@ -211,21 +238,21 @@ namespace Configuration.Mediator
                         kicksCount = (byte)Math.Clamp(kicksCount, 0, ballInteractionConfig.StatusKicksCount);
 
                         if (ballInteractionConfig.ResetConditions.HasFlag(ResetCondition.SamePlayerKick) &&
-                            localInitiator.NetId == current.LastKickInitiatorNetId)
+                            initiator.NetId == current.LastKickInitiatorNetId)
                         {
                             kicksCount = 1;
                         }
 
-                        networkService.AssignAuthority(ball.netId, localInitiator.NetId);
+                        networkService.AssignAuthority(ball.netId, initiator.NetId);
 
                         ball.StateHolder.WriteState(new BallSharedState(
                             kicksCount: kicksCount,
-                            ownerNetId: localInitiator.NetId,
+                            ownerNetId: initiator.NetId,
                             holderNetId: 0,
                             lastActionId: current.LastActionId + 1,
                             lastActionType: BallActionType.Kick,
-                            lastKickDirection: localInitiator.KickDirection,
-                            lastKickInitiatorNetId: localInitiator.NetId
+                            lastKickDirection: initiator.KickDirection,
+                            lastKickInitiatorNetId: initiator.NetId
                         ));
                         break;
                     }
@@ -233,52 +260,57 @@ namespace Configuration.Mediator
                     await UniTask.WaitForFixedUpdate();
                 }
 
-                kickTokenSource = null;
+                kickTokenSources.Remove(initiator.NetId);
             }
         }
 
-        private void TryCaptureBall()
+        void IBallInteractionMediator.TryCaptureBall(IBallInteractionInitiator initiator)
         {
             if (ballInteractionConfig.AutoCaptureTime <= 0)
             {
                 return;
             }
 
+            if (!lastKickTimes.TryGetValue(initiator.NetId, out float lastKickTime))
+            {
+                lastKickTime = 0;
+            }
+
             float lastKickDeltaTime = Time.time - lastKickTime;
             bool isRecharged = lastKickDeltaTime > ballInteractionConfig.AutoCaptureRechargeTime;
 
-            if (ball == null || localInitiator == null || captureTokenSource != null
-                || kickTokenSource != null || !isRecharged || ball.StateHolder.GetState().HasHolder)
+            if (ball == null || initiator == null || captureTokenSources.ContainsKey(initiator.NetId)
+                || kickTokenSources.ContainsKey(initiator.NetId) || !isRecharged || ball.StateHolder.GetState().HasHolder)
             {
                 return;
             }
 
-            float distance = (localInitiator.Position - ball.transform.position).magnitude;
+            float distance = (initiator.Position - ball.transform.position).magnitude;
 
             if (distance <= ballInteractionConfig.InteractionDistance)
             {
-                captureTokenSource = new CancellationTokenSource();
+                captureTokenSources[initiator.NetId] = new CancellationTokenSource();
 
-                TryCaptureBallAsync(captureTokenSource.Token).Forget();
+                TryCaptureBallAsync(initiator, captureTokenSources[initiator.NetId].Token).Forget();
             }
 
-            async UniTask TryCaptureBallAsync(CancellationToken token)
+            async UniTask TryCaptureBallAsync(IBallInteractionInitiator initiator, CancellationToken token)
             {
                 if (token.IsCancellationRequested)
                 {
                     return;
                 }
 
-                networkService.AssignAuthority(ball.netId, localInitiator.NetId);
+                networkService.AssignAuthority(ball.netId, initiator.NetId);
 
                 BallSharedState current = ball.StateHolder.GetState();
                 ball.StateHolder.WriteState(new BallSharedState(
                     kicksCount: current.KicksCount,
-                    ownerNetId: localInitiator.NetId,
+                    ownerNetId: initiator.NetId,
                     holderNetId: 0,
                     lastActionId: current.LastActionId + 1,
                     lastActionType: BallActionType.Capture,
-                    lastKickDirection: localInitiator.BallSocket.InverseTransformPoint(ball.transform.position),
+                    lastKickDirection: initiator.BallSocket.InverseTransformPoint(ball.transform.position),
                     lastKickInitiatorNetId: current.LastKickInitiatorNetId
                 ));
 
@@ -304,7 +336,7 @@ namespace Configuration.Mediator
                 kicksCount = (byte)Math.Clamp(kicksCount, 0, ballInteractionConfig.StatusKicksCount);
 
                 if (ballInteractionConfig.ResetConditions.HasFlag(ResetCondition.SamePlayerKick) &&
-                    localInitiator.NetId == current.LastKickInitiatorNetId)
+                    initiator.NetId == current.LastKickInitiatorNetId)
                 {
                     kicksCount = 1;
                 }
@@ -313,21 +345,25 @@ namespace Configuration.Mediator
 
                 ball.StateHolder.WriteState(new BallSharedState(
                     kicksCount: kicksCount,
-                    ownerNetId: localInitiator.NetId,
+                    ownerNetId: initiator.NetId,
                     holderNetId: 0,
                     lastActionId: actionId,
                     lastActionType: BallActionType.Kick,
-                    lastKickDirection: localInitiator.KickDirection,
-                    lastKickInitiatorNetId: localInitiator.NetId
+                    lastKickDirection: initiator.KickDirection,
+                    lastKickInitiatorNetId: initiator.NetId
                 ));
 
                 await UniTask.WaitUntil(
                     () => ball.StateHolder.GetState().LastActionId == actionId, cancellationToken: token
                 );
 
-                captureTokenSource?.Cancel();
-                captureTokenSource = null;
-                lastKickTime = Time.time;
+                if (captureTokenSources.TryGetValue(initiator.NetId, out var captureToken))
+                {
+                    captureToken?.Cancel();
+                    captureTokenSources.Remove(initiator.NetId);
+                }
+
+                lastKickTimes[initiator.NetId] = Time.time;
             }
         }
     }

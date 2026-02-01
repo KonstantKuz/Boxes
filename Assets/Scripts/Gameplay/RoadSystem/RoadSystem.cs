@@ -85,7 +85,7 @@ namespace Gameplay.RoadSystem
 #if UNITY_EDITOR
         private void OnValidate()
         {
-            if (!UnityEditor.EditorApplication.isPlayingOrWillChangePlaymode)
+            if (!EditorApplication.isPlayingOrWillChangePlaymode)
             {
                 LoadGraphIfNeeded();
             }
@@ -177,7 +177,7 @@ namespace Gameplay.RoadSystem
             }
 
 #if UNITY_EDITOR
-            UnityEditor.EditorUtility.SetDirty(roadGraph);
+            EditorUtility.SetDirty(roadGraph);
 #endif
 
             Debug.Log($"RoadSystem: Graph saved to {roadGraph.name}");
@@ -563,7 +563,7 @@ namespace Gameplay.RoadSystem
                 selectedNodeIndices.Add(nodeIndex);
             }
 
-            UnityEditor.EditorUtility.SetDirty(this);
+            EditorUtility.SetDirty(this);
         }
 
         public bool IsNodeSelected(int nodeIndex)

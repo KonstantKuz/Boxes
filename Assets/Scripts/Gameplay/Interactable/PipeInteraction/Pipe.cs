@@ -59,6 +59,7 @@ namespace Gameplay.Interactable.PipeInteraction
 
         private INetworkService networkService;
         private INetworkManager networkManager;
+        private INetworkFactory networkFactory;
         private IPipeInteractionMediator mediator;
         private IInputService inputService;
         private IDisposable stateSubscription;
@@ -75,11 +76,13 @@ namespace Gameplay.Interactable.PipeInteraction
         private void Construct(
             INetworkService networkService,
             INetworkManager networkManager,
+            INetworkFactory networkFactory,
             IPipeInteractionMediator mediator,
             IInputService inputService)
         {
             this.networkService = networkService;
             this.networkManager = networkManager;
+            this.networkFactory = networkFactory;
             this.mediator = mediator;
             this.inputService = inputService;
         }
@@ -355,7 +358,9 @@ namespace Gameplay.Interactable.PipeInteraction
                 return State.PlayerInputs.First().Value.x;
             }
 
-            if (inputService.DefaultContextActions.Boost.IsPressed())
+            bool anyBoostPressed = IsAnyPlayerBoostPressed();
+
+            if (anyBoostPressed)
             {
                 return 0;
             }
@@ -386,7 +391,9 @@ namespace Gameplay.Interactable.PipeInteraction
 
             float[] inputs = State.PlayerInputs.Values.Select(value => value.y).ToArray();
 
-            if (inputService.DefaultContextActions.Boost.IsPressed())
+            bool anyBoostPressed = IsAnyPlayerBoostPressed();
+
+            if (anyBoostPressed)
             {
                 return inputs.FirstOrDefault(i => Mathf.Abs(i) > 0);
             }
@@ -398,6 +405,26 @@ namespace Gameplay.Interactable.PipeInteraction
 
             float direction = Mathf.Sign(inputs[0]);
             return inputs.All(i => Mathf.Approximately(Mathf.Sign(i), direction)) ? direction : 0f;
+        }
+
+        private bool IsAnyPlayerBoostPressed()
+        {
+            foreach (uint playerNetId in State.PlayerInputs.Keys)
+            {
+                if (networkFactory.Players.TryGetValue(playerNetId, out NetworkIdentity identity) && identity.isOwned)
+                {
+                    if (mediator.Initiators.TryGetValue(playerNetId, out IPipeInteractionInitiator initiator))
+                    {
+                        GameInputActions actions = inputService.GetInput(playerNetId);
+                        if (actions != null && actions.DefaultContext.Boost.IsPressed())
+                        {
+                            return true;
+                        }
+                    }
+                }
+            }
+
+            return false;
         }
     }
 }
